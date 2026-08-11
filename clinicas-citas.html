@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clínicas y Citas - Manos Inclusivas A.C.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/loading.css">
+    <style>
+        .locator-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            background: white;
+            border-radius: var(--border-radius-soft);
+            box-shadow: var(--shadow-soft);
+            overflow: hidden;
+        }
+        .map-section {
+            background-color: #e0e0e0; /* Placeholder map background */
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .form-section {
+            padding: 40px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-family: var(--font-main);
+        }
+        .clinic-info-card {
+            background: var(--bg-tertiary);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--accent-purple);
+        }
+        @media (max-width: 768px) {
+            .locator-container {
+                grid-template-columns: 1fr;
+            }
+            .map-section {
+                min-height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div id="loader-wrapper">
+        <canvas id="loader-canvas"></canvas>
+        <div class="loader-content">
+            <div class="loader-logo-silhouette"></div>
+            <h2 class="loader-text">Iluminando Corazones... Conectando Vidas.</h2>
+        </div>
+    </div>
+
+    <header>
+        <div class="container navbar">
+            <a href="index.html" class="logo-container">
+                <img src="img/Logo circular.png" alt="Logo Manos Inclusivas"
+                    style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;">
+                <div class="logo-text">
+                    <h2>Manos Inclusivas</h2>
+                    <span>Iluminando Corazones A.C.</span>
+                </div>
+            </a>
+
+            <button class="hamburger" aria-label="Abrir menú">☰</button>
+
+            <nav class="nav-links">
+                <div class="nav-item"><a href="index.html" class="nav-link">INICIO</a></div>
+                <div class="nav-item">
+                    <a href="nosotros.html" class="nav-link">NOSOTROS</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="nosotros.html#mision" class="dropdown-item">Nuestra Misión</a></li>
+                        <li><a href="nosotros.html#equipo" class="dropdown-item">Nuestro Equipo</a></li>
+                    </ul>
+                </div>
+                <div class="nav-item">
+                    <a href="servicios.html" class="nav-link">SERVICIOS</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="servicios.html#psicologia" class="dropdown-item">Psicología</a></li>
+                        <li><a href="servicios.html#psiquiatria" class="dropdown-item">Psiquiatría</a></li>
+                        <li><a href="servicios.html#terapia-lenguaje" class="dropdown-item">Terapia de Lenguaje</a></li>
+                    </ul>
+                </div>
+                <div class="nav-item">
+                    <a href="recursos.html" class="nav-link">RECURSOS</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="recursos.html#tea" class="dropdown-item">¿Qué es el TEA?</a></li>
+                        <li><a href="recursos.html#tdah" class="dropdown-item">¿Qué es el TDAH?</a></li>
+                    </ul>
+                </div>
+                <div class="nav-item"><a href="clinicas-citas.html" class="nav-link" style="color: var(--accent-purple);">CLÍNICAS Y CITAS</a></div>
+                <div class="nav-item"><a href="contacto.html" class="nav-link">CONTACTO</a></div>
+                <div class="nav-item"><a href="donar.html" class="btn btn-primary">DONAR</a></div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="section-padding bg-lavender">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 40px;">
+                <h1>Encuentra tu Clínica y Agenda una Cita</h1>
+                <p>Usa nuestro localizador para encontrar la sede más cercana o selecciona directamente para ver disponibilidad.</p>
+                <button id="btn-geo" class="btn btn-outline" style="margin-top: 15px;">📍 Usar mi ubicación actual</button>
+            </div>
+
+            <div class="locator-container">
+                <!-- Map Placeholder -->
+                <div class="map-section">
+                    <p style="color: #666; font-weight: bold;">[Mapa Interactivo de Yucatán]</p>
+                    <!-- In a real scenario, this would be an iframe or Leaflet/Google Maps div -->
+                </div>
+
+                <!-- Appointment Form -->
+                <div class="form-section">
+                    <form id="appointment-form">
+                        <h3>Agendar Cita</h3>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="clinic-select">1. Selecciona Clínica</label>
+                            <select id="clinic-select" class="form-control" required>
+                                <option value="">-- Selecciona --</option>
+                                <!-- Populated via JS -->
+                            </select>
+                        </div>
+
+                        <div id="clinic-info-card" class="clinic-info-card">
+                            <p>Selecciona una clínica para ver sus detalles.</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="service-select">2. Servicio Requerido</label>
+                            <select id="service-select" class="form-control" required>
+                                <option value="">-- Primero selecciona una clínica --</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="date-select">3. Fecha Preferida</label>
+                            <input type="date" id="date-select" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="patient-name">Nombre del Paciente</label>
+                            <input type="text" id="patient-name" class="form-control" placeholder="Ej. Juan Pérez" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Confirmar Solicitud</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container text-center">
+            <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">&copy; 2026 Manos Inclusivas A.C. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Accessibility Widget -->
+    <div class="a11y-widget">
+        <button id="a11y-btn" class="a11y-btn">👁️</button>
+        <div id="a11y-menu" class="a11y-menu">
+            <button id="toggle-contrast">Alternar Contraste</button>
+            <button id="increase-text">Aumentar Texto A+</button>
+            <button id="decrease-text">Reducir Texto A-</button>
+        </div>
+    </div>
+    
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/appointment-system.js"></script>
+    <script src="assets/js/neural-loader.js"></script>
+</body>
+</html>

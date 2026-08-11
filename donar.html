@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donativos - Manos Inclusivas A.C.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/loading.css">
+    <style>
+        .donation-hero {
+            background-color: var(--text-main);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .donation-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+        
+        @media (max-width: 992px) {
+            .donation-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .donation-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Tabs styling */
+        .donation-tabs {
+            background: white;
+            border-radius: var(--border-radius-soft);
+            box-shadow: var(--shadow-soft);
+            overflow: hidden;
+            margin-bottom: 60px;
+        }
+        
+        .tab-headers {
+            display: flex;
+            background: var(--bg-secondary);
+        }
+        
+        .tab-btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            background: none;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            color: var(--text-main);
+            transition: all var(--transition-fast);
+        }
+        
+        .tab-btn.active {
+            background: white;
+            color: var(--accent-purple);
+            border-bottom: 3px solid var(--accent-purple);
+        }
+        
+        .tab-content {
+            padding: 40px;
+        }
+        
+        .tab-pane {
+            display: none;
+        }
+        
+        .tab-pane.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Donation amounts styling */
+        .amounts-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .amounts-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        .amount-btn {
+            padding: 15px;
+            border: 2px solid var(--bg-secondary);
+            border-radius: 8px;
+            background: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            color: var(--text-main);
+        }
+
+        .amount-btn:hover {
+            border-color: var(--accent-purple);
+        }
+
+        .amount-btn.active {
+            background: var(--accent-purple);
+            color: white;
+            border-color: var(--accent-purple);
+        }
+
+        .bank-details {
+            background: var(--bg-tertiary);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-green);
+            margin-bottom: 20px;
+        }
+
+        .copy-btn {
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+            border: 1px solid var(--text-main);
+            background: white;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        
+        .copy-btn.copied {
+            background: var(--accent-green);
+            color: white;
+            border-color: var(--accent-green);
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div id="loader-wrapper">
+        <canvas id="loader-canvas"></canvas>
+        <div class="loader-content">
+            <div class="loader-logo-silhouette"></div>
+            <h2 class="loader-text">Iluminando Corazones... Conectando Vidas.</h2>
+        </div>
+    </div>
+
+    <header>
+        <div class="container navbar">
+            <a href="index.html" class="logo-container">
+                <img src="img/Logo circular.png" alt="Logo Manos Inclusivas"
+                    style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;">
+                <div class="logo-text">
+                    <h2>Manos Inclusivas</h2>
+                    <span>Iluminando Corazones A.C.</span>
+                </div>
+            </a>
+
+            <button class="hamburger" aria-label="Abrir menú">☰</button>
+
+            <nav class="nav-links">
+                <div class="nav-item"><a href="index.html" class="nav-link">INICIO</a></div>
+                <div class="nav-item">
+                    <a href="nosotros.html" class="nav-link">NOSOTROS</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="nosotros.html#mision" class="dropdown-item">Nuestra Misión</a></li>
+                        <li><a href="nosotros.html#equipo" class="dropdown-item">Nuestro Equipo</a></li>
+                    </ul>
+                </div>
+                <div class="nav-item">
+                    <a href="servicios.html" class="nav-link">SERVICIOS</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="servicios.html#psicologia" class="dropdown-item">Psicología</a></li>
+                        <li><a href="servicios.html#psiquiatria" class="dropdown-item">Psiquiatría</a></li>
+                        <li><a href="servicios.html#terapia-lenguaje" class="dropdown-item">Terapia de Lenguaje</a></li>
+                    </ul>
+                </div>
+                <div class="nav-item">
+                    <a href="recursos.html" class="nav-link">RECURSOS</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="recursos.html#tea" class="dropdown-item">¿Qué es el TEA?</a></li>
+                        <li><a href="recursos.html#tdah" class="dropdown-item">¿Qué es el TDAH?</a></li>
+                    </ul>
+                </div>
+                <div class="nav-item"><a href="clinicas-citas.html" class="nav-link">CLÍNICAS Y CITAS</a></div>
+                <div class="nav-item"><a href="contacto.html" class="nav-link">CONTACTO</a></div>
+                <div class="nav-item"><a href="donar.html" class="btn btn-primary">DONAR</a></div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="donation-hero">
+            <div class="container">
+                <h1 style="font-size: 3rem; margin-bottom: 20px; color: white;">Tu apoyo transforma vidas</h1>
+                <p style="font-size: 1.2rem; max-width: 600px; margin: 0 auto;">El 100% de tu donativo se destina a proporcionar terapias de neurodesarrollo a familias que lo necesitan.</p>
+            </div>
+        </section>
+
+        <section class="section-padding">
+            <div class="container">
+                
+                <h2 class="text-center" style="margin-bottom: 40px;">Otras formas de ayudar</h2>
+                
+                <div class="donation-grid">
+                    <div class="card">
+                        <div class="card-icon icon-purple">💳</div>
+                        <h3>Donar en Línea</h3>
+                        <p>Seguro y rápido vía Tarjeta o PayPal.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon icon-green">🏦</div>
+                        <h3>Transferencia</h3>
+                        <p>Donativo directo a nuestra cuenta bancaria.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon icon-blue">✉️</div>
+                        <h3>Por Correo</h3>
+                        <p>Envía un cheque a nuestra dirección postal.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon icon-pink">📈</div>
+                        <h3>Acciones (Stock)</h3>
+                        <p>Dona acciones y obtén beneficios fiscales.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon icon-purple">₿</div>
+                        <h3>Criptomonedas</h3>
+                        <p>Aceptamos Bitcoin y Ethereum.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon icon-green">🎁</div>
+                        <h3>Fondos Dirigidos (DAF)</h3>
+                        <p>Recomienda a Manos Inclusivas.</p>
+                    </div>
+                </div>
+
+                <div class="donation-tabs">
+                    <div class="tab-headers">
+                        <button class="tab-btn active" data-target="tab-online">Donar en Línea</button>
+                        <button class="tab-btn" data-target="tab-transfer">Transferencia Bancaria</button>
+                        <button class="tab-btn" data-target="tab-crypto">Cripto & Otros</button>
+                    </div>
+                    
+                    <div class="tab-content">
+                        <!-- Tab Online -->
+                        <div id="tab-online" class="tab-pane active">
+                            <form>
+                                <h3 style="margin-bottom: 15px;">Selecciona el monto</h3>
+                                <div class="amounts-grid">
+                                    <button type="button" class="amount-btn active" data-amount="25">$25 MXN</button>
+                                    <button type="button" class="amount-btn" data-amount="50">$50 MXN</button>
+                                    <button type="button" class="amount-btn" data-amount="100">$100 MXN</button>
+                                    <button type="button" class="amount-btn" data-amount="other">Otra Cantidad</button>
+                                </div>
+
+                                <div id="custom-amount-container" style="display: none; margin-bottom: 20px;">
+                                    <label style="display: block; margin-bottom: 5px;">Monto Personalizado (MXN):</label>
+                                    <input type="number" id="custom-amount" style="padding: 10px; width: 100%; border-radius: 4px; border: 1px solid #ccc;">
+                                </div>
+
+                                <div style="margin-bottom: 20px;">
+                                    <h3 style="margin-bottom: 10px;">Frecuencia</h3>
+                                    <label style="margin-right: 15px;"><input type="radio" name="freq" checked> Una Vez</label>
+                                    <label style="margin-right: 15px;"><input type="radio" name="freq"> Mensual</label>
+                                    <label><input type="radio" name="freq"> Anual</label>
+                                </div>
+
+                                <button type="button" class="btn btn-primary" style="width: 100%;">Continuar al Pago (Seguro)</button>
+                                <p style="font-size: 0.8rem; text-align: center; margin-top: 10px; color: #666;">Transacción segura procesada bajo estándares PCI.</p>
+                            </form>
+                        </div>
+
+                        <!-- Tab Transfer -->
+                        <div id="tab-transfer" class="tab-pane">
+                            <h3>Datos Bancarios</h3>
+                            <p>Puedes realizar una transferencia SPEI utilizando los siguientes datos:</p>
+                            
+                            <div class="bank-details">
+                                <p><strong>Banco:</strong> BBVA México</p>
+                                <p><strong>Beneficiario:</strong> Manos Inclusivas A.C.</p>
+                                <p><strong>CLABE:</strong> <span id="clabe-text">012345678901234567</span> <button class="copy-btn" data-copy-target="clabe-text">Copiar</button></p>
+                                <p><strong>Cuenta:</strong> <span id="cuenta-text">0123456789</span> <button class="copy-btn" data-copy-target="cuenta-text">Copiar</button></p>
+                                <p><strong>RFC:</strong> MIN260815XXX</p>
+                            </div>
+                            <p style="font-size: 0.9rem;">Por favor, envía tu comprobante a donativos@manosinclusivas.org para emitir tu recibo deducible.</p>
+                        </div>
+
+                        <!-- Tab Crypto -->
+                        <div id="tab-crypto" class="tab-pane">
+                            <h3>Donaciones Alternativas</h3>
+                            <p>Aceptamos apoyo a través de canales alternativos institucionales.</p>
+                            <br>
+                            <h4>Criptomonedas</h4>
+                            <p>Wallet (BTC): <code>1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa</code></p>
+                            <br>
+                            <h4>Cheques por Correo</h4>
+                            <p>A nombre de: <strong>Manos Inclusivas A.C.</strong><br>
+                            Dirección: Calle 21 #123, Centro, Kanasín, Yucatán, C.P. 97370, México.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container text-center">
+            <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">&copy; 2026 Manos Inclusivas A.C. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Accessibility Widget -->
+    <div class="a11y-widget">
+        <button id="a11y-btn" class="a11y-btn">👁️</button>
+        <div id="a11y-menu" class="a11y-menu">
+            <button id="toggle-contrast">Alternar Contraste</button>
+            <button id="increase-text">Aumentar Texto A+</button>
+            <button id="decrease-text">Reducir Texto A-</button>
+        </div>
+    </div>
+    
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/donations.js"></script>
+    <script src="assets/js/neural-loader.js"></script>
+</body>
+</html>

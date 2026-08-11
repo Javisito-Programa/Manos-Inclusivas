@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recursos Educativos - Manos Inclusivas A.C.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/loading.css">
+    <style>
+        .resource-article {
+            background: white;
+            padding: 40px;
+            border-radius: var(--border-radius-soft);
+            box-shadow: var(--shadow-soft);
+            margin-bottom: 50px;
+        }
+        .resource-article h2 {
+            color: var(--accent-purple);
+            border-bottom: 2px solid var(--bg-secondary);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .symptoms-list {
+            list-style-type: disc;
+            margin-left: 20px;
+            margin-bottom: 20px;
+            color: #444;
+        }
+        .symptoms-list li {
+            margin-bottom: 8px;
+        }
+        .sidebar {
+            background: var(--bg-secondary);
+            padding: 20px;
+            border-radius: var(--border-radius-soft);
+            position: sticky;
+            top: 100px;
+        }
+        .sidebar-link {
+            display: block;
+            padding: 10px;
+            margin-bottom: 5px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        .sidebar-link:hover {
+            background: rgba(255,255,255,0.5);
+            color: var(--accent-purple);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div id="loader-wrapper">
+        <canvas id="loader-canvas"></canvas>
+        <div class="loader-content">
+            <div class="loader-logo-silhouette"></div>
+            <h2 class="loader-text">Iluminando Corazones... Conectando Vidas.</h2>
+        </div>
+    </div>
+
+    <header>
+        <div class="container navbar">
+            <a href="index.html" class="logo-container">
+                <img src="img/Logo circular.png" alt="Logo Manos Inclusivas"
+                    style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;">
+                <div class="logo-text">
+                    <h2>Manos Inclusivas</h2>
+                    <span>Iluminando Corazones A.C.</span>
+                </div>
+            </a>
+
+            <button class="hamburger" aria-label="Abrir menú">☰</button>
+
+            <nav class="nav-links">
+                <div class="nav-item"><a href="index.html" class="nav-link">INICIO</a></div>
+                <div class="nav-item">
+                    <a href="nosotros.html" class="nav-link">NOSOTROS</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="nosotros.html#mision" class="dropdown-item">Nuestra Misión</a></li>
+                        <li><a href="nosotros.html#equipo" class="dropdown-item">Nuestro Equipo</a></li>
+                    </ul>
+                </div>
+                <div class="nav-item">
+                    <a href="servicios.html" class="nav-link">SERVICIOS</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="servicios.html#psicologia" class="dropdown-item">Psicología</a></li>
+                        <li><a href="servicios.html#psiquiatria" class="dropdown-item">Psiquiatría</a></li>
+                        <li><a href="servicios.html#terapia-lenguaje" class="dropdown-item">Terapia de Lenguaje</a></li>
+                    </ul>
+                </div>
+                <div class="nav-item">
+                    <a href="recursos.html" class="nav-link" style="color: var(--accent-purple);">RECURSOS</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="recursos.html#tea" class="dropdown-item">¿Qué es el TEA?</a></li>
+                        <li><a href="recursos.html#tdah" class="dropdown-item">¿Qué es el TDAH?</a></li>
+                    </ul>
+                </div>
+                <div class="nav-item"><a href="clinicas-citas.html" class="nav-link">CLÍNICAS Y CITAS</a></div>
+                <div class="nav-item"><a href="contacto.html" class="nav-link">CONTACTO</a></div>
+                <div class="nav-item"><a href="donar.html" class="btn btn-primary">DONAR</a></div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="section-padding bg-beige">
+        <div class="container text-center" style="margin-bottom: 50px;">
+            <h1 style="color: var(--text-main); font-size: 2.5rem;">Biblioteca de Recursos</h1>
+            <p>Información clara y profesional sobre condiciones del neurodesarrollo.</p>
+        </div>
+
+        <div class="container" style="display: grid; grid-template-columns: 1fr 3fr; gap: 40px;">
+            <!-- Sidebar Navigation -->
+            <aside>
+                <div class="sidebar">
+                    <h3 style="font-size: 1.1rem; margin-bottom: 15px;">Índice</h3>
+                    <a href="#tea" class="sidebar-link">Autismo (TEA)</a>
+                    <a href="#tdah" class="sidebar-link">TDAH</a>
+                    <a href="#dislexia" class="sidebar-link">Dislexia</a>
+                    <a href="#altas-capacidades" class="sidebar-link">Altas Capacidades</a>
+                </div>
+            </aside>
+
+            <!-- Content Area -->
+            <div>
+                <article id="tea" class="resource-article">
+                    <h2>Trastorno del Espectro Autista (TEA)</h2>
+                    <p>El Trastorno del Espectro Autista es una condición del neurodesarrollo que se caracteriza por particularidades en la interacción social, la comunicación y la presencia de patrones de comportamiento, intereses o actividades restrictivos y repetitivos.</p>
+                    <h3>Características Comunes:</h3>
+                    <ul class="symptoms-list">
+                        <li>Dificultades en la reciprocidad socioemocional.</li>
+                        <li>Déficits en las conductas comunicativas no verbales.</li>
+                        <li>Hiper o hiporreactividad a los estímulos sensoriales.</li>
+                    </ul>
+                    <p><strong>Cómo apoyamos:</strong> A través de intervención temprana, terapia de lenguaje, psicología cognitiva y salas de integración sensorial.</p>
+                </article>
+
+                <article id="tdah" class="resource-article">
+                    <h2>Trastorno por Déficit de Atención e Hiperactividad (TDAH)</h2>
+                    <p>El TDAH es uno de los trastornos del neurodesarrollo más comunes en la infancia, que a menudo persiste en la edad adulta. Implica dificultades para mantener la atención, hiperactividad y comportamiento impulsivo.</p>
+                    <h3>Síntomas Comunes:</h3>
+                    <ul class="symptoms-list">
+                        <li>Falta de atención a los detalles (errores por descuido).</li>
+                        <li>Dificultad para organizar tareas y actividades.</li>
+                        <li>Inquietud constante o incapacidad para permanecer sentado.</li>
+                    </ul>
+                </article>
+
+                <article id="dislexia" class="resource-article">
+                    <h2>Dislexia y Trastornos del Aprendizaje</h2>
+                    <p>La dislexia es una dificultad específica del aprendizaje de origen neurobiológico. Se caracteriza por dificultades en la precisión y/o fluidez en el reconocimiento de palabras, y por escasas habilidades de ortografía y decodificación.</p>
+                </article>
+
+                <article id="altas-capacidades" class="resource-article">
+                    <h2>Altas Capacidades Intelectuales</h2>
+                    <p>Los niños y jóvenes con altas capacidades poseen un desarrollo cognitivo superior al esperado para su edad, lo cual requiere acompañamiento para evitar desmotivación académica y promover el bienestar emocional, gestionando características como la hipersensibilidad emocional y el perfeccionismo.</p>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container text-center">
+            <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">&copy; 2026 Manos Inclusivas A.C. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Accessibility Widget -->
+    <div class="a11y-widget">
+        <button id="a11y-btn" class="a11y-btn">👁️</button>
+        <div id="a11y-menu" class="a11y-menu">
+            <button id="toggle-contrast">Alternar Contraste</button>
+            <button id="increase-text">Aumentar Texto A+</button>
+            <button id="decrease-text">Reducir Texto A-</button>
+        </div>
+    </div>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/neural-loader.js"></script>
+</body>
+</html>

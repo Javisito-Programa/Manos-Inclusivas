@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nosotros - Manos Inclusivas A.C.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/loading.css">
+    <style>
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .team-card {
+            background: white;
+            border-radius: var(--border-radius-soft);
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            text-align: center;
+        }
+        .team-photo {
+            width: 100%;
+            height: 250px;
+            background-color: var(--bg-secondary);
+            object-fit: cover;
+        }
+        .team-info {
+            padding: 20px;
+        }
+        .team-role {
+            color: var(--accent-purple);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div id="loader-wrapper">
+        <canvas id="loader-canvas"></canvas>
+        <div class="loader-content">
+            <div class="loader-logo-silhouette"></div>
+            <h2 class="loader-text">Iluminando Corazones... Conectando Vidas.</h2>
+        </div>
+    </div>
+
+    <!-- Header (Same as index) -->
+    <header>
+        <div class="container navbar">
+            <a href="index.html" class="logo-container">
+                <img src="img/Logo circular.png" alt="Logo Manos Inclusivas"
+                    style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;">
+                <div class="logo-text">
+                    <h2>Manos Inclusivas</h2>
+                    <span>Iluminando Corazones A.C.</span>
+                </div>
+            </a>
+
+            <button class="hamburger" aria-label="Abrir menú">☰</button>
+
+            <nav class="nav-links">
+                <div class="nav-item"><a href="index.html" class="nav-link">INICIO</a></div>
+                <div class="nav-item">
+                    <a href="nosotros.html" class="nav-link" style="color: var(--accent-purple);">NOSOTROS</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="nosotros.html#mision" class="dropdown-item">Nuestra Misión</a></li>
+                        <li><a href="nosotros.html#equipo" class="dropdown-item">Nuestro Equipo</a></li>
+                    </ul>
+                </div>
+                <div class="nav-item">
+                    <a href="servicios.html" class="nav-link">SERVICIOS</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="servicios.html#psicologia" class="dropdown-item">Psicología</a></li>
+                        <li><a href="servicios.html#psiquiatria" class="dropdown-item">Psiquiatría</a></li>
+                        <li><a href="servicios.html#terapia-lenguaje" class="dropdown-item">Terapia de Lenguaje</a></li>
+                    </ul>
+                </div>
+                <div class="nav-item">
+                    <a href="recursos.html" class="nav-link">RECURSOS</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="recursos.html#tea" class="dropdown-item">¿Qué es el TEA?</a></li>
+                        <li><a href="recursos.html#tdah" class="dropdown-item">¿Qué es el TDAH?</a></li>
+                    </ul>
+                </div>
+                <div class="nav-item"><a href="clinicas-citas.html" class="nav-link">CLÍNICAS Y CITAS</a></div>
+                <div class="nav-item"><a href="contacto.html" class="nav-link">CONTACTO</a></div>
+                <div class="nav-item"><a href="donar.html" class="btn btn-primary">DONAR</a></div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="mision" class="section-padding bg-lavender text-center">
+            <div class="container">
+                <h2>Nuestra Misión y Visión</h2>
+                <p style="max-width: 800px; margin: 0 auto; font-size: 1.1rem; line-height: 1.8;">
+                    En <strong>Manos Inclusivas - Iluminando Corazones A.C.</strong>, nuestra misión es brindar atención integral y de calidad a niños, jóvenes y adultos con necesidades de neurodesarrollo. Buscamos promover la inclusión, el bienestar emocional y el desarrollo pleno de las capacidades de cada individuo en Kanasín y todo Yucatán, creando una red de apoyo cálida y profesional para las familias.
+                </p>
+            </div>
+        </section>
+
+        <section id="equipo" class="section-padding">
+            <div class="container">
+                <div class="text-center">
+                    <h2>Nuestro Equipo</h2>
+                    <p>Conoce a los profesionales dedicados a iluminar corazones y transformar vidas.</p>
+                </div>
+
+                <div class="team-grid">
+                    <div class="team-card">
+                        <div class="team-photo"></div>
+                        <div class="team-info">
+                            <h3>Guillermo Salazar Carbajal</h3>
+                            <span class="team-role">Director General</span>
+                            <p class="card-text">Líder comprometido con la inclusión y el desarrollo de programas de apoyo social integral.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="team-card">
+                        <div class="team-photo"></div>
+                        <div class="team-info">
+                            <h3>Dra. Ana López</h3>
+                            <span class="team-role">Psiquiatra Infantil</span>
+                            <p class="card-text">Especialista en diagnóstico y tratamiento de trastornos del neurodesarrollo.</p>
+                        </div>
+                    </div>
+
+                    <div class="team-card">
+                        <div class="team-photo"></div>
+                        <div class="team-info">
+                            <h3>Lic. María Pérez</h3>
+                            <span class="team-role">Psicóloga Clínica</span>
+                            <p class="card-text">Enfocada en terapias cognitivo-conductuales y apoyo emocional a familias.</p>
+                        </div>
+                    </div>
+
+                    <div class="team-card">
+                        <div class="team-photo"></div>
+                        <div class="team-info">
+                            <h3>Lic. Carlos Ruiz</h3>
+                            <span class="team-role">Terapeuta Ocupacional</span>
+                            <p class="card-text">Experto en integración sensorial y desarrollo de autonomía personal.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer (Simplified for brevity, same as index) -->
+    <footer>
+        <div class="container text-center">
+            <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">&copy; 2026 Manos Inclusivas A.C. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Accessibility Widget -->
+    <div class="a11y-widget">
+        <button id="a11y-btn" class="a11y-btn" aria-label="Menú de Accesibilidad">👁️</button>
+        <div id="a11y-menu" class="a11y-menu">
+            <button id="toggle-contrast">Alternar Contraste</button>
+            <button id="increase-text">Aumentar Texto A+</button>
+            <button id="decrease-text">Reducir Texto A-</button>
+        </div>
+    </div>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/neural-loader.js"></script>
+</html>

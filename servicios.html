@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicios - Manos Inclusivas A.C.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/loading.css">
+    <style>
+        .service-detail-section {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .service-detail-section:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .service-image {
+            flex: 1;
+            height: 300px;
+            background-color: var(--bg-secondary);
+            border-radius: var(--border-radius-soft);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .service-content {
+            flex: 1;
+        }
+
+        .service-icon-large {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--accent-purple);
+        }
+
+        @media (max-width: 768px) {
+
+            .service-detail-section,
+            .service-detail-section:nth-child(even) {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Loading Screen -->
+    <div id="loader-wrapper">
+        <canvas id="loader-canvas"></canvas>
+        <div class="loader-content">
+            <div class="loader-logo-silhouette"></div>
+            <h2 class="loader-text">Iluminando Corazones... Conectando Vidas.</h2>
+        </div>
+    </div>
+
+    <header>
+        <div class="container navbar">
+            <a href="index.html" class="logo-container">
+                <img src="img/Logo circular.png" alt="Logo Manos Inclusivas"
+                    style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;">
+                <div class="logo-text">
+                    <h2>Manos Inclusivas</h2>
+                    <span>Iluminando Corazones A.C.</span>
+                </div>
+            </a>
+
+            <button class="hamburger" aria-label="Abrir menú">☰</button>
+
+            <nav class="nav-links">
+                <div class="nav-item"><a href="index.html" class="nav-link">INICIO</a></div>
+                <div class="nav-item">
+                    <a href="nosotros.html" class="nav-link">NOSOTROS</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="nosotros.html#mision" class="dropdown-item">Nuestra Misión</a></li>
+                        <li><a href="nosotros.html#equipo" class="dropdown-item">Nuestro Equipo</a></li>
+                    </ul>
+                </div>
+                <div class="nav-item">
+                    <a href="servicios.html" class="nav-link" style="color: var(--accent-purple);">SERVICIOS</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="servicios.html#psicologia" class="dropdown-item">Psicología</a></li>
+                        <li><a href="servicios.html#psiquiatria" class="dropdown-item">Psiquiatría</a></li>
+                        <li><a href="servicios.html#terapia-lenguaje" class="dropdown-item">Terapia de Lenguaje</a></li>
+                    </ul>
+                </div>
+                <div class="nav-item">
+                    <a href="recursos.html" class="nav-link">RECURSOS</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="recursos.html#tea" class="dropdown-item">¿Qué es el TEA?</a></li>
+                        <li><a href="recursos.html#tdah" class="dropdown-item">¿Qué es el TDAH?</a></li>
+                    </ul>
+                </div>
+                <div class="nav-item"><a href="clinicas-citas.html" class="nav-link">CLÍNICAS Y CITAS</a></div>
+                <div class="nav-item"><a href="contacto.html" class="nav-link">CONTACTO</a></div>
+                <div class="nav-item"><a href="donar.html" class="btn btn-primary">DONAR</a></div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="section-padding bg-beige text-center">
+            <div class="container">
+                <h1 style="color: var(--text-main); font-size: 3rem;">Nuestros Servicios</h1>
+                <p style="max-width: 700px; margin: 0 auto; font-size: 1.1rem;">Atención especializada y
+                    multidisciplinaria diseñada para potenciar las habilidades y mejorar la calidad de vida de nuestros
+                    pacientes.</p>
+            </div>
+        </section>
+
+        <section class="section-padding">
+            <div class="container">
+
+                <div id="psicologia" class="service-detail-section">
+                    <div class="service-image">
+                        <img src="img/Infantil.png" alt="Imagen del servicio"
+                            style="width: 100%; height: auto; border-radius: var(--border-radius-soft); box-shadow: var(--shadow-soft);">
+                    </div>
+                    <div class="service-content">
+                        <div class="service-icon-large">🧠</div>
+                        <h2>Psicología Clínica e Infantil</h2>
+                        <p>Brindamos evaluación, diagnóstico y tratamiento psicológico. Nos enfocamos en el manejo de
+                            emociones, ansiedad, habilidades sociales y apoyo integral tanto al paciente como a su
+                            familia para enfrentar los retos del neurodesarrollo.</p>
+                        <a href="clinicas-citas.html" class="btn btn-outline" style="margin-top: 15px;">Agendar
+                            Evaluación</a>
+                    </div>
+                </div>
+
+                <div id="psiquiatria" class="service-detail-section">
+                    <div class="service-image">
+                        <img src="img/Psiquiatría.jpg" alt="Imagen del servicio"
+                            style="width: 100%; height: auto; border-radius: var(--border-radius-soft); box-shadow: var(--shadow-soft);">
+                    </div>
+                    <div class="service-content">
+                        <div class="service-icon-large" style="color: var(--accent-green);">⚕️</div>
+                        <h2>Psiquiatría</h2>
+                        <p>Atención médica especializada para el diagnóstico y tratamiento farmacológico cuando es
+                            requerido. Nuestro equipo médico trabaja en estrecha colaboración con los terapeutas para
+                            asegurar un enfoque integral y seguro.</p>
+                        <a href="clinicas-citas.html" class="btn btn-outline" style="margin-top: 15px;">Agendar Cita
+                            Médica</a>
+                    </div>
+                </div>
+
+                <div id="terapia-lenguaje" class="service-detail-section">
+                    <div class="service-image">
+                        <img src="img/Habla.jpg" alt="Imagen del servicio"
+                            style="width: 100%; height: auto; border-radius: var(--border-radius-soft); box-shadow: var(--shadow-soft);">
+                    </div>
+                    <div class="service-content">
+                        <div class="service-icon-large" style="color: var(--accent-pink);">🗣️</div>
+                        <h2>Terapia de Lenguaje y Habla</h2>
+                        <p>Programas diseñados para mejorar la comunicación expresiva y comprensiva, articulación,
+                            fluidez y pragmática del lenguaje, fundamentales para la interacción social y el aprendizaje
+                            escolar.</p>
+                        <a href="clinicas-citas.html" class="btn btn-outline" style="margin-top: 15px;">Saber más</a>
+                    </div>
+                </div>
+
+                <div id="terapia-ocupacional" class="service-detail-section">
+                    <div class="service-image">
+                        <img src="img/Ocupacional.jpg" alt="Imagen del servicio"
+                            style="width: 100%; height: auto; border-radius: var(--border-radius-soft); box-shadow: var(--shadow-soft);">
+                    </div>
+                    <div class="service-content">
+                        <div class="service-icon-large" style="color: var(--accent-blue);">✋</div>
+                        <h2>Terapia Ocupacional</h2>
+                        <p>Intervención centrada en dotar de herramientas al paciente para realizar sus actividades de
+                            la vida diaria (higiene, alimentación, juego, escuela) con la mayor independencia posible,
+                            desarrollando motricidad fina y gruesa.</p>
+                    </div>
+                </div>
+
+                <div id="integracion-sensorial" class="service-detail-section">
+                    <div class="service-image">
+                        <img src="img/Sensorial.jpg" alt="Imagen del servicio"
+                            style="width: 100%; height: auto; border-radius: var(--border-radius-soft); box-shadow: var(--shadow-soft);">
+                    </div>
+                    <div class="service-content">
+                        <div class="service-icon-large">🧩</div>
+                        <h2>Integración Sensorial</h2>
+                        <p>Terapia especializada en salas sensoriales adaptadas para ayudar a los pacientes a procesar,
+                            organizar y responder adecuadamente a la información que reciben a través de sus sentidos
+                            (tacto, movimiento, audición, visión).</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container text-center">
+            <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">&copy; 2026 Manos Inclusivas A.C. Todos los
+                derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Accessibility Widget -->
+    <div class="a11y-widget">
+        <button id="a11y-btn" class="a11y-btn" aria-label="Menú de Accesibilidad">👁️</button>
+        <div id="a11y-menu" class="a11y-menu">
+            <button id="toggle-contrast">Alternar Contraste</button>
+            <button id="increase-text">Aumentar Texto A+</button>
+            <button id="decrease-text">Reducir Texto A-</button>
+        </div>
+    </div>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/neural-loader.js"></script>
+</body>
+
+</html>
