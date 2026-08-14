@@ -181,7 +181,7 @@ header {
 
 .nav-links {
   display: flex;
-  gap: 25px;
+  gap: 15px; /* Reduced gap */
   align-items: center;
 }
 
@@ -191,7 +191,8 @@ header {
 
 .nav-link {
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 0.85rem; /* Reduced font size for better fit */
+  text-transform: uppercase;
 }
 
 .nav-link:hover {
@@ -219,11 +220,24 @@ header {
 .dropdown-item {
   display: block;
   padding: 8px 20px;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
 }
 
 .dropdown-item:hover {
   background-color: var(--bg-secondary);
+}
+
+/* Tablet / Smaller Desktop Adjustments */
+@media (max-width: 1250px) {
+  .nav-links {
+    gap: 10px;
+  }
+  .nav-link {
+    font-size: 0.75rem;
+  }
+  .logo-text h2 {
+    font-size: 1.2rem;
+  }
 }
 
 /* Mobile Menu */
@@ -236,7 +250,7 @@ header {
   color: var(--text-main);
 }
 
-@media (max-width: 992px) {
+@media (max-width: 1100px) { /* Breakpoint moved up to prevent wrap */
   .container {
     padding: 0 15px !important;
     width: 100%;
@@ -246,6 +260,8 @@ header {
   .hamburger {
     display: block;
     margin-right: 20px;
+    position: relative;
+    z-index: 1001;
   }
 
   /* Ajustar logo para que no se salga de la pantalla en móviles pequeños */
@@ -267,40 +283,80 @@ header {
     top: 100%;
     left: 0;
     width: 100%;
-    background-color: white;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-    padding: 15px 20px;
+    background-color: var(--bg-primary);
+    box-shadow: 0 20px 40px rgba(26, 35, 126, 0.15);
+    padding: 15px;
     align-items: flex-start;
-    box-sizing: border-box; /* Evita que el padding cause overflow */
+    box-sizing: border-box;
     z-index: 1000;
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
+    border-radius: 0 0 20px 20px;
   }
 
   .nav-links.active {
-    display: flex;
+    display: flex !important;
+    animation: fadeSlideDown 0.3s ease-out forwards;
+  }
+
+  @keyframes fadeSlideDown {
+    from { opacity: 0; transform: translateY(-15px); }
+    to { opacity: 1; transform: translateY(0); }
   }
   
   .nav-item {
     width: 100%;
-    margin-bottom: 0;
-    padding: 12px 0;
-    border-bottom: 1px solid #f0f0f0;
+    margin-bottom: 5px;
+    padding: 0;
+    border-bottom: none;
   }
   
-  .nav-item:last-child {
-    border-bottom: none;
+  .nav-link {
+    display: block;
+    padding: 10px 15px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+  }
+
+  .nav-link:hover {
+    background-color: var(--accent-purple);
+    color: white;
+    transform: translateX(5px);
   }
   
   .dropdown-menu {
     position: static;
     box-shadow: none;
-    padding-left: 15px;
-    padding-top: 10px;
-    display: none; 
+    padding: 5px 0 0 15px;
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    background-color: transparent;
+    border-left: none;
+    margin: 0;
   }
   
+  .dropdown-item {
+    display: block;
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 8px;
+    font-weight: 600;
+  }
+
+  .dropdown-item:hover {
+    background-color: var(--accent-purple);
+    color: white;
+    transform: translateX(5px);
+  }
+
   .nav-item:hover .dropdown-menu,
   .nav-item:active .dropdown-menu {
-    display: block;
+    display: flex;
   }
 }
 
@@ -335,8 +391,27 @@ header {
 
 .hero-image-wrapper {
   flex: 1;
+  min-width: 300px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
   position: relative;
   z-index: 2;
+}
+
+#hero-3d-canvas-container {
+  width: 100%;
+  height: 600px;
+  max-width: 600px;
+  margin: 0 auto;
+  background: transparent;
+  overflow: visible;
+}
+
+@media (max-width: 768px) {
+  #hero-3d-canvas-container {
+    height: 350px;
+  }
 }
 
 .hero-image-placeholder {
@@ -561,4 +636,146 @@ footer {
     transform: scale(1);
     box-shadow: 0 0 0 0 rgba(149, 117, 205, 0);
   }
+}
+
+/* =========================================
+   Global Page Layouts (Hero, Sidebar, Grid) 
+   ========================================= */
+
+.page-hero {
+    background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+    padding: 80px 20px;
+    border-radius: 0 0 50px 50px;
+    text-align: center;
+    margin-bottom: 60px;
+    position: relative;
+    overflow: hidden;
+}
+
+.page-hero h1 {
+    color: var(--text-main);
+    font-size: 3rem;
+    position: relative;
+    z-index: 2;
+}
+
+.page-hero p {
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 20px auto 0;
+    color: #555;
+    position: relative;
+    z-index: 2;
+}
+
+.decorative-circle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(149, 117, 205, 0.1);
+    z-index: 1;
+}
+
+.circle-1 { width: 300px; height: 300px; top: -50px; left: -100px; }
+.circle-2 { width: 200px; height: 200px; bottom: -50px; right: -50px; }
+
+.page-content-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 40px;
+    align-items: start;
+}
+
+.page-sidebar {
+    background: white;
+    padding: 30px;
+    border-radius: var(--border-radius-soft);
+    box-shadow: var(--shadow-soft);
+    position: sticky;
+    top: 100px;
+}
+
+.page-sidebar h3 {
+    color: var(--accent-purple);
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--bg-secondary);
+    padding-bottom: 10px;
+}
+
+.sidebar-nav-link {
+    display: block;
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    color: var(--text-main);
+    font-weight: 600;
+    transition: var(--transition-fast);
+    background: var(--bg-tertiary);
+}
+
+.sidebar-nav-link:hover, .sidebar-nav-link.active {
+    background: var(--accent-purple);
+    color: white;
+    transform: translateX(5px);
+}
+
+.page-section-card {
+    background: white;
+    padding: 40px;
+    border-radius: var(--border-radius-soft);
+    box-shadow: var(--shadow-soft);
+    margin-bottom: 40px;
+    transition: var(--transition-fast);
+}
+
+.page-section-card:hover {
+    box-shadow: var(--shadow-hover);
+}
+
+.page-section-card h2 {
+    color: var(--text-main);
+    font-size: 2rem;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.page-section-card h2::before {
+    content: '';
+    display: inline-block;
+    width: 40px;
+    height: 4px;
+    background: var(--accent-purple);
+    border-radius: 2px;
+}
+
+.page-section-card p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #444;
+    margin-bottom: 20px;
+}
+
+.symptoms-list {
+    list-style-type: disc;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    color: #444;
+}
+.symptoms-list li {
+    margin-bottom: 8px;
+    line-height: 1.6;
+}
+
+@media (max-width: 992px) {
+    .page-content-grid {
+        grid-template-columns: 1fr;
+    }
+    .page-sidebar {
+        position: static;
+        margin-bottom: 30px;
+    }
+    .page-hero h1 {
+        font-size: 2.2rem;
+    }
 }

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - Noticias</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        body {
+            background-color: var(--bg-tertiary);
+            padding: 40px 20px;
+        }
+
+        .admin-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: var(--border-radius-soft);
+            box-shadow: var(--shadow-hover);
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .admin-header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--bg-secondary);
+            padding-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .admin-header img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-soft);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(149, 117, 205, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(149, 117, 205, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(149, 117, 205, 0); }
+        }
+
+        .admin-header h1 {
+            color: var(--accent-purple);
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--bg-secondary);
+            border-radius: 8px;
+            font-family: var(--font-main);
+            font-size: 1rem;
+            transition: var(--transition-fast);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 0 3px rgba(149, 117, 205, 0.2);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .btn-submit {
+            background-color: var(--accent-purple);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: var(--border-radius-pill);
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+            transition: var(--transition-fast);
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background-color: #7e57c2;
+            transform: translateY(-2px);
+        }
+
+        .btn-submit:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            font-weight: 600;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: var(--text-main);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        .back-link:hover {
+            color: var(--accent-purple);
+        }
+        
+        .help-text {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 5px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="admin-container">
+        <a href="index.html" class="back-link">← Volver al Inicio</a>
+        
+        <div class="admin-header">
+            <img src="img/Logo circular.png" alt="Logo Manos Inclusivas">
+            <h1>Panel de Noticias</h1>
+            <p>Publica nuevas actualizaciones en el Tablón de Noticias</p>
+        </div>
+
+        <div id="alertBox" class="alert"></div>
+
+        <form id="newsForm">
+            <div class="form-group">
+                <label for="title">Título de la Noticia *</label>
+                <input type="text" id="title" class="form-control" placeholder="Ej: Próximo taller para padres" required>
+            </div>
+
+            <div class="form-group">
+                <label for="image">URL de la Imagen de Internet (Recomendado)</label>
+                <input type="url" id="image" class="form-control" placeholder="Ej: https://ejemplo.com/imagen.jpg">
+                <span class="help-text">Simplemente busca una imagen en Google u otra página, haz clic derecho, copia la dirección de la imagen y pégala aquí.</span>
+            </div>
+
+            <div class="form-group">
+                <label for="content">Contenido de la Noticia *</label>
+                <textarea id="content" class="form-control" placeholder="Escribe todos los detalles aquí..." required></textarea>
+            </div>
+
+            <button type="submit" id="submitBtn" class="btn-submit">Publicar Noticia</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('newsForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const btn = document.getElementById('submitBtn');
+            const alertBox = document.getElementById('alertBox');
+            
+            // Recoger datos
+            const title = document.getElementById('title').value;
+            const image = document.getElementById('image').value;
+            const content = document.getElementById('content').value;
+
+            // UI feedback
+            btn.disabled = true;
+            btn.textContent = 'Publicando...';
+            alertBox.style.display = 'none';
+
+            // Datos a enviar
+            const data = {
+                title: title,
+                content: content,
+                image: image
+            };
+
+            // Petición a la API PHP
+            fetch('api/noticias.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error en el servidor');
+                }
+                return response.json();
+            })
+            .then(result => {
+                if (result.status === 'success') {
+                    alertBox.className = 'alert alert-success';
+                    alertBox.textContent = '¡Noticia publicada con éxito!';
+                    alertBox.style.display = 'block';
+                    document.getElementById('newsForm').reset();
+                } else {
+                    throw new Error(result.message || 'Error desconocido');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alertBox.className = 'alert alert-error';
+                alertBox.textContent = 'Hubo un error al publicar. Verifica que estás en el servidor (Hostinger). Error: ' + error.message;
+                alertBox.style.display = 'block';
+            })
+            .finally(() => {
+                btn.disabled = false;
+                btn.textContent = 'Publicar Noticia';
+            });
+        });
+    </script>
+</body>
+</html>

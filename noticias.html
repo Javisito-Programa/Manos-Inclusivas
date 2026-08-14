@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tablón de Noticias - Manos Inclusivas A.C.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/loading.css">
+    <style>
+        .news-hero {
+            background: var(--bg-secondary);
+            padding: 80px 20px;
+            text-align: center;
+            border-bottom: 5px solid var(--accent-purple);
+        }
+
+        .news-hero h1 {
+            font-size: 2.8rem;
+            color: var(--text-main);
+            margin-bottom: 15px;
+        }
+
+        .news-hero p {
+            font-size: 1.1rem;
+            color: #555;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            padding: 60px 0;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: var(--border-radius-soft);
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition-fast);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .news-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .news-image {
+            width: 100%;
+            height: 220px;
+            object-fit: contain;
+            background-color: var(--bg-tertiary);
+            padding: 10px; /* Optional: adds a little breathing room inside the box */
+        }
+
+        .news-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .news-date {
+            font-size: 0.85rem;
+            color: var(--accent-purple);
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .news-title {
+            font-size: 1.3rem;
+            color: var(--text-main);
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .news-excerpt {
+            color: #555;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .news-read-more {
+            color: var(--accent-purple);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .news-read-more:hover {
+            color: var(--text-main);
+        }
+
+        /* Modal for full news */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 0;
+            border-radius: var(--border-radius-soft);
+            width: 90%;
+            max-width: 800px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            position: relative;
+            animation: modalFadeIn 0.3s;
+            overflow: hidden;
+        }
+
+        @keyframes modalFadeIn {
+            from {opacity: 0; transform: translateY(-20px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 10;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .close-modal:hover {
+            color: #ddd;
+        }
+
+        .modal-image {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+            object-fit: contain;
+            background-color: var(--bg-tertiary);
+            padding: 10px;
+        }
+
+        .modal-body {
+            padding: 40px;
+        }
+
+        .modal-date {
+            color: var(--accent-purple);
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .modal-title {
+            font-size: 2rem;
+            color: var(--text-main);
+            margin-bottom: 20px;
+        }
+
+        .modal-text {
+            color: #444;
+            line-height: 1.8;
+            white-space: pre-line;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 50px;
+            color: #666;
+            grid-column: 1 / -1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Loading Screen -->
+    <div id="loader-wrapper">
+        <canvas id="loader-canvas"></canvas>
+        <div class="loader-content">
+            <div class="loader-logo-silhouette"></div>
+            <h2 class="loader-text">Cargando Noticias...</h2>
+        </div>
+    </div>
+
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container navbar">
+            <a href="index.html" class="logo-container">
+                <img src="img/Logo circular.png" alt="Logo Manos Inclusivas"
+                    style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;">
+                <div class="logo-text">
+                    <h2>Manos Inclusivas</h2>
+                    <span>Iluminando Corazones A.C.</span>
+                </div>
+            </a>
+
+            <button class="hamburger" aria-label="Abrir menú">☰</button>
+
+            <nav class="nav-links">
+                <div class="nav-item"><a href="index.html" class="nav-link">INICIO</a></div>
+                <div class="nav-item">
+                    <a href="nosotros.html" class="nav-link">NOSOTROS</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="nosotros.html#mision" class="dropdown-item">Nuestra Misión</a></li>
+                        <li><a href="nosotros.html#equipo" class="dropdown-item">Nuestro Equipo</a></li>
+                        <li><a href="quienes-somos.html#historia" class="dropdown-item">Instalaciones</a></li>
+                    </ul>
+                </div>
+                <div class="nav-item">
+                    <a href="servicios.html" class="nav-link">SERVICIOS</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="servicios.html#psicologia" class="dropdown-item">Psicología</a></li>
+                        <li><a href="servicios.html#psiquiatria" class="dropdown-item">Psiquiatría</a></li>
+                        <li><a href="servicios.html#terapia-lenguaje" class="dropdown-item">Terapia de Lenguaje</a></li>
+                    </ul>
+                </div>
+                <div class="nav-item">
+                    <a href="quienes-somos.html" class="nav-link">QUIÉNES SOMOS</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="quienes-somos.html#historia" class="dropdown-item">Nuestra Historia</a></li>
+                        <li><a href="quienes-somos.html#mision" class="dropdown-item">Misión</a></li>
+                        <li><a href="quienes-somos.html#vision" class="dropdown-item">Visión</a></li>
+                        <li><a href="quienes-somos.html#valores" class="dropdown-item">Valores</a></li>
+                    </ul>
+                </div>
+                <div class="nav-item">
+                    <a href="recursos.html" class="nav-link">RECURSOS</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="recursos.html#tea" class="dropdown-item">¿Qué es el TEA?</a></li>
+                        <li><a href="recursos.html#tdah" class="dropdown-item">¿Qué es el TDAH?</a></li>
+                    </ul>
+                </div>
+                <div class="nav-item"><a href="noticias.html" class="nav-link" style="color: var(--accent-purple);">NOTICIAS</a></div>
+                <div class="nav-item"><a href="citas.html" class="nav-link">CITAS</a></div>
+                <div class="nav-item"><a href="contacto.html" class="nav-link">CONTACTO</a></div>
+                <div class="nav-item"><a href="donar.html" class="btn btn-primary">DONAR</a></div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="bg-primary">
+        <section class="news-hero">
+            <div class="container">
+                <h1>Tablón de Noticias</h1>
+                <p>Mantente al día con nuestros próximos eventos, talleres, actividades y novedades de la fundación.</p>
+            </div>
+        </section>
+
+        <section class="container">
+            <div class="news-grid" id="news-container">
+                <!-- News will be injected here via JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal for reading full news -->
+    <div id="news-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <img id="modal-img" class="modal-image" src="" alt="Noticia">
+            <div class="modal-body">
+                <span id="modal-date" class="modal-date"></span>
+                <h2 id="modal-title" class="modal-title"></h2>
+                <div id="modal-text" class="modal-text"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-logo">
+                        <model-viewer src="assets/logo.glb" alt="Logo Manos Inclusivas" 
+                            style="width: 80px; height: 80px; background-color: transparent;" 
+                            camera-orbit="0deg 90deg auto" interaction-prompt="none"></model-viewer>
+                        <h3 style="color: white; margin: 0; font-size: 1.2rem;">Manos Inclusivas A.C.</h3>
+                    </div>
+                    <p class="footer-desc">Fundación dedicada al neurodesarrollo, iluminando corazones y conectando
+                        vidas en Yucatán.</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/profile.php?id=61583470196617" class="social-icon"
+                            aria-label="Facebook">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                viewBox="0 0 16 16">
+                                <path
+                                    d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
+                            </svg>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Instagram">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                viewBox="0 0 16 16">
+                                <path
+                                    d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.036 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.487.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="footer-title">Contacto</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">WhatsApp: 999 112 1609</a></li>
+                        <li><a href="#">Kanasín, Yucatán</a></li>
+                        <li><a href="contacto.html">Formulario Web</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-title">Enlaces</h4>
+                    <ul class="footer-links">
+                        <li><a href="nosotros.html">Nosotros</a></li>
+                        <li><a href="servicios.html">Servicios</a></li>
+                        <li><a href="donar.html">Donativos</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-title">Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Aviso de Privacidad</a></li>
+                        <li><a href="#">Términos y Condiciones</a></li>
+                        <li><a href="#">Transparencia</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Manos Inclusivas A.C. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/neural-loader.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const newsContainer = document.getElementById('news-container');
+            const modal = document.getElementById('news-modal');
+            const closeBtn = document.querySelector('.close-modal');
+
+            // Fetch news from API (JSON)
+            fetch('api/noticias.json?t=' + new Date().getTime()) // cache busting
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('No se pudo cargar las noticias');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (!data || data.length === 0) {
+                        newsContainer.innerHTML = '<div class="empty-state"><h2>Aún no hay noticias publicadas.</h2><p>Vuelve pronto para enterarte de nuestras novedades.</p></div>';
+                        return;
+                    }
+                    
+                    // Reverse to show newest first (assuming appended)
+                    const reversedData = [...data].reverse();
+                    
+                    reversedData.forEach((news, index) => {
+                        const dateObj = new Date(news.date);
+                        const formattedDate = dateObj.toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
+                        
+                        // Limit excerpt
+                        const excerpt = news.content.length > 120 ? news.content.substring(0, 120) + '...' : news.content;
+                        // Default image if none provided
+                        const imgUrl = news.image || 'img/Logo circular.png';
+                        
+                        const card = document.createElement('article');
+                        card.className = 'news-card';
+                        card.innerHTML = `
+                            <img src="${imgUrl}" alt="${news.title}" class="news-image" onerror="this.src='img/Logo circular.png'">
+                            <div class="news-content">
+                                <span class="news-date">${formattedDate}</span>
+                                <h3 class="news-title">${news.title}</h3>
+                                <p class="news-excerpt">${excerpt}</p>
+                                <a href="#" class="news-read-more" data-index="${index}">Leer más <span>→</span></a>
+                            </div>
+                        `;
+                        newsContainer.appendChild(card);
+                    });
+
+                    // Add event listeners to "Leer más"
+                    document.querySelectorAll('.news-read-more').forEach(btn => {
+                        btn.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            const idx = this.getAttribute('data-index');
+                            const news = reversedData[idx];
+                            
+                            document.getElementById('modal-title').textContent = news.title;
+                            
+                            const dateObj = new Date(news.date);
+                            document.getElementById('modal-date').textContent = dateObj.toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
+                            
+                            document.getElementById('modal-text').textContent = news.content;
+                            document.getElementById('modal-img').src = news.image || 'img/Logo circular.png';
+                            
+                            modal.style.display = "block";
+                            document.body.style.overflow = "hidden"; // Prevent background scrolling
+                        });
+                    });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    newsContainer.innerHTML = '<div class="empty-state"><h2>Error al cargar noticias.</h2><p>Intenta recargar la página más tarde.</p></div>';
+                });
+
+            // Close modal logic
+            closeBtn.onclick = function() {
+                modal.style.display = "none";
+                document.body.style.overflow = "auto";
+            }
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                    document.body.style.overflow = "auto";
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

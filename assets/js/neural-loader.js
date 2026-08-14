@@ -95,6 +95,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Start animation
     animate();
 
+    // Determinar el tiempo de carga basado en la página actual
+    const isHomePage = window.location.pathname.endsWith('index.html') || window.location.pathname === '/' || window.location.pathname.endsWith('Fundacion/');
+    const loadTime = isHomePage ? 2500 : 600;
+
     // Trigger fade out and load after a delay (simulating page load)
     // In a real app, this would be tied to window.onload or specific fetch promises
     setTimeout(() => {
@@ -105,5 +109,5 @@ document.addEventListener('DOMContentLoaded', () => {
             cancelAnimationFrame(animationFrameId);
             loaderWrapper.remove();
         }, 800);
-    }, 2500); // 2.5 seconds loading time for demonstration
+    }, loadTime);
 });

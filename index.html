@@ -50,6 +50,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="nosotros.html#mision" class="dropdown-item">Nuestra Misión</a></li>
                         <li><a href="nosotros.html#equipo" class="dropdown-item">Nuestro Equipo</a></li>
+                        <li><a href="quienes-somos.html#historia" class="dropdown-item">Instalaciones</a></li>
                     </ul>
                 </div>
                 <div class="nav-item">
@@ -61,13 +62,23 @@
                     </ul>
                 </div>
                 <div class="nav-item">
+                    <a href="quienes-somos.html" class="nav-link">QUIÉNES SOMOS</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="quienes-somos.html#historia" class="dropdown-item">Nuestra Historia</a></li>
+                        <li><a href="quienes-somos.html#mision" class="dropdown-item">Misión</a></li>
+                        <li><a href="quienes-somos.html#vision" class="dropdown-item">Visión</a></li>
+                        <li><a href="quienes-somos.html#valores" class="dropdown-item">Valores</a></li>
+                    </ul>
+                </div>
+                <div class="nav-item">
                     <a href="recursos.html" class="nav-link">RECURSOS</a>
                     <ul class="dropdown-menu">
                         <li><a href="recursos.html#tea" class="dropdown-item">¿Qué es el TEA?</a></li>
                         <li><a href="recursos.html#tdah" class="dropdown-item">¿Qué es el TDAH?</a></li>
                     </ul>
                 </div>
-                <div class="nav-item"><a href="clinicas-citas.html" class="nav-link">CLÍNICAS Y CITAS</a></div>
+                <div class="nav-item"><a href="noticias.html" class="nav-link">NOTICIAS</a></div>
+                <div class="nav-item"><a href="citas.html" class="nav-link">CITAS</a></div>
                 <div class="nav-item"><a href="contacto.html" class="nav-link">CONTACTO</a></div>
                 <div class="nav-item"><a href="donar.html" class="btn btn-primary">DONAR</a></div>
             </nav>
@@ -92,11 +103,11 @@
                         neurodesarrollo. Creemos en el potencial de cada persona.</p>
                     <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 20px;">
                         <a href="contacto.html" class="btn btn-primary">Contáctanos</a>
-                        <a href="clinicas-citas.html" class="btn btn-outline">Agendar Cita</a>
+                        <a href="citas.html" class="btn btn-outline">Agendar Cita</a>
                     </div>
                 </div>
-                <div class="hero-image-wrapper" style="flex: 1; min-width: 300px; text-align: center; display: flex; justify-content: center; position: relative;">
-                    <div id="hero-3d-canvas-container" style="width: 100%; height: 450px; max-width: 450px; margin: 0 auto; background: transparent; overflow: visible;"></div>
+                <div class="hero-image-wrapper">
+                    <div id="hero-3d-canvas-container"></div>
                 </div>
             </div>
         </section>
@@ -178,12 +189,14 @@
 
     <!-- Footer -->
     <footer>
+        <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
         <div class="container">
             <div class="footer-grid">
                 <div>
                     <div class="footer-logo">
-                        <img src="img/Lofo.jpg" alt="Logo Manos Inclusivas"
-                            style="width: 60px; height: 60px; object-fit: cover; border-radius: 50%;">
+                        <model-viewer src="assets/logo.glb" alt="Logo Manos Inclusivas" 
+                            style="width: 80px; height: 80px; background-color: transparent;" 
+                            camera-orbit="0deg 90deg auto" interaction-prompt="none"></model-viewer>
                         <h3 style="color: white; margin: 0; font-size: 1.2rem;">Manos Inclusivas A.C.</h3>
                     </div>
                     <p class="footer-desc">Fundación dedicada al neurodesarrollo, iluminando corazones y conectando

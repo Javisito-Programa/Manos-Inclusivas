@@ -2,6 +2,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('hero-3d-canvas-container');
     if (!container) return;
 
+    function getResponsiveScale() {
+        if (window.innerWidth < 480) return 0.55; // Celulares pequeños
+        if (window.innerWidth < 768) return 0.7;  // Tablets o celulares grandes
+        return 1.0; // Escritorio
+    }
+    let currentScale = getResponsiveScale();
+
     // SCENE & CAMERA
     const scene = new THREE.Scene();
     
@@ -29,22 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     backLight.position.set(-5, 5, -5);
     scene.add(backLight);
 
-    // PARTICULAS DE FONDO DINÁMICO (Polvo brillante amigable con el diseño claro)
-    const bgGeo = new THREE.BufferGeometry();
-    const bgPos = [];
-    for(let i=0; i<600; i++) {
-        bgPos.push((Math.random()-0.5)*30, (Math.random()-0.5)*30, (Math.random()-0.5)*30);
-    }
-    bgGeo.setAttribute('position', new THREE.Float32BufferAttribute(bgPos, 3));
-    const bgMat = new THREE.PointsMaterial({
-        color: 0x6A1B9A, // Morado oscuro para contrastar con el fondo claro de la página
-        size: 0.15,
-        transparent: true,
-        opacity: 0.5,
-        blending: THREE.NormalBlending // Normal blending en lugar de Additive para que no se pierdan en fondos claros
-    });
-    const bgParticles = new THREE.Points(bgGeo, bgMat);
-    scene.add(bgParticles);
+    // PARTICULAS DE FONDO ELIMINADAS
 
     // GLTF LOADER
     const loader = new THREE.GLTFLoader();
@@ -52,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
     scene.add(brainGroup);
 
     loader.load(
-        'assets/Brain.glb',
+        'assets/logo.glb',
         (gltf) => {
             const brainModel = gltf.scene;
             
@@ -73,8 +65,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const center = box.getCenter(new THREE.Vector3());
             const maxAxis = Math.max(size.x, size.y, size.z);
             
-            // Escalar para que mida aproximadamente 5 unidades
-            const targetSize = 6.0;
+            // Escalar para que mida un poco más aprovechando el nuevo espacio
+            const targetSize = 7.5;
             brainModel.scale.setScalar(targetSize / maxAxis);
             
             // Centrar el pivote para la rotación
@@ -83,12 +75,15 @@ document.addEventListener('DOMContentLoaded', () => {
             brainModel.position.z = -center.z * (targetSize / maxAxis);
 
             brainGroup.add(brainModel);
+            
+            // Ajuste manual para centrar visualmente el logo
+            brainGroup.position.x = -0.1;
         },
         (xhr) => {
             console.log((xhr.loaded / xhr.total * 100) + '% loaded');
         },
         (error) => {
-            console.error('Error cargando el modelo Brain.glb:', error);
+            console.error('Error cargando el modelo logo.glb:', error);
             // Mostrar un fallback visual si hay error
             const errGeo = new THREE.BoxGeometry(2,2,2);
             const errMat = new THREE.MeshBasicMaterial({color: 0xff0000, wireframe: true});
@@ -112,23 +107,19 @@ document.addEventListener('DOMContentLoaded', () => {
         requestAnimationFrame(animate);
         time += 0.015;
 
-        // Rotación de las partículas de fondo
-        if(bgParticles) {
-            bgParticles.rotation.y += 0.001;
-            bgParticles.rotation.x += 0.0005;
-        }
+        // Rotación de las partículas eliminada
 
         if (brainGroup) {
-            // Rotación constante ultra lenta (0.002) + leve inclinación del mouse
-            brainGroup.rotation.y += 0.002 + (mouseX * 0.015);
-            brainGroup.rotation.x += (mouseY * 0.15 - brainGroup.rotation.x) * 0.03;
+            // Inclinación dinámica hacia el mouse (sin rotación completa)
+            brainGroup.rotation.y += (mouseX * 0.3 - brainGroup.rotation.y) * 0.05;
+            brainGroup.rotation.x += (mouseY * 0.3 - brainGroup.rotation.x) * 0.05;
             
-            // Efecto flotante orgánico (levitación lenta)
-            brainGroup.position.y = Math.sin(time * 0.4) * 0.15;
+            // Efecto flotante orgánico (levitación más lenta). Offset en Y ajustado más arriba.
+            brainGroup.position.y = 0.9 + Math.sin(time * 0.4) * 0.15;
 
-            // Palpitación / Latido (Pulsing muy suave y majestuoso)
-            const heartbeat = 1.0 + Math.sin(time * 1.5) * 0.015;
-            brainGroup.scale.setScalar(heartbeat);
+            // Palpitación más lenta y sutil con escala responsiva
+            const heartbeat = 1.0 + Math.sin(time * 1.2) * 0.025;
+            brainGroup.scale.setScalar(heartbeat * currentScale);
         }
 
         renderer.render(scene, camera);
@@ -138,6 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('resize', () => {
         if (!container) return;
+        currentScale = getResponsiveScale();
         if (container.clientWidth > 0 && container.clientHeight > 0) {
             camera.aspect = container.clientWidth / container.clientHeight;
             camera.updateProjectionMatrix();
