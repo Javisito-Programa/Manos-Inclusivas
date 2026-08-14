@@ -40,6 +40,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // GLTF LOADER
     const loader = new THREE.GLTFLoader();
+    
+    // Configurar DRACOLoader por si el modelo está comprimido
+    const dracoLoader = new THREE.DRACOLoader();
+    dracoLoader.setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/libs/draco/');
+    loader.setDRACOLoader(dracoLoader);
+
     let brainGroup = new THREE.Group();
     scene.add(brainGroup);
 
@@ -63,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const box = new THREE.Box3().setFromObject(brainModel);
             const size = box.getSize(new THREE.Vector3());
             const center = box.getCenter(new THREE.Vector3());
-            const maxAxis = Math.max(size.x, size.y, size.z);
+            const maxAxis = Math.max(size.x, size.y, size.z) || 1; // Fallback a 1 si es 0
             
             // Escalar para que mida un poco más aprovechando el nuevo espacio
             const targetSize = 7.5;
