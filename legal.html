@@ -4,48 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Servicios - Manos Inclusivas A.C.</title>
+    <title>Información Legal - Manos Inclusivas A.C.</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/loading.css">
-    <style>
-        .service-detail-section {
-            display: flex;
-            align-items: center;
-            gap: 40px;
-            margin-bottom: 60px;
-        }
-
-        .service-detail-section:nth-child(even) {
-            flex-direction: row-reverse;
-        }
-
-        .service-image {
-            flex: 1;
-            height: 300px;
-            background-color: var(--bg-secondary);
-            border-radius: var(--border-radius-soft);
-            box-shadow: var(--shadow-soft);
-        }
-
-        .service-content {
-            flex: 1;
-        }
-
-        .service-icon-large {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            color: var(--accent-purple);
-        }
-
-        @media (max-width: 768px) {
-
-            .service-detail-section,
-            .service-detail-section:nth-child(even) {
-                flex-direction: column;
-            }
-        }
-    </style>
 </head>
 
 <body>
@@ -83,15 +45,13 @@
                     </ul>
                 </div>
                 <div class="nav-item">
-                    <a href="servicios.html" class="nav-link" style="color: var(--accent-purple);">SERVICIOS</a>
+                    <a href="servicios.html" class="nav-link">SERVICIOS</a>
                     <ul class="dropdown-menu">
                         <li><a href="servicios.html#psicologia" class="dropdown-item">Psicología</a></li>
                         <li><a href="servicios.html#psiquiatria" class="dropdown-item">Psiquiatría</a></li>
                         <li><a href="servicios.html#terapia-lenguaje" class="dropdown-item">Terapia de Lenguaje</a></li>
-                        <li><a href="servicios.html#terapia-ocupacional" class="dropdown-item">Terapia Ocupacional</a>
-                        </li>
-                        <li><a href="servicios.html#integracion-sensorial" class="dropdown-item">Integración
-                                Sensorial</a></li>
+                        <li><a href="servicios.html#terapia-ocupacional" class="dropdown-item">Terapia Ocupacional</a></li>
+                        <li><a href="servicios.html#integracion-sensorial" class="dropdown-item">Integración Sensorial</a></li>
                         <li><a href="servicios.html#talleres" class="dropdown-item">Talleres y Capacitaciones</a></li>
                     </ul>
                 </div>
@@ -119,112 +79,118 @@
         </div>
     </header>
 
-    <main>
+    <main class="bg-beige">
         <section class="page-hero">
             <svg class="bg-shape shape-1 decorative-circle circle-1" viewBox="0 0 100 100"></svg>
             <svg class="bg-shape shape-2 decorative-circle circle-2" viewBox="0 0 100 100"></svg>
-            <h1>Nuestros Servicios</h1>
-            <p>Atención especializada y multidisciplinaria diseñada para potenciar las habilidades y mejorar la calidad
-                de vida de nuestros pacientes.</p>
+            <h1>Información Legal</h1>
+            <p>Comprometidos con la transparencia, la seguridad de la información y el cumplimiento ético.</p>
         </section>
 
-        <section class="section-padding">
-            <div class="container">
-
-                <div id="psicologia" class="service-detail-section">
-                    <div class="service-image">
-                        <img src="img/Infantil.png" alt="Imagen del servicio"
-                            style="width: 100%; height: auto; border-radius: var(--border-radius-soft); box-shadow: var(--shadow-soft);">
-                    </div>
-                    <div class="service-content">
-                        <div class="service-icon-large">🧠</div>
-                        <h2>Psicología Clínica e Infantil</h2>
-                        <p>Brindamos evaluación, diagnóstico y tratamiento psicológico. Nos enfocamos en el manejo de
-                            emociones, ansiedad, habilidades sociales y apoyo integral tanto al paciente como a su
-                            familia para enfrentar los retos del neurodesarrollo.</p>
-                        <a href="citas.html" class="btn btn-outline" style="margin-top: 15px;">Agendar
-                            Evaluación</a>
-                    </div>
+        <div class="container page-content-grid">
+            <!-- Sidebar Navigation -->
+            <aside>
+                <div class="page-sidebar">
+                    <h3 style="font-size: 1.1rem; margin-bottom: 15px;">Índice</h3>
+                    <a href="#privacidad" class="sidebar-nav-link">Aviso de Privacidad</a>
+                    <a href="#terminos" class="sidebar-nav-link">Términos y Condiciones</a>
+                    <a href="#transparencia" class="sidebar-nav-link">Transparencia</a>
                 </div>
+            </aside>
 
-                <div id="psiquiatria" class="service-detail-section">
-                    <div class="service-image">
-                        <img src="img/Psiquiatría.jpg" alt="Imagen del servicio"
-                            style="width: 100%; height: auto; border-radius: var(--border-radius-soft); box-shadow: var(--shadow-soft);">
-                    </div>
-                    <div class="service-content">
-                        <div class="service-icon-large" style="color: var(--accent-green);">⚕️</div>
-                        <h2>Psiquiatría</h2>
-                        <p>Atención médica especializada para el diagnóstico y tratamiento farmacológico cuando es
-                            requerido. Nuestro equipo médico trabaja en estrecha colaboración con los terapeutas para
-                            asegurar un enfoque integral y seguro.</p>
-                        <a href="citas.html" class="btn btn-outline" style="margin-top: 15px;">Agendar Cita
-                            Médica</a>
-                    </div>
-                </div>
+            <!-- Content Area -->
+            <div>
+                <article id="privacidad" class="page-section-card">
+                    <h2>Aviso de Privacidad</h2>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 30px;">Aviso de Privacidad
+                        Integral de MANOS INCLUSIVAS ILUMINANDO CORAZONES A.C.</p>
 
-                <div id="terapia-lenguaje" class="service-detail-section">
-                    <div class="service-image">
-                        <img src="img/Habla.jpg" alt="Imagen del servicio"
-                            style="width: 100%; height: auto; border-radius: var(--border-radius-soft); box-shadow: var(--shadow-soft);">
-                    </div>
-                    <div class="service-content">
-                        <div class="service-icon-large" style="color: var(--accent-pink);">🗣️</div>
-                        <h2>Terapia de Lenguaje y Habla</h2>
-                        <p>Programas diseñados para mejorar la comunicación expresiva y comprensiva, articulación,
-                            fluidez y pragmática del lenguaje, fundamentales para la interacción social y el aprendizaje
-                            escolar.</p>
-                        <a href="citas.html" class="btn btn-outline" style="margin-top: 15px;">Saber más</a>
-                    </div>
-                </div>
+                    <h3>Identidad y Domicilio del Responsable:</h3>
+                    <p>MANOS INCLUSIVAS ILUMINANDO CORAZONES A.C., con domicilio en Calle 21 #123 x 20 y 22, Kanasín,
+                        Yucatán, C.P. 97370, es una asociación civil sin fines de lucro dedicada a brindar servicios de
+                        salud mental a personas en situación vulnerable. Es responsable del tratamiento de los datos
+                        personales que recaba, conforme a lo establecido por la Ley Federal de Protección de Datos
+                        Personales en Posesión de los Particulares (LFPDPPP).</p>
 
-                <div id="terapia-ocupacional" class="service-detail-section">
-                    <div class="service-image">
-                        <img src="img/Ocupacional.jpg" alt="Imagen del servicio"
-                            style="width: 100%; height: auto; border-radius: var(--border-radius-soft); box-shadow: var(--shadow-soft);">
-                    </div>
-                    <div class="service-content">
-                        <div class="service-icon-large" style="color: var(--accent-blue);">✋</div>
-                        <h2>Terapia Ocupacional</h2>
-                        <p>Intervención centrada en dotar de herramientas al paciente para realizar sus actividades de
-                            la vida diaria (higiene, alimentación, juego, escuela) con la mayor independencia posible,
-                            desarrollando motricidad fina y gruesa.</p>
-                    </div>
-                </div>
+                    <h3>Base Legal y Compromiso Ético:</h3>
+                    <p>El tratamiento de los datos personales se realizará bajo los principios de licitud,
+                        consentimiento, información, calidad, finalidad, lealtad, proporcionalidad y responsabilidad,
+                        conforme a la legislación mexicana vigente. Nuestra organización se compromete a garantizar la
+                        confidencialidad, integridad y resguardo ético de la información recabada, sin comercializarla
+                        ni divulgarla sin autorización expresa del titular, salvo las excepciones previstas en la ley.
+                    </p>
 
-                <div id="integracion-sensorial" class="service-detail-section">
-                    <div class="service-image">
-                        <img src="img/Sensorial.jpg" alt="Imagen del servicio"
-                            style="width: 100%; height: auto; border-radius: var(--border-radius-soft); box-shadow: var(--shadow-soft);">
-                    </div>
-                    <div class="service-content">
-                        <div class="service-icon-large">🧩</div>
-                        <h2>Integración Sensorial</h2>
-                        <p>Terapia especializada en salas sensoriales adaptadas para ayudar a los pacientes a procesar,
-                            organizar y responder adecuadamente a la información que reciben a través de sus sentidos
-                            (tacto, movimiento, audición, visión).</p>
-                    </div>
-                </div>
+                    <h3>Datos Personales que Recabamos:</h3>
+                    <p>Recopilamos datos personales como nombre, domicilio, teléfono, correo electrónico, ocupación y,
+                        en su caso, información sensible relacionada con su salud, indispensables para la prestación de
+                        servicios psicológicos o psicoterapéuticos.</p>
 
-                <div id="talleres" class="service-detail-section">
-                    <div class="service-image">
-                        <img src="img/Cursos.png" alt="Imagen del servicio"
-                            style="width: 100%; height: auto; border-radius: var(--border-radius-soft); box-shadow: var(--shadow-soft);">
-                    </div>
-                    <div class="service-content">
-                        <div class="service-icon-large" style="color: var(--accent-pink);">📚</div>
-                        <h2>Talleres y Capacitaciones</h2>
-                        <p>Ofrecemos talleres, pláticas y programas de capacitación dirigidos a padres de familia,
-                            profesionales de la educación y público en general, con el objetivo de fomentar la
-                            inclusión, brindar estrategias prácticas de manejo y aumentar la concientización sobre el
-                            neurodesarrollo.</p>
-                        <a href="contacto.html" class="btn btn-outline" style="margin-top: 15px;">Solicitar
-                            Información</a>
-                    </div>
-                </div>
+                    <h3>Finalidades del Tratamiento:</h3>
+                    <p>Los datos personales serán utilizados para las siguientes finalidades principales:</p>
+                    <ul class="symptoms-list">
+                        <li>Brindar servicios de atención, evaluación y seguimiento psicológico o psicopedagógico.</li>
+                        <li>Agendar y confirmar citas.</li>
+                        <li>Dar cumplimiento a obligaciones derivadas de la relación profesional o contractual.</li>
+                        <li>Mantener comunicación administrativa o informativa sobre los servicios proporcionados.</li>
+                    </ul>
+                    <p>De manera adicional, los datos podrán usarse para fines estadísticos, académicos o de mejora de
+                        calidad, siempre de forma disociada y sin identificar directamente al titular.</p>
 
+                    <h3>Derechos ARCO y Revocación del Consentimiento:</h3>
+                    <p>De acuerdo con la LFPDPPP, usted tiene derecho a Acceder, Rectificar, Cancelar u Oponerse
+                        (derechos ARCO) al tratamiento de sus datos personales.</p>
+                    <ul class="symptoms-list">
+                        <li><strong>Acceso:</strong> Puede solicitar conocer qué datos personales tenemos y con qué
+                            finalidad los utilizamos.</li>
+                        <li><strong>Rectificación:</strong> Puede pedir la corrección de su información si es inexacta o
+                            incompleta.</li>
+                        <li><strong>Cancelación:</strong> Puede solicitar la eliminación de sus datos cuando considere
+                            que no se requieren para los fines indicados o que están siendo tratados indebidamente.</li>
+                        <li><strong>Oposición:</strong> Puede oponerse al tratamiento de sus datos para fines
+                            específicos.</li>
+                    </ul>
+                    <p>Asimismo, usted puede revocar en cualquier momento su consentimiento para el uso de sus datos
+                        personales. Para ejercer cualquiera de estos derechos o revocar su consentimiento, deberá enviar
+                        una solicitud por escrito al correo electrónico <a href="mailto:miicneurodesarrollo@gmail.com"
+                            style="color: var(--accent-blue); text-decoration: underline;">miicneurodesarrollo@gmail.com</a>,
+                        incluyendo su nombre completo, medio para recibir notificaciones, identificación oficial y
+                        descripción clara del derecho que desea ejercer.</p>
+                    <p>La solicitud será atendida conforme a los plazos y procedimientos establecidos por la LFPDPPP y
+                        su Reglamento.</p>
+
+                    <h3>Medidas de Seguridad:</h3>
+                    <p>Se aplican medidas físicas, administrativas y tecnológicas para proteger sus datos personales
+                        contra daño, pérdida, alteración, destrucción o uso no autorizado. Solo el personal autorizado
+                        tiene acceso a la información y está obligado a mantener la confidencialidad.</p>
+
+                    <h3>Cambios al Aviso de Privacidad:</h3>
+                    <p>Este aviso puede ser modificado o actualizado en cualquier momento para cumplir con cambios
+                        legales o internos. Las versiones actualizadas estarán disponibles en <a
+                            href="https://miic-neurodesarrollo.org/" target="_blank"
+                            style="color: var(--accent-blue); text-decoration: underline;">https://miic-neurodesarrollo.org/</a>
+                        o en nuestras oficinas.</p>
+                </article>
+
+                <article id="terminos" class="page-section-card">
+                    <h2>Términos y Condiciones</h2>
+                    <p>Al acceder y utilizar el sitio web de Manos Inclusivas A.C., usted acepta estar sujeto a los
+                        siguientes términos y condiciones de uso. Estos términos se aplican a todas las visitas,
+                        donaciones e interacciones con nuestra plataforma digital.</p>
+                    <p><strong>Uso del sitio:</strong> El contenido de las páginas de este sitio web es para su
+                        información y uso general. Está sujeto a cambios sin previo aviso.</p>
+                </article>
+
+                <article id="transparencia" class="page-section-card">
+                    <h2>Transparencia</h2>
+                    <p>En Manos Inclusivas A.C. promovemos la claridad en la gestión de nuestros recursos. Creemos que
+                        la honestidad y la rendición de cuentas son fundamentales para construir relaciones de largo
+                        plazo con nuestros donantes, aliados y beneficiarios.</p>
+                    <p>Trabajamos diariamente para que cada aportación tenga el mayor impacto social posible. Si desea
+                        consultar nuestros reportes anuales de actividades o financieros, póngase en contacto con
+                        nosotros.</p>
+                </article>
             </div>
-        </section>
+        </div>
     </main>
 
     <footer>
@@ -326,7 +292,6 @@
             </div>
         </div>
     </footer>
-
 
     <script src="assets/js/main.js"></script>
     <script src="assets/js/neural-loader.js"></script>

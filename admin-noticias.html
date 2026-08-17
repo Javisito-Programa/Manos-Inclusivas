@@ -13,7 +13,7 @@
         }
 
         .admin-container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             background: white;
             padding: 40px;
@@ -23,14 +23,8 @@
         }
 
         @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .admin-header {
@@ -49,13 +43,6 @@
             border-radius: 50%;
             margin-bottom: 20px;
             box-shadow: var(--shadow-soft);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(149, 117, 205, 0.4); }
-            70% { box-shadow: 0 0 0 15px rgba(149, 117, 205, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(149, 117, 205, 0); }
         }
 
         .admin-header h1 {
@@ -115,12 +102,6 @@
             transform: translateY(-2px);
         }
 
-        .btn-submit:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-            transform: none;
-        }
-
         .alert {
             padding: 15px;
             border-radius: 8px;
@@ -129,17 +110,8 @@
             font-weight: 600;
         }
 
-        .alert-success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .alert-error {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
+        .alert-success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .alert-error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
 
         .back-link {
             display: inline-block;
@@ -148,16 +120,75 @@
             font-weight: 600;
             text-decoration: none;
         }
-        
-        .back-link:hover {
-            color: var(--accent-purple);
+
+        .file-upload-wrapper {
+            border: 2px dashed var(--bg-secondary);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 10px;
+            background: #fafafa;
         }
         
-        .help-text {
-            font-size: 0.85rem;
+        .help-text { font-size: 0.85rem; color: #666; margin-top: 5px; display: block; }
+
+        .news-list-container {
+            margin-top: 40px;
+            border-top: 2px solid var(--bg-secondary);
+            padding-top: 30px;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--bg-secondary);
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            font-family: var(--font-main);
+        }
+
+        .news-item {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .news-info h3 {
+            margin: 0 0 5px 0;
+            color: var(--accent-purple);
+            font-size: 1.1rem;
+        }
+
+        .news-info p {
+            margin: 0;
             color: #666;
-            margin-top: 5px;
-            display: block;
+            font-size: 0.9rem;
+        }
+
+        .news-actions button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .btn-edit { background: #ffc107; color: #000; }
+        .btn-delete { background: #dc3545; color: white; }
+        .btn-cancel { background: #6c757d; color: white; display: none; margin-top: 10px;}
+        
+        @media (max-width: 600px) {
+            .news-item { flex-direction: column; align-items: flex-start; }
+            .news-actions { margin-top: 15px; }
+            .news-actions button { margin-left: 0; margin-right: 10px; }
         }
     </style>
 </head>
@@ -168,22 +199,29 @@
         
         <div class="admin-header">
             <img src="img/Logo circular.png" alt="Logo Manos Inclusivas">
-            <h1>Panel de Noticias</h1>
-            <p>Publica nuevas actualizaciones en el Tablón de Noticias</p>
+            <h1 id="formTitle">Panel de Noticias</h1>
+            <p>Publica o edita actualizaciones en el Tablón de Noticias</p>
         </div>
 
         <div id="alertBox" class="alert"></div>
 
         <form id="newsForm">
+            <input type="hidden" id="newsId">
+            
             <div class="form-group">
                 <label for="title">Título de la Noticia *</label>
                 <input type="text" id="title" class="form-control" placeholder="Ej: Próximo taller para padres" required>
             </div>
 
             <div class="form-group">
-                <label for="image">URL de la Imagen de Internet (Recomendado)</label>
-                <input type="url" id="image" class="form-control" placeholder="Ej: https://ejemplo.com/imagen.jpg">
-                <span class="help-text">Simplemente busca una imagen en Google u otra página, haz clic derecho, copia la dirección de la imagen y pégala aquí.</span>
+                <label>Imagen de la Noticia</label>
+                <div class="file-upload-wrapper">
+                    <input type="file" id="imageFile" accept="image/*" class="form-control" style="border:none; background:none;">
+                    <span class="help-text">Sube una imagen desde tu computadora</span>
+                </div>
+                <div style="text-align:center; margin: 10px 0; font-weight: bold;">O</div>
+                <input type="url" id="image" class="form-control" placeholder="URL de la imagen de internet">
+                <span class="help-text">Pega un enlace de internet si lo prefieres (opcional si subiste archivo).</span>
             </div>
 
             <div class="form-group">
@@ -192,66 +230,169 @@
             </div>
 
             <button type="submit" id="submitBtn" class="btn-submit">Publicar Noticia</button>
+            <button type="button" id="cancelBtn" class="btn-submit btn-cancel" onclick="cancelEdit()">Cancelar Edición</button>
         </form>
+
+        <div class="news-list-container">
+            <h2>Noticias Publicadas</h2>
+            <input type="text" id="searchNews" class="search-bar" placeholder="Buscar noticias por título o contenido..." oninput="filterNews()">
+            <div id="newsList">
+                <!-- Cargando noticias... -->
+            </div>
+        </div>
     </div>
 
     <script>
+        let allNews = [];
+
+        // Cargar noticias al iniciar
+        document.addEventListener('DOMContentLoaded', loadNews);
+
+        function loadNews() {
+            fetch('api/noticias.json?t=' + new Date().getTime())
+                .then(res => res.json())
+                .then(data => {
+                    allNews = data;
+                    renderNews(data);
+                })
+                .catch(err => console.error('Error cargando noticias:', err));
+        }
+
+        function renderNews(newsArray) {
+            const list = document.getElementById('newsList');
+            list.innerHTML = '';
+            
+            if (newsArray.length === 0) {
+                list.innerHTML = '<p style="text-align:center; color:#666;">No hay noticias publicadas.</p>';
+                return;
+            }
+
+            newsArray.forEach(news => {
+                const dateObj = new Date(news.date);
+                const dateStr = dateObj.toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' });
+                
+                const div = document.createElement('div');
+                div.className = 'news-item';
+                div.innerHTML = `
+                    <div class="news-info">
+                        <h3>${news.title || 'Sin Título'}</h3>
+                        <p>${dateStr}</p>
+                    </div>
+                    <div class="news-actions">
+                        <button class="btn-edit" onclick="editNews('${news.id}')">Editar</button>
+                        <button class="btn-delete" onclick="deleteNews('${news.id}')">Eliminar</button>
+                    </div>
+                `;
+                list.appendChild(div);
+            });
+        }
+
+        function filterNews() {
+            const query = document.getElementById('searchNews').value.toLowerCase();
+            const filtered = allNews.filter(n => 
+                (n.title && n.title.toLowerCase().includes(query)) || 
+                (n.content && n.content.toLowerCase().includes(query))
+            );
+            renderNews(filtered);
+        }
+
+        function editNews(id) {
+            const news = allNews.find(n => n.id === id);
+            if (!news) return;
+
+            document.getElementById('newsId').value = news.id;
+            document.getElementById('title').value = news.title;
+            document.getElementById('content').value = news.content;
+            document.getElementById('image').value = news.image || '';
+            document.getElementById('imageFile').value = ''; // Limpiar input file
+            
+            document.getElementById('formTitle').textContent = 'Editar Noticia';
+            document.getElementById('submitBtn').textContent = 'Guardar Cambios';
+            document.getElementById('cancelBtn').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function cancelEdit() {
+            document.getElementById('newsForm').reset();
+            document.getElementById('newsId').value = '';
+            document.getElementById('formTitle').textContent = 'Panel de Noticias';
+            document.getElementById('submitBtn').textContent = 'Publicar Noticia';
+            document.getElementById('cancelBtn').style.display = 'none';
+        }
+
+        function deleteNews(id) {
+            if (!confirm('¿Estás seguro de que deseas eliminar esta noticia? Esta acción no se puede deshacer.')) return;
+
+            fetch(`api/noticias.php?action=delete&id=${id}`, {
+                method: 'POST' // Usamos POST con query params por si DELETE es bloqueado por servidor
+            })
+            .then(res => res.json())
+            .then(result => {
+                if(result.status === 'success') {
+                    showAlert('Noticia eliminada correctamente.', 'success');
+                    loadNews();
+                    cancelEdit(); // Por si estaba editando la que borró
+                } else {
+                    showAlert(result.message, 'error');
+                }
+            })
+            .catch(err => showAlert('Error de conexión al eliminar', 'error'));
+        }
+
+        function showAlert(msg, type) {
+            const alertBox = document.getElementById('alertBox');
+            alertBox.className = 'alert alert-' + type;
+            alertBox.textContent = msg;
+            alertBox.style.display = 'block';
+            setTimeout(() => { alertBox.style.display = 'none'; }, 5000);
+        }
+
         document.getElementById('newsForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
             const btn = document.getElementById('submitBtn');
-            const alertBox = document.getElementById('alertBox');
+            const fileInput = document.getElementById('imageFile');
             
-            // Recoger datos
-            const title = document.getElementById('title').value;
-            const image = document.getElementById('image').value;
-            const content = document.getElementById('content').value;
-
-            // UI feedback
             btn.disabled = true;
-            btn.textContent = 'Publicando...';
-            alertBox.style.display = 'none';
+            btn.textContent = 'Procesando...';
+            document.getElementById('alertBox').style.display = 'none';
 
-            // Datos a enviar
-            const data = {
-                title: title,
-                content: content,
-                image: image
-            };
+            // Usar FormData para soportar archivos
+            const formData = new FormData();
+            formData.append('id', document.getElementById('newsId').value);
+            formData.append('title', document.getElementById('title').value);
+            formData.append('content', document.getElementById('content').value);
+            formData.append('image', document.getElementById('image').value);
+            
+            if (fileInput.files.length > 0) {
+                formData.append('imageFile', fileInput.files[0]);
+            }
 
-            // Petición a la API PHP
             fetch('api/noticias.php', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
+                body: formData
             })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Error en el servidor');
-                }
-                return response.json();
-            })
+            .then(response => response.json())
             .then(result => {
                 if (result.status === 'success') {
-                    alertBox.className = 'alert alert-success';
-                    alertBox.textContent = '¡Noticia publicada con éxito!';
-                    alertBox.style.display = 'block';
-                    document.getElementById('newsForm').reset();
+                    showAlert(result.message, 'success');
+                    cancelEdit();
+                    loadNews();
                 } else {
                     throw new Error(result.message || 'Error desconocido');
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alertBox.className = 'alert alert-error';
-                alertBox.textContent = 'Hubo un error al publicar. Verifica que estás en el servidor (Hostinger). Error: ' + error.message;
-                alertBox.style.display = 'block';
+                showAlert('Hubo un error al guardar. Verifica permisos del servidor. Detalle: ' + error.message, 'error');
             })
             .finally(() => {
                 btn.disabled = false;
-                btn.textContent = 'Publicar Noticia';
+                if(document.getElementById('newsId').value === '') {
+                    btn.textContent = 'Publicar Noticia';
+                } else {
+                    btn.textContent = 'Guardar Cambios';
+                }
             });
         });
     </script>
