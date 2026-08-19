@@ -25,8 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
         constructor() {
             this.x = Math.random() * width;
             this.y = Math.random() * height;
-            this.vx = (Math.random() - 0.5) * 2;
-            this.vy = (Math.random() - 0.5) * 2;
+            this.vx = (Math.random() - 0.5) * 0.6;
+            this.vy = (Math.random() - 0.5) * 0.6;
             this.radius = Math.random() * 4.3 + 1.4;
             this.color = colors[Math.floor(Math.random() * colors.length)];
             this.targetX = width / 2; // Center for collapse
@@ -46,7 +46,10 @@ document.addEventListener('DOMContentLoaded', () => {
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
             ctx.fillStyle = this.color;
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = this.color;
             ctx.fill();
+            ctx.shadowBlur = 0; // reset
         }
     }
 
@@ -97,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Determinar el tiempo de carga basado en la página actual
     const isHomePage = window.location.pathname.endsWith('index.html') || window.location.pathname === '/' || window.location.pathname.endsWith('Fundacion/');
-    const loadTime = isHomePage ? 2500 : 600;
+    const loadTime = isHomePage ? 2500 : 1200;
 
     // Trigger fade out and load after a delay (simulating page load)
     // In a real app, this would be tied to window.onload or specific fetch promises

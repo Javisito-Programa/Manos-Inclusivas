@@ -4,61 +4,180 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Citas - Manos Inclusivas A.C.</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/loading.css">
-    <style>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style-v2.css?v=22">
+    <link rel="stylesheet" href="assets/css/loading.css?v=22">
+    
+    <style id='cache-busted-styles-citas-v1'>
+        /* CITAS HERO */
+        .citas-hero {
+            position: relative;
+            padding: 160px 20px 250px;
+            text-align: center;
+            background: url('img/Cita.jpg') center center / cover no-repeat;
+            background-attachment: fixed;
+            margin-bottom: -100px;
+        }
+        .citas-hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.85) 0%, rgba(168, 85, 247, 0.8) 100%);
+            z-index: 1;
+        }
+        .citas-hero-content {
+            position: relative;
+            z-index: 2;
+            animation: slideUpFade 1s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+        }
+        .citas-hero h1 {
+            font-size: 4rem;
+            color: #ffffff;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        .citas-hero p {
+            font-size: 1.3rem;
+            color: rgba(255,255,255,0.9);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* CUSTOM LOCATOR CONTAINER */
         .locator-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 40px;
+            gap: 0; /* Removing gap to make it a seamless split card */
             background: white;
-            border-radius: var(--border-radius-soft);
-            box-shadow: var(--shadow-soft);
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
             overflow: hidden;
+            position: relative;
+            z-index: 10;
+            max-width: 1000px;
+            margin: 0 auto 80px;
+            transform: translateY(-50px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+        .locator-container:hover {
+            transform: translateY(-55px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+        }
+        
         .map-section {
-            background-color: #e0e0e0; /* Placeholder map background */
-            min-height: 400px;
+            background-color: #e0e0e0;
+            min-height: 450px;
+            position: relative;
+        }
+        .map-section iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            filter: contrast(1.1) saturate(1.2); /* Make map look a bit punchier */
+        }
+        
+        .form-section {
+            padding: 50px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: #ffffff;
+        }
+        
+        .form-section h3 {
+            font-size: 2.2rem;
+            color: var(--text-main);
+            margin-bottom: 15px;
+        }
+        
+        .clinic-info-card {
+            background: var(--bg-secondary);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border-left: 5px solid var(--accent-purple);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+        .clinic-info-card p {
+            margin-bottom: 8px;
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+        .clinic-info-card strong {
+            color: var(--text-main);
+        }
+        
+        .btn-whatsapp-massive {
             display: flex;
             align-items: center;
             justify-content: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: white;
+            padding: 18px 30px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s ease;
             position: relative;
+            overflow: hidden;
         }
-        .form-section {
-            padding: 40px;
+        .btn-whatsapp-massive::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: all 0.5s ease;
         }
-        .form-group {
-            margin-bottom: 20px;
+        .btn-whatsapp-massive:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(37, 211, 102, 0.5);
+            color: white;
         }
-        .form-label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
+        .btn-whatsapp-massive:hover::before {
+            left: 100%;
         }
-        .form-control {
+
+        /* Waves for transition */
+        .citas-waves {
+            position: absolute;
+            bottom: -5px;
+            left: 0;
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-family: var(--font-main);
+            line-height: 0;
+            z-index: 2;
         }
-        .clinic-info-card {
-            background: var(--bg-tertiary);
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border-left: 4px solid var(--accent-purple);
+        .citas-waves svg {
+            width: 100%;
+            height: 80px;
+            fill: #fdfbf7; /* bg-primary */
         }
+
         @media (max-width: 768px) {
             .locator-container {
                 grid-template-columns: 1fr;
+                transform: translateY(-30px);
+            }
+            .locator-container:hover {
+                transform: translateY(-30px);
             }
             .map-section {
-                min-height: 250px;
+                min-height: 300px;
             }
+            .form-section {
+                padding: 40px 25px;
+            }
+            .citas-hero {
+                padding: 120px 15px 180px;
+            }
+            .citas-hero h1 { font-size: 2.5rem; }
         }
     </style>
+
 </head>
 <body>
 
@@ -72,10 +191,11 @@
     </div>
 
     <header>
+
         <div class="container navbar">
             <a href="index.html" class="logo-container">
-                <img src="img/Logo circular.png" alt="Logo Manos Inclusivas"
-                    style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;">
+                <model-viewer id="nav-3d-logo" src="assets/logo.glb" alt="Logo Manos Inclusivas"
+                    camera-orbit="0deg 90deg auto" interaction-prompt="none" disable-zoom></model-viewer>
                 <div class="logo-text">
                     <h2>Manos Inclusivas</h2>
                     <span>Iluminando Corazones A.C.</span>
@@ -85,13 +205,16 @@
             <button class="hamburger" aria-label="Abrir menú">☰</button>
 
             <nav class="nav-links">
-                <div class="nav-item"><a href="index.html" class="nav-link">INICIO</a></div>
+                <div class="nav-item"><a href="index.html" class="nav-link"
+                        >INICIO</a>
+                </div>
                 <div class="nav-item">
                     <a href="nosotros.html" class="nav-link">NOSOTROS</a>
                     <ul class="dropdown-menu">
-                        <li><a href="nosotros.html#mision" class="dropdown-item">Nuestra Misión</a></li>
+                        <li><a href="nosotros.html#historia" class="dropdown-item">Nuestra Historia</a></li>
+                        <li><a href="nosotros.html#mision" class="dropdown-item">Misión y Visión</a></li>
+                        <li><a href="nosotros.html#valores" class="dropdown-item">Valores</a></li>
                         <li><a href="nosotros.html#equipo" class="dropdown-item">Nuestro Equipo</a></li>
-                        <li><a href="quienes-somos.html#historia" class="dropdown-item">Instalaciones</a></li>
                     </ul>
                 </div>
                 <div class="nav-item">
@@ -106,71 +229,98 @@
                     </ul>
                 </div>
                 <div class="nav-item">
-                    <a href="quienes-somos.html" class="nav-link">QUIÉNES SOMOS</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="quienes-somos.html#historia" class="dropdown-item">Nuestra Historia</a></li>
-                        <li><a href="quienes-somos.html#mision" class="dropdown-item">Misión</a></li>
-                        <li><a href="quienes-somos.html#vision" class="dropdown-item">Visión</a></li>
-                        <li><a href="quienes-somos.html#valores" class="dropdown-item">Valores</a></li>
-                    </ul>
-                </div>
-                <div class="nav-item">
                     <a href="recursos.html" class="nav-link">RECURSOS</a>
                     <ul class="dropdown-menu">
-                        <li><a href="recursos.html#tea" class="dropdown-item">¿Qué es el TEA?</a></li>
-                        <li><a href="recursos.html#tdah" class="dropdown-item">¿Qué es el TDAH?</a></li>
+                        <li><a href="recursos.html#tea" class="dropdown-item">Autismo (TEA)</a></li>
+                        <li><a href="recursos.html#tdah" class="dropdown-item">TDAH</a></li>
+                        <li><a href="recursos.html#di" class="dropdown-item">Discapacidad Intelectual</a></li>
+                        <li><a href="recursos.html#teap" class="dropdown-item">Trastornos del Aprendizaje</a></li>
                     </ul>
                 </div>
                 <div class="nav-item"><a href="noticias.html" class="nav-link">NOTICIAS</a></div>
                 <div class="nav-item"><a href="citas.html" class="nav-link" style="color: var(--accent-purple);">CITAS</a></div>
                 <div class="nav-item"><a href="contacto.html" class="nav-link">CONTACTO</a></div>
-                <div class="nav-item"><a href="donar.html" class="btn btn-primary">DONAR</a></div>
+                <div class="nav-item"><a href="donar.html" class="btn btn-donate">DONAR</a></div>
+            
+                <!-- Translate Widget -->
+                <div class="nav-item custom-lang-selector">
+                    <div class="lang-btn" id="lang-btn">
+                        <span class="icon">🌍</span>
+                        <span id="current-lang-text">Español</span>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <ul class="lang-dropdown" id="lang-dropdown">
+                        <li data-lang="es" class="active">Español</li>
+                        <li data-lang="en">English</li>
+                        <li data-lang="fr">Français</li>
+                        <li data-lang="de">Deutsch</li>
+                        <li data-lang="it">Italiano</li>
+                        <li data-lang="pt">Português</li>
+                        <li data-lang="ja">日本語</li>
+                        <li data-lang="zh-CN">中文</li>
+                    </ul>
+                    <div id="google_translate_element" style="display:none;"></div>
+                </div>
             </nav>
         </div>
+
     </header>
 
-    <main class="section-padding bg-lavender">
-        <div class="container">
-            <div class="text-center" style="margin-bottom: 40px;">
-                <h1>Nuestra Clínica</h1>
-                <p>Ven a visitarnos. Estamos listos para recibirte con los brazos abiertos en nuestras instalaciones.</p>
+    
+    <main class="bg-primary">
+        <!-- Hero Section -->
+        <section class="citas-hero">
+            <div class="container citas-hero-content">
+                <h1>Agendar Cita</h1>
+                <p>Ven a visitarnos. Estamos listos para recibirte con los brazos abiertos en nuestras instalaciones. Da el primer paso hacia el bienestar.</p>
             </div>
+            
+            <!-- Curved Wave Transition -->
+            <div class="citas-waves">
+                <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+                    <path d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,42.7C1120,32,1280,32,1360,32L1440,32L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"></path>
+                </svg>
+            </div>
+        </section>
 
+        <!-- Container pulled up over the hero -->
+        <section class="container">
             <div class="locator-container">
-                <!-- Map Section -->
+                
+                <!-- Left: Form/Info Section -->
+                <div class="form-section">
+                    <h3>¿Listo para iniciar?</h3>
+                    <p style="margin-bottom: 25px; color: var(--text-muted); line-height: 1.6;">
+                        Para brindarte una atención más rápida, directa y personalizada, estamos gestionando todas nuestras citas directamente a través de WhatsApp.
+                    </p>
+                    
+                    <div class="clinic-info-card">
+                        <h4 style="color: var(--accent-purple); margin-bottom: 12px; font-size: 1.2rem;">Manos Inclusivas A.C.</h4>
+                        <p><strong><span style="font-size: 1.2rem; margin-right: 5px;">📍</span> Ubicación:</strong> Kanasín, Yucatán</p>
+                        <p><strong><span style="font-size: 1.2rem; margin-right: 5px;">🕒</span> Horario:</strong> Lunes a Viernes, 9:00 AM - 5:00 PM</p>
+                    </div>
+
+                    <a href="https://wa.me/5213111469377?text=Hola,%20me%20gustar%C3%ADa%20agendar%20una%20cita%20en%20Manos%20Inclusivas." target="_blank" class="btn-whatsapp-massive">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
+                        Agendar por WhatsApp
+                    </a>
+                </div>
+
+                <!-- Right: Map Section -->
                 <div class="map-section">
                     <iframe 
-                        width="100%" 
-                        height="100%" 
-                        style="border:0; min-height: 400px;" 
-                        allowfullscreen="" 
                         loading="lazy" 
                         referrerpolicy="no-referrer-when-downgrade"
                         src="https://maps.google.com/maps?q=20.9597263,-89.5372314&hl=es&z=17&amp;output=embed">
                     </iframe>
                 </div>
 
-                <!-- WhatsApp Appointment Card -->
-                <div class="form-section" style="display: flex; flex-direction: column; justify-content: center;">
-                    <h3>Agendar Cita</h3>
-                    <p style="margin-bottom: 30px; color: var(--text-muted);">Para brindarte una atención más rápida y personalizada, estamos gestionando todas nuestras citas directamente a través de WhatsApp.</p>
-                    
-                    <div class="clinic-info-card">
-                        <h4 style="color: var(--accent-purple); margin-bottom: 10px;">Manos Inclusivas A.C.</h4>
-                        <p><strong>Ubicación:</strong> Kanasín, Yucatán</p>
-                        <p><strong>Horario:</strong> Lunes a Viernes, 9:00 AM - 5:00 PM</p>
-                    </div>
-
-                    <a href="https://wa.me/5213111469377?text=Hola,%20me%20gustar%C3%ADa%20agendar%20una%20cita%20en%20Manos%20Inclusivas." target="_blank" class="btn btn-primary" style="width: 100%; text-align: center; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 1.1rem; padding: 15px;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                        </svg>
-                        Agendar por WhatsApp
-                    </a>
-                </div>
             </div>
-        </div>
+        </section>
     </main>
+
 
     <footer>
         <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
@@ -234,6 +384,17 @@
     </footer>
     
     <script src="assets/js/main.js"></script>
-    <script src="assets/js/neural-loader.js"></script>
+    <script src="assets/js/neural-loader.js?v=18"></script>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'es', 
+                includedLanguages: 'en,fr,de,zh-CN,it,pt,ja,es', 
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script src="assets/js/translator.js?v=16"></script>
 </body>
 </html>

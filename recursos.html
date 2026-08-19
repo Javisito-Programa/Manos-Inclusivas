@@ -4,10 +4,247 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recursos Educativos - Manos Inclusivas A.C.</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/loading.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style-v2.css?v=22">
+    <link rel="stylesheet" href="assets/css/loading.css?v=22">
     
+
+
+<style id='cache-busted-styles-recursos-v3'>
+/* DYNAMIC HERO RECURSOS */
+.hero-recursos {
+    position: relative;
+    padding: 120px 20px 100px;
+    text-align: center;
+    background-color: #1e293b;
+    overflow: hidden;
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+}
+
+/* Animated background image layer */
+.hero-recursos::before {
+    content: '';
+    position: absolute;
+    top: -10%; left: -10%; right: -10%; bottom: -10%;
+    background: url('img/Recursos.jpg') center bottom / cover no-repeat;
+    animation: slowPan 25s ease-in-out infinite alternate;
+    z-index: 1;
+}
+
+@keyframes slowPan {
+    0% { transform: scale(1) translate(0, 0); }
+    100% { transform: scale(1.05) translate(1%, -1%); }
+}
+
+/* Gradient overlay */
+.hero-recursos::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(139, 92, 246, 0.5) 100%);
+    z-index: 2;
+}
+
+/* Glassmorphic Text Container */
+.hero-recursos-content {
+    position: relative;
+    z-index: 3;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 80px 60px;
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    max-width: 800px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    transform: translateY(0);
+    animation: morphBubble 10s ease-in-out infinite;
+}
+
+
+@keyframes morphBubble {
+    0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+    50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+    100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+}
+
+    50% { transform: translateY(-10px); }
+}
+
+.hero-recursos h1 {
+    color: #ffffff !important;
+    font-size: 3.5rem;
+    font-weight: 800;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    margin-bottom: 15px;
+    background: linear-gradient(to right, #fff, #e0e7ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-recursos p {
+    color: #f8fafc !important;
+    font-size: 1.25rem !important;
+    line-height: 1.6;
+    margin: 0 auto;
+    font-weight: 300;
+}
+
+/* SVG Wave Divider */
+.custom-shape-divider-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+    z-index: 3;
+}
+
+.custom-shape-divider-bottom svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 60px;
+}
+
+.custom-shape-divider-bottom .shape-fill {
+    fill: #fdfbf7; /* Matches .bg-beige background color */
+}
+
+
+/* Responsive Hero */
+@media (max-width: 768px) {
+    .hero-recursos {
+        padding: 130px 15px 70px;
+        min-height: 50vh;
+    }
+    .hero-recursos-content {
+        padding: 50px 20px;
+    }
+    .hero-recursos h1 {
+        font-size: 2.2rem !important;
+    }
+    .hero-recursos p {
+        font-size: 1.05rem !important;
+    }
+    .custom-shape-divider-bottom svg {
+        height: 35px;
+    }
+}
+/* DYNAMIC CONTENT CARDS */
+
+
+.recurso-card {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    margin-bottom: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    border-top: 5px solid var(--accent-purple);
+    transition: transform 0.1s ease-out;
+}
+.recurso-card:hover {
+    transform: translateY(-5px);
+}
+.recurso-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+.recurso-icon {
+    font-size: 3rem;
+    background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.recurso-card h2 {
+    font-size: 2.2rem;
+    color: #1e293b !important; caret-color: #4f46e5 !important;
+    margin: 0;
+}
+.recurso-subtitle {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    margin-bottom: 30px;
+}
+
+/* Info Grids */
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-top: 30px;
+}
+@media (max-width: 768px) {
+    .info-grid { grid-template-columns: 1fr; }
+}
+.info-box {
+    background: var(--bg-primary);
+    padding: 25px;
+    border-radius: 15px;
+    border-left: 4px solid var(--accent-blue);
+}
+.info-box.fortalezas {
+    border-left-color: #10b981; /* Green for strengths */
+    background: rgba(16, 185, 129, 0.05);
+}
+.info-box.paciente {
+    border-left-color: var(--accent-pink);
+    background: rgba(236, 72, 153, 0.05);
+}
+.info-box.cuidador {
+    border-left-color: var(--accent-purple);
+    background: rgba(107, 70, 193, 0.05);
+}
+.info-box h4 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    color: #1e293b !important; caret-color: #4f46e5 !important;
+}
+.info-box ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.info-box ul li {
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 12px;
+    color: var(--text-body);
+    line-height: 1.5;
+}
+.info-box ul li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    top: -2px;
+    font-size: 1.5rem;
+    color: inherit;
+}
+.fortalezas ul li::before { color: #10b981; }
+.paciente ul li::before { color: var(--accent-pink); }
+.cuidador ul li::before { color: var(--accent-purple); }
+
+.no-results {
+    text-align: center;
+    padding: 80px 60px;
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    display: none;
+}
+</style>
+
 </head>
 <body>
 
@@ -21,10 +258,11 @@
     </div>
 
     <header>
+
         <div class="container navbar">
             <a href="index.html" class="logo-container">
-                <img src="img/Logo circular.png" alt="Logo Manos Inclusivas"
-                    style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;">
+                <model-viewer id="nav-3d-logo" src="assets/logo.glb" alt="Logo Manos Inclusivas"
+                    camera-orbit="0deg 90deg auto" interaction-prompt="none" disable-zoom></model-viewer>
                 <div class="logo-text">
                     <h2>Manos Inclusivas</h2>
                     <span>Iluminando Corazones A.C.</span>
@@ -34,13 +272,16 @@
             <button class="hamburger" aria-label="Abrir menú">☰</button>
 
             <nav class="nav-links">
-                <div class="nav-item"><a href="index.html" class="nav-link">INICIO</a></div>
+                <div class="nav-item"><a href="index.html" class="nav-link"
+                        >INICIO</a>
+                </div>
                 <div class="nav-item">
                     <a href="nosotros.html" class="nav-link">NOSOTROS</a>
                     <ul class="dropdown-menu">
-                        <li><a href="nosotros.html#mision" class="dropdown-item">Nuestra Misión</a></li>
+                        <li><a href="nosotros.html#historia" class="dropdown-item">Nuestra Historia</a></li>
+                        <li><a href="nosotros.html#mision" class="dropdown-item">Misión y Visión</a></li>
+                        <li><a href="nosotros.html#valores" class="dropdown-item">Valores</a></li>
                         <li><a href="nosotros.html#equipo" class="dropdown-item">Nuestro Equipo</a></li>
-                        <li><a href="quienes-somos.html#historia" class="dropdown-item">Instalaciones</a></li>
                     </ul>
                 </div>
                 <div class="nav-item">
@@ -55,86 +296,383 @@
                     </ul>
                 </div>
                 <div class="nav-item">
-                    <a href="quienes-somos.html" class="nav-link">QUIÉNES SOMOS</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="quienes-somos.html#historia" class="dropdown-item">Nuestra Historia</a></li>
-                        <li><a href="quienes-somos.html#mision" class="dropdown-item">Misión</a></li>
-                        <li><a href="quienes-somos.html#vision" class="dropdown-item">Visión</a></li>
-                        <li><a href="quienes-somos.html#valores" class="dropdown-item">Valores</a></li>
-                    </ul>
-                </div>
-                <div class="nav-item">
                     <a href="recursos.html" class="nav-link" style="color: var(--accent-purple);">RECURSOS</a>
                     <ul class="dropdown-menu">
-                        <li><a href="recursos.html#tea" class="dropdown-item">¿Qué es el TEA?</a></li>
-                        <li><a href="recursos.html#tdah" class="dropdown-item">¿Qué es el TDAH?</a></li>
+                        <li><a href="recursos.html#tea" class="dropdown-item">Autismo (TEA)</a></li>
+                        <li><a href="recursos.html#tdah" class="dropdown-item">TDAH</a></li>
+                        <li><a href="recursos.html#di" class="dropdown-item">Discapacidad Intelectual</a></li>
+                        <li><a href="recursos.html#teap" class="dropdown-item">Trastornos del Aprendizaje</a></li>
                     </ul>
                 </div>
                 <div class="nav-item"><a href="noticias.html" class="nav-link">NOTICIAS</a></div>
                 <div class="nav-item"><a href="citas.html" class="nav-link">CITAS</a></div>
                 <div class="nav-item"><a href="contacto.html" class="nav-link">CONTACTO</a></div>
-                <div class="nav-item"><a href="donar.html" class="btn btn-primary">DONAR</a></div>
+                <div class="nav-item"><a href="donar.html" class="btn btn-donate">DONAR</a></div>
+            
+                <!-- Translate Widget -->
+                <div class="nav-item custom-lang-selector">
+                    <div class="lang-btn" id="lang-btn">
+                        <span class="icon">🌍</span>
+                        <span id="current-lang-text">Español</span>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <ul class="lang-dropdown" id="lang-dropdown">
+                        <li data-lang="es" class="active">Español</li>
+                        <li data-lang="en">English</li>
+                        <li data-lang="fr">Français</li>
+                        <li data-lang="de">Deutsch</li>
+                        <li data-lang="it">Italiano</li>
+                        <li data-lang="pt">Português</li>
+                        <li data-lang="ja">日本語</li>
+                        <li data-lang="zh-CN">中文</li>
+                    </ul>
+                    <div id="google_translate_element" style="display:none;"></div>
+                </div>
             </nav>
         </div>
+
     </header>
 
+    
     <main class="bg-beige">
-        <section class="page-hero">
-            <svg class="bg-shape shape-1 decorative-circle circle-1" viewBox="0 0 100 100"></svg>
-            <svg class="bg-shape shape-2 decorative-circle circle-2" viewBox="0 0 100 100"></svg>
-            <h1>Biblioteca de Recursos</h1>
-            <p>Información clara y profesional sobre condiciones del neurodesarrollo.</p>
+        
+        <section class="hero-recursos">
+            <div class="hero-recursos-content">
+                <h1>Biblioteca de Neurodesarrollo</h1>
+                <p>Descubre el mundo a través de diferentes lentes. Información empática, clara y profesional para comprender y acompañar.</p>
+            </div>
+            
+            <!-- Wave Shape Divider -->
+            <div class="custom-shape-divider-bottom">
+                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                    <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+                </svg>
+            </div>
         </section>
+
 
         <div class="container page-content-grid">
             <!-- Sidebar Navigation -->
             <aside>
-                <div class="page-sidebar">
-                    <h3 style="font-size: 1.1rem; margin-bottom: 15px;">Índice</h3>
+                <div class="page-sidebar" style="position: sticky; top: 100px;">
+                    <h3 style="font-size: 1.1rem; margin-bottom: 15px;">Índice de Temas</h3>
                     <a href="#tea" class="sidebar-nav-link">Autismo (TEA)</a>
                     <a href="#tdah" class="sidebar-nav-link">TDAH</a>
-                    <a href="#dislexia" class="sidebar-nav-link">Dislexia</a>
-                    <a href="#altas-capacidades" class="sidebar-nav-link">Altas Capacidades</a>
+                    <a href="#di" class="sidebar-nav-link">Discapacidad Intelectual</a>
+                    <a href="#teap" class="sidebar-nav-link">TEAp (Aprendizaje)</a>
+                    <div style="padding-left: 15px; margin-top: 5px;">
+                        <a href="#dislexia" class="sidebar-nav-link" style="font-size: 0.95rem;">- Dislexia</a>
+                        <a href="#discalculia" class="sidebar-nav-link" style="font-size: 0.95rem;">- Discalculia</a>
+                        <a href="#disgrafia" class="sidebar-nav-link" style="font-size: 0.95rem;">- Disgrafía</a>
+                    </div>
                 </div>
             </aside>
 
             <!-- Content Area -->
-            <div>
-                <article id="tea" class="page-section-card">
-                    <h2>Trastorno del Espectro Autista (TEA)</h2>
-                    <p>El Trastorno del Espectro Autista es una condición del neurodesarrollo que se caracteriza por particularidades en la interacción social, la comunicación y la presencia de patrones de comportamiento, intereses o actividades restrictivos y repetitivos.</p>
-                    <h3>Características Comunes:</h3>
-                    <ul class="symptoms-list">
-                        <li>Dificultades en la reciprocidad socioemocional.</li>
-                        <li>Déficits en las conductas comunicativas no verbales.</li>
-                        <li>Hiper o hiporreactividad a los estímulos sensoriales.</li>
-                    </ul>
-                    <p><strong>Cómo apoyamos:</strong> A través de intervención temprana, terapia de lenguaje, psicología cognitiva y salas de integración sensorial.</p>
+            <div id="articlesContainer">
+                <div id="noResults" class="no-results">
+                    No encontramos artículos que coincidan con tu búsqueda. Intenta con otras palabras.
+                </div>
+
+                <!-- TEA -->
+                <article id="tea" class="recurso-card">
+                    <div class="recurso-header">
+                        <span class="recurso-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent-purple)"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></span>
+                        <h2>Trastorno del Espectro Autista (TEA)</h2>
+                    </div>
+                    <p class="recurso-subtitle">Una forma distinta de procesar el mundo, especialmente en la comunicación, la interacción social y la flexibilidad de pensamiento. Recordamos que el espectro no es lineal, sino que se manifiesta de muchas formas y colores en cada individuo.</p>
+                    
+                    <div class="info-box">
+                        <h4 style="color: var(--accent-blue);">🔍 Se caracteriza por:</h4>
+                        <ul style="--bullet-color: var(--accent-blue);">
+                            <li>Dificultad para comprender claves y sutilezas sociales.</li>
+                            <li>Intereses muy específicos, profundos o intensos.</li>
+                            <li>Preferencia por rutinas, estructuras y previsibilidad.</li>
+                            <li>Hipersensibilidad o baja sensibilidad a estímulos (sonidos, luces, texturas).</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-grid">
+                        <div class="info-box fortalezas">
+                            <h4 style="color: #10b981;">🌟 Fortalezas comunes</h4>
+                            <ul>
+                                <li>Atención excepcional al detalle.</li>
+                                <li>Gran honestidad y sinceridad.</li>
+                                <li>Memoria sobresaliente.</li>
+                                <li>Pensamiento profundamente lógico.</li>
+                            </ul>
+                        </div>
+                        <div class="info-box paciente">
+                            <h4 style="color: var(--accent-pink);">🌧️ Dificultades para el paciente</h4>
+                            <ul>
+                                <li>Sobrecarga sensorial que puede generar ansiedad o crisis (meltdowns).</li>
+                                <li>Dificultad para expresar sus propias emociones o necesidades.</li>
+                                <li>Problemas para entender ironías, bromas o cambios inesperados.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="info-box cuidador" style="margin-top: 30px;">
+                        <h4 >🤝 Retos para los cuidadores</h4>
+                        <ul>
+                            <li>Necesidad constante de estructurar entornos y anticipar cambios para dar seguridad.</li>
+                            <li>Acompañar con paciencia y contención las crisis emocionales o sensoriales.</li>
+                            <li>Esfuerzo activo para interpretar la comunicación no verbal del paciente.</li>
+                        </ul>
+                    </div>
                 </article>
 
-                <article id="tdah" class="page-section-card">
-                    <h2>Trastorno por Déficit de Atención e Hiperactividad (TDAH)</h2>
-                    <p>El TDAH es uno de los trastornos del neurodesarrollo más comunes en la infancia, que a menudo persiste en la edad adulta. Implica dificultades para mantener la atención, hiperactividad y comportamiento impulsivo.</p>
-                    <h3>Síntomas Comunes:</h3>
-                    <ul class="symptoms-list">
-                        <li>Falta de atención a los detalles (errores por descuido).</li>
-                        <li>Dificultad para organizar tareas y actividades.</li>
-                        <li>Inquietud constante o incapacidad para permanecer sentado.</li>
-                    </ul>
+                <!-- TDAH -->
+                <article id="tdah" class="recurso-card">
+                    <div class="recurso-header">
+                        <span class="recurso-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #f59e0b"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg></span>
+                        <h2>TDAH (Déficit de Atención e Hiperactividad)</h2>
+                    </div>
+                    <p class="recurso-subtitle">Una forma diferente de regular la atención, la energía y los impulsos del día a día.</p>
+                    
+                    <div class="info-box">
+                        <h4 style="color: var(--accent-blue);">🔍 Se caracteriza por:</h4>
+                        <ul>
+                            <li>Distracción frecuente ante estímulos irrelevantes.</li>
+                            <li>Dificultad evidente para organizar actividades y tiempos.</li>
+                            <li>Impulsividad (actuar sin pensar en las consecuencias).</li>
+                            <li>Hiperactividad motora o mental (en algunos casos).</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-grid">
+                        <div class="info-box fortalezas">
+                            <h4 style="color: #10b981;">🌟 Fortalezas comunes</h4>
+                            <ul>
+                                <li>Altos niveles de creatividad y pensamiento divergente.</li>
+                                <li>Gran energía y entusiasmo.</li>
+                                <li>Pensamiento rápido e intuitivo.</li>
+                                <li>Capacidad increíble para el "hiperfoco" en temas que les apasionan.</li>
+                            </ul>
+                        </div>
+                        <div class="info-box paciente">
+                            <h4 style="color: var(--accent-pink);">🌧️ Dificultades para el paciente</h4>
+                            <ul>
+                                <li>Sensación constante de frustración por "no terminar lo que se empieza".</li>
+                                <li>Problemas serios para controlar los impulsos y reacciones.</li>
+                                <li>Altos niveles de inquietud interna o preocupación constante.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="info-grid">
+                        <div class="info-box cuidador">
+                            <h4 >🤝 Retos para los cuidadores</h4>
+                            <ul>
+                                <li>Mantener rutinas sumamente claras y ofrecer supervisión constante.</li>
+                                <li>Manejar con inteligencia emocional la impulsividad y conductas disruptivas.</li>
+                                <li>Repetir instrucciones y ofrecer seguimiento frecuente con infinita paciencia.</li>
+                            </ul>
+                        </div>
+                        <div class="info-box" style="border-left-color: #f59e0b; background: rgba(245, 158, 11, 0.05);">
+                            <h4 style="color: #f59e0b;">🏫 En la escuela y vida adulta</h4>
+                            <ul style="--bullet-color: #f59e0b;">
+                                <li>Bajo rendimiento derivado puramente de problemas de organización, no de inteligencia.</li>
+                                <li>Dificultad extrema para mantener atención prolongada en clases o reuniones aburridas.</li>
+                                <li>En adultos: problemas laborales por inatención, impuntualidad crónica o procrastinación.</li>
+                            </ul>
+                        </div>
+                    </div>
                 </article>
 
-                <article id="dislexia" class="page-section-card">
-                    <h2>Dislexia y Trastornos del Aprendizaje</h2>
-                    <p>La dislexia es una dificultad específica del aprendizaje de origen neurobiológico. Se caracteriza por dificultades en la precisión y/o fluidez en el reconocimiento de palabras, y por escasas habilidades de ortografía y decodificación.</p>
+                <!-- Discapacidad Intelectual -->
+                <article id="di" class="recurso-card">
+                    <div class="recurso-header">
+                        <span class="recurso-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #10b981"><path d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20z"></path><path d="M12 8v4l3 3"></path></svg></span>
+                        <h2>Discapacidad Intelectual</h2>
+                    </div>
+                    <p class="recurso-subtitle">Un estilo de aprendizaje más lento que afecta la comprensión profunda, la resolución de problemas complejos y las habilidades adaptativas del día a día.</p>
+                    
+                    <div class="info-box">
+                        <h4 style="color: var(--accent-blue);">🔍 Se caracteriza por:</h4>
+                        <ul>
+                            <li>Ritmo de aprendizaje mucho más gradual que sus pares.</li>
+                            <li>Necesidad de apoyo tangible para actividades cotidianas.</li>
+                            <li>Dificultades notables en el pensamiento lógico abstracto.</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-grid">
+                        <div class="info-box fortalezas">
+                            <h4 style="color: #10b981;">🌟 Fortalezas comunes</h4>
+                            <ul>
+                                <li>Gran constancia y dedicación.</li>
+                                <li>Sinceridad absoluta y pureza emocional.</li>
+                                <li>Excelente desarrollo en habilidades prácticas y repetitivas.</li>
+                            </ul>
+                        </div>
+                        <div class="info-box paciente">
+                            <h4 style="color: var(--accent-pink);">🌧️ Dificultades para el paciente</h4>
+                            <ul>
+                                <li>Aprender nuevas habilidades les requiere mucho más tiempo, repetición y paciencia.</li>
+                                <li>Dificultad severa para desenvolverse de forma totalmente independiente.</li>
+                                <li>Mayor vulnerabilidad a abusos, engaños o manipulación por parte de otros.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="info-grid">
+                        <div class="info-box cuidador">
+                            <h4 >🤝 Retos para los cuidadores</h4>
+                            <ul>
+                                <li>Necesidad de proveer apoyo constante en actividades diarias básicas.</li>
+                                <li>Ansiedad por la planificación de cuidados a muy largo plazo.</li>
+                                <li>Entrenamiento exhaustivo y supervisión constante en hábitos de autocuidado.</li>
+                            </ul>
+                        </div>
+                        <div class="info-box" style="border-left-color: #f59e0b; background: rgba(245, 158, 11, 0.05);">
+                            <h4 style="color: #f59e0b;">🏫 En la escuela y vida adulta</h4>
+                            <ul>
+                                <li>Requiere imperativamente de adaptaciones curriculares significativas.</li>
+                                <li>Dificultad para comprender y seguir instrucciones complejas o de múltiples pasos.</li>
+                                <li>En adultos: se mantiene una dependencia parcial o total en actividades laborales, financieras y sociales.</li>
+                            </ul>
+                        </div>
+                    </div>
                 </article>
 
-                <article id="altas-capacidades" class="page-section-card">
-                    <h2>Altas Capacidades Intelectuales</h2>
-                    <p>Los niños y jóvenes con altas capacidades poseen un desarrollo cognitivo superior al esperado para su edad, lo cual requiere acompañamiento para evitar desmotivación académica y promover el bienestar emocional, gestionando características como la hipersensibilidad emocional y el perfeccionismo.</p>
+                <div id="teap" style="margin: 60px 0 30px; text-align: center;">
+                    <h2 style="font-size: 2.5rem; color: var(--accent-purple); margin-bottom: 10px;">TEAp (Trastornos Específicos del Aprendizaje)</h2>
+                    <p style="font-size: 1.2rem; color: var(--text-muted); max-width: 700px; margin: 0 auto;">No afectan la inteligencia general de la persona, pero generan barreras y dificultades muy puntuales en áreas específicas del conocimiento.</p>
+                </div>
+
+                <!-- Dislexia -->
+                <article id="dislexia" class="recurso-card">
+                    <div class="recurso-header">
+                        <span class="recurso-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent-blue)"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg></span>
+                        <h2>Dislexia</h2>
+                    </div>
+                    <p class="recurso-subtitle">Dificultad específica y persistente en la fluidez de la lectura y la correcta identificación de palabras.</p>
+                    
+                    <div class="info-grid">
+                        <div class="info-box">
+                            <h4 style="color: var(--accent-blue);">🔍 Se caracteriza por:</h4>
+                            <ul>
+                                <li>Lectura lenta, silabeada o con frecuentes errores.</li>
+                                <li>Dificultad notable para unir sonidos con sus respectivas letras.</li>
+                                <li>Problemas severos con la ortografía.</li>
+                            </ul>
+                        </div>
+                        <div class="info-box fortalezas">
+                            <h4 style="color: #10b981;">🌟 Fortalezas comunes</h4>
+                            <ul>
+                                <li>Excelente pensamiento visual y espacial.</li>
+                                <li>Altamente creativos.</li>
+                                <li>Gran intuición y capacidad para ver el panorama general.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="info-grid" style="margin-top: 30px;">
+                        <div class="info-box paciente">
+                            <h4 style="color: var(--accent-pink);">🌧️ Dificultades para el paciente</h4>
+                            <ul>
+                                <li>Fatiga mental extrema al intentar leer textos largos.</li>
+                                <li>Profunda frustración al no comprender textos que sus compañeros sí entienden fácilmente.</li>
+                                <li>Daño a la autoestima directamente relacionada con el bajo rendimiento escolar.</li>
+                            </ul>
+                        </div>
+                        <div class="info-box cuidador">
+                            <h4 >🤝 Retos para cuidadores y escuela</h4>
+                            <ul>
+                                <li>Brindar apoyo constante y amoroso en tareas de lectura.</li>
+                                <li>Buscar e inventar estrategias didácticas alternativas (audio, videos).</li>
+                                <li>Acompañar emociones complejas de frustración o vergüenza del niño.</li>
+                                <li>Problemas para estudiar materias con alta carga de lectura y dificultad para realizar exámenes escritos (necesidad de evaluaciones orales).</li>
+                            </ul>
+                        </div>
+                    </div>
                 </article>
+
+                <!-- Discalculia -->
+                <article id="discalculia" class="recurso-card">
+                    <div class="recurso-header">
+                        <span class="recurso-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent-pink)"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><line x1="16" y1="3" x2="16" y2="21"></line><line x1="8" y1="3" x2="8" y2="21"></line><line x1="3" y1="8" x2="21" y2="8"></line><line x1="3" y1="16" x2="21" y2="16"></line></svg></span>
+                        <h2>Discalculia</h2>
+                    </div>
+                    <p class="recurso-subtitle">Dificultad persistente para comprender cantidades, manipular números y realizar operaciones matemáticas básicas.</p>
+                    
+                    <div class="info-grid">
+                        <div class="info-box">
+                            <h4 style="color: var(--accent-blue);">🔍 Se caracteriza por:</h4>
+                            <ul>
+                                <li>Problemas constantes con las operaciones matemáticas más básicas.</li>
+                                <li>Dificultad para entender el concepto del tiempo, las secuencias o las proporciones.</li>
+                            </ul>
+                        </div>
+                        <div class="info-box fortalezas">
+                            <h4 style="color: #10b981;">🌟 Fortalezas comunes</h4>
+                            <ul>
+                                <li>Excelentes habilidades verbales y de expresión.</li>
+                                <li>Pensamiento altamente creativo e imaginativo.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="info-grid" style="margin-top: 30px;">
+                        <div class="info-box paciente">
+                            <h4 style="color: var(--accent-pink);">🌧️ Dificultades para el paciente</h4>
+                            <ul>
+                                <li>Fuerte ansiedad, miedo o bloqueo ante cualquier actividad numérica o matemática.</li>
+                                <li>Confusión frustrante con conceptos cotidianos importantes como dar cambio de dinero o calcular horarios.</li>
+                                <li>Bajo desempeño crónico exclusivamente en matemáticas.</li>
+                            </ul>
+                        </div>
+                        <div class="info-box cuidador">
+                            <h4 >🤝 Retos para los cuidadores</h4>
+                            <ul>
+                                <li>Brindar acompañamiento paciente y constante para las tareas de matemáticas.</li>
+                                <li>Enseñar rutinas prácticas y visuales para el manejo del tiempo y el uso del dinero real.</li>
+                                <li>Manejar y validar la frustración del niño o adolescente ante los fallos.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Disgrafía -->
+                <article id="disgrafia" class="recurso-card">
+                    <div class="recurso-header">
+                        <span class="recurso-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #64748b"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></span>
+                        <h2>Disgrafía</h2>
+                    </div>
+                    <p class="recurso-subtitle">Dificultad neurológica para escribir a mano de forma clara, organizada y sin dolor físico.</p>
+                    
+                    <div class="info-grid">
+                        <div class="info-box">
+                            <h4 style="color: var(--accent-blue);">🔍 Se caracteriza por:</h4>
+                            <ul>
+                                <li>Letra muy poco legible, desordenada o de tamaño irregular.</li>
+                                <li>Dolor físico, calambres o cansancio rápido en la mano al escribir.</li>
+                                <li>Gran dificultad motora para expresar ideas ricas y complejas por escrito.</li>
+                            </ul>
+                        </div>
+                        <div class="info-box fortalezas">
+                            <h4 style="color: #10b981;">🌟 Fortalezas comunes</h4>
+                            <ul>
+                                <li>Excelente capacidad de expresión oral (pueden narrar lo que no pueden escribir).</li>
+                                <li>Agudo pensamiento visual.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="info-box paciente" style="margin-top: 30px;">
+                        <h4 style="color: var(--accent-pink);">🌧️ Dificultades para el paciente</h4>
+                        <ul>
+                            <li>Sufrimiento físico real (dolor muscular) al verse obligados a escribir largos textos.</li>
+                            <li>Frustración profunda por no poder plasmar en papel las ideas brillantes que tienen en la mente.</li>
+                            <li>Cansancio excesivo en la escuela al tomar apuntes.</li>
+                        </ul>
+                    </div>
+                </article>
+
             </div>
         </div>
     </main>
+
+    
+
 
     <footer>
         <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
@@ -198,6 +736,47 @@
     </footer>
 
     <script src="assets/js/main.js"></script>
-    <script src="assets/js/neural-loader.js"></script>
+    <script src="assets/js/neural-loader.js?v=18"></script>
+
+    <!-- Interactive Bubble Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const bubble = document.querySelector('.hero-recursos-content');
+            
+            // Mouse Interaction (PC)
+            document.addEventListener('mousemove', (e) => {
+                const x = (window.innerWidth / 2 - e.pageX) / 30;
+                const y = (window.innerHeight / 2 - e.pageY) / 30;
+                
+                bubble.style.transform = `translate(${x}px, ${y}px) rotate(${x/10}deg)`;
+            });
+
+            // Gyroscope Interaction (Mobile)
+            if (window.DeviceOrientationEvent) {
+                window.addEventListener('deviceorientation', (e) => {
+                    if (e.gamma !== null && e.beta !== null) {
+                        // gamma is left-to-right tilt in degrees, where right is positive
+                        // beta is front-to-back tilt in degrees, where front is positive
+                        const x = e.gamma / 2; // adjust sensitivity
+                        const y = (e.beta - 45) / 2; // assuming device is held at 45 degree angle
+                        
+                        bubble.style.transform = `translate(${x}px, ${y}px) rotate(${x/10}deg)`;
+                    }
+                });
+            }
+        });
+    </script>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'es', 
+                includedLanguages: 'en,fr,de,zh-CN,it,pt,ja,es', 
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script src="assets/js/translator.js?v=16"></script>
 </body>
+
 </html>

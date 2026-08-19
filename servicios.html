@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Servicios - Manos Inclusivas A.C.</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/loading.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style-v2.css?v=22">
+    <link rel="stylesheet" href="assets/css/loading.css?v=22">
     <style>
         .service-detail-section {
             display: flex;
@@ -22,10 +22,14 @@
 
         .service-image {
             flex: 1;
-            height: 300px;
-            background-color: var(--bg-secondary);
-            border-radius: var(--border-radius-soft);
-            box-shadow: var(--shadow-soft);
+        }
+
+        .service-image img {
+            width: 100% !important;
+            height: 350px !important;
+            object-fit: cover !important;
+            border-radius: var(--border-radius-soft) !important;
+            box-shadow: var(--shadow-soft) !important;
         }
 
         .service-content {
@@ -46,6 +50,43 @@
             }
         }
     </style>
+
+<style>
+/* OVERRIDE FOR HERO SERVICIOS */
+.hero-servicios {
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(107, 70, 193, 0.6) 100%), 
+                url('img/Servicios.jpg') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-attachment: fixed !important;
+    color: #ffffff !important;
+}
+
+.hero-servicios::before {
+    display: none !important;
+}
+
+.hero-servicios h1 {
+    color: #ffffff !important;
+    text-shadow: 0 5px 15px rgba(0,0,0,0.5) !important;
+}
+
+.hero-servicios p {
+    color: #f8fafc !important;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5) !important;
+}
+
+/* Make floating icons white and slightly transparent so they look cool over the dark image */
+.hero-servicios .floating-icon {
+    display: none !important;
+}
+
+/* Make sure the wave at the bottom remains visible and styled correctly */
+.hero-servicios .hero-wave svg path {
+    fill: var(--bg-primary) !important;
+}
+</style>
+
 </head>
 
 <body>
@@ -60,10 +101,11 @@
     </div>
 
     <header>
+
         <div class="container navbar">
             <a href="index.html" class="logo-container">
-                <img src="img/Logo circular.png" alt="Logo Manos Inclusivas"
-                    style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;">
+                <model-viewer id="nav-3d-logo" src="assets/logo.glb" alt="Logo Manos Inclusivas"
+                    camera-orbit="0deg 90deg auto" interaction-prompt="none" disable-zoom></model-viewer>
                 <div class="logo-text">
                     <h2>Manos Inclusivas</h2>
                     <span>Iluminando Corazones A.C.</span>
@@ -73,13 +115,16 @@
             <button class="hamburger" aria-label="Abrir menú">☰</button>
 
             <nav class="nav-links">
-                <div class="nav-item"><a href="index.html" class="nav-link">INICIO</a></div>
+                <div class="nav-item"><a href="index.html" class="nav-link"
+                        >INICIO</a>
+                </div>
                 <div class="nav-item">
                     <a href="nosotros.html" class="nav-link">NOSOTROS</a>
                     <ul class="dropdown-menu">
-                        <li><a href="nosotros.html#mision" class="dropdown-item">Nuestra Misión</a></li>
+                        <li><a href="nosotros.html#historia" class="dropdown-item">Nuestra Historia</a></li>
+                        <li><a href="nosotros.html#mision" class="dropdown-item">Misión y Visión</a></li>
+                        <li><a href="nosotros.html#valores" class="dropdown-item">Valores</a></li>
                         <li><a href="nosotros.html#equipo" class="dropdown-item">Nuestro Equipo</a></li>
-                        <li><a href="quienes-somos.html#historia" class="dropdown-item">Instalaciones</a></li>
                     </ul>
                 </div>
                 <div class="nav-item">
@@ -88,44 +133,64 @@
                         <li><a href="servicios.html#psicologia" class="dropdown-item">Psicología</a></li>
                         <li><a href="servicios.html#psiquiatria" class="dropdown-item">Psiquiatría</a></li>
                         <li><a href="servicios.html#terapia-lenguaje" class="dropdown-item">Terapia de Lenguaje</a></li>
-                        <li><a href="servicios.html#terapia-ocupacional" class="dropdown-item">Terapia Ocupacional</a>
-                        </li>
-                        <li><a href="servicios.html#integracion-sensorial" class="dropdown-item">Integración
-                                Sensorial</a></li>
+                        <li><a href="servicios.html#terapia-ocupacional" class="dropdown-item">Terapia Ocupacional</a></li>
+                        <li><a href="servicios.html#integracion-sensorial" class="dropdown-item">Integración Sensorial</a></li>
                         <li><a href="servicios.html#talleres" class="dropdown-item">Talleres y Capacitaciones</a></li>
-                    </ul>
-                </div>
-                <div class="nav-item">
-                    <a href="quienes-somos.html" class="nav-link">QUIÉNES SOMOS</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="quienes-somos.html#historia" class="dropdown-item">Nuestra Historia</a></li>
-                        <li><a href="quienes-somos.html#mision" class="dropdown-item">Misión</a></li>
-                        <li><a href="quienes-somos.html#vision" class="dropdown-item">Visión</a></li>
-                        <li><a href="quienes-somos.html#valores" class="dropdown-item">Valores</a></li>
                     </ul>
                 </div>
                 <div class="nav-item">
                     <a href="recursos.html" class="nav-link">RECURSOS</a>
                     <ul class="dropdown-menu">
-                        <li><a href="recursos.html#tea" class="dropdown-item">¿Qué es el TEA?</a></li>
-                        <li><a href="recursos.html#tdah" class="dropdown-item">¿Qué es el TDAH?</a></li>
+                        <li><a href="recursos.html#tea" class="dropdown-item">Autismo (TEA)</a></li>
+                        <li><a href="recursos.html#tdah" class="dropdown-item">TDAH</a></li>
+                        <li><a href="recursos.html#di" class="dropdown-item">Discapacidad Intelectual</a></li>
+                        <li><a href="recursos.html#teap" class="dropdown-item">Trastornos del Aprendizaje</a></li>
                     </ul>
                 </div>
                 <div class="nav-item"><a href="noticias.html" class="nav-link">NOTICIAS</a></div>
                 <div class="nav-item"><a href="citas.html" class="nav-link">CITAS</a></div>
                 <div class="nav-item"><a href="contacto.html" class="nav-link">CONTACTO</a></div>
-                <div class="nav-item"><a href="donar.html" class="btn btn-primary">DONAR</a></div>
+                <div class="nav-item"><a href="donar.html" class="btn btn-donate">DONAR</a></div>
+            
+                <!-- Translate Widget -->
+                <div class="nav-item custom-lang-selector">
+                    <div class="lang-btn" id="lang-btn">
+                        <span class="icon">🌍</span>
+                        <span id="current-lang-text">Español</span>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <ul class="lang-dropdown" id="lang-dropdown">
+                        <li data-lang="es" class="active">Español</li>
+                        <li data-lang="en">English</li>
+                        <li data-lang="fr">Français</li>
+                        <li data-lang="de">Deutsch</li>
+                        <li data-lang="it">Italiano</li>
+                        <li data-lang="pt">Português</li>
+                        <li data-lang="ja">日本語</li>
+                        <li data-lang="zh-CN">中文</li>
+                    </ul>
+                    <div id="google_translate_element" style="display:none;"></div>
+                </div>
             </nav>
         </div>
+
     </header>
 
     <main>
-        <section class="page-hero">
-            <svg class="bg-shape shape-1 decorative-circle circle-1" viewBox="0 0 100 100"></svg>
-            <svg class="bg-shape shape-2 decorative-circle circle-2" viewBox="0 0 100 100"></svg>
-            <h1>Nuestros Servicios</h1>
-            <p>Atención especializada y multidisciplinaria diseñada para potenciar las habilidades y mejorar la calidad
-                de vida de nuestros pacientes.</p>
+                <section class="hero-servicios">
+            <div class="floating-icon fi-1">🧠</div>
+            <div class="floating-icon fi-2">✋</div>
+            <div class="floating-icon fi-3">🗣️</div>
+            <div class="floating-icon fi-4">⚕️</div>
+            <div class="hero-servicios-content">
+                <h1>Nuestros Servicios</h1>
+                <p>Atención multidisciplinaria de excelencia diseñada para potenciar las habilidades y mejorar la calidad de vida de cada paciente.</p>
+            </div>
+            <div class="hero-wave">
+                <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                    <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C59.71,118,137.9,118,202.9,95.8,243.64,81.82,284.18,70.09,321.39,56.44Z" fill="var(--bg-primary)"></path>
+                </svg>
+            </div>
         </section>
 
         <section class="section-padding">
@@ -329,7 +394,18 @@
 
 
     <script src="assets/js/main.js"></script>
-    <script src="assets/js/neural-loader.js"></script>
+    <script src="assets/js/neural-loader.js?v=18"></script>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'es', 
+                includedLanguages: 'en,fr,de,zh-CN,it,pt,ja,es', 
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script src="assets/js/translator.js?v=16"></script>
 </body>
 
 </html>

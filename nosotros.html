@@ -1,45 +1,124 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nosotros - Manos Inclusivas A.C.</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/loading.css">
-    <style>
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-        .team-card {
-            background: white;
-            border-radius: var(--border-radius-soft);
-            overflow: hidden;
-            box-shadow: var(--shadow-soft);
-            text-align: center;
-        }
-        .team-photo {
-            width: 100%;
-            height: 250px;
-            background-color: var(--bg-secondary);
-            object-fit: cover;
-        }
-        .team-info {
-            padding: 20px;
-        }
-        .team-role {
-            color: var(--accent-purple);
-            font-weight: 600;
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-            display: block;
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style-nosotros-final.css">
+    <link rel="stylesheet" href="assets/css/loading.css?v=22">
+
+
+<style>
+/* INLINE CSS FOR NOSOTROS PAGE TO BYPASS ANY CACHE ISSUES */
+.hero-identidad {
+    position: relative;
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(107, 70, 193, 0.6) 100%), 
+                url('img/fondo-esencia.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #ffffff;
+    overflow: hidden;
+    padding: 0 20px;
+}
+
+.hero-identidad-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 800px;
+}
+
+.hero-identidad-content h1 {
+    font-size: 4.5rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+.hero-identidad-content p {
+    font-size: 1.4rem;
+    color: #f8fafc;
+    line-height: 1.6;
+    font-weight: 400;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+@media (max-width: 768px) {
+    .hero-identidad-content h1 { font-size: 3rem; }
+    .hero-identidad-content p { font-size: 1.1rem; }
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.team-card {
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+
+.team-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+.team-photo {
+    width: 100%;
+    height: 250px;
+    background-color: #d0d9f0;
+    background-size: cover;
+    background-position: center;
+}
+
+.team-info {
+    padding: 25px 20px;
+}
+
+.team-info h3 {
+    font-size: 1.2rem;
+    color: var(--text-primary);
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+.team-info .team-role {
+    display: block;
+    color: var(--accent-purple);
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.team-info .card-text {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+</style>
+
 </head>
+
 <body>
+
+
 
     <!-- Loading Screen -->
     <div id="loader-wrapper">
@@ -50,12 +129,14 @@
         </div>
     </div>
 
-    <!-- Header (Same as index) -->
+    <!-- Header & Navigation -->
+
     <header>
+
         <div class="container navbar">
             <a href="index.html" class="logo-container">
-                <img src="img/Logo circular.png" alt="Logo Manos Inclusivas"
-                    style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;">
+                <model-viewer id="nav-3d-logo" src="assets/logo.glb" alt="Logo Manos Inclusivas"
+                    camera-orbit="0deg 90deg auto" interaction-prompt="none" disable-zoom></model-viewer>
                 <div class="logo-text">
                     <h2>Manos Inclusivas</h2>
                     <span>Iluminando Corazones A.C.</span>
@@ -65,13 +146,16 @@
             <button class="hamburger" aria-label="Abrir menú">☰</button>
 
             <nav class="nav-links">
-                <div class="nav-item"><a href="index.html" class="nav-link">INICIO</a></div>
+                <div class="nav-item"><a href="index.html" class="nav-link">INICIO</a>
+                </div>
                 <div class="nav-item">
-                    <a href="nosotros.html" class="nav-link" style="color: var(--accent-purple);">NOSOTROS</a>
+                    <a href="nosotros.html" class="nav-link" style="color: var(--accent-purple);"
+                        style="color: var(--accent-purple); font-weight: 700;">NOSOTROS</a>
                     <ul class="dropdown-menu">
-                        <li><a href="nosotros.html#mision" class="dropdown-item">Nuestra Misión</a></li>
+                        <li><a href="nosotros.html#historia" class="dropdown-item">Nuestra Historia</a></li>
+                        <li><a href="nosotros.html#mision" class="dropdown-item">Misión y Visión</a></li>
+                        <li><a href="nosotros.html#valores" class="dropdown-item">Valores</a></li>
                         <li><a href="nosotros.html#equipo" class="dropdown-item">Nuestro Equipo</a></li>
-                        <li><a href="quienes-somos.html#historia" class="dropdown-item">Instalaciones</a></li>
                     </ul>
                 </div>
                 <div class="nav-item">
@@ -80,46 +164,61 @@
                         <li><a href="servicios.html#psicologia" class="dropdown-item">Psicología</a></li>
                         <li><a href="servicios.html#psiquiatria" class="dropdown-item">Psiquiatría</a></li>
                         <li><a href="servicios.html#terapia-lenguaje" class="dropdown-item">Terapia de Lenguaje</a></li>
-                        <li><a href="servicios.html#terapia-ocupacional" class="dropdown-item">Terapia Ocupacional</a></li>
-                        <li><a href="servicios.html#integracion-sensorial" class="dropdown-item">Integración Sensorial</a></li>
+                        <li><a href="servicios.html#terapia-ocupacional" class="dropdown-item">Terapia Ocupacional</a>
+                        </li>
+                        <li><a href="servicios.html#integracion-sensorial" class="dropdown-item">Integración
+                                Sensorial</a></li>
                         <li><a href="servicios.html#talleres" class="dropdown-item">Talleres y Capacitaciones</a></li>
-                    </ul>
-                </div>
-                <div class="nav-item">
-                    <a href="quienes-somos.html" class="nav-link">QUIÉNES SOMOS</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="quienes-somos.html#historia" class="dropdown-item">Nuestra Historia</a></li>
-                        <li><a href="quienes-somos.html#mision" class="dropdown-item">Misión</a></li>
-                        <li><a href="quienes-somos.html#vision" class="dropdown-item">Visión</a></li>
-                        <li><a href="quienes-somos.html#valores" class="dropdown-item">Valores</a></li>
                     </ul>
                 </div>
                 <div class="nav-item">
                     <a href="recursos.html" class="nav-link">RECURSOS</a>
                     <ul class="dropdown-menu">
-                        <li><a href="recursos.html#tea" class="dropdown-item">¿Qué es el TEA?</a></li>
-                        <li><a href="recursos.html#tdah" class="dropdown-item">¿Qué es el TDAH?</a></li>
+                        <li><a href="recursos.html#tea" class="dropdown-item">Autismo (TEA)</a></li>
+                        <li><a href="recursos.html#tdah" class="dropdown-item">TDAH</a></li>
+                        <li><a href="recursos.html#di" class="dropdown-item">Discapacidad Intelectual</a></li>
+                        <li><a href="recursos.html#teap" class="dropdown-item">Trastornos del Aprendizaje</a></li>
                     </ul>
                 </div>
                 <div class="nav-item"><a href="noticias.html" class="nav-link">NOTICIAS</a></div>
                 <div class="nav-item"><a href="citas.html" class="nav-link">CITAS</a></div>
                 <div class="nav-item"><a href="contacto.html" class="nav-link">CONTACTO</a></div>
-                <div class="nav-item"><a href="donar.html" class="btn btn-primary">DONAR</a></div>
+                <div class="nav-item"><a href="donar.html" class="btn btn-donate">DONAR</a></div>
+            
+                <!-- Translate Widget -->
+                <div class="nav-item custom-lang-selector">
+                    <div class="lang-btn" id="lang-btn">
+                        <span class="icon">🌍</span>
+                        <span id="current-lang-text">Español</span>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <ul class="lang-dropdown" id="lang-dropdown">
+                        <li data-lang="es" class="active">Español</li>
+                        <li data-lang="en">English</li>
+                        <li data-lang="fr">Français</li>
+                        <li data-lang="de">Deutsch</li>
+                        <li data-lang="it">Italiano</li>
+                        <li data-lang="pt">Português</li>
+                        <li data-lang="ja">日本語</li>
+                        <li data-lang="zh-CN">中文</li>
+                    </ul>
+                    <div id="google_translate_element" style="display:none;"></div>
+                </div>
             </nav>
         </div>
+
     </header>
 
     <main>
-        <section id="mision" class="section-padding bg-lavender text-center">
-            <div class="container">
-                <h2>Nuestra Misión y Visión</h2>
-                <p style="max-width: 800px; margin: 0 auto; font-size: 1.1rem; line-height: 1.8;">
-                    En <strong>Manos Inclusivas - Iluminando Corazones A.C.</strong>, nuestra misión es brindar atención integral y de calidad a niños, jóvenes y adultos con necesidades de neurodesarrollo. Buscamos promover la inclusión, el bienestar emocional y el desarrollo pleno de las capacidades de cada individuo en Kanasín y todo Yucatán, creando una red de apoyo cálida y profesional para las familias.
-                </p>
+        <section class="hero-identidad">
+            <div class="hero-identidad-content">
+                <h1>Nuestra Esencia</h1>
+                <p>Conoce la historia, la misión y el corazón que mueve a Manos Inclusivas cada día.</p>
             </div>
         </section>
 
-        <section id="equipo" class="section-padding">
+        <section id="equipo" class="section-padding bg-lavender">
+
             <div class="container">
                 <div class="text-center">
                     <h2>Nuestro Equipo</h2>
@@ -128,82 +227,254 @@
 
                 <div class="team-grid">
                     <div class="team-card">
-                        <div class="team-photo"></div>
+                        <div class="team-photo" style="background-image: url('img/Lofo.jpg');"></div>
                         <div class="team-info">
                             <h3>Guillermo Salazar Carbajal</h3>
                             <span class="team-role">Director General</span>
-                            <p class="card-text">Líder comprometido con la inclusión y el desarrollo de programas de apoyo social integral.</p>
+                            <p class="card-text">Líder comprometido con la inclusión y el desarrollo de programas de
+                                apoyo social integral.</p>
                         </div>
                     </div>
-                    
+
                     <div class="team-card">
-                        <div class="team-photo"></div>
+                        <div class="team-photo" style="background-image: url('img/Psiquiatría.jpg');"></div>
                         <div class="team-info">
                             <h3>Dra. Ana López</h3>
                             <span class="team-role">Psiquiatra Infantil</span>
-                            <p class="card-text">Especialista en diagnóstico y tratamiento de trastornos del neurodesarrollo.</p>
+                            <p class="card-text">Especialista en diagnóstico y tratamiento de trastornos del
+                                neurodesarrollo.</p>
                         </div>
                     </div>
 
                     <div class="team-card">
-                        <div class="team-photo"></div>
+                        <div class="team-photo" style="background-image: url('img/Infantil.png');"></div>
                         <div class="team-info">
                             <h3>Lic. María Pérez</h3>
                             <span class="team-role">Psicóloga Clínica</span>
-                            <p class="card-text">Enfocada en terapias cognitivo-conductuales y apoyo emocional a familias.</p>
+                            <p class="card-text">Enfocada en terapias cognitivo-conductuales y apoyo emocional a
+                                familias.</p>
                         </div>
                     </div>
 
                     <div class="team-card">
-                        <div class="team-photo"></div>
+                        <div class="team-photo" style="background-image: url('img/Ocupacional.jpg');"></div>
                         <div class="team-info">
                             <h3>Lic. Carlos Ruiz</h3>
                             <span class="team-role">Terapeuta Ocupacional</span>
-                            <p class="card-text">Experto en integración sensorial y desarrollo de autonomía personal.</p>
+                            <p class="card-text">Experto en integración sensorial y desarrollo de autonomía personal.
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
+
         </section>
+
+        <div class="container page-content-grid" style="margin-top: -50px; position: relative; z-index: 10;">
+            <aside>
+                <div class="page-sidebar"
+                    style="background: white; border-radius: var(--border-radius-lg); padding: 30px; box-shadow: var(--shadow-soft);">
+                    <h3 style="color: var(--accent-purple); margin-bottom: 20px;">Nuestra Identidad</h3>
+                    <a href="#historia" class="sidebar-nav-link active">Nuestra Historia</a>
+                    <a href="#quienes-somos" class="sidebar-nav-link">Quiénes Somos</a>
+                    <a href="#mision" class="sidebar-nav-link">Misión y Visión</a>
+                    <a href="#valores" class="sidebar-nav-link">Valores</a>
+                    <a href="#equipo" class="sidebar-nav-link">Nuestro Equipo</a>
+                </div>
+            </aside>
+
+            <div>
+                <article id="historia" class="page-section-card">
+                    <h2>Nuestra Historia</h2>
+                    <p>Manos Inclusivas Iluminando Corazones A.C. nació del amor, la fe y la profunda convicción de una
+                        madre al acompañar a su hijo dentro del Espectro Autista (TEA). A lo largo de ese camino, la
+                        familia comprendió que el autismo no solo transforma la vida de quien lo experimenta, sino
+                        también la de aquellos que acompañan con amor, compromiso y resiliencia.</p>
+                    <p>Aquel joven se convirtió en la inspiración, el motor y el origen de este proyecto. A partir de su
+                        historia y de su manera única de percibir el entorno, surgió el anhelo de construir una sociedad
+                        más inclusiva, empática y consciente; un espacio para dar voz a las personas con autismo y
+                        visibilizar el mundo a través de sus propios ojos.</p>
+                    <p>El diagnóstico llegó durante su infancia y, con él, una etapa de incertidumbre, interrogantes y
+                        grandes desafíos. Sin embargo, con el tiempo comprendieron que el autismo no representaba una
+                        tragedia, sino un camino diverso, lleno de matices y aprendizajes que invita a contemplar la
+                        realidad desde una perspectiva profunda y valiosa.</p>
+                    <p>Motivados por la búsqueda de un entorno seguro, respetuoso y adaptado donde su hijo pudiera ser
+                        valorado y desarrollar plenamente su potencial, reconocieron que esta necesidad no era un caso
+                        aislado, sino la realidad cotidiana de miles de familias. De esta unión floreció un sueño
+                        compartido: un proyecto con propósito que ilumina vidas y abre caminos de inclusión.</p>
+                </article>
+                <article id="quienes-somos" class="page-section-card">
+                    <h2>Quiénes somos</h2>
+                    <p>Somos una asociación civil sin fines de lucro comprometida con crear espacios seguros, empáticos
+                        y llenos de amor para personas dentro del espectro autista y sus familias. Nacimos en México,
+                        pero nuestro corazón y propósito son universales.</p>
+                    <p>Soñamos con que nuestra labor llegue más allá de las fronteras, tocando corazones y generando
+                        conciencia en distintos países, inspirando a comunidades enteras a vivir la inclusión desde el
+                        amor. Lo que nos mueve es brindar atención integral, emocional y terapéutica a personas con
+                        autismo y a sus familias, en un entorno de respeto, fe y esperanza.</p>
+                    <p>Nuestro propósito es ser un faro de luz y esperanza que ilumine el camino de la inclusión,
+                        transformando vidas en todo el mundo. Creemos firmemente que cada donación, cada alianza y cada
+                        gesto de apoyo tiene el poder de cambiar historias.</p>
+                    <p>Por eso, hoy te invitamos a ser parte de este movimiento de amor y conciencia. A unir tus manos
+                        con las nuestras, para seguir iluminando corazones y construyendo un mundo más inclusivo,
+                        empático y lleno de oportunidades para todos.</p>
+                    <p>Gracias por creer, por compartir y por sumar esperanza.</p>
+                </article>
+                <article id="mision" class="page-section-card">
+                    <h2>Misión</h2>
+                    <p>En <strong>Manos Inclusivas Iluminando Corazones A.C.</strong> trabajamos para brindar atención
+                        integral, gratuita y de calidad en salud mental a personas que presentan un perfil de
+                        funcionamiento neurocognitivo no normativo en atención sostenida y flexibilidad cognitiva y sus
+                        familias. Nuestro compromiso es ofrecer diagnóstico oportuno, psicoterapia, rehabilitación,
+                        acompañamiento psicoeducativo y orientación para padres, en un entorno de inclusión, empatía y
+                        respeto a la diversidad humana.</p>
+                    <p>Creemos que cada vida merece ser atendida con dignidad, iluminando caminos hacia el bienestar y
+                        sembrando esperanza en quienes más lo necesitan.</p>
+                </article>
+                <article id="vision" class="page-section-card">
+                    <h2>Visión</h2>
+                    <p>Ser un referente en Yucatán, México e internacionalmente por transformar vidas a través de la
+                        salud mental gratuita e incluyente, guiando a la sociedad hacia un futuro donde la
+                        neurodiversidad sea valorada, acompañada y respetada.</p>
+                    <p>Aspiramos a construir una comunidad donde ninguna persona quede atrás por su condición, donde las
+                        manos que ayudan y los corazones que se abren se conviertan en la base de una sociedad más
+                        humana, consciente y solidaria.</p>
+                </article>
+                <article id="valores" class="page-section-card">
+                    <h2>Valores Institucionales</h2>
+
+                    <div class="values-grid">
+                        <div class="value-item">
+                            <span class="value-icon">🌟</span>
+                            <h4>Inclusión</h4>
+                            <p style="font-size: 0.9rem; margin-bottom: 0;">Creemos en una sociedad donde todas las
+                                personas, sin importar sus condiciones asociadas a diferencias en el desarrollo
+                                neurológico y cognitivo, sean reconocidas, aceptadas y valoradas plenamente.</p>
+                        </div>
+                        <div class="value-item">
+                            <span class="value-icon">❤️</span>
+                            <h4>Servicio Humano</h4>
+                            <p style="font-size: 0.9rem; margin-bottom: 0;">Nuestro trabajo nace del compromiso de dar,
+                                acompañar y servir desde el corazón, con un trato digno, empático y cercano.</p>
+                        </div>
+                        <div class="value-item">
+                            <span class="value-icon">🕊️</span>
+                            <h4>Esperanza</h4>
+                            <p style="font-size: 0.9rem; margin-bottom: 0;">Sembramos confianza en el futuro, iluminando
+                                caminos con la convicción de que cada vida tiene un potencial único por florecer.</p>
+                        </div>
+                        <div class="value-item">
+                            <span class="value-icon">🤝</span>
+                            <h4>Gratuidad Solidaria</h4>
+                            <p style="font-size: 0.9rem; margin-bottom: 0;">Ofrecemos nuestros servicios sin costo, como
+                                un acto de justicia social, asegurando que nadie quede excluido del acceso a la salud
+                                mental.</p>
+                        </div>
+                        <div class="value-item">
+                            <span class="value-icon">🏅</span>
+                            <h4>Excelencia Profesional</h4>
+                            <p style="font-size: 0.9rem; margin-bottom: 0;">Trabajamos con ética, rigor científico y
+                                actualización constante en psicoterapia, diagnóstico y rehabilitación, para brindar una
+                                atención de calidad.</p>
+                        </div>
+                        <div class="value-item">
+                            <span class="value-icon">🫂</span>
+                            <h4>Empatía y Respeto</h4>
+                            <p style="font-size: 0.9rem; margin-bottom: 0;">Nos esforzamos por comprender y acompañar
+                                las experiencias individuales, reconociendo la dignidad de cada persona y de sus
+                                familias.</p>
+                        </div>
+                        <div class="value-item">
+                            <span class="value-icon">🌍</span>
+                            <h4>Transformación Social</h4>
+                            <p style="font-size: 0.9rem; margin-bottom: 0;">Aspiramos a generar cambios que impacten no
+                                solo a las personas que atendemos, sino también a la comunidad y la cultura, fomentando
+                                una visión incluyente en personas que presentan un perfil de funcionamiento
+                                neurocognitivo no normativo en atención sostenida y flexibilidad cognitiva.</p>
+                        </div>
+                    </div>
+                </article>
+
+
+            </div>
+        </div>
     </main>
 
-    <!-- Footer (Simplified for brevity, same as index) -->
     <footer>
-        <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+        <script type="module"
+            src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
         <div class="container">
             <div class="footer-grid">
                 <div>
                     <div class="footer-logo">
-                        <model-viewer src="assets/logo.glb" alt="Logo Manos Inclusivas" 
-                            style="width: 80px; height: 80px; background-color: transparent;" 
+                        <model-viewer src="assets/logo.glb" alt="Logo Manos Inclusivas"
+                            style="width: 80px; height: 80px; background-color: transparent;"
                             camera-orbit="0deg 90deg auto" interaction-prompt="none"></model-viewer>
                         <h3 style="color: white; margin: 0; font-size: 1.2rem;">Manos Inclusivas A.C.</h3>
                     </div>
                     <p class="footer-desc">Fundación dedicada al neurodesarrollo, iluminando corazones y conectando
                         vidas en Yucatán.</p>
                     <div class="social-links">
-                        <a href="https://www.facebook.com/profile.php?id=61562928764116&mibextid=LQQCox" target="_blank" class="social-icon" aria-label="Facebook">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                        <a href="https://www.facebook.com/profile.php?id=61562928764116&mibextid=LQQCox" target="_blank"
+                            class="social-icon" aria-label="Facebook">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                            </svg>
                         </a>
-                        <a href="https://www.instagram.com/miicneurodesarollo?igsh=MXI3aTVsaXRjMGZzMw==&igsi=MXI3aTVsaXRjMGZzMw==" target="_blank" class="social-icon" aria-label="Instagram">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
+                        <a href="https://www.instagram.com/miicneurodesarollo?igsh=MXI3aTVsaXRjMGZzMw==&igsi=MXI3aTVsaXRjMGZzMw=="
+                            target="_blank" class="social-icon" aria-label="Instagram">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+                            </svg>
                         </a>
-                        <a href="https://x.com/inclusivas43334?s=20" target="_blank" class="social-icon" aria-label="Twitter/X">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
+                        <a href="https://x.com/inclusivas43334?s=20" target="_blank" class="social-icon"
+                            aria-label="Twitter/X">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path
+                                    d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z">
+                                </path>
+                            </svg>
                         </a>
-                        <a href="https://youtube.com/@miicneurodesarrollo?si=dE3kiuZaIAr2e2By" target="_blank" class="social-icon" aria-label="YouTube">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"></path><path d="m10 15 5-3-5-3z"></path></svg>
+                        <a href="https://youtube.com/@miicneurodesarrollo?si=dE3kiuZaIAr2e2By" target="_blank"
+                            class="social-icon" aria-label="YouTube">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path
+                                    d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17">
+                                </path>
+                                <path d="m10 15 5-3-5-3z"></path>
+                            </svg>
                         </a>
-                        <a href="https://www.linkedin.com/in/manos-inclusivas-iluminando-corazones-8b8681398/?isSelfProfile=false" target="_blank" class="social-icon" aria-label="LinkedIn">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                        <a href="https://www.linkedin.com/in/manos-inclusivas-iluminando-corazones-8b8681398/?isSelfProfile=false"
+                            target="_blank" class="social-icon" aria-label="LinkedIn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path
+                                    d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
+                                </path>
+                                <rect width="4" height="12" x="2" y="9"></rect>
+                                <circle cx="4" cy="4" r="2"></circle>
+                            </svg>
                         </a>
                     </div>
                 </div>
                 <div>
                     <h4 class="footer-title">Contacto</h4>
                     <ul class="footer-links">
-                        <li><a href="https://wa.me/5213111469377?text=Hola,%20me%20gustaría%20recibir%20más%20información." target="_blank">WhatsApp: 311 146 9377</a></li>
-                        <li><a href="https://maps.app.goo.gl/YN3QVJp3aTZ7rAW86" target="_blank">Kanasín, Yucatán</a></li>
+                        <li><a href="https://wa.me/5213111469377?text=Hola,%20me%20gustaría%20recibir%20más%20información."
+                                target="_blank">WhatsApp: 311 146 9377</a></li>
+                        <li><a href="https://maps.app.goo.gl/YN3QVJp3aTZ7rAW86" target="_blank">Kanasín, Yucatán</a>
+                        </li>
                     </ul>
                 </div>
                 <div>
@@ -229,9 +500,44 @@
         </div>
     </footer>
 
-
-
     <script src="assets/js/main.js"></script>
-    <script src="assets/js/neural-loader.js"></script>
+    <script src="assets/js/neural-loader.js?v=18"></script>
+    <script>
+        // Simple script for sidebar active state
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.page-section-card');
+            const navLinks = document.querySelectorAll('.sidebar-nav-link');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (scrollY >= (sectionTop - 200)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'es', 
+                includedLanguages: 'en,fr,de,zh-CN,it,pt,ja,es', 
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script src="assets/js/translator.js?v=16"></script>
 </body>
+
 </html>

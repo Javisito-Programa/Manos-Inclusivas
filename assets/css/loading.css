@@ -1,17 +1,17 @@
-/* Loading Screen Styles */
+/* Modern Loading Screen Styles */
 #loader-wrapper {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: var(--bg-primary);
+  background-color: #F2E8D5; /* Fondo original pero un poco mas tenue/oscuro para no lastimar */
   z-index: 99999;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+  transition: opacity 0.8s cubic-bezier(0.65, 0, 0.35, 1), visibility 0.8s ease-out;
 }
 
 #loader-canvas {
@@ -28,34 +28,79 @@
   z-index: 2;
   text-align: center;
   pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
 }
 
+/* Modern pulsing rings for the logo placeholder */
 .loader-logo-silhouette {
-  width: 150px;
-  height: 150px;
-  margin-bottom: 20px;
-  opacity: 0;
-  transition: opacity 1s ease-in;
-  /* This will be faded in via JS when canvas particles merge */
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: var(--accent-purple);
+  border-bottom-color: var(--accent-green);
+  animation: spin 3.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+  box-shadow: 0 0 15px rgba(149, 117, 205, 0.2);
+  position: relative;
+}
+.loader-logo-silhouette::before {
+  content: '';
+  position: absolute;
+  top: 10px; left: 10px; right: 10px; bottom: 10px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-left-color: var(--accent-green);
+  border-right-color: var(--accent-purple);
+  animation: spin-reverse 4s linear infinite;
 }
 
+@keyframes spin {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.1); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+@keyframes spin-reverse {
+  0% { transform: rotate(360deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* Stunning Gradient Shimmer Text */
 .loader-text {
   font-family: var(--font-main);
-  font-size: 1.5rem;
-  color: var(--text-main);
-  font-weight: 600;
+  font-size: 1.8rem;
+  font-weight: 700;
   letter-spacing: 1px;
-  opacity: 0;
-  animation: fadeInOut 2s infinite alternate;
+  margin: 0;
+  
+  background: linear-gradient(
+    to right,
+    var(--text-main) 20%,
+    var(--accent-purple) 40%,
+    var(--accent-green) 60%,
+    var(--text-main) 80%
+  );
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shine 5.5s linear infinite;
+  
+  text-shadow: 0 10px 20px rgba(0,0,0,0.05);
 }
 
-@keyframes fadeInOut {
-  0% { opacity: 0.4; }
-  100% { opacity: 1; }
+@keyframes shine {
+  to {
+    background-position: 200% center;
+  }
 }
 
 /* Utility to hide loader */
 .loaded #loader-wrapper {
   opacity: 0;
   visibility: hidden;
+  transform: scale(1.05); /* Slight zoom out effect when finishing */
 }

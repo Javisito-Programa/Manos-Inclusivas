@@ -25,14 +25,14 @@ document.addEventListener('DOMContentLoaded', () => {
     container.appendChild(renderer.domElement);
 
     // ILUMINACIÓN NEUTRA Y BALANCEADA (Respeta los colores originales del modelo)
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1.2); 
+    const ambientLight = new THREE.AmbientLight(0xfff8f3, 1.5); // Blanco crema cálido
     scene.add(ambientLight);
 
-    const dirLight = new THREE.DirectionalLight(0xffffff, 1.0);
+    const dirLight = new THREE.DirectionalLight(0xffffff, 1.2);
     dirLight.position.set(5, 5, 5);
     scene.add(dirLight);
 
-    const backLight = new THREE.DirectionalLight(0xffffff, 0.7);
+    const backLight = new THREE.DirectionalLight(0x8e75d8, 0.8); // Toque morado desde atrás
     backLight.position.set(-5, 5, -5);
     scene.add(backLight);
 

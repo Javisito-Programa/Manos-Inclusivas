@@ -10,10 +10,12 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/loading.css">
+    <link rel="stylesheet" href="assets/css/style-v2.css?v=22">
+    <link rel="stylesheet" href="assets/css/loading.css?v=22">
+    <!-- 3D Model Viewer -->
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
 </head>
 
 <body>
@@ -28,11 +30,12 @@
     </div>
 
     <!-- Header & Navigation -->
-    <header>
+    <header data-transparent="true">
+
         <div class="container navbar">
             <a href="index.html" class="logo-container">
-                <img src="img/Logo circular.png" alt="Logo Manos Inclusivas"
-                    style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;">
+                <model-viewer id="nav-3d-logo" src="assets/logo.glb" alt="Logo Manos Inclusivas"
+                    camera-orbit="0deg 90deg auto" interaction-prompt="none" disable-zoom></model-viewer>
                 <div class="logo-text">
                     <h2>Manos Inclusivas</h2>
                     <span>Iluminando Corazones A.C.</span>
@@ -42,15 +45,16 @@
             <button class="hamburger" aria-label="Abrir menú">☰</button>
 
             <nav class="nav-links">
-                <div class="nav-item"><a href="index.html" class="nav-link"
-                        style="color: var(--accent-purple);">INICIO</a>
+                <div class="nav-item"><a href="index.html" class="nav-link" style="color: var(--accent-purple);"
+                        >INICIO</a>
                 </div>
                 <div class="nav-item">
                     <a href="nosotros.html" class="nav-link">NOSOTROS</a>
                     <ul class="dropdown-menu">
-                        <li><a href="nosotros.html#mision" class="dropdown-item">Nuestra Misión</a></li>
+                        <li><a href="nosotros.html#historia" class="dropdown-item">Nuestra Historia</a></li>
+                        <li><a href="nosotros.html#mision" class="dropdown-item">Misión y Visión</a></li>
+                        <li><a href="nosotros.html#valores" class="dropdown-item">Valores</a></li>
                         <li><a href="nosotros.html#equipo" class="dropdown-item">Nuestro Equipo</a></li>
-                        <li><a href="quienes-somos.html#historia" class="dropdown-item">Instalaciones</a></li>
                     </ul>
                 </div>
                 <div class="nav-item">
@@ -65,52 +69,65 @@
                     </ul>
                 </div>
                 <div class="nav-item">
-                    <a href="quienes-somos.html" class="nav-link">QUIÉNES SOMOS</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="quienes-somos.html#historia" class="dropdown-item">Nuestra Historia</a></li>
-                        <li><a href="quienes-somos.html#mision" class="dropdown-item">Misión</a></li>
-                        <li><a href="quienes-somos.html#vision" class="dropdown-item">Visión</a></li>
-                        <li><a href="quienes-somos.html#valores" class="dropdown-item">Valores</a></li>
-                    </ul>
-                </div>
-                <div class="nav-item">
                     <a href="recursos.html" class="nav-link">RECURSOS</a>
                     <ul class="dropdown-menu">
-                        <li><a href="recursos.html#tea" class="dropdown-item">¿Qué es el TEA?</a></li>
-                        <li><a href="recursos.html#tdah" class="dropdown-item">¿Qué es el TDAH?</a></li>
+                        <li><a href="recursos.html#tea" class="dropdown-item">Autismo (TEA)</a></li>
+                        <li><a href="recursos.html#tdah" class="dropdown-item">TDAH</a></li>
+                        <li><a href="recursos.html#di" class="dropdown-item">Discapacidad Intelectual</a></li>
+                        <li><a href="recursos.html#teap" class="dropdown-item">Trastornos del Aprendizaje</a></li>
                     </ul>
                 </div>
                 <div class="nav-item"><a href="noticias.html" class="nav-link">NOTICIAS</a></div>
                 <div class="nav-item"><a href="citas.html" class="nav-link">CITAS</a></div>
                 <div class="nav-item"><a href="contacto.html" class="nav-link">CONTACTO</a></div>
-                <div class="nav-item"><a href="donar.html" class="btn btn-primary">DONAR</a></div>
+                <div class="nav-item"><a href="donar.html" class="btn btn-donate">DONAR</a></div>
+            
+                <!-- Translate Widget -->
+                <div class="nav-item custom-lang-selector">
+                    <div class="lang-btn" id="lang-btn">
+                        <span class="icon">🌍</span>
+                        <span id="current-lang-text">Español</span>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <ul class="lang-dropdown" id="lang-dropdown">
+                        <li data-lang="es" class="active">Español</li>
+                        <li data-lang="en">English</li>
+                        <li data-lang="fr">Français</li>
+                        <li data-lang="de">Deutsch</li>
+                        <li data-lang="it">Italiano</li>
+                        <li data-lang="pt">Português</li>
+                        <li data-lang="ja">日本語</li>
+                        <li data-lang="zh-CN">中文</li>
+                    </ul>
+                    <div id="google_translate_element" style="display:none;"></div>
+                </div>
             </nav>
         </div>
+
     </header>
 
     <!-- Main Content -->
     <main>
         <!-- Hero Section -->
         <section class="hero">
-            <svg class="bg-shape shape-1" viewBox="0 0 100 100">
-                <path d="M50 0 L100 50 L50 100 L0 50 Z" />
-            </svg>
-            <svg class="bg-shape shape-2" viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="50" />
-            </svg>
+            <!-- Carousel Background -->
+            <div class="hero-slider">
+                <div class="hero-slide active" style="background-image: url('img/Cursos.png');"></div>
+                <div class="hero-slide" style="background-image: url('img/Habla.jpg');"></div>
+                <div class="hero-slide" style="background-image: url('img/Ocupacional.jpg');"></div>
+                <div class="hero-slide" style="background-image: url('img/Sensorial.jpg');"></div>
+            </div>
+            <!-- Dark Overlay -->
+            <div class="hero-overlay"></div>
 
-            <div class="container" style="display: flex; flex-wrap: wrap; align-items: center;">
+            <div class="container" style="position: relative; z-index: 2;">
                 <div class="hero-content">
-                    <h1 class="hero-title">Cuidamos tu bienestar emocional. ¡No estás solo!</h1>
-                    <p class="hero-subtitle">Fundación sin fines de lucro en Kanasín, Yucatán, dedicada al
-                        neurodesarrollo. Creemos en el potencial de cada persona.</p>
+                    <h1 class="hero-title">Cuidamos tu bienestar emocional. <span>¡No estás solo!</span></h1>
+                    <p class="hero-subtitle">Fundación sin fines de lucro en Kanasín, Yucatán, dedicada al neurodesarrollo.<br>Creemos en el potencial de cada persona.</p>
                     <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 20px;">
                         <a href="contacto.html" class="btn btn-primary">Contáctanos</a>
-                        <a href="citas.html" class="btn btn-outline">Agendar Cita</a>
+                        <a href="citas.html" class="btn btn-accent">Agendar Cita</a>
                     </div>
-                </div>
-                <div class="hero-image-wrapper">
-                    <div id="hero-3d-canvas-container"></div>
                 </div>
             </div>
         </section>
@@ -126,7 +143,9 @@
                 <div class="grid-3">
                     <!-- Card 1 -->
                     <div class="card">
-                        <div class="card-icon icon-purple">🧠</div>
+                        <div class="card-icon icon-purple">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"></path><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"></path></svg>
+                        </div>
                         <h3 class="card-title">Psicología</h3>
                         <p class="card-text">Atención psicológica individualizada para promover el bienestar emocional y
                             mental.</p>
@@ -135,7 +154,9 @@
                     </div>
                     <!-- Card 2 -->
                     <div class="card">
-                        <div class="card-icon icon-green">⚕️</div>
+                        <div class="card-icon icon-green">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+                        </div>
                         <h3 class="card-title">Psiquiatría</h3>
                         <p class="card-text">Evaluación, diagnóstico y seguimiento médico especializado.</p>
                         <a href="servicios.html#psiquiatria" class="btn btn-outline"
@@ -143,7 +164,9 @@
                     </div>
                     <!-- Card 3 -->
                     <div class="card">
-                        <div class="card-icon icon-pink">🗣️</div>
+                        <div class="card-icon icon-pink">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 14v-3z"></path><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"></path></svg>
+                        </div>
                         <h3 class="card-title">Terapia de Lenguaje</h3>
                         <p class="card-text">Estimulación y rehabilitación para superar dificultades comunicativas.</p>
                         <a href="servicios.html#terapia-lenguaje" class="btn btn-outline"
@@ -151,7 +174,9 @@
                     </div>
                     <!-- Card 4 -->
                     <div class="card">
-                        <div class="card-icon icon-blue">✋</div>
+                        <div class="card-icon icon-blue">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"></path><path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"></path><path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"></path><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"></path></svg>
+                        </div>
                         <h3 class="card-title">Terapia Ocupacional</h3>
                         <p class="card-text">Fomento de la autonomía en las actividades de la vida diaria.</p>
                         <a href="servicios.html#terapia-ocupacional" class="btn btn-outline"
@@ -159,7 +184,9 @@
                     </div>
                     <!-- Card 5 -->
                     <div class="card">
-                        <div class="card-icon icon-purple">🧩</div>
+                        <div class="card-icon icon-purple">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19.439 7.85c-.049.322.059.648.289.878l1.568 1.568c.47.47.706 1.087.706 1.704s-.235 1.233-.706 1.704l-1.611 1.611a.98.98 0 0 1-.837.276c-.47-.07-.802-.48-.968-.925a2.501 2.501 0 1 0-3.214 3.214c.446.166.855.497.925.968a.979.979 0 0 1-.276.837l-1.61 1.611c-.941.941-2.468.941-3.408 0l-1.569-1.568a1.245 1.245 0 0 1-.288-.878c.041-.32.051-.65-.043-.968A2.5 2.5 0 0 0 6.002 14c-.318.094-.648.084-.968.043a1.245 1.245 0 0 1-.878-.288l-1.568-1.569c-.941-.94-1.127-2.467-.186-3.408l1.61-1.611a.98.98 0 0 1 .837-.276c.47.07.802.48.968.925a2.501 2.501 0 1 0 3.214-3.214c-.446-.166-.855-.497-.925-.968a.979.979 0 0 1 .276-.837l1.611-1.61c.94-.941 2.467-.941 3.408 0l1.568 1.568c.23.23.338.556.289.878.041.32.051.65-.043.968A2.5 2.5 0 0 0 18 8.002c.318-.094.648-.084.968-.043Z"></path></svg>
+                        </div>
                         <h3 class="card-title">Integración Sensorial</h3>
                         <p class="card-text">Ayudamos a procesar adecuadamente la información de los sentidos.</p>
                         <a href="servicios.html#integracion-sensorial" class="btn btn-outline"
@@ -167,7 +194,9 @@
                     </div>
                     <!-- Card 6 -->
                     <div class="card">
-                        <div class="card-icon icon-green">📚</div>
+                        <div class="card-icon icon-green">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                        </div>
                         <h3 class="card-title">Talleres y Capacitaciones</h3>
                         <p class="card-text">Espacios formativos para familiares, educadores y comunidad.</p>
                         <a href="servicios.html#talleres" class="btn btn-outline"
@@ -192,8 +221,6 @@
 
     <!-- Footer -->
     <footer>
-        <script type="module"
-            src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
         <div class="container">
             <div class="footer-grid">
                 <div>
@@ -256,12 +283,19 @@
 
 
     <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/loaders/DRACOLoader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/loaders/GLTFLoader.js"></script>
-    <script src="assets/js/hero-3d-model.js?v=3"></script>
     <script src="assets/js/main.js?v=2"></script>
-    <script src="assets/js/neural-loader.js?v=2"></script>
+    <script src="assets/js/neural-loader.js?v=18"></script>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'es', 
+                includedLanguages: 'en,fr,de,zh-CN,it,pt,ja,es', 
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script src="assets/js/translator.js?v=16"></script>
 </body>
 
 </html>

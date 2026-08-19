@@ -5,31 +5,126 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tablón de Noticias - Manos Inclusivas A.C.</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/loading.css">
-    <style>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style-v2.css?v=22">
+    <link rel="stylesheet" href="assets/css/loading.css?v=22">
+    
+    
+    <style id='cache-busted-styles-noticias-v5'>
+        /* ANIMATED WAVES HERO NOTICIAS */
         .news-hero {
-            background: var(--bg-secondary);
-            padding: 80px 20px;
+            position: relative;
+            padding: 160px 20px 220px;
             text-align: center;
-            border-bottom: 5px solid var(--accent-purple);
+            background: url('img/Noticias.jpg') center center / cover no-repeat;
+            margin-bottom: 50px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .news-hero h1 {
-            font-size: 2.8rem;
-            color: var(--text-main);
-            margin-bottom: 15px;
+        /* Dark overlay with animated gradient */
+        .news-hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(45deg, rgba(30, 41, 59, 0.9), rgba(79, 70, 229, 0.8), rgba(30, 41, 59, 0.9));
+            background-size: 300% 300%;
+            animation: auroraShift 45s ease-in-out infinite;
+            z-index: 1;
         }
 
-        .news-hero p {
-            font-size: 1.1rem;
-            color: #555;
-            max-width: 600px;
+        @keyframes auroraShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .news-hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
             margin: 0 auto;
         }
 
-        .news-grid {
+        .news-hero h1 {
+            font-size: 4.5rem;
+            color: #ffffff;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
+
+        
+            to { text-shadow: 0 0 20px rgba(255,255,255,0.6), 0 0 30px rgba(236, 72, 153, 0.8); }
+        }
+
+        .news-hero p {
+            font-size: 1.4rem;
+            color: #ffffff !important; text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+            line-height: 1.6;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            border-left: 4px solid var(--accent-pink);
+            padding-left: 20px;
+            text-align: left;
+            display: inline-block;
+            background: rgba(0,0,0,0.3);
+            padding: 15px 25px;
+            border-radius: 0 20px 20px 0;
+        }
+
+        /* Animated SVG Waves */
+        .waves-container {
+            position: absolute;
+            bottom: -5px; /* slight overlap to prevent gaps */
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+            z-index: 3;
+        }
+
+        .waves-container svg {
+            position: relative;
+            display: block;
+            width: calc(200% + 1.3px);
+            height: 120px;
+            transform: translateX(0);
+        }
+
+        .wave-back {
+            fill: rgba(248, 249, 250, 0.5); /* Semi-transparent beige/white */
+            animation: waveAnimate 40s linear infinite;
+        }
+
+        .wave-front {
+            fill: #fdfbf7; /* Matches bg-primary */
+            animation: waveAnimate 30s linear infinite reverse;
+        }
+
+        @keyframes waveAnimate {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        @media (max-width: 768px) {
+            .news-hero { padding: 100px 15px 100px; }
+            .news-hero h1 { font-size: 2.2rem; margin-bottom: 15px; }
+            .news-hero p { 
+                font-size: 1.05rem; 
+                padding: 15px; 
+                border-left: none;
+                border-top: 4px solid var(--accent-pink);
+                border-radius: 0 0 15px 15px;
+                display: block;
+                text-align: center;
+            }
+            .waves-container svg { height: 50px; }
+        }
+.news-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 30px;
@@ -203,10 +298,11 @@
 
     <!-- Header & Navigation -->
     <header>
+
         <div class="container navbar">
             <a href="index.html" class="logo-container">
-                <img src="img/Logo circular.png" alt="Logo Manos Inclusivas"
-                    style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;">
+                <model-viewer id="nav-3d-logo" src="assets/logo.glb" alt="Logo Manos Inclusivas"
+                    camera-orbit="0deg 90deg auto" interaction-prompt="none" disable-zoom></model-viewer>
                 <div class="logo-text">
                     <h2>Manos Inclusivas</h2>
                     <span>Iluminando Corazones A.C.</span>
@@ -216,13 +312,16 @@
             <button class="hamburger" aria-label="Abrir menú">☰</button>
 
             <nav class="nav-links">
-                <div class="nav-item"><a href="index.html" class="nav-link">INICIO</a></div>
+                <div class="nav-item"><a href="index.html" class="nav-link"
+                        >INICIO</a>
+                </div>
                 <div class="nav-item">
                     <a href="nosotros.html" class="nav-link">NOSOTROS</a>
                     <ul class="dropdown-menu">
-                        <li><a href="nosotros.html#mision" class="dropdown-item">Nuestra Misión</a></li>
+                        <li><a href="nosotros.html#historia" class="dropdown-item">Nuestra Historia</a></li>
+                        <li><a href="nosotros.html#mision" class="dropdown-item">Misión y Visión</a></li>
+                        <li><a href="nosotros.html#valores" class="dropdown-item">Valores</a></li>
                         <li><a href="nosotros.html#equipo" class="dropdown-item">Nuestro Equipo</a></li>
-                        <li><a href="quienes-somos.html#historia" class="dropdown-item">Instalaciones</a></li>
                     </ul>
                 </div>
                 <div class="nav-item">
@@ -237,36 +336,64 @@
                     </ul>
                 </div>
                 <div class="nav-item">
-                    <a href="quienes-somos.html" class="nav-link">QUIÉNES SOMOS</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="quienes-somos.html#historia" class="dropdown-item">Nuestra Historia</a></li>
-                        <li><a href="quienes-somos.html#mision" class="dropdown-item">Misión</a></li>
-                        <li><a href="quienes-somos.html#vision" class="dropdown-item">Visión</a></li>
-                        <li><a href="quienes-somos.html#valores" class="dropdown-item">Valores</a></li>
-                    </ul>
-                </div>
-                <div class="nav-item">
                     <a href="recursos.html" class="nav-link">RECURSOS</a>
                     <ul class="dropdown-menu">
-                        <li><a href="recursos.html#tea" class="dropdown-item">¿Qué es el TEA?</a></li>
-                        <li><a href="recursos.html#tdah" class="dropdown-item">¿Qué es el TDAH?</a></li>
+                        <li><a href="recursos.html#tea" class="dropdown-item">Autismo (TEA)</a></li>
+                        <li><a href="recursos.html#tdah" class="dropdown-item">TDAH</a></li>
+                        <li><a href="recursos.html#di" class="dropdown-item">Discapacidad Intelectual</a></li>
+                        <li><a href="recursos.html#teap" class="dropdown-item">Trastornos del Aprendizaje</a></li>
                     </ul>
                 </div>
                 <div class="nav-item"><a href="noticias.html" class="nav-link" style="color: var(--accent-purple);">NOTICIAS</a></div>
                 <div class="nav-item"><a href="citas.html" class="nav-link">CITAS</a></div>
                 <div class="nav-item"><a href="contacto.html" class="nav-link">CONTACTO</a></div>
-                <div class="nav-item"><a href="donar.html" class="btn btn-primary">DONAR</a></div>
+                <div class="nav-item"><a href="donar.html" class="btn btn-donate">DONAR</a></div>
+            
+                <!-- Translate Widget -->
+                <div class="nav-item custom-lang-selector">
+                    <div class="lang-btn" id="lang-btn">
+                        <span class="icon">🌍</span>
+                        <span id="current-lang-text">Español</span>
+                        <span class="arrow">▼</span>
+                    </div>
+                    <ul class="lang-dropdown" id="lang-dropdown">
+                        <li data-lang="es" class="active">Español</li>
+                        <li data-lang="en">English</li>
+                        <li data-lang="fr">Français</li>
+                        <li data-lang="de">Deutsch</li>
+                        <li data-lang="it">Italiano</li>
+                        <li data-lang="pt">Português</li>
+                        <li data-lang="ja">日本語</li>
+                        <li data-lang="zh-CN">中文</li>
+                    </ul>
+                    <div id="google_translate_element" style="display:none;"></div>
+                </div>
             </nav>
         </div>
+
     </header>
 
     <main class="bg-primary">
+        
+        
         <section class="news-hero">
-            <div class="container">
+            <div class="news-hero-content">
                 <h1>Tablón de Noticias</h1>
-                <p>Mantente al día con nuestros próximos eventos, talleres, actividades y novedades de la fundación.</p>
+                <p style="color: #ffffff !important; text-shadow: 0 2px 5px rgba(0,0,0,0.8);">Mantente al día con nuestros próximos eventos, talleres, actividades y novedades de la fundación.</p>
+            </div>
+            
+            <!-- Animated Waves -->
+            <div class="waves-container">
+                <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                    <!-- Back Wave -->
+                    <path class="wave-back" d="M0,60 C300,120 300,0 600,60 C900,120 900,0 1200,60 C1500,120 1500,0 1800,60 C2100,120 2100,0 2400,60 L2400,120 L0,120 Z"></path>
+                    <!-- Front Wave -->
+                    <path class="wave-front" d="M0,80 C300,20 300,140 600,80 C900,20 900,140 1200,80 C1500,20 1500,140 1800,80 C2100,20 2100,140 2400,80 L2400,120 L0,120 Z"></path>
+                </svg>
             </div>
         </section>
+
+
 
         <section class="container">
             <div class="news-grid" id="news-container">
@@ -350,7 +477,7 @@
     </footer>
 
     <script src="assets/js/main.js"></script>
-    <script src="assets/js/neural-loader.js"></script>
+    <script src="assets/js/neural-loader.js?v=18"></script>
     
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -437,6 +564,17 @@
             }
         });
     </script>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'es', 
+                includedLanguages: 'en,fr,de,zh-CN,it,pt,ja,es', 
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script src="assets/js/translator.js?v=16"></script>
 </body>
 
 </html>
