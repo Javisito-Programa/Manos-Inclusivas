@@ -1832,3 +1832,23 @@ body {
     background: none !important;
     box-shadow: none !important;
 }
+
+/* FINAL GOOGLE TRANSLATE HIDER */
+.skiptranslate iframe, 
+.goog-te-banner-frame.skiptranslate, 
+.VIpgJd-ZVi9od-aZ2wEe-wOHMyf, 
+.VIpgJd-ZVi9od-aZ2wEe-wOHMyf-ti6hGc,
+#goog-gt-tt, 
+.goog-te-balloon-frame {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+}
+body {
+    top: 0px !important; 
+    position: static !important;
+}
+html {
+    height: 100% !important;
+}
