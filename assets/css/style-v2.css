@@ -751,7 +751,7 @@ footer {
   gap: 12px;
 }
 
-.social-icon {
+.social-icon, .social-circle {
   width: 42px;
   height: 42px;
   border-radius: 50%;
@@ -1464,7 +1464,7 @@ footer {
   text-shadow: none !important;
 }
 
-.social-icon {
+.social-icon, .social-circle {
   background: white !important;
   color: var(--text-main) !important;
   box-shadow: 0 4px 10px rgba(0,0,0,0.05) !important;
@@ -1518,7 +1518,7 @@ footer {
   text-shadow: 0 0 10px rgba(255,255,255,0.4) !important;
 }
 
-.social-icon {
+.social-icon, .social-circle {
   background: rgba(255, 255, 255, 0.15) !important;
   color: #ffffff !important;
   box-shadow: none !important;
@@ -1572,7 +1572,7 @@ footer {
   text-shadow: none !important;
 }
 
-.social-icon {
+.social-icon, .social-circle {
   background: #ffffff !important;
   color: #3b82f6 !important;
   box-shadow: 0 4px 10px rgba(0,0,0,0.05) !important;
@@ -1627,7 +1627,7 @@ footer {
   text-shadow: 0 0 10px rgba(255,255,255,0.4) !important;
 }
 
-.social-icon {
+.social-icon, .social-circle {
   background: rgba(255, 255, 255, 0.15) !important;
   color: #ffffff !important;
   box-shadow: none !important;
@@ -1795,21 +1795,23 @@ details.page-sidebar[open] summary .dropdown-icon {
 /* ========================================== */
 /* ORIGINAL SOCIAL MEDIA COLORS               */
 /* ========================================== */
-.social-icon[aria-label="Facebook"] { color: #1877F2 !important; }
-.social-icon[aria-label="Instagram"] { color: #E1306C !important; }
-.social-icon[aria-label="Twitter/X"] { color: #000000 !important; }
-.social-icon[aria-label="YouTube"] { color: #FF0000 !important; }
-.social-icon[aria-label="LinkedIn"] { color: #0A66C2 !important; }
+.social-icon[aria-label="Facebook"], .social-circle[aria-label="Facebook"] { color: #1877F2 !important; }
+.social-icon[aria-label="Instagram"], .social-circle[aria-label="Instagram"] { color: #E1306C !important; }
+.social-icon[aria-label="Twitter/X"], .social-circle[aria-label="Twitter/X"] { color: #000000 !important; }
+.social-icon[aria-label="YouTube"], .social-circle[aria-label="YouTube"] { color: #FF0000 !important; }
+.social-icon[aria-label="LinkedIn"], .social-circle[aria-label="LinkedIn"] { color: #0A66C2 !important; }
 
-.social-icon[aria-label="Facebook"]:hover { color: #166fe5 !important; transform: scale(1.1) translateY(-2px); }
-.social-icon[aria-label="Instagram"]:hover { color: #C13584 !important; transform: scale(1.1) translateY(-2px); }
-.social-icon[aria-label="Twitter/X"]:hover { color: #333333 !important; transform: scale(1.1) translateY(-2px); }
-.social-icon[aria-label="YouTube"]:hover { color: #cc0000 !important; transform: scale(1.1) translateY(-2px); }
-.social-icon[aria-label="LinkedIn"]:hover { color: #004182 !important; transform: scale(1.1) translateY(-2px); }
+.social-icon[aria-label="Facebook"], .social-circle[aria-label="Facebook"]:hover { color: #166fe5 !important; transform: scale(1.1) translateY(-2px); }
+.social-icon[aria-label="Instagram"], .social-circle[aria-label="Instagram"]:hover { color: #C13584 !important; transform: scale(1.1) translateY(-2px); }
+.social-icon[aria-label="Twitter/X"], .social-circle[aria-label="Twitter/X"]:hover { color: #333333 !important; transform: scale(1.1) translateY(-2px); }
+.social-icon[aria-label="YouTube"], .social-circle[aria-label="YouTube"]:hover { color: #cc0000 !important; transform: scale(1.1) translateY(-2px); }
+.social-icon[aria-label="LinkedIn"], .social-circle[aria-label="LinkedIn"]:hover { color: #004182 !important; transform: scale(1.1) translateY(-2px); }
 
 /* Fondo difuminado blanco para que destaquen */
-.social-icon {
+.social-icon, .social-circle {
     background: rgba(255, 255, 255, 0.85) !important;
     backdrop-filter: blur(4px) !important;
     box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
 }
+
+
