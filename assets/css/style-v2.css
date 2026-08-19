@@ -1806,3 +1806,10 @@ details.page-sidebar[open] summary .dropdown-icon {
 .social-icon[aria-label="Twitter/X"]:hover { color: #333333 !important; transform: scale(1.1) translateY(-2px); }
 .social-icon[aria-label="YouTube"]:hover { color: #cc0000 !important; transform: scale(1.1) translateY(-2px); }
 .social-icon[aria-label="LinkedIn"]:hover { color: #004182 !important; transform: scale(1.1) translateY(-2px); }
+
+/* Fondo difuminado blanco para que destaquen */
+.social-icon {
+    background: rgba(255, 255, 255, 0.85) !important;
+    backdrop-filter: blur(4px) !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+}
