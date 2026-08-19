@@ -1815,3 +1815,20 @@ details.page-sidebar[open] summary .dropdown-icon {
 }
 
 
+
+/* ========================================== */
+/* HIDE GOOGLE TRANSLATE BANNER & TOOLTIPS    */
+/* ========================================== */
+.goog-te-banner-frame.skiptranslate {
+    display: none !important;
+}
+body {
+    top: 0px !important;
+}
+#goog-gt-tt, .goog-te-balloon-frame {
+    display: none !important;
+}
+.goog-text-highlight {
+    background: none !important;
+    box-shadow: none !important;
+}
