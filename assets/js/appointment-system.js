@@ -2,9 +2,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Mock Data for Clinics and Appointments
     const clinicsData = [
         {
-            id: 'kanasin',
-            name: 'Sede Principal Kanasín',
-            address: 'Calle 21, Kanasín, Yucatán',
+            id: 'merida',
+            name: 'Sede Principal Mérida',
+            address: 'calle 20-H # 271. Int. 13. Fraccionamiento Las Palmas, Kanasín. Yucatán.',
             phone: '999 112 1609',
             lat: 20.9360,
             lng: -89.5590,
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         // Mock finding nearest
                         // In reality, apply Haversine distance from position.coords.latitude/longitude
                         setTimeout(() => {
-                            clinicSelect.value = 'kanasin'; // Force Kanasin as closest for demo
+                            clinicSelect.value = 'merida'; // Force Merida as closest for demo
                             clinicSelect.dispatchEvent(new Event('change'));
                             geoBtn.textContent = "Ubicación Usada";
                             geoBtn.classList.add('btn-primary');

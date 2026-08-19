@@ -72,9 +72,6 @@
     100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
 }
 
-    50% { transform: translateY(-10px); }
-}
-
 .hero-recursos h1 {
     color: #ffffff !important;
     font-size: 3.5rem;
@@ -243,27 +240,255 @@
     color: var(--text-muted);
     display: none;
 }
+
+/* --- CSS ANIMATIONS PARA RECURSOS --- */
+.anim-container {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    margin-top: 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border: 2px solid var(--accent-purple);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 250px;
+    overflow: hidden;
+}
+.anim-title {
+    text-align: center;
+    color: var(--text-main);
+    margin-bottom: 25px;
+    font-size: 1.6rem;
+    font-family: 'Fredoka', sans-serif;
+}
+
+/* TDAH: Engranajes y nodos */
+@keyframes spin { 100% { transform: rotate(360deg); } }
+@keyframes spin-reverse { 100% { transform: rotate(-360deg); } }
+@keyframes pulse-node { 0%, 100% { opacity: 0.4; r: 4; fill: #cbd5e1; } 50% { opacity: 1; r: 8; fill: #f59e0b; } }
+
+.gear-fast { transform-origin: 0px 0px; animation: spin 4s linear infinite; }
+.gear-slow { transform-origin: 0px 0px; animation: spin-reverse 8s linear infinite; }
+.node-pulse { animation: pulse-node 2s ease-in-out infinite; }
+.node-pulse:nth-child(1) { animation-delay: 0s; }
+.node-pulse:nth-child(2) { animation-delay: 0.6s; }
+.node-pulse:nth-child(3) { animation-delay: 1.2s; }
+
+/* DI: Torre Jenga y Ritmos de Aprendizaje */
+.jenga-block .top { fill: #fcd34d; }
+.jenga-block .left { fill: #f59e0b; }
+.jenga-block .right { fill: #d97706; }
+.l2-b1 .top, .l2-b2 .top, .l2-b3 .top,
+.l4-b1 .top, .l4-b2 .top, .l4-b3 .top { fill: #fde047; }
+.l2-b1 .left, .l2-b2 .left, .l2-b3 .left,
+.l4-b1 .left, .l4-b2 .left, .l4-b3 .left { fill: #ca8a04; }
+.l2-b1 .right, .l2-b2 .right, .l2-b3 .right,
+.l4-b1 .right, .l4-b2 .right, .l4-b3 .right { fill: #eab308; }
+
+.l1-b2 .top { fill: #60a5fa; } .l1-b2 .left { fill: #2563eb; } .l1-b2 .right { fill: #3b82f6; }
+.l2-b3 .top { fill: #34d399; } .l2-b3 .left { fill: #059669; } .l2-b3 .right { fill: #10b981; }
+.l3-b1 .top { fill: #f472b6; } .l3-b1 .left { fill: #db2777; } .l3-b1 .right { fill: #ec4899; }
+.l4-b2 .top { fill: #a78bfa; } .l4-b2 .left { fill: #7c3aed; } .l4-b2 .right { fill: #8b5cf6; }
+
+@keyframes jenga-p1 {
+    0%, 0% { transform: translate(-60px, 80px); opacity: 0; }
+    5%, 85% { transform: translate(0, 0); opacity: 1; }
+    90%, 100% { transform: translate(-60px, 80px); opacity: 0; }
+}
+.l1-b1 { animation: jenga-p1 12s infinite ease-in-out; }
+@keyframes jenga-p2 {
+    0%, 2% { transform: translate(0, -100px); opacity: 0; }
+    7%, 83% { transform: translate(0, 0); opacity: 1; }
+    88%, 100% { transform: translate(0, -100px); opacity: 0; }
+}
+.l1-b2 { animation: jenga-p2 12s infinite ease-in-out; }
+@keyframes jenga-p3 {
+    0%, 4% { transform: translate(60px, 80px); opacity: 0; }
+    9%, 81% { transform: translate(0, 0); opacity: 1; }
+    86%, 100% { transform: translate(60px, 80px); opacity: 0; }
+}
+.l1-b3 { animation: jenga-p3 12s infinite ease-in-out; }
+@keyframes jenga-p4 {
+    0%, 6% { transform: translate(-100px, 0); opacity: 0; }
+    11%, 79% { transform: translate(0, 0); opacity: 1; }
+    84%, 100% { transform: translate(-100px, 0); opacity: 0; }
+}
+.l2-b1 { animation: jenga-p4 12s infinite ease-in-out; }
+@keyframes jenga-p5 {
+    0%, 8% { transform: translate(60px, -80px); opacity: 0; }
+    13%, 77% { transform: translate(0, 0); opacity: 1; }
+    82%, 100% { transform: translate(60px, -80px); opacity: 0; }
+}
+.l2-b2 { animation: jenga-p5 12s infinite ease-in-out; }
+@keyframes jenga-p6 {
+    0%, 10% { transform: translate(-60px, -80px); opacity: 0; }
+    15%, 75% { transform: translate(0, 0); opacity: 1; }
+    80%, 100% { transform: translate(-60px, -80px); opacity: 0; }
+}
+.l2-b3 { animation: jenga-p6 12s infinite ease-in-out; }
+@keyframes jenga-p7 {
+    0%, 12% { transform: translate(100px, 0); opacity: 0; }
+    17%, 73% { transform: translate(0, 0); opacity: 1; }
+    78%, 100% { transform: translate(100px, 0); opacity: 0; }
+}
+.l3-b1 { animation: jenga-p7 12s infinite ease-in-out; }
+@keyframes jenga-p8 {
+    0%, 14% { transform: translate(-60px, 80px); opacity: 0; }
+    19%, 71% { transform: translate(0, 0); opacity: 1; }
+    76%, 100% { transform: translate(-60px, 80px); opacity: 0; }
+}
+.l3-b2 { animation: jenga-p8 12s infinite ease-in-out; }
+@keyframes jenga-p9 {
+    0%, 16% { transform: translate(0, -100px); opacity: 0; }
+    21%, 69% { transform: translate(0, 0); opacity: 1; }
+    74%, 100% { transform: translate(0, -100px); opacity: 0; }
+}
+.l3-b3 { animation: jenga-p9 12s infinite ease-in-out; }
+@keyframes jenga-p10 {
+    0%, 18% { transform: translate(60px, 80px); opacity: 0; }
+    23%, 67% { transform: translate(0, 0); opacity: 1; }
+    72%, 100% { transform: translate(60px, 80px); opacity: 0; }
+}
+.l4-b1 { animation: jenga-p10 12s infinite ease-in-out; }
+@keyframes jenga-p11 {
+    0%, 20% { transform: translate(-60px, -80px); opacity: 0; }
+    25%, 65% { transform: translate(0, 0); opacity: 1; }
+    70%, 100% { transform: translate(-60px, -80px); opacity: 0; }
+}
+.l4-b2 { animation: jenga-p11 12s infinite ease-in-out; }
+@keyframes jenga-p12 {
+    0%, 22% { transform: translate(60px, -80px); opacity: 0; }
+    27%, 63% { transform: translate(0, 0); opacity: 1; }
+    68%, 100% { transform: translate(60px, -80px); opacity: 0; }
+}
+.l4-b3 { animation: jenga-p12 12s infinite ease-in-out; }
+
+/* TEAp: Árbol */
+@keyframes float-leaf {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    50% { transform: translate(0, -10px) rotate(5deg); }
+}
+.tree-leaf { animation: float-leaf 4s ease-in-out infinite; transform-origin: center; }
+.tree-leaf:nth-child(even) { animation-delay: -2s; animation-duration: 5s; }
+
+/* Dislexia: Letras flotantes */
+@keyframes jumble {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(25px, -15px) rotate(20deg); }
+    50% { transform: translate(-15px, -30px) rotate(-15deg); }
+    75% { transform: translate(-25px, 15px) rotate(10deg); }
+}
+.dyslexia-letter { animation: jumble 7s ease-in-out infinite; transform-origin: center; font-family: 'Fredoka', sans-serif; font-weight: 800; font-size: 48px; }
+.dyslexia-letter:nth-child(1) { animation-delay: 0s; fill: var(--accent-purple); }
+.dyslexia-letter:nth-child(2) { animation-delay: -1.5s; fill: var(--accent-pink); }
+.dyslexia-letter:nth-child(3) { animation-delay: -3s; fill: var(--accent-blue); }
+.dyslexia-letter:nth-child(4) { animation-delay: -4.5s; fill: #10b981; }
+.dyslexia-letter:nth-child(5) { animation-delay: -6s; fill: #f59e0b; }
+
+/* Discalculia: Matemáticas */
+@keyframes math-float {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-20px) scale(1.1); }
+}
+.math-symbol { animation: math-float 4s ease-in-out infinite; transform-origin: center; font-family: 'Fredoka', sans-serif; font-weight: 800; font-size: 40px; }
+.math-symbol:nth-child(odd) { animation-delay: -2s; animation-duration: 5s; }
+.math-symbol:nth-child(3n) { animation-delay: -1s; animation-duration: 6s; }
+
+/* Disgrafía: Pluma y trazo */
+@keyframes draw-scribble {
+    0% { stroke-dashoffset: 1000; }
+    50%, 100% { stroke-dashoffset: 0; }
+}
+@keyframes pen-move {
+    0% { transform: translate(0, 0); }
+    50%, 100% { transform: translate(280px, 40px) rotate(-15deg); }
+}
+.scribble-line { stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: draw-scribble 5s ease-in-out infinite; }
+.pen-icon { animation: pen-move 5s ease-in-out infinite; }
+
+/* Disortografía: Fichas */
+@keyframes drop-letter {
+    0%, 20% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+    30%, 80% { transform: translate(10px, 40px) rotate(15deg); opacity: 0; }
+    90%, 100% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+}
+.tile-drop { animation: drop-letter 6s ease-in-out infinite; transform-origin: center; }
+
+/* Dispraxia: Laberinto */
+@keyframes maze-nav {
+    0% { transform: translate(0, 0); }
+    15% { transform: translate(60px, 0); }
+    20% { transform: translate(60px, -15px); } /* hesitation/mistake */
+    25% { transform: translate(60px, 0); }
+    40% { transform: translate(60px, 60px); }
+    55% { transform: translate(140px, 60px); }
+    60% { transform: translate(140px, 80px); } /* hesitation/mistake */
+    65% { transform: translate(140px, 60px); }
+    80% { transform: translate(140px, 20px); }
+    100% { transform: translate(200px, 20px); }
+}
+.maze-dot { animation: maze-nav 7s ease-in-out infinite alternate; }
+
+/* Lenguaje: Burbujas y ondas */
+@keyframes float-bubble {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+.bubble-left { animation: float-bubble 4s ease-in-out infinite; }
+.bubble-right { animation: float-bubble 4s ease-in-out infinite; animation-delay: -2s; }
+
+@keyframes typing-dot {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+    30% { transform: translateY(-5px); opacity: 1; }
+}
+.typing-dot { animation: typing-dot 1.5s infinite; }
+
+@keyframes wave-pulse {
+    0%, 100% { transform: scaleY(0.3); opacity: 0.5; }
+    50% { transform: scaleY(1); opacity: 1; }
+}
+.sound-wave { transform-origin: center; animation: wave-pulse 1.2s ease-in-out infinite; }
+
+/* Altas Capacidades: Cerebro y Engranajes */
+@keyframes brain-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+.brain-gears { animation: brain-float 6s ease-in-out infinite; transform-origin: center; }
 </style>
 
 </head>
 <body>
 
-    <!-- Loading Screen -->
+    <!-- ========================================== -->
+    <!-- PANTALLA DE CARGA (LOADING SCREEN)         -->
+    <!-- ========================================== -->
+    <!-- ========================================== -->
+    <!-- PANTALLA DE CARGA (LOADING SCREEN)         -->
+    <!-- ========================================== -->
     <div id="loader-wrapper">
         <canvas id="loader-canvas"></canvas>
         <div class="loader-content">
-            <div class="loader-logo-silhouette"></div>
+            <model-viewer src="assets/logo.glb" auto-rotate auto-rotate-delay="0" rotation-per-second="120deg" camera-orbit="0deg 90deg auto" interaction-prompt="none" disable-zoom disable-pan class="loader-3d-logo"></model-viewer>
             <h2 class="loader-text">Iluminando Corazones... Conectando Vidas.</h2>
         </div>
     </div>
 
+    <!-- ========================================== -->
+    <!-- ENCABEZADO Y NAVEGACIÓN (HEADER & NAV)     -->
+    <!-- ========================================== -->
+    <!-- ========================================== -->
+    <!-- ENCABEZADO Y NAVEGACIÓN (HEADER & NAV)     -->
+    <!-- ========================================== -->
     <header>
 
         <div class="container navbar">
             <a href="index.html" class="logo-container">
                 <model-viewer id="nav-3d-logo" src="assets/logo.glb" alt="Logo Manos Inclusivas"
                     camera-orbit="0deg 90deg auto" interaction-prompt="none" disable-zoom></model-viewer>
-                <div class="logo-text">
+                <div class="logo-text notranslate" translate="no">
                     <h2>Manos Inclusivas</h2>
                     <span>Iluminando Corazones A.C.</span>
                 </div>
@@ -302,6 +527,9 @@
                         <li><a href="recursos.html#tdah" class="dropdown-item">TDAH</a></li>
                         <li><a href="recursos.html#di" class="dropdown-item">Discapacidad Intelectual</a></li>
                         <li><a href="recursos.html#teap" class="dropdown-item">Trastornos del Aprendizaje</a></li>
+                        <li><a href="recursos.html#dispraxia" class="dropdown-item">Dispraxia</a></li>
+                        <li><a href="recursos.html#lenguaje" class="dropdown-item">Trastornos del Lenguaje</a></li>
+                        <li><a href="recursos.html#altas-capacidades" class="dropdown-item">Altas Capacidades</a></li>
                     </ul>
                 </div>
                 <div class="nav-item"><a href="noticias.html" class="nav-link">NOTICIAS</a></div>
@@ -336,6 +564,9 @@
     
     <main class="bg-beige">
         
+        <!-- ========================================== -->
+        <!-- SECCIÓN PORTADA (HERO RECURSOS)            -->
+        <!-- ========================================== -->
         <section class="hero-recursos">
             <div class="hero-recursos-content">
                 <h1>Biblioteca de Neurodesarrollo</h1>
@@ -354,18 +585,27 @@
         <div class="container page-content-grid">
             <!-- Sidebar Navigation -->
             <aside>
-                <div class="page-sidebar" style="position: sticky; top: 100px;">
-                    <h3 style="font-size: 1.1rem; margin-bottom: 15px;">Índice de Temas</h3>
-                    <a href="#tea" class="sidebar-nav-link">Autismo (TEA)</a>
-                    <a href="#tdah" class="sidebar-nav-link">TDAH</a>
-                    <a href="#di" class="sidebar-nav-link">Discapacidad Intelectual</a>
-                    <a href="#teap" class="sidebar-nav-link">TEAp (Aprendizaje)</a>
-                    <div style="padding-left: 15px; margin-top: 5px;">
-                        <a href="#dislexia" class="sidebar-nav-link" style="font-size: 0.95rem;">- Dislexia</a>
-                        <a href="#discalculia" class="sidebar-nav-link" style="font-size: 0.95rem;">- Discalculia</a>
-                        <a href="#disgrafia" class="sidebar-nav-link" style="font-size: 0.95rem;">- Disgrafía</a>
+                <details class="page-sidebar" style="position: sticky; top: 100px;" open>
+                    <summary style="font-size: 1.1rem; margin-bottom: 15px; font-weight: 700; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; color: var(--text-main);">
+                        Índice de Temas
+                        <span class="dropdown-icon" style="font-size: 0.8rem; transition: transform 0.3s ease;">▼</span>
+                    </summary>
+                    <div class="sidebar-content">
+                        <a href="#tea" class="sidebar-nav-link">Autismo (TEA)</a>
+                        <a href="#tdah" class="sidebar-nav-link">TDAH</a>
+                        <a href="#di" class="sidebar-nav-link">Discapacidad Intelectual</a>
+                        <a href="#teap" class="sidebar-nav-link">TEAp (Aprendizaje)</a>
+                        <div style="padding-left: 15px; margin-top: 5px;">
+                            <a href="#dislexia" class="sidebar-nav-link" style="font-size: 0.95rem;">- Dislexia</a>
+                            <a href="#discalculia" class="sidebar-nav-link" style="font-size: 0.95rem;">- Discalculia</a>
+                            <a href="#disgrafia" class="sidebar-nav-link" style="font-size: 0.95rem;">- Disgrafía</a>
+                            <a href="#disortografia" class="sidebar-nav-link" style="font-size: 0.95rem;">- Disortografía</a>
+                        </div>
+                        <a href="#dispraxia" class="sidebar-nav-link">Dispraxia</a>
+                        <a href="#lenguaje" class="sidebar-nav-link">Trastornos del Lenguaje</a>
+                        <a href="#altas-capacidades" class="sidebar-nav-link">Altas Capacidades</a>
                     </div>
-                </div>
+                </details>
             </aside>
 
             <!-- Content Area -->
@@ -377,11 +617,10 @@
                 <!-- TEA -->
                 <article id="tea" class="recurso-card">
                     <div class="recurso-header">
-                        <span class="recurso-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent-purple)"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></span>
+                        <span class="recurso-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent-purple)"><path d="M19.439 7.85c-.049.322.059.648.289.878l1.568 1.568c.47.47.706 1.087.706 1.704s-.235 1.233-.706 1.704l-1.611 1.611a.98.98 0 0 1-.837.276c-.47-.07-.802-.48-.968-.925a2.501 2.501 0 1 0-3.214 3.214c.446.166.855.497.925.968a.979.979 0 0 1-.276.837l-1.61 1.61a2.404 2.404 0 0 1-1.705.707 2.402 2.402 0 0 1-1.704-.706l-1.568-1.568a1.026 1.026 0 0 0-.877-.29c-.493.074-.84.504-1.02.968a2.5 2.5 0 1 1-3.237-3.237c.464-.18.894-.527.967-1.02a1.026 1.026 0 0 0-.289-.877l-1.568-1.568A2.402 2.402 0 0 1 1.998 12c0-.617.236-1.234.706-1.704L4.23 8.77c.24-.24.581-.353.917-.303.515.077.877.528 1.073 1.01a2.5 2.5 0 1 0 3.259-3.259c-.482-.196-.933-.558-1.01-1.073-.05-.336.062-.676.303-.917l1.525-1.525A2.402 2.402 0 0 1 12 1.998c.617 0 1.234.236 1.704.706l1.568 1.568c.23.23.556.338.877.29.493-.074.84-.504 1.02-.968a2.5 2.5 0 1 1 3.237 3.237c-.464.18-.894.527-.967 1.02Z" /></svg></span>
                         <h2>Trastorno del Espectro Autista (TEA)</h2>
                     </div>
                     <p class="recurso-subtitle">Una forma distinta de procesar el mundo, especialmente en la comunicación, la interacción social y la flexibilidad de pensamiento. Recordamos que el espectro no es lineal, sino que se manifiesta de muchas formas y colores en cada individuo.</p>
-                    
                     <div class="info-box">
                         <h4 style="color: var(--accent-blue);">🔍 Se caracteriza por:</h4>
                         <ul style="--bullet-color: var(--accent-blue);">
@@ -418,6 +657,89 @@
                             <li>Acompañar con paciencia y contención las crisis emocionales o sensoriales.</li>
                             <li>Esfuerzo activo para interpretar la comunicación no verbal del paciente.</li>
                         </ul>
+                    </div>
+
+                    <!-- EXPLICACIÓN GRÁFICA DEL ESPECTRO AUTISTA -->
+                    <div class="spectrum-explanation" style="background: white; padding: 30px; border-radius: 12px; margin: 30px 0 0 0; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 2px solid var(--accent-purple);">
+                        <h3 style="text-align: center; color: var(--text-main); margin-bottom: 20px; font-size: 1.8rem; font-family: 'Fredoka', sans-serif;">El Espectro Autista <span style="color: var(--accent-pink);">NO</span> es lineal</h3>
+                        
+                        <div style="text-align: center; margin-bottom: 30px;">
+                            <div style="display: flex; align-items: center; justify-content: center; gap: 15px; position: relative;">
+                                <span style="font-weight: 600; color: var(--text-muted); font-size: 0.9rem;">poco autista</span>
+                                <div style="flex: 1; max-width: 400px; height: 25px; background: linear-gradient(90deg, #e94c55, #f28e2b, #edc948, #b6d7a8, #59a14f, #76b7b2, #4e79a7, #ff9da7); border: 2px solid #333; position: relative;">
+                                    <div style="position: absolute; top: 50%; left: -10px; right: -10px; height: 4px; background: #e94c55; transform: translateY(-50%) rotate(-2deg); box-shadow: 0 0 5px rgba(0,0,0,0.2);"></div>
+                                </div>
+                                <span style="font-weight: 600; color: var(--text-muted); font-size: 0.9rem;">muy autista</span>
+                            </div>
+                        </div>
+
+                        <h3 style="text-align: center; color: var(--text-main); margin-bottom: 25px; font-size: 1.6rem; font-family: 'Fredoka', sans-serif;">El Espectro Autista se ve así:</h3>
+                        
+                        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin-bottom: 20px;">
+                            <!-- Persona A -->
+                            <svg viewBox="0 0 200 200" width="180" height="180" style="border-radius: 50%; border: 2px solid #333; background: #fff;">
+                                <circle cx="100" cy="100" r="35" stroke-width="70" stroke="#e94c55" stroke-dasharray="27.48 250" fill="none" transform="rotate(-90 100 100)" />
+                                <circle cx="100" cy="100" r="45" stroke-width="90" stroke="#f28e2b" stroke-dasharray="35.34 300" fill="none" transform="rotate(-45 100 100)" />
+                                <circle cx="100" cy="100" r="40" stroke-width="80" stroke="#edc948" stroke-dasharray="31.41 300" fill="none" transform="rotate(0 100 100)" />
+                                <circle cx="100" cy="100" r="20" stroke-width="40" stroke="#b6d7a8" stroke-dasharray="15.70 200" fill="none" transform="rotate(45 100 100)" />
+                                <circle cx="100" cy="100" r="45" stroke-width="90" stroke="#59a14f" stroke-dasharray="35.34 300" fill="none" transform="rotate(90 100 100)" />
+                                <circle cx="100" cy="100" r="40" stroke-width="80" stroke="#76b7b2" stroke-dasharray="31.41 300" fill="none" transform="rotate(135 100 100)" />
+                                <circle cx="100" cy="100" r="47.5" stroke-width="95" stroke="#4e79a7" stroke-dasharray="37.30 350" fill="none" transform="rotate(180 100 100)" />
+                                <circle cx="100" cy="100" r="30" stroke-width="60" stroke="#ff9da7" stroke-dasharray="23.56 200" fill="none" transform="rotate(225 100 100)" />
+                                <!-- Radar Web -->
+                                <circle cx="100" cy="100" r="25" stroke="#333" stroke-width="1.5" fill="none" stroke-dasharray="4 4" />
+                                <circle cx="100" cy="100" r="50" stroke="#333" stroke-width="1.5" fill="none" stroke-dasharray="4 4" />
+                                <circle cx="100" cy="100" r="75" stroke="#333" stroke-width="1.5" fill="none" stroke-dasharray="4 4" />
+                                <line x1="100" y1="100" x2="100" y2="0" stroke="#333" stroke-width="1.5" />
+                                <line x1="100" y1="100" x2="170.7" y2="29.3" stroke="#333" stroke-width="1.5" />
+                                <line x1="100" y1="100" x2="200" y2="100" stroke="#333" stroke-width="1.5" />
+                                <line x1="100" y1="100" x2="170.7" y2="170.7" stroke="#333" stroke-width="1.5" />
+                                <line x1="100" y1="100" x2="100" y2="200" stroke="#333" stroke-width="1.5" />
+                                <line x1="100" y1="100" x2="29.3" y2="170.7" stroke="#333" stroke-width="1.5" />
+                                <line x1="100" y1="100" x2="0" y2="100" stroke="#333" stroke-width="1.5" />
+                                <line x1="100" y1="100" x2="29.3" y2="29.3" stroke="#333" stroke-width="1.5" />
+                            </svg>
+                            
+                            <!-- Persona B -->
+                            <svg viewBox="0 0 200 200" width="180" height="180" style="border-radius: 50%; border: 2px solid #333; background: #fff;">
+                                <circle cx="100" cy="100" r="20" stroke-width="40" stroke="#e94c55" stroke-dasharray="15.70 200" fill="none" transform="rotate(-90 100 100)" />
+                                <circle cx="100" cy="100" r="35" stroke-width="70" stroke="#f28e2b" stroke-dasharray="27.48 250" fill="none" transform="rotate(-45 100 100)" />
+                                <circle cx="100" cy="100" r="47.5" stroke-width="95" stroke="#edc948" stroke-dasharray="37.30 350" fill="none" transform="rotate(0 100 100)" />
+                                <circle cx="100" cy="100" r="40" stroke-width="80" stroke="#b6d7a8" stroke-dasharray="31.41 300" fill="none" transform="rotate(45 100 100)" />
+                                <circle cx="100" cy="100" r="25" stroke-width="50" stroke="#59a14f" stroke-dasharray="19.63 200" fill="none" transform="rotate(90 100 100)" />
+                                <circle cx="100" cy="100" r="45" stroke-width="90" stroke="#76b7b2" stroke-dasharray="35.34 300" fill="none" transform="rotate(135 100 100)" />
+                                <circle cx="100" cy="100" r="30" stroke-width="60" stroke="#4e79a7" stroke-dasharray="23.56 250" fill="none" transform="rotate(180 100 100)" />
+                                <circle cx="100" cy="100" r="42.5" stroke-width="85" stroke="#ff9da7" stroke-dasharray="33.37 300" fill="none" transform="rotate(225 100 100)" />
+                                
+                                <circle cx="100" cy="100" r="25" stroke="#333" stroke-width="1.5" fill="none" stroke-dasharray="4 4" />
+                                <circle cx="100" cy="100" r="50" stroke="#333" stroke-width="1.5" fill="none" stroke-dasharray="4 4" />
+                                <circle cx="100" cy="100" r="75" stroke="#333" stroke-width="1.5" fill="none" stroke-dasharray="4 4" />
+                                <line x1="100" y1="100" x2="100" y2="0" stroke="#333" stroke-width="1.5" />
+                                <line x1="100" y1="100" x2="170.7" y2="29.3" stroke="#333" stroke-width="1.5" />
+                                <line x1="100" y1="100" x2="200" y2="100" stroke="#333" stroke-width="1.5" />
+                                <line x1="100" y1="100" x2="170.7" y2="170.7" stroke="#333" stroke-width="1.5" />
+                                <line x1="100" y1="100" x2="100" y2="200" stroke="#333" stroke-width="1.5" />
+                                <line x1="100" y1="100" x2="29.3" y2="170.7" stroke="#333" stroke-width="1.5" />
+                                <line x1="100" y1="100" x2="0" y2="100" stroke="#333" stroke-width="1.5" />
+                                <line x1="100" y1="100" x2="29.3" y2="29.3" stroke="#333" stroke-width="1.5" />
+                            </svg>
+
+                            <!-- Legend -->
+                            <div style="display: flex; flex-direction: column; justify-content: center; gap: 8px; font-size: 0.95rem; font-weight: 500; font-family: 'Fredoka', sans-serif;">
+                                <div style="display: flex; align-items: center; gap: 10px;"><div style="width: 18px; height: 18px; background: #e94c55; border: 2px solid #333; border-radius: 3px;"></div> habilidades sociales</div>
+                                <div style="display: flex; align-items: center; gap: 10px;"><div style="width: 18px; height: 18px; background: #f28e2b; border: 2px solid #333; border-radius: 3px;"></div> intereses especiales</div>
+                                <div style="display: flex; align-items: center; gap: 10px;"><div style="width: 18px; height: 18px; background: #edc948; border: 2px solid #333; border-radius: 3px;"></div> rutinas</div>
+                                <div style="display: flex; align-items: center; gap: 10px;"><div style="width: 18px; height: 18px; background: #b6d7a8; border: 2px solid #333; border-radius: 3px;"></div> procesamiento sensorial</div>
+                                <div style="display: flex; align-items: center; gap: 10px;"><div style="width: 18px; height: 18px; background: #59a14f; border: 2px solid #333; border-radius: 3px;"></div> stimming / autorregulación</div>
+                                <div style="display: flex; align-items: center; gap: 10px;"><div style="width: 18px; height: 18px; background: #76b7b2; border: 2px solid #333; border-radius: 3px;"></div> percepción</div>
+                                <div style="display: flex; align-items: center; gap: 10px;"><div style="width: 18px; height: 18px; background: #4e79a7; border: 2px solid #333; border-radius: 3px;"></div> función ejecutiva</div>
+                                <div style="display: flex; align-items: center; gap: 10px;"><div style="width: 18px; height: 18px; background: #ff9da7; border: 2px solid #333; border-radius: 3px;"></div> otros</div>
+                            </div>
+                        </div>
+                        
+                        <div style="background: rgba(233, 76, 85, 0.1); padding: 15px; border-radius: 8px; margin-top: 25px;">
+                            <p style="margin: 0; font-weight: 500; font-size: 1.1rem; color: #333; text-align: center;">Términos como <span style="text-decoration: line-through; color: #e94c55;">"alto funcionamiento"</span>, <span style="text-decoration: line-through; color: #e94c55;">"bajo funcionamiento"</span> y <span style="text-decoration: line-through; color: #e94c55;">"Asperger"</span> son dañinos y obsoletos.</p>
+                        </div>
                     </div>
                 </article>
 
@@ -476,6 +798,87 @@
                             </ul>
                         </div>
                     </div>
+
+                    <!-- TDAH ANIMATION -->
+                    <div class="anim-container">
+                        <h3 class="anim-title">Pensamiento Divergente y Activo</h3>
+                        <svg viewBox="0 0 200 150" width="100%" style="max-width: 450px; overflow: visible;">
+                            <!-- Paths / Sinapsis -->
+                            <path d="M50 75 Q 100 0 150 75" fill="none" stroke="#e2e8f0" stroke-width="3" stroke-dasharray="6,6"/>
+                            <path d="M50 75 Q 100 150 150 75" fill="none" stroke="#e2e8f0" stroke-width="3" stroke-dasharray="6,6"/>
+                            <path d="M50 75 L 150 75" fill="none" stroke="#e2e8f0" stroke-width="3" stroke-dasharray="6,6"/>
+                            
+                            <!-- Nodos -->
+                            <circle cx="100" cy="37.5" class="node-pulse" />
+                            <circle cx="100" cy="75" class="node-pulse" />
+                            <circle cx="100" cy="112.5" class="node-pulse" />
+                            
+                            <!-- Engranajes -->
+                            <!-- Engranaje Azul (Original Izquierda) -->
+                            <g transform="translate(50, 75)">
+                                <g class="gear-fast" fill="#3b82f6">
+                                    <circle cx="0" cy="0" r="18" />
+                                    <path d="M-4 -24 L4 -24 L7 -17 L-7 -17 Z" />
+                                    <path d="M-4 -24 L4 -24 L7 -17 L-7 -17 Z" transform="rotate(45)" />
+                                    <path d="M-4 -24 L4 -24 L7 -17 L-7 -17 Z" transform="rotate(90)" />
+                                    <path d="M-4 -24 L4 -24 L7 -17 L-7 -17 Z" transform="rotate(135)" />
+                                    <path d="M-4 -24 L4 -24 L7 -17 L-7 -17 Z" transform="rotate(180)" />
+                                    <path d="M-4 -24 L4 -24 L7 -17 L-7 -17 Z" transform="rotate(225)" />
+                                    <path d="M-4 -24 L4 -24 L7 -17 L-7 -17 Z" transform="rotate(270)" />
+                                    <path d="M-4 -24 L4 -24 L7 -17 L-7 -17 Z" transform="rotate(315)" />
+                                    <circle cx="0" cy="0" r="8" fill="#fff" />
+                                </g>
+                            </g>
+                            
+                            <!-- Engranaje Morado (Original Derecha) -->
+                            <g transform="translate(150, 75)">
+                                <g class="gear-slow" fill="#8b5cf6">
+                                    <circle cx="0" cy="0" r="25" />
+                                    <path d="M-6 -32 L6 -32 L9 -24 L-9 -24 Z" />
+                                    <path d="M-6 -32 L6 -32 L9 -24 L-9 -24 Z" transform="rotate(45)" />
+                                    <path d="M-6 -32 L6 -32 L9 -24 L-9 -24 Z" transform="rotate(90)" />
+                                    <path d="M-6 -32 L6 -32 L9 -24 L-9 -24 Z" transform="rotate(135)" />
+                                    <path d="M-6 -32 L6 -32 L9 -24 L-9 -24 Z" transform="rotate(180)" />
+                                    <path d="M-6 -32 L6 -32 L9 -24 L-9 -24 Z" transform="rotate(225)" />
+                                    <path d="M-6 -32 L6 -32 L9 -24 L-9 -24 Z" transform="rotate(270)" />
+                                    <path d="M-6 -32 L6 -32 L9 -24 L-9 -24 Z" transform="rotate(315)" />
+                                    <circle cx="0" cy="0" r="10" fill="#fff" />
+                                </g>
+                            </g>
+
+                            <!-- Nuevo Engranaje Rosa (Arriba) -->
+                            <g transform="translate(100, 20)">
+                                <g class="gear-fast" fill="#ec4899">
+                                    <circle cx="0" cy="0" r="12" />
+                                    <path d="M-3 -16 L3 -16 L5 -11 L-5 -11 Z" />
+                                    <path d="M-3 -16 L3 -16 L5 -11 L-5 -11 Z" transform="rotate(45)" />
+                                    <path d="M-3 -16 L3 -16 L5 -11 L-5 -11 Z" transform="rotate(90)" />
+                                    <path d="M-3 -16 L3 -16 L5 -11 L-5 -11 Z" transform="rotate(135)" />
+                                    <path d="M-3 -16 L3 -16 L5 -11 L-5 -11 Z" transform="rotate(180)" />
+                                    <path d="M-3 -16 L3 -16 L5 -11 L-5 -11 Z" transform="rotate(225)" />
+                                    <path d="M-3 -16 L3 -16 L5 -11 L-5 -11 Z" transform="rotate(270)" />
+                                    <path d="M-3 -16 L3 -16 L5 -11 L-5 -11 Z" transform="rotate(315)" />
+                                    <circle cx="0" cy="0" r="5" fill="#fff" />
+                                </g>
+                            </g>
+
+                            <!-- Nuevo Engranaje Verde (Abajo) -->
+                            <g transform="translate(100, 130)">
+                                <g class="gear-slow" fill="#10b981">
+                                    <circle cx="0" cy="0" r="15" />
+                                    <path d="M-4 -20 L4 -20 L6 -14 L-6 -14 Z" />
+                                    <path d="M-4 -20 L4 -20 L6 -14 L-6 -14 Z" transform="rotate(45)" />
+                                    <path d="M-4 -20 L4 -20 L6 -14 L-6 -14 Z" transform="rotate(90)" />
+                                    <path d="M-4 -20 L4 -20 L6 -14 L-6 -14 Z" transform="rotate(135)" />
+                                    <path d="M-4 -20 L4 -20 L6 -14 L-6 -14 Z" transform="rotate(180)" />
+                                    <path d="M-4 -20 L4 -20 L6 -14 L-6 -14 Z" transform="rotate(225)" />
+                                    <path d="M-4 -20 L4 -20 L6 -14 L-6 -14 Z" transform="rotate(270)" />
+                                    <path d="M-4 -20 L4 -20 L6 -14 L-6 -14 Z" transform="rotate(315)" />
+                                    <circle cx="0" cy="0" r="6" fill="#fff" />
+                                </g>
+                            </g>
+                        </svg>
+                    </div>
                 </article>
 
                 <!-- Discapacidad Intelectual -->
@@ -531,11 +934,40 @@
                             </ul>
                         </div>
                     </div>
+
+                    <!-- DI ANIMATION -->
+                    <div class="anim-container">
+                        <h3 class="anim-title">Ritmos de Aprendizaje Diferentes</h3>
+                        <svg viewBox="0 0 200 150" width="100%" height="200" style="max-width: 300px; overflow: visible;">
+                            <!-- DI ANIMATION: Jenga Tower -->
+                            <g transform="translate(100, 30)">
+                                <!-- Base Isométrica (opcional, o podemos dejar solo la torre) -->
+                                <polygon points="0,95 60,125 0,155 -60,125" fill="#e2e8f0" />
+                                <polygon points="-60,125 0,155 0,165 -60,135" fill="#cbd5e1" />
+                                <polygon points="60,125 0,155 0,165 60,135" fill="#94a3b8" />
+
+                                <g class="jenga-block l1-b1"><polygon points="0,45.0 60,75.0 40,85.0 -20,55.0" class="top l1-b1" /><polygon points="-20,55.0 40,85.0 40,100.0 -20,70.0" class="left l1-b1" /><polygon points="40,85.0 60,75.0 60,90.0 40,100.0" class="right l1-b1" /></g>
+                                <g class="jenga-block l1-b2"><polygon points="-20,55.0 40,85.0 20,95.0 -40,65.0" class="top l1-b2" /><polygon points="-40,65.0 20,95.0 20,110.0 -40,80.0" class="left l1-b2" /><polygon points="20,95.0 40,85.0 40,100.0 20,110.0" class="right l1-b2" /></g>
+                                <g class="jenga-block l1-b3"><polygon points="-40,65.0 20,95.0 0,105.0 -60,75.0" class="top l1-b3" /><polygon points="-60,75.0 0,105.0 0,120.0 -60,90.0" class="left l1-b3" /><polygon points="0,105.0 20,95.0 20,110.0 0,120.0" class="right l1-b3" /></g>
+                                <g class="jenga-block l2-b1"><polygon points="0,30.0 20,40.0 -40,70.0 -60,60.0" class="top l2-b1" /><polygon points="-60,60.0 -40,70.0 -40,85.0 -60,75.0" class="left l2-b1" /><polygon points="-40,70.0 20,40.0 20,55.0 -40,85.0" class="right l2-b1" /></g>
+                                <g class="jenga-block l2-b2"><polygon points="20,40.0 40,50.0 -20,80.0 -40,70.0" class="top l2-b2" /><polygon points="-40,70.0 -20,80.0 -20,95.0 -40,85.0" class="left l2-b2" /><polygon points="-20,80.0 40,50.0 40,65.0 -20,95.0" class="right l2-b2" /></g>
+                                <g class="jenga-block l2-b3"><polygon points="40,50.0 60,60.0 0,90.0 -20,80.0" class="top l2-b3" /><polygon points="-20,80.0 0,90.0 0,105.0 -20,95.0" class="left l2-b3" /><polygon points="0,90.0 60,60.0 60,75.0 0,105.0" class="right l2-b3" /></g>
+                                <g class="jenga-block l3-b1"><polygon points="0,15.0 60,45.0 40,55.0 -20,25.0" class="top l3-b1" /><polygon points="-20,25.0 40,55.0 40,70.0 -20,40.0" class="left l3-b1" /><polygon points="40,55.0 60,45.0 60,60.0 40,70.0" class="right l3-b1" /></g>
+                                <g class="jenga-block l3-b2 anim-slide"><polygon points="-20,25.0 40,55.0 20,65.0 -40,35.0" class="top l3-b2" /><polygon points="-40,35.0 20,65.0 20,80.0 -40,50.0" class="left l3-b2" /><polygon points="20,65.0 40,55.0 40,70.0 20,80.0" class="right l3-b2" /></g>
+                                <g class="jenga-block l3-b3"><polygon points="-40,35.0 20,65.0 0,75.0 -60,45.0" class="top l3-b3" /><polygon points="-60,45.0 0,75.0 0,90.0 -60,60.0" class="left l3-b3" /><polygon points="0,75.0 20,65.0 20,80.0 0,90.0" class="right l3-b3" /></g>
+                                <g class="jenga-block l4-b1"><polygon points="0,0.0 20,10.0 -40,40.0 -60,30.0" class="top l4-b1" /><polygon points="-60,30.0 -40,40.0 -40,55.0 -60,45.0" class="left l4-b1" /><polygon points="-40,40.0 20,10.0 20,25.0 -40,55.0" class="right l4-b1" /></g>
+                                <g class="jenga-block l4-b2"><polygon points="20,10.0 40,20.0 -20,50.0 -40,40.0" class="top l4-b2" /><polygon points="-40,40.0 -20,50.0 -20,65.0 -40,55.0" class="left l4-b2" /><polygon points="-20,50.0 40,20.0 40,35.0 -20,65.0" class="right l4-b2" /></g>
+                                <g class="jenga-block l4-b3"><polygon points="40,20.0 60,30.0 0,60.0 -20,50.0" class="top l4-b3" /><polygon points="-20,50.0 0,60.0 0,75.0 -20,65.0" class="left l4-b3" /><polygon points="0,60.0 60,30.0 60,45.0 0,75.0" class="right l4-b3" /></g>
+                            </g>
+                        </svg>
+                    </div>
                 </article>
 
                 <div id="teap" style="margin: 60px 0 30px; text-align: center;">
                     <h2 style="font-size: 2.5rem; color: var(--accent-purple); margin-bottom: 10px;">TEAp (Trastornos Específicos del Aprendizaje)</h2>
-                    <p style="font-size: 1.2rem; color: var(--text-muted); max-width: 700px; margin: 0 auto;">No afectan la inteligencia general de la persona, pero generan barreras y dificultades muy puntuales en áreas específicas del conocimiento.</p>
+                    <p style="font-size: 1.2rem; color: var(--text-muted); max-width: 700px; margin: 0 auto; margin-bottom: 30px;">No afectan la inteligencia general de la persona, pero generan barreras y dificultades muy puntuales en áreas específicas del conocimiento.</p>
+                    
+
                 </div>
 
                 <!-- Dislexia -->
@@ -584,6 +1016,26 @@
                             </ul>
                         </div>
                     </div>
+
+                    <!-- DISLEXIA ANIMATION -->
+                    <div class="anim-container">
+                        <h3 class="anim-title">Retos en la Lectura</h3>
+                        <svg viewBox="0 0 200 150" width="100%" height="200" style="max-width: 300px; overflow: visible;">
+                            <!-- Magnifying Glass -->
+                            <g transform="translate(100, 75)">
+                                <circle cx="0" cy="0" r="45" fill="#f8fafc" stroke="#94a3b8" stroke-width="6" />
+                                <line x1="30" y1="30" x2="65" y2="65" stroke="#475569" stroke-width="14" stroke-linecap="round" />
+                                <circle cx="-15" cy="-15" r="15" fill="none" stroke="#fff" stroke-width="4" stroke-opacity="0.6" />
+                            </g>
+                            
+                            <!-- Letters -->
+                            <text x="70" y="85" class="dyslexia-letter">d</text>
+                            <text x="125" y="65" class="dyslexia-letter">b</text>
+                            <text x="105" y="110" class="dyslexia-letter">p</text>
+                            <text x="80" y="55" class="dyslexia-letter">q</text>
+                            <text x="100" y="85" class="dyslexia-letter">E</text>
+                        </svg>
+                    </div>
                 </article>
 
                 <!-- Discalculia -->
@@ -629,6 +1081,22 @@
                             </ul>
                         </div>
                     </div>
+
+                    <!-- DISCALCULIA ANIMATION -->
+                    <div class="anim-container">
+                        <h3 class="anim-title">Retos en el Cálculo</h3>
+                        <svg viewBox="0 0 200 150" width="100%" height="200" style="max-width: 300px; overflow: visible;">
+                            <!-- Numbers and Symbols -->
+                            <text x="40" y="65" class="math-symbol" fill="#3b82f6">7</text>
+                            <text x="80" y="45" class="math-symbol" fill="#ec4899">+</text>
+                            <text x="125" y="65" class="math-symbol" fill="#10b981">3</text>
+                            <text x="165" y="85" class="math-symbol" fill="#f59e0b">=</text>
+                            <text x="100" y="125" class="math-symbol" fill="#8b5cf6">?</text>
+                            <text x="50" y="105" class="math-symbol" fill="#059669">×</text>
+                            <text x="145" y="45" class="math-symbol" fill="#d97706">÷</text>
+                            <text x="65" y="135" class="math-symbol" fill="#475569">-</text>
+                        </svg>
+                    </div>
                 </article>
 
                 <!-- Disgrafía -->
@@ -665,6 +1133,321 @@
                             <li>Cansancio excesivo en la escuela al tomar apuntes.</li>
                         </ul>
                     </div>
+
+                    <!-- DISGRAFIA ANIMATION -->
+                    <div class="anim-container">
+                        <h3 class="anim-title">Retos en la Escritura</h3>
+                        <svg viewBox="0 0 300 150" width="100%" height="200" style="max-width: 400px; overflow: visible;">
+                            <!-- Scribble Line -->
+                            <path d="M10 100 Q 30 100 50 80 T 90 90 T 130 70 T 170 110 T 210 60 T 250 100 T 290 80" fill="none" stroke="#475569" stroke-width="4" stroke-linecap="round" class="scribble-line" />
+                            
+                            <!-- Pen Icon -->
+                            <g class="pen-icon">
+                                <path d="M0,0 L-5,-20 L-10,-20 L-10,-50 L0,-60 L10,-50 L10,-20 L5,-20 Z" fill="#3b82f6" transform="rotate(45)" />
+                                <polygon points="-5,-20 5,-20 0,0" fill="#1e293b" transform="rotate(45)" />
+                            </g>
+                        </svg>
+                    </div>
+                </article>
+
+                <!-- Disortografía -->
+                <article id="disortografia" class="recurso-card">
+                    <div class="recurso-header">
+                        <span class="recurso-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #3b82f6"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></span>
+                        <h2>Disortografía</h2>
+                    </div>
+                    <p class="recurso-subtitle">Dificultad persistente en la asimilación y aplicación de las reglas ortográficas, que afecta la escritura correcta de las palabras.</p>
+                    
+                    <div class="info-grid">
+                        <div class="info-box">
+                            <h4 style="color: var(--accent-blue);">🔍 Se caracteriza por:</h4>
+                            <ul>
+                                <li>Errores constantes y variados al escribir, como sustituir, omitir o invertir letras (por ejemplo, confundir 'b' con 'v').</li>
+                                <li>Dificultad severa para recordar las reglas ortográficas a pesar de haberlas estudiado.</li>
+                                <li>Escritura con múltiples faltas incluso cuando están copiando directamente de un texto.</li>
+                            </ul>
+                        </div>
+                        <div class="info-box fortalezas">
+                            <h4 style="color: #10b981;">🌟 Fortalezas comunes</h4>
+                            <ul>
+                                <li>Desarrollo totalmente normal en la comprensión lectora y en la capacidad de expresión oral.</li>
+                                <li>Gran pensamiento creativo cuando no están condicionados a la precisión escrita.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="info-grid" style="margin-top: 30px;">
+                        <div class="info-box paciente">
+                            <h4 style="color: var(--accent-pink);">🌧️ Dificultades para el paciente</h4>
+                            <ul>
+                                <li>Fuerte frustración y rechazo a cualquier actividad que implique escribir a mano.</li>
+                                <li>Miedo a la burla, al castigo o a ser etiquetados injustamente como "perezosos" en la escuela.</li>
+                            </ul>
+                        </div>
+                        <div class="info-box cuidador">
+                            <h4 >🤝 Retos para los cuidadores</h4>
+                            <ul>
+                                <li>Apoyar la práctica de la escritura con amor, sin convertirla en una experiencia de tensión o regaños.</li>
+                                <li>Promover herramientas tecnológicas (correctores ortográficos, audiotextos) para evitar que esto frene su motivación por aprender.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- DISORTOGRAFIA ANIMATION -->
+                    <div class="anim-container">
+                        <h3 class="anim-title">Retos en la Ortografía</h3>
+                        <svg viewBox="0 0 300 150" width="100%" height="150" style="max-width: 450px; overflow: visible;">
+                            <!-- Tiles -->
+                            <g transform="translate(35, 40) scale(1.2)">
+                                <g transform="translate(0, 0)" class="tile-drop">
+                                    <rect x="0" y="0" width="40" height="40" rx="4" fill="white" stroke="#d1d5db" stroke-width="2" />
+                                    <text x="20" y="28" font-family="Fredoka" font-weight="bold" font-size="24" fill="#333" text-anchor="middle">H</text>
+                                </g>
+                                <g transform="translate(50, 0)">
+                                    <rect x="0" y="0" width="40" height="40" rx="4" fill="white" stroke="#d1d5db" stroke-width="2" />
+                                    <text x="20" y="28" font-family="Fredoka" font-weight="bold" font-size="24" fill="#333" text-anchor="middle">O</text>
+                                </g>
+                                <g transform="translate(100, 0)">
+                                    <rect x="0" y="0" width="40" height="40" rx="4" fill="white" stroke="#d1d5db" stroke-width="2" />
+                                    <text x="20" y="28" font-family="Fredoka" font-weight="bold" font-size="24" fill="#333" text-anchor="middle">L</text>
+                                </g>
+                                <g transform="translate(150, 0)">
+                                    <rect x="0" y="0" width="40" height="40" rx="4" fill="white" stroke="#d1d5db" stroke-width="2" />
+                                    <text x="20" y="28" font-family="Fredoka" font-weight="bold" font-size="24" fill="#333" text-anchor="middle">A</text>
+                                </g>
+                            </g>
+                        </svg>
+                    </div>
+                </article>
+
+                <!-- Dispraxia -->
+                <article id="dispraxia" class="recurso-card">
+                    <div class="recurso-header">
+                        <span class="recurso-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #8b5cf6"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg></span>
+                        <h2>Trastorno del Desarrollo de la Coordinación (Dispraxia)</h2>
+                    </div>
+                    <p class="recurso-subtitle">Una dificultad significativa para planificar y coordinar movimientos físicos, desde los más gruesos hasta los más finos.</p>
+                    
+                    <div class="info-grid">
+                        <div class="info-box">
+                            <h4 style="color: var(--accent-blue);">🔍 Se caracteriza por:</h4>
+                            <ul>
+                                <li>Torpeza motora aparente, con tendencia a tropezar, chocar o dejar caer objetos con gran facilidad.</li>
+                                <li>Dificultades notables en tareas de motricidad fina, como abrocharse botones, atarse los zapatos o usar cubiertos.</li>
+                                <li>Retos en actividades que requieren coordinación de ambas partes del cuerpo, como nadar o andar en bicicleta.</li>
+                            </ul>
+                        </div>
+                        <div class="info-box fortalezas">
+                            <h4 style="color: #10b981;">🌟 Fortalezas comunes</h4>
+                            <ul>
+                                <li>Suele ir acompañado de una gran sensibilidad emocional y profunda empatía hacia los demás.</li>
+                                <li>Mucha perseverancia y resiliencia al intentar superar los retos diarios.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="info-grid" style="margin-top: 30px;">
+                        <div class="info-box paciente">
+                            <h4 style="color: var(--accent-pink);">🌧️ Dificultades para el paciente</h4>
+                            <ul>
+                                <li>Tristeza o enojo profundo por "no poder hacer" físicamente lo que comprenden perfectamente en su mente.</li>
+                                <li>Sensación de aislamiento en los recreos o actividades deportivas, al sentir que no están al ritmo de sus compañeros.</li>
+                            </ul>
+                        </div>
+                        <div class="info-box cuidador">
+                            <h4 >🤝 Retos para los cuidadores</h4>
+                            <ul>
+                                <li>Proporcionar un acompañamiento constante en terapia ocupacional sin generar sobreexigencia.</li>
+                                <li>Adaptar los espacios y las rutinas para facilitar su independencia (usar zapatos sin cordones, ropa cómoda, vasos anticaídas).</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- DISPRAXIA ANIMATION -->
+                    <div class="anim-container">
+                        <h3 class="anim-title">Coordinación y Movimiento Complejo</h3>
+                        <svg viewBox="0 0 300 150" width="100%" height="200" style="max-width: 400px; overflow: visible;">
+                            <!-- Maze Lines -->
+                            <path d="M20 20 L280 20 L280 130 L20 130 Z" fill="none" stroke="#e2e8f0" stroke-width="4" />
+                            <path d="M60 20 L60 80 L140 80 L140 130" fill="none" stroke="#cbd5e1" stroke-width="4" />
+                            <path d="M100 20 L100 50 L180 50 L180 100 L240 100" fill="none" stroke="#cbd5e1" stroke-width="4" />
+                            
+                            <!-- Path for dot to follow -->
+                            <path d="M40 40 L100 40 L100 100 L180 100 L180 40 L240 40" fill="none" stroke="#8b5cf6" stroke-width="4" stroke-dasharray="4,4" />
+                            
+                            <!-- Dot -->
+                            <circle cx="40" cy="40" r="10" fill="#f59e0b" class="maze-dot" />
+                        </svg>
+                    </div>
+                </article>
+
+                <!-- Trastornos del Lenguaje -->
+                <article id="lenguaje" class="recurso-card">
+                    <div class="recurso-header">
+                        <span class="recurso-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #14b8a6"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg></span>
+                        <h2>Trastornos del Lenguaje y la Comunicación</h2>
+                    </div>
+                    <p class="recurso-subtitle">Dificultades marcadas y persistentes en la adquisición, comprensión y uso del lenguaje hablado o escrito.</p>
+                    
+                    <div class="info-grid">
+                        <div class="info-box">
+                            <h4 style="color: var(--accent-blue);">🔍 Se caracteriza por:</h4>
+                            <ul>
+                                <li>Retraso en el habla o dificultad para construir oraciones acordes a su edad cronológica.</li>
+                                <li>Vocabulario reducido o constantes pausas intentando encontrar la "palabra correcta" para expresarse.</li>
+                                <li>Retos para procesar instrucciones complejas de varios pasos o entender tonos sutiles de la voz.</li>
+                            </ul>
+                        </div>
+                        <div class="info-box fortalezas">
+                            <h4 style="color: #10b981;">🌟 Fortalezas comunes</h4>
+                            <ul>
+                                <li>Formidables habilidades de comunicación no verbal, usando gestos, dibujos y expresiones para conectar.</li>
+                                <li>Aguda capacidad de observación, lectura visual del entorno y creatividad.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="info-grid" style="margin-top: 30px;">
+                        <div class="info-box paciente">
+                            <h4 style="color: var(--accent-pink);">🌧️ Dificultades para el paciente</h4>
+                            <ul>
+                                <li>Sentimiento constante de impotencia y aislamiento al no lograr transmitir sus pensamientos o necesidades con claridad.</li>
+                                <li>Dificultad para socializar de forma espontánea, limitando en ocasiones la creación de amistades profundas.</li>
+                            </ul>
+                        </div>
+                        <div class="info-box cuidador">
+                            <h4 >🤝 Retos para los cuidadores</h4>
+                            <ul>
+                                <li>Desarrollar la inmensa paciencia de esperar el tiempo necesario para que terminen de comunicarse, sin interrumpir ni completar sus frases.</li>
+                                <li>Integrar de forma activa y amorosa ejercicios de terapia de lenguaje en el ritmo natural del hogar y del juego.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- LENGUAJE ANIMATION -->
+                    <div class="anim-container">
+                        <h3 class="anim-title">Comunicación y Expresión</h3>
+                        <svg viewBox="0 0 300 150" width="100%" height="150" style="max-width: 400px; overflow: visible;">
+                            <!-- Bubbles -->
+                            <g class="bubble-left">
+                                <!-- Blue Speech Bubble -->
+                                <path d="M 40 20 H 110 A 20 20 0 0 1 130 40 V 70 A 20 20 0 0 1 110 90 H 70 L 35 115 L 50 90 H 40 A 20 20 0 0 1 20 70 V 40 A 20 20 0 0 1 40 20 Z" fill="#e0f2fe" stroke="#3b82f6" stroke-width="3" stroke-linejoin="round" />
+                                
+                                <!-- Typing Dots -->
+                                <circle cx="55" cy="55" r="5" fill="#3b82f6" class="typing-dot" style="animation-delay: 0s" />
+                                <circle cx="75" cy="55" r="5" fill="#3b82f6" class="typing-dot" style="animation-delay: 0.2s" />
+                                <circle cx="95" cy="55" r="5" fill="#3b82f6" class="typing-dot" style="animation-delay: 0.4s" />
+                            </g>
+                            <g class="bubble-right">
+                                <!-- Pink Speech Bubble -->
+                                <path d="M 170 40 H 240 A 20 20 0 0 1 260 60 V 90 A 20 20 0 0 1 240 110 H 230 L 245 135 L 210 110 H 170 A 20 20 0 0 1 150 90 V 60 A 20 20 0 0 1 170 40 Z" fill="#fce7f3" stroke="#ec4899" stroke-width="3" stroke-linejoin="round" />
+                                
+                                <!-- Sound Waves -->
+                                <rect x="175" y="65" width="6" height="20" rx="3" fill="#ec4899" class="sound-wave" style="animation-delay: 0s" />
+                                <rect x="189" y="55" width="6" height="40" rx="3" fill="#ec4899" class="sound-wave" style="animation-delay: 0.2s" />
+                                <rect x="203" y="60" width="6" height="30" rx="3" fill="#ec4899" class="sound-wave" style="animation-delay: 0.4s" />
+                                <rect x="217" y="50" width="6" height="50" rx="3" fill="#ec4899" class="sound-wave" style="animation-delay: 0.6s" />
+                                <rect x="231" y="65" width="6" height="20" rx="3" fill="#ec4899" class="sound-wave" style="animation-delay: 0.8s" />
+                            </g>
+                        </svg>
+                    </div>
+                </article>
+
+                <!-- Altas Capacidades -->
+                <article id="altas-capacidades" class="recurso-card">
+                    <div class="recurso-header">
+                        <span class="recurso-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #eab308"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg></span>
+                        <h2>Altas Capacidades Intelectuales</h2>
+                    </div>
+                    <p class="recurso-subtitle">Un perfil neurológico caracterizado por un potencial de aprendizaje, razonamiento y creatividad excepcionalmente superior a la media, frecuentemente ligado a una alta sensibilidad.</p>
+                    
+                    <div class="info-grid">
+                        <div class="info-box">
+                            <h4 style="color: var(--accent-blue);">🔍 Se caracteriza por:</h4>
+                            <ul>
+                                <li>Ritmo de aprendizaje increíblemente rápido, intuitivo y autodidacta en las áreas que captan su interés.</li>
+                                <li>Curiosidad insaciable que se traduce en preguntas muy profundas, existenciales o complejas desde edades tempranas.</li>
+                                <li>Intensidad emocional aguda, con reacciones muy vívidas y un elevado sentido de la justicia.</li>
+                            </ul>
+                        </div>
+                        <div class="info-box fortalezas">
+                            <h4 style="color: #10b981;">🌟 Fortalezas comunes</h4>
+                            <ul>
+                                <li>Pensamiento crítico, divergente y habilidad innata para conectar conceptos de forma innovadora.</li>
+                                <li>Memoria brillante, talento creativo excepcional y gran capacidad de liderazgo positivo.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="info-grid" style="margin-top: 30px;">
+                        <div class="info-box paciente">
+                            <h4 style="color: var(--accent-pink);">🌧️ Dificultades para el paciente</h4>
+                            <ul>
+                                <li>Aburrimiento crónico y desconexión en entornos educativos tradicionales que no les ofrecen el reto mental que necesitan.</li>
+                                <li>Dificultad para encajar con compañeros de su edad por tener intereses completamente diferentes (fenómeno de disincronía).</li>
+                                <li>Frecuente ansiedad, exceso de perfeccionismo y temor intenso al fracaso o a decepcionar expectativas.</li>
+                            </ul>
+                        </div>
+                        <div class="info-box cuidador">
+                            <h4 >🤝 Retos para los cuidadores</h4>
+                            <ul>
+                                <li>Buscar incansablemente espacios o actividades donde reciban la nutrición intelectual que necesitan para no apagarse.</li>
+                                <li>Acompañarlos con profunda comprensión para ayudarles a manejar el desbordamiento de su intensidad emocional.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- ALTAS CAPACIDADES ANIMATION -->
+                    <div class="anim-container">
+                        <h3 class="anim-title">Potencial Excepcional y Complejidad</h3>
+                        <svg viewBox="0 0 300 200" width="100%" height="200" style="max-width: 350px; overflow: visible;">
+                            <defs>
+                                <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+                                    <feGaussianBlur stdDeviation="4" result="blur" />
+                                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                                </filter>
+                            </defs>
+                            
+                            <g class="brain-gears" filter="url(#glow)">
+                                <!-- Brain Outline (from Lucide) -->
+                                <g transform="translate(150, 100) scale(7) translate(-12, -12)" fill="none" stroke="#eab308" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.9">
+                                    <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z" />
+                                    <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z" />
+                                </g>
+
+                                <!-- Gears inside Brain -->
+                                <g transform="translate(150, 100)">
+                                    <!-- Gear 1 (Left, Pink) -->
+                                    <g transform="translate(-25, -15) scale(0.8)">
+                                        <g class="gear-fast" fill="#ec4899">
+                                            <circle cx="0" cy="0" r="18" />
+                                            <!-- Teeth paths -->
+                                            <path d="M-4 -24 L4 -24 L7 -17 L-7 -17 Z" /><path d="M-4 -24 L4 -24 L7 -17 L-7 -17 Z" transform="rotate(45)" /><path d="M-4 -24 L4 -24 L7 -17 L-7 -17 Z" transform="rotate(90)" /><path d="M-4 -24 L4 -24 L7 -17 L-7 -17 Z" transform="rotate(135)" /><path d="M-4 -24 L4 -24 L7 -17 L-7 -17 Z" transform="rotate(180)" /><path d="M-4 -24 L4 -24 L7 -17 L-7 -17 Z" transform="rotate(225)" /><path d="M-4 -24 L4 -24 L7 -17 L-7 -17 Z" transform="rotate(270)" /><path d="M-4 -24 L4 -24 L7 -17 L-7 -17 Z" transform="rotate(315)" />
+                                            <circle cx="0" cy="0" r="8" fill="#fff" />
+                                        </g>
+                                    </g>
+
+                                    <!-- Gear 2 (Right, Purple) -->
+                                    <g transform="translate(15, -5) scale(1)">
+                                        <g class="gear-slow" fill="#8b5cf6">
+                                            <circle cx="0" cy="0" r="18" />
+                                            <path d="M-4 -24 L4 -24 L7 -17 L-7 -17 Z" /><path d="M-4 -24 L4 -24 L7 -17 L-7 -17 Z" transform="rotate(45)" /><path d="M-4 -24 L4 -24 L7 -17 L-7 -17 Z" transform="rotate(90)" /><path d="M-4 -24 L4 -24 L7 -17 L-7 -17 Z" transform="rotate(135)" /><path d="M-4 -24 L4 -24 L7 -17 L-7 -17 Z" transform="rotate(180)" /><path d="M-4 -24 L4 -24 L7 -17 L-7 -17 Z" transform="rotate(225)" /><path d="M-4 -24 L4 -24 L7 -17 L-7 -17 Z" transform="rotate(270)" /><path d="M-4 -24 L4 -24 L7 -17 L-7 -17 Z" transform="rotate(315)" />
+                                            <circle cx="0" cy="0" r="8" fill="#fff" />
+                                        </g>
+                                    </g>
+
+                                    <!-- Gear 3 (Bottom, Blue) -->
+                                    <g transform="translate(-5, 25) scale(0.6)">
+                                        <g class="gear-fast" fill="#3b82f6">
+                                            <circle cx="0" cy="0" r="18" />
+                                            <path d="M-4 -24 L4 -24 L7 -17 L-7 -17 Z" /><path d="M-4 -24 L4 -24 L7 -17 L-7 -17 Z" transform="rotate(45)" /><path d="M-4 -24 L4 -24 L7 -17 L-7 -17 Z" transform="rotate(90)" /><path d="M-4 -24 L4 -24 L7 -17 L-7 -17 Z" transform="rotate(135)" /><path d="M-4 -24 L4 -24 L7 -17 L-7 -17 Z" transform="rotate(180)" /><path d="M-4 -24 L4 -24 L7 -17 L-7 -17 Z" transform="rotate(225)" /><path d="M-4 -24 L4 -24 L7 -17 L-7 -17 Z" transform="rotate(270)" /><path d="M-4 -24 L4 -24 L7 -17 L-7 -17 Z" transform="rotate(315)" />
+                                            <circle cx="0" cy="0" r="8" fill="#fff" />
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </svg>
+                    </div>
                 </article>
 
             </div>
@@ -674,6 +1457,12 @@
     
 
 
+    <!-- ========================================== -->
+    <!-- PIE DE PÁGINA (FOOTER)                     -->
+    <!-- ========================================== -->
+    <!-- ========================================== -->
+    <!-- PIE DE PÁGINA (FOOTER)                     -->
+    <!-- ========================================== -->
     <footer>
         <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
         <div class="container">
@@ -683,19 +1472,19 @@
                         <model-viewer src="assets/logo.glb" alt="Logo Manos Inclusivas" 
                             style="width: 80px; height: 80px; background-color: transparent;" 
                             camera-orbit="0deg 90deg auto" interaction-prompt="none"></model-viewer>
-                        <h3 style="color: white; margin: 0; font-size: 1.2rem;">Manos Inclusivas A.C.</h3>
+                        <h3 style="color: white; margin: 0; font-size: 1.2rem;" class="notranslate" translate="no">Manos Inclusivas A.C.</h3>
                     </div>
                     <p class="footer-desc">Fundación dedicada al neurodesarrollo, iluminando corazones y conectando
                         vidas en Yucatán.</p>
                     <div class="social-links">
-                        <a href="https://www.facebook.com/profile.php?id=61562928764116&mibextid=LQQCox" target="_blank" class="social-icon" aria-label="Facebook">
+                        <a href="https://www.facebook.com/share/18zML6YwYw/" target="_blank" class="social-icon" aria-label="Facebook">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
                         </a>
                         <a href="https://www.instagram.com/miicneurodesarollo?igsh=MXI3aTVsaXRjMGZzMw==&igsi=MXI3aTVsaXRjMGZzMw==" target="_blank" class="social-icon" aria-label="Instagram">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
                         </a>
                         <a href="https://x.com/inclusivas43334?s=20" target="_blank" class="social-icon" aria-label="Twitter/X">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"></path></svg>
                         </a>
                         <a href="https://youtube.com/@miicneurodesarrollo?si=dE3kiuZaIAr2e2By" target="_blank" class="social-icon" aria-label="YouTube">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"></path><path d="m10 15 5-3-5-3z"></path></svg>
@@ -708,8 +1497,8 @@
                 <div>
                     <h4 class="footer-title">Contacto</h4>
                     <ul class="footer-links">
-                        <li><a href="https://wa.me/5213111469377?text=Hola,%20me%20gustaría%20recibir%20más%20información." target="_blank">WhatsApp: 311 146 9377</a></li>
-                        <li><a href="https://maps.app.goo.gl/YN3QVJp3aTZ7rAW86" target="_blank">Kanasín, Yucatán</a></li>
+                        <li><a href="https://wa.me/5219991121609?text=Hola,%20me%20gustaría%20recibir%20más%20información." target="_blank">Mensaje por WhatsApp</a></li>
+                        <li><a href="https://maps.app.goo.gl/YN3QVJp3aTZ7rAW86" target="_blank">Mérida, Yucatán</a></li>
                     </ul>
                 </div>
                 <div>
@@ -735,6 +1524,12 @@
         </div>
     </footer>
 
+    <!-- ========================================== -->
+    <!-- SCRIPTS DEL SITIO (JS & APIS)              -->
+    <!-- ========================================== -->
+    <!-- ========================================== -->
+    <!-- SCRIPTS DEL SITIO (JS & APIS)              -->
+    <!-- ========================================== -->
     <script src="assets/js/main.js"></script>
     <script src="assets/js/neural-loader.js?v=18"></script>
 

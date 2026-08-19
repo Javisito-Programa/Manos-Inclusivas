@@ -293,22 +293,27 @@
 
 <body>
 
-    <!-- Loading Screen -->
+    <!-- ========================================== -->
+    <!-- PANTALLA DE CARGA (LOADING SCREEN)         -->
+    <!-- ========================================== -->
     <div id="loader-wrapper">
         <canvas id="loader-canvas"></canvas>
         <div class="loader-content">
-            <div class="loader-logo-silhouette"></div>
+            <model-viewer src="assets/logo.glb" auto-rotate auto-rotate-delay="0" rotation-per-second="120deg" camera-orbit="0deg 90deg auto" interaction-prompt="none" disable-zoom disable-pan class="loader-3d-logo"></model-viewer>
             <h2 class="loader-text">Iluminando Corazones... Conectando Vidas.</h2>
         </div>
     </div>
 
+    <!-- ========================================== -->
+    <!-- ENCABEZADO Y NAVEGACIÓN (HEADER & NAV)     -->
+    <!-- ========================================== -->
     <header>
 
         <div class="container navbar">
             <a href="index.html" class="logo-container">
                 <model-viewer id="nav-3d-logo" src="assets/logo.glb" alt="Logo Manos Inclusivas"
                     camera-orbit="0deg 90deg auto" interaction-prompt="none" disable-zoom></model-viewer>
-                <div class="logo-text">
+                <div class="logo-text notranslate" translate="no">
                     <h2>Manos Inclusivas</h2>
                     <span>Iluminando Corazones A.C.</span>
                 </div>
@@ -348,6 +353,9 @@
                         <li><a href="recursos.html#tdah" class="dropdown-item">TDAH</a></li>
                         <li><a href="recursos.html#di" class="dropdown-item">Discapacidad Intelectual</a></li>
                         <li><a href="recursos.html#teap" class="dropdown-item">Trastornos del Aprendizaje</a></li>
+                        <li><a href="recursos.html#dispraxia" class="dropdown-item">Dispraxia</a></li>
+                        <li><a href="recursos.html#lenguaje" class="dropdown-item">Trastornos del Lenguaje</a></li>
+                        <li><a href="recursos.html#altas-capacidades" class="dropdown-item">Altas Capacidades</a></li>
                     </ul>
                 </div>
                 <div class="nav-item"><a href="noticias.html" class="nav-link">NOTICIAS</a></div>
@@ -424,7 +432,7 @@
                     </a>
 
                     <!-- Por Correo -->
-                    <a href="mailto:donativos@manosinclusivas.org?subject=Informaci%C3%B3n%20para%20Donativo%20por%20Cheque/Correo"
+                    <a href="mailto:miicneurodesarrollo@gmail.com?subject=Informaci%C3%B3n%20para%20Donativo%20por%20Cheque/Correo"
                         class="card interactive-card" style="text-decoration: none;">
                         <div class="card-icon icon-blue">✉️</div>
                         <h3 style="color: var(--text-main); margin-bottom: 10px;">Por Correo</h3>
@@ -433,7 +441,7 @@
                     </a>
 
                     <!-- Pago en Especie -->
-                    <a href="https://wa.me/5213111469377?text=Hola,%20me%20gustar%C3%ADa%20hacer%20una%20donaci%C3%B3n%20en%20especie%20(materiales,%20equipo,%20etc)."
+                    <a href="https://wa.me/5219991121609?text=Hola,%20quiero%20hacer%20un%20donativo%20por%20especie"
                         target="_blank" class="card interactive-card" style="text-decoration: none;">
                         <div class="card-icon icon-pink">📦</div>
                         <h3 style="color: var(--text-main); margin-bottom: 10px;">Pago en Especie</h3>
@@ -449,12 +457,12 @@
                         <p style="color: var(--text-muted); font-size: 0.95rem;">Aceptamos Bitcoin, Ethereum y USDT.</p>
                     </a>
 
-                    <!-- Fondos Dirigidos -->
-                    <a href="https://wa.me/5213111469377?text=Hola,%20quisiera%20recibir%20informaci%C3%B3n%20sobre%20c%C3%B3mo%20canalizar%20Fondos%20Dirigidos%20(DAF)."
+                    <!-- Fondos Dirigidos Deducibles de Impuestos -->
+                    <a href="https://wa.me/5219991121609?text=Hola,%20quisiera%20recibir%20informaci%C3%B3n%20sobre%20c%C3%B3mo%20donar%20a%20Fondos%20Dirigidos%20Deducibles%20de%20Impuestos."
                         target="_blank" class="card interactive-card" style="text-decoration: none;">
-                        <div class="card-icon icon-green">🎁</div>
-                        <h3 style="color: var(--text-main); margin-bottom: 10px;">Fondos Dirigidos (DAF)</h3>
-                        <p style="color: var(--text-muted); font-size: 0.95rem;">Recomienda a Manos Inclusivas.</p>
+                        <div class="card-icon icon-green">🏢</div>
+                        <h3 style="color: var(--text-main); margin-bottom: 10px;">Fondo Dirigido Deducible de Impuestos</h3>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">Para empresas que deseen deducir impuestos.</p>
                     </a>
                 </div>
             </div>
@@ -549,8 +557,8 @@
                             <h4 style="color: var(--accent-purple); margin-bottom: 10px;">🧾 Recibo Deducible</h4>
                             <p style="font-size: 1rem; color: var(--text-main);">Por favor, envía tu comprobante de
                                 transferencia y constancia de situación fiscal a <strong><a
-                                        href="mailto:donativos@manosinclusivas.org"
-                                        style="color: var(--accent-purple); text-decoration: underline;">donativos@manosinclusivas.org</a></strong>
+                                        href="mailto:miicneurodesarrollo@gmail.com"
+                                        style="color: var(--accent-purple); text-decoration: underline;">miicneurodesarrollo@gmail.com</a></strong>
                                 para emitir tu recibo deducible de impuestos.</p>
                         </div>
                     </div>
@@ -594,6 +602,9 @@
     </main>
 
 
+    <!-- ========================================== -->
+    <!-- PIE DE PÁGINA (FOOTER)                     -->
+    <!-- ========================================== -->
     <footer>
         <script type="module"
             src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
@@ -604,12 +615,12 @@
                         <model-viewer src="assets/logo.glb" alt="Logo Manos Inclusivas"
                             style="width: 80px; height: 80px; background-color: transparent;"
                             camera-orbit="0deg 90deg auto" interaction-prompt="none"></model-viewer>
-                        <h3 style="color: white; margin: 0; font-size: 1.2rem;">Manos Inclusivas A.C.</h3>
+                        <h3 style="color: white; margin: 0; font-size: 1.2rem;" class="notranslate" translate="no">Manos Inclusivas A.C.</h3>
                     </div>
                     <p class="footer-desc">Fundación dedicada al neurodesarrollo, iluminando corazones y conectando
                         vidas en Yucatán.</p>
                     <div class="social-links">
-                        <a href="https://www.facebook.com/profile.php?id=61562928764116&mibextid=LQQCox" target="_blank"
+                        <a href="https://www.facebook.com/share/18zML6YwYw/" target="_blank"
                             class="social-icon" aria-label="Facebook">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -629,13 +640,7 @@
                         </a>
                         <a href="https://x.com/inclusivas43334?s=20" target="_blank" class="social-icon"
                             aria-label="Twitter/X">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <path
-                                    d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z">
-                                </path>
-                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"></path></svg>
                         </a>
                         <a href="https://youtube.com/@miicneurodesarrollo?si=dE3kiuZaIAr2e2By" target="_blank"
                             class="social-icon" aria-label="YouTube">
@@ -665,9 +670,9 @@
                 <div>
                     <h4 class="footer-title">Contacto</h4>
                     <ul class="footer-links">
-                        <li><a href="https://wa.me/5213111469377?text=Hola,%20me%20gustaría%20recibir%20más%20información."
-                                target="_blank">WhatsApp: 311 146 9377</a></li>
-                        <li><a href="https://maps.app.goo.gl/YN3QVJp3aTZ7rAW86" target="_blank">Kanasín, Yucatán</a>
+                        <li><a href="https://wa.me/5219991121609?text=Hola,%20me%20gustaría%20recibir%20más%20información."
+                                target="_blank">Mensaje por WhatsApp</a></li>
+                        <li><a href="https://maps.app.goo.gl/YN3QVJp3aTZ7rAW86" target="_blank">Mérida, Yucatán</a>
                         </li>
                     </ul>
                 </div>
@@ -694,6 +699,9 @@
         </div>
     </footer>
 
+    <!-- ========================================== -->
+    <!-- SCRIPTS DEL SITIO (JS & APIS)              -->
+    <!-- ========================================== -->
     <script src="assets/js/main.js"></script>
     <script src="assets/js/donations.js"></script>
     <script src="assets/js/neural-loader.js?v=18"></script>

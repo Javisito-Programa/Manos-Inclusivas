@@ -35,37 +35,18 @@
   gap: 20px;
 }
 
-/* Modern pulsing rings for the logo placeholder */
-.loader-logo-silhouette {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  border: 3px solid transparent;
-  border-top-color: var(--accent-purple);
-  border-bottom-color: var(--accent-green);
-  animation: spin 3.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
-  box-shadow: 0 0 15px rgba(149, 117, 205, 0.2);
-  position: relative;
+.loader-3d-logo {
+  width: 120px;
+  height: 120px;
+  background-color: transparent;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.15));
+  margin-bottom: 10px;
 }
-.loader-logo-silhouette::before {
-  content: '';
-  position: absolute;
-  top: 10px; left: 10px; right: 10px; bottom: 10px;
-  border-radius: 50%;
-  border: 3px solid transparent;
-  border-left-color: var(--accent-green);
-  border-right-color: var(--accent-purple);
-  animation: spin-reverse 4s linear infinite;
+model-viewer::part(default-progress-bar) {
+  display: none;
 }
-
-@keyframes spin {
-  0% { transform: rotate(0deg) scale(1); }
-  50% { transform: rotate(180deg) scale(1.1); }
-  100% { transform: rotate(360deg) scale(1); }
-}
-@keyframes spin-reverse {
-  0% { transform: rotate(360deg); }
-  100% { transform: rotate(0deg); }
+model-viewer:focus-visible {
+  outline: none;
 }
 
 /* Stunning Gradient Shimmer Text */

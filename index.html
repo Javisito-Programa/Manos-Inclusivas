@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manos Inclusivas - Iluminando Corazones A.C.</title>
     <meta name="description"
-        content="Fundación sin fines de lucro en Kanasín, Yucatán, dedicada al neurodesarrollo. Cuidamos tu bienestar emocional.">
+        content="Fundación sin fines de lucro en Mérida, Yucatán, dedicada al neurodesarrollo. Cuidamos tu bienestar emocional.">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,23 +20,33 @@
 
 <body>
 
-    <!-- Loading Screen -->
+    <!-- ========================================== -->
+    <!-- PANTALLA DE CARGA (LOADING SCREEN)         -->
+    <!-- ========================================== -->
+    <!-- ========================================== -->
+    <!-- PANTALLA DE CARGA (LOADING SCREEN)         -->
+    <!-- ========================================== -->
     <div id="loader-wrapper">
         <canvas id="loader-canvas"></canvas>
         <div class="loader-content">
-            <div class="loader-logo-silhouette"></div> <!-- Could hold an SVG or image -->
+            <model-viewer src="assets/logo.glb" auto-rotate auto-rotate-delay="0" rotation-per-second="120deg" camera-orbit="0deg 90deg auto" interaction-prompt="none" disable-zoom disable-pan class="loader-3d-logo"></model-viewer>
             <h2 class="loader-text">Iluminando Corazones... Conectando Vidas.</h2>
         </div>
     </div>
 
-    <!-- Header & Navigation -->
+    <!-- ========================================== -->
+    <!-- ENCABEZADO Y NAVEGACIÓN (HEADER & NAV)     -->
+    <!-- ========================================== -->
+    <!-- ========================================== -->
+    <!-- ENCABEZADO Y NAVEGACIÓN (HEADER & NAV)     -->
+    <!-- ========================================== -->
     <header data-transparent="true">
 
         <div class="container navbar">
             <a href="index.html" class="logo-container">
                 <model-viewer id="nav-3d-logo" src="assets/logo.glb" alt="Logo Manos Inclusivas"
                     camera-orbit="0deg 90deg auto" interaction-prompt="none" disable-zoom></model-viewer>
-                <div class="logo-text">
+                <div class="logo-text notranslate" translate="no">
                     <h2>Manos Inclusivas</h2>
                     <span>Iluminando Corazones A.C.</span>
                 </div>
@@ -75,6 +85,9 @@
                         <li><a href="recursos.html#tdah" class="dropdown-item">TDAH</a></li>
                         <li><a href="recursos.html#di" class="dropdown-item">Discapacidad Intelectual</a></li>
                         <li><a href="recursos.html#teap" class="dropdown-item">Trastornos del Aprendizaje</a></li>
+                        <li><a href="recursos.html#dispraxia" class="dropdown-item">Dispraxia</a></li>
+                        <li><a href="recursos.html#lenguaje" class="dropdown-item">Trastornos del Lenguaje</a></li>
+                        <li><a href="recursos.html#altas-capacidades" class="dropdown-item">Altas Capacidades</a></li>
                     </ul>
                 </div>
                 <div class="nav-item"><a href="noticias.html" class="nav-link">NOTICIAS</a></div>
@@ -106,9 +119,16 @@
 
     </header>
 
-    <!-- Main Content -->
+    <!-- ========================================== -->
+    <!-- CONTENIDO PRINCIPAL (MAIN CONTENT)         -->
+    <!-- ========================================== -->
+    <!-- ========================================== -->
+    <!-- CONTENIDO PRINCIPAL (MAIN CONTENT)         -->
+    <!-- ========================================== -->
     <main>
-        <!-- Hero Section -->
+        <!-- ========================================== -->
+        <!-- SECCIÓN HERO (PORTADA CON CARRUSEL)        -->
+        <!-- ========================================== -->
         <section class="hero">
             <!-- Carousel Background -->
             <div class="hero-slider">
@@ -124,7 +144,7 @@
                 <!-- AQUI EDITAR: Titulo principal, subtitulo y botones de accion -->
             <div class="hero-content">
                     <h1 class="hero-title">Cuidamos tu bienestar emocional. <span>¡No estás solo!</span></h1>
-                    <p class="hero-subtitle">Fundación sin fines de lucro en Kanasín, Yucatán, dedicada al neurodesarrollo.<br>Creemos en el potencial de cada persona.</p>
+                    <p class="hero-subtitle">Fundación sin fines de lucro en Mérida, Yucatán, dedicada al neurodesarrollo.<br>Creemos en el potencial de cada persona.</p>
                     <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 20px;">
                         <a href="contacto.html" class="btn btn-primary">Contáctanos</a>
                         <a href="citas.html" class="btn btn-accent">Agendar Cita</a>
@@ -133,7 +153,9 @@
             </div>
         </section>
 
-        <!-- Services Section -->
+        <!-- ========================================== -->
+        <!-- SECCIÓN DE SERVICIOS PRINCIPALES           -->
+        <!-- ========================================== -->
         <section class="section-padding bg-lavender">
             <div class="container">
                 <div class="text-center" style="margin-bottom: 50px;">
@@ -207,7 +229,9 @@
             </div>
         </section>
 
-        <!-- Inspiring Message -->
+        <!-- ========================================== -->
+        <!-- SECCIÓN DE MENSAJE INSPIRADOR (LLAMADO A LA ACCIÓN) -->
+        <!-- ========================================== -->
         <section class="section-padding bg-beige text-center">
             <div class="container">
                 <h2 style="font-size: 2.5rem; color: var(--accent-purple);">"Creemos en el potencial de cada persona."
@@ -220,7 +244,12 @@
         </section>
     </main>
 
-    <!-- Footer -->
+    <!-- ========================================== -->
+    <!-- PIE DE PÁGINA (FOOTER)                     -->
+    <!-- ========================================== -->
+    <!-- ========================================== -->
+    <!-- PIE DE PÁGINA (FOOTER)                     -->
+    <!-- ========================================== -->
     <footer>
         <div class="container">
             <div class="footer-grid">
@@ -229,19 +258,19 @@
                         <model-viewer src="assets/logo.glb" alt="Logo Manos Inclusivas"
                             style="width: 80px; height: 80px; background-color: transparent;"
                             camera-orbit="0deg 90deg auto" interaction-prompt="none"></model-viewer>
-                        <h3 style="color: white; margin: 0; font-size: 1.2rem;">Manos Inclusivas A.C.</h3>
+                        <h3 style="color: white; margin: 0; font-size: 1.2rem;" class="notranslate" translate="no">Manos Inclusivas A.C.</h3>
                     </div>
                     <p class="footer-desc">Fundación dedicada al neurodesarrollo, iluminando corazones y conectando
                         vidas en Yucatán.</p>
                     <div class="social-links">
-                        <a href="https://www.facebook.com/profile.php?id=61562928764116&mibextid=LQQCox" target="_blank" class="social-icon" aria-label="Facebook">
+                        <a href="https://www.facebook.com/share/18zML6YwYw/" target="_blank" class="social-icon" aria-label="Facebook">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
                         </a>
                         <a href="https://www.instagram.com/miicneurodesarollo?igsh=MXI3aTVsaXRjMGZzMw==&igsi=MXI3aTVsaXRjMGZzMw==" target="_blank" class="social-icon" aria-label="Instagram">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
                         </a>
                         <a href="https://x.com/inclusivas43334?s=20" target="_blank" class="social-icon" aria-label="Twitter/X">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"></path></svg>
                         </a>
                         <a href="https://youtube.com/@miicneurodesarrollo?si=dE3kiuZaIAr2e2By" target="_blank" class="social-icon" aria-label="YouTube">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"></path><path d="m10 15 5-3-5-3z"></path></svg>
@@ -254,8 +283,8 @@
                 <div>
                     <h4 class="footer-title">Contacto</h4>
                     <ul class="footer-links">
-                        <li><a href="https://wa.me/5213111469377?text=Hola,%20me%20gustaría%20recibir%20más%20información." target="_blank">WhatsApp: 311 146 9377</a></li>
-                        <li><a href="https://maps.app.goo.gl/YN3QVJp3aTZ7rAW86" target="_blank">Kanasín, Yucatán</a></li>
+                        <li><a href="https://wa.me/5219991121609?text=Hola,%20me%20gustaría%20recibir%20más%20información." target="_blank">Mensaje por WhatsApp</a></li>
+                        <li><a href="https://maps.app.goo.gl/YN3QVJp3aTZ7rAW86" target="_blank">Mérida, Yucatán</a></li>
                     </ul>
                 </div>
                 <div>
@@ -283,7 +312,12 @@
 
 
 
-    <!-- Scripts -->
+    <!-- ========================================== -->
+    <!-- SCRIPTS DEL SITIO (JS & APIS)              -->
+    <!-- ========================================== -->
+    <!-- ========================================== -->
+    <!-- SCRIPTS DEL SITIO (JS & APIS)              -->
+    <!-- ========================================== -->
     <script src="assets/js/main.js?v=2"></script>
     <script src="assets/js/neural-loader.js?v=18"></script>
     <script type="text/javascript">

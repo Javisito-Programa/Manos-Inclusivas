@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Servicios - Manos Inclusivas A.C.</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style-v2.css?v=22">
     <link rel="stylesheet" href="assets/css/loading.css?v=22">
     <style>
@@ -27,7 +28,8 @@
         .service-image img {
             width: 100% !important;
             height: 350px !important;
-            object-fit: cover !important;
+            object-fit: contain !important;
+            background-color: #f8fafc;
             border-radius: var(--border-radius-soft) !important;
             box-shadow: var(--shadow-soft) !important;
         }
@@ -51,62 +53,69 @@
         }
     </style>
 
-<style>
-/* OVERRIDE FOR HERO SERVICIOS */
-.hero-servicios {
-    background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(107, 70, 193, 0.6) 100%), 
+    <style>
+        /* OVERRIDE FOR HERO SERVICIOS */
+        .hero-servicios {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(107, 70, 193, 0.6) 100%),
                 url('img/Servicios.jpg') !important;
-    background-size: cover !important;
-    background-position: center !important;
-    background-attachment: fixed !important;
-    color: #ffffff !important;
-}
+            background-size: cover !important;
+            background-position: center !important;
+            background-attachment: fixed !important;
+            color: #ffffff !important;
+        }
 
-.hero-servicios::before {
-    display: none !important;
-}
+        .hero-servicios::before {
+            display: none !important;
+        }
 
-.hero-servicios h1 {
-    color: #ffffff !important;
-    text-shadow: 0 5px 15px rgba(0,0,0,0.5) !important;
-}
+        .hero-servicios h1 {
+            color: #ffffff !important;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5) !important;
+        }
 
-.hero-servicios p {
-    color: #f8fafc !important;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.5) !important;
-}
+        .hero-servicios p {
+            color: #f8fafc !important;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5) !important;
+        }
 
-/* Make floating icons white and slightly transparent so they look cool over the dark image */
-.hero-servicios .floating-icon {
-    display: none !important;
-}
+        /* Make floating icons white and slightly transparent so they look cool over the dark image */
+        .hero-servicios .floating-icon {
+            display: none !important;
+        }
 
-/* Make sure the wave at the bottom remains visible and styled correctly */
-.hero-servicios .hero-wave svg path {
-    fill: var(--bg-primary) !important;
-}
-</style>
+        /* Make sure the wave at the bottom remains visible and styled correctly */
+        .hero-servicios .hero-wave svg path {
+            fill: var(--bg-primary) !important;
+        }
+    </style>
 
 </head>
 
 <body>
 
-    <!-- Loading Screen -->
-    <div id="loader-wrapper">
+    <!-- ========================================== -->
+    <!-- PANTALLA DE CARGA (LOADING SCREEN)         -->
+    <!-- ========================================== -->
         <canvas id="loader-canvas"></canvas>
         <div class="loader-content">
-            <div class="loader-logo-silhouette"></div>
+            <model-viewer src="assets/logo.glb" auto-rotate auto-rotate-delay="0" rotation-per-second="120deg" camera-orbit="0deg 90deg auto" interaction-prompt="none" disable-zoom disable-pan class="loader-3d-logo"></model-viewer>
             <h2 class="loader-text">Iluminando Corazones... Conectando Vidas.</h2>
         </div>
     </div>
 
+    <!-- ========================================== -->
+    <!-- ENCABEZADO Y NAVEGACIÓN (HEADER & NAV)     -->
+    <!-- ========================================== -->
+    <!-- ========================================== -->
+    <!-- ENCABEZADO Y NAVEGACIÓN (HEADER & NAV)     -->
+    <!-- ========================================== -->
     <header>
 
         <div class="container navbar">
             <a href="index.html" class="logo-container">
                 <model-viewer id="nav-3d-logo" src="assets/logo.glb" alt="Logo Manos Inclusivas"
                     camera-orbit="0deg 90deg auto" interaction-prompt="none" disable-zoom></model-viewer>
-                <div class="logo-text">
+                <div class="logo-text notranslate" translate="no">
                     <h2>Manos Inclusivas</h2>
                     <span>Iluminando Corazones A.C.</span>
                 </div>
@@ -115,8 +124,7 @@
             <button class="hamburger" aria-label="Abrir menú">☰</button>
 
             <nav class="nav-links">
-                <div class="nav-item"><a href="index.html" class="nav-link"
-                        >INICIO</a>
+                <div class="nav-item"><a href="index.html" class="nav-link">INICIO</a>
                 </div>
                 <div class="nav-item">
                     <a href="nosotros.html" class="nav-link">NOSOTROS</a>
@@ -133,8 +141,10 @@
                         <li><a href="servicios.html#psicologia" class="dropdown-item">Psicología</a></li>
                         <li><a href="servicios.html#psiquiatria" class="dropdown-item">Psiquiatría</a></li>
                         <li><a href="servicios.html#terapia-lenguaje" class="dropdown-item">Terapia de Lenguaje</a></li>
-                        <li><a href="servicios.html#terapia-ocupacional" class="dropdown-item">Terapia Ocupacional</a></li>
-                        <li><a href="servicios.html#integracion-sensorial" class="dropdown-item">Integración Sensorial</a></li>
+                        <li><a href="servicios.html#terapia-ocupacional" class="dropdown-item">Terapia Ocupacional</a>
+                        </li>
+                        <li><a href="servicios.html#integracion-sensorial" class="dropdown-item">Integración
+                                Sensorial</a></li>
                         <li><a href="servicios.html#talleres" class="dropdown-item">Talleres y Capacitaciones</a></li>
                     </ul>
                 </div>
@@ -145,13 +155,16 @@
                         <li><a href="recursos.html#tdah" class="dropdown-item">TDAH</a></li>
                         <li><a href="recursos.html#di" class="dropdown-item">Discapacidad Intelectual</a></li>
                         <li><a href="recursos.html#teap" class="dropdown-item">Trastornos del Aprendizaje</a></li>
+                        <li><a href="recursos.html#dispraxia" class="dropdown-item">Dispraxia</a></li>
+                        <li><a href="recursos.html#lenguaje" class="dropdown-item">Trastornos del Lenguaje</a></li>
+                        <li><a href="recursos.html#altas-capacidades" class="dropdown-item">Altas Capacidades</a></li>
                     </ul>
                 </div>
                 <div class="nav-item"><a href="noticias.html" class="nav-link">NOTICIAS</a></div>
                 <div class="nav-item"><a href="citas.html" class="nav-link">CITAS</a></div>
                 <div class="nav-item"><a href="contacto.html" class="nav-link">CONTACTO</a></div>
                 <div class="nav-item"><a href="donar.html" class="btn btn-donate">DONAR</a></div>
-            
+
                 <!-- Translate Widget -->
                 <div class="nav-item custom-lang-selector">
                     <div class="lang-btn" id="lang-btn">
@@ -176,25 +189,42 @@
 
     </header>
 
+    <!-- ========================================== -->
+    <!-- CONTENIDO PRINCIPAL (MAIN CONTENT)         -->
+    <!-- ========================================== -->
+    <!-- ========================================== -->
+    <!-- CONTENIDO PRINCIPAL (MAIN CONTENT)         -->
+    <!-- ========================================== -->
     <main>
-                <section class="hero-servicios">
+
+        <!-- ========================================== -->
+        <!-- SECCIÓN PORTADA (HERO SERVICIOS)           -->
+        <!-- ========================================== -->
+        <section class="hero-servicios">
             <div class="floating-icon fi-1">🧠</div>
             <div class="floating-icon fi-2">✋</div>
             <div class="floating-icon fi-3">🗣️</div>
             <div class="floating-icon fi-4">⚕️</div>
             <div class="hero-servicios-content">
                 <h1>Nuestros Servicios</h1>
-                <p>Atención multidisciplinaria de excelencia diseñada para potenciar las habilidades y mejorar la calidad de vida de cada paciente.</p>
+                <p>Atención multidisciplinaria de excelencia diseñada para potenciar las habilidades y mejorar la
+                    calidad de vida de cada paciente.</p>
             </div>
             <div class="hero-wave">
                 <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                    <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C59.71,118,137.9,118,202.9,95.8,243.64,81.82,284.18,70.09,321.39,56.44Z" fill="var(--bg-primary)"></path>
+                    <path
+                        d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C59.71,118,137.9,118,202.9,95.8,243.64,81.82,284.18,70.09,321.39,56.44Z"
+                        fill="var(--bg-primary)"></path>
                 </svg>
             </div>
         </section>
 
         <section class="section-padding">
             <div class="container">
+            
+                <!-- ========================================== -->
+                <!-- LISTA DE SERVICIOS DETALLADOS              -->
+                <!-- ========================================== -->
 
                 <div id="psicologia" class="service-detail-section">
                     <div class="service-image">
@@ -219,7 +249,7 @@
                     </div>
                     <div class="service-content">
                         <div class="service-icon-large" style="color: var(--accent-green);">⚕️</div>
-                        <h2>Psiquiatría</h2>
+                        <h2>Psiquiatría y Neurología</h2>
                         <p>Atención médica especializada para el diagnóstico y tratamiento farmacológico cuando es
                             requerido. Nuestro equipo médico trabaja en estrecha colaboración con los terapeutas para
                             asegurar un enfoque integral y seguro.</p>
@@ -250,7 +280,7 @@
                     </div>
                     <div class="service-content">
                         <div class="service-icon-large" style="color: var(--accent-blue);">✋</div>
-                        <h2>Terapia Ocupacional</h2>
+                        <h2>Terapia Ocupacional Infantil</h2>
                         <p>Intervención centrada en dotar de herramientas al paciente para realizar sus actividades de
                             la vida diaria (higiene, alimentación, juego, escuela) con la mayor independencia posible,
                             desarrollando motricidad fina y gruesa.</p>
@@ -292,6 +322,12 @@
         </section>
     </main>
 
+    <!-- ========================================== -->
+    <!-- PIE DE PÁGINA (FOOTER)                     -->
+    <!-- ========================================== -->
+    <!-- ========================================== -->
+    <!-- PIE DE PÁGINA (FOOTER)                     -->
+    <!-- ========================================== -->
     <footer>
         <script type="module"
             src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
@@ -302,12 +338,13 @@
                         <model-viewer src="assets/logo.glb" alt="Logo Manos Inclusivas"
                             style="width: 80px; height: 80px; background-color: transparent;"
                             camera-orbit="0deg 90deg auto" interaction-prompt="none"></model-viewer>
-                        <h3 style="color: white; margin: 0; font-size: 1.2rem;">Manos Inclusivas A.C.</h3>
+                        <h3 style="color: white; margin: 0; font-size: 1.2rem;" class="notranslate" translate="no">Manos
+                            Inclusivas A.C.</h3>
                     </div>
                     <p class="footer-desc">Fundación dedicada al neurodesarrollo, iluminando corazones y conectando
                         vidas en Yucatán.</p>
                     <div class="social-links">
-                        <a href="https://www.facebook.com/profile.php?id=61562928764116&mibextid=LQQCox" target="_blank"
+                        <a href="https://www.facebook.com/share/18zML6YwYw/" target="_blank"
                             class="social-icon" aria-label="Facebook">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -327,13 +364,7 @@
                         </a>
                         <a href="https://x.com/inclusivas43334?s=20" target="_blank" class="social-icon"
                             aria-label="Twitter/X">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <path
-                                    d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z">
-                                </path>
-                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"></path></svg>
                         </a>
                         <a href="https://youtube.com/@miicneurodesarrollo?si=dE3kiuZaIAr2e2By" target="_blank"
                             class="social-icon" aria-label="YouTube">
@@ -363,9 +394,9 @@
                 <div>
                     <h4 class="footer-title">Contacto</h4>
                     <ul class="footer-links">
-                        <li><a href="https://wa.me/5213111469377?text=Hola,%20me%20gustaría%20recibir%20más%20información."
-                                target="_blank">WhatsApp: 311 146 9377</a></li>
-                        <li><a href="https://maps.app.goo.gl/YN3QVJp3aTZ7rAW86" target="_blank">Kanasín, Yucatán</a>
+                        <li><a href="https://wa.me/5219991121609?text=Hola,%20me%20gustaría%20recibir%20más%20información."
+                                target="_blank">Mensaje por WhatsApp</a></li>
+                        <li><a href="https://maps.app.goo.gl/YN3QVJp3aTZ7rAW86" target="_blank">Mérida, Yucatán</a>
                         </li>
                     </ul>
                 </div>
@@ -393,18 +424,25 @@
     </footer>
 
 
-    <script src="assets/js/main.js"></script>
+    <!-- ========================================== -->
+    <!-- SCRIPTS DEL SITIO (JS & APIS)              -->
+    <!-- ========================================== -->
+    <!-- ========================================== -->
+    <!-- SCRIPTS DEL SITIO (JS & APIS)              -->
+    <!-- ========================================== -->
+    <script src="assets/js/main.js?v=2"></script>
     <script src="assets/js/neural-loader.js?v=18"></script>
     <script type="text/javascript">
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({
-                pageLanguage: 'es', 
-                includedLanguages: 'en,fr,de,zh-CN,it,pt,ja,es', 
+                pageLanguage: 'es',
+                includedLanguages: 'en,fr,de,zh-CN,it,pt,ja,es',
                 layout: google.translate.TranslateElement.InlineLayout.SIMPLE
             }, 'google_translate_element');
         }
     </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script type="text/javascript"
+        src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     <script src="assets/js/translator.js?v=16"></script>
 </body>
 

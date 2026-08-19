@@ -1596,11 +1596,11 @@ footer {
 
 
 /* ========================================= */
-/* REDISEÑO DE FOOTER AZUL OSCURO PASTEL     */
+/* REDISEÑO DE FOOTER AZUL REY (AUTISMO) */
 /* ========================================= */
 footer {
-  /* Azul acero/empolvado (pastel oscuro) */
-  background: linear-gradient(135deg, #7FA1C3 0%, #6082B6 100%) !important;
+  /* Azul rey, color simbólico del autismo */
+  background: linear-gradient(135deg, #1A73E8 0%, #1565C0 100%) !important;
   color: #ffffff !important;
   box-shadow: 0 -5px 20px rgba(0,0,0,0.05) !important;
 }
@@ -1635,7 +1635,7 @@ footer {
 
 .social-icon:hover {
   background: #ffffff !important;
-  color: #6082B6 !important;
+  color: #1A73E8 !important;
   box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3) !important;
 }
 
@@ -1776,4 +1776,18 @@ iframe.VIpgJd-Zvi9od-xl07Ob-OEVmcd {
 }
 iframe.goog-te-banner-frame {
     display: none !important;
+}
+
+/* ========================================= */
+/* SIDEBAR �NDICE COLLAPSIBLE                */
+/* ========================================= */
+details.page-sidebar summary::-webkit-details-marker {
+  display: none;
+}
+details.page-sidebar summary {
+  list-style: none;
+  user-select: none;
+}
+details.page-sidebar[open] summary .dropdown-icon {
+  transform: rotate(180deg);
 }

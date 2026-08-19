@@ -12,22 +12,27 @@
 
 <body>
 
-    <!-- Loading Screen -->
+    <!-- ========================================== -->
+    <!-- PANTALLA DE CARGA (LOADING SCREEN)         -->
+    <!-- ========================================== -->
     <div id="loader-wrapper">
         <canvas id="loader-canvas"></canvas>
         <div class="loader-content">
-            <div class="loader-logo-silhouette"></div>
+            <model-viewer src="assets/logo.glb" auto-rotate auto-rotate-delay="0" rotation-per-second="120deg" camera-orbit="0deg 90deg auto" interaction-prompt="none" disable-zoom disable-pan class="loader-3d-logo"></model-viewer>
             <h2 class="loader-text">Iluminando Corazones... Conectando Vidas.</h2>
         </div>
     </div>
 
+    <!-- ========================================== -->
+    <!-- ENCABEZADO Y NAVEGACIÓN (HEADER & NAV)     -->
+    <!-- ========================================== -->
     <header>
 
         <div class="container navbar">
             <a href="index.html" class="logo-container">
                 <model-viewer id="nav-3d-logo" src="assets/logo.glb" alt="Logo Manos Inclusivas"
                     camera-orbit="0deg 90deg auto" interaction-prompt="none" disable-zoom></model-viewer>
-                <div class="logo-text">
+                <div class="logo-text notranslate" translate="no">
                     <h2>Manos Inclusivas</h2>
                     <span>Iluminando Corazones A.C.</span>
                 </div>
@@ -66,6 +71,9 @@
                         <li><a href="recursos.html#tdah" class="dropdown-item">TDAH</a></li>
                         <li><a href="recursos.html#di" class="dropdown-item">Discapacidad Intelectual</a></li>
                         <li><a href="recursos.html#teap" class="dropdown-item">Trastornos del Aprendizaje</a></li>
+                        <li><a href="recursos.html#dispraxia" class="dropdown-item">Dispraxia</a></li>
+                        <li><a href="recursos.html#lenguaje" class="dropdown-item">Trastornos del Lenguaje</a></li>
+                        <li><a href="recursos.html#altas-capacidades" class="dropdown-item">Altas Capacidades</a></li>
                     </ul>
                 </div>
                 <div class="nav-item"><a href="noticias.html" class="nav-link">NOTICIAS</a></div>
@@ -121,11 +129,10 @@
                 <article id="privacidad" class="page-section-card">
                     <h2>Aviso de Privacidad</h2>
                     <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 30px;">Aviso de Privacidad
-                        Integral de MANOS INCLUSIVAS ILUMINANDO CORAZONES A.C.</p>
+                        Integral de <strong>MANOS INCLUSIVAS ILUMINANDO CORAZONES A.C.</strong></p>
 
                     <h3>Identidad y Domicilio del Responsable:</h3>
-                    <p>MANOS INCLUSIVAS ILUMINANDO CORAZONES A.C., con domicilio en Calle 21 #123 x 20 y 22, Kanasín,
-                        Yucatán, C.P. 97370, es una asociación civil sin fines de lucro dedicada a brindar servicios de
+                    <p><strong>MANOS INCLUSIVAS ILUMINANDO CORAZONES A.C.</strong>, con domicilio en calle 20-H # 271. Int. 13. Fraccionamiento Las Palmas, Kanasín. Yucatán., es una asociación civil sin fines de lucro dedicada a brindar servicios de
                         salud mental a personas en situación vulnerable. Es responsable del tratamiento de los datos
                         personales que recaba, conforme a lo establecido por la Ley Federal de Protección de Datos
                         Personales en Posesión de los Particulares (LFPDPPP).</p>
@@ -190,27 +197,93 @@
                 </article>
 
                 <article id="terminos" class="page-section-card">
-                    <h2>Términos y Condiciones</h2>
-                    <p>Al acceder y utilizar el sitio web de Manos Inclusivas A.C., usted acepta estar sujeto a los
-                        siguientes términos y condiciones de uso. Estos términos se aplican a todas las visitas,
-                        donaciones e interacciones con nuestra plataforma digital.</p>
-                    <p><strong>Uso del sitio:</strong> El contenido de las páginas de este sitio web es para su
-                        información y uso general. Está sujeto a cambios sin previo aviso.</p>
+                    <h2>Términos y Condiciones de Uso</h2>
+                    
+                    <h3>1. Aceptación de los Términos</h3>
+                    <p>Al acceder, navegar y utilizar el sitio web de <strong>Manos Inclusivas Iluminando Corazones A.C.</strong>, el usuario acepta de manera explícita y sin reservas quedar sujeto a los presentes Términos y Condiciones. Si no está de acuerdo con alguno de los puntos aquí expuestos, le recomendamos abstenerse de utilizar la plataforma digital.</p>
+                    
+                    <h3>2. Uso Autorizado del Sitio</h3>
+                    <p>El contenido, información, materiales gráficos y textos publicados en este portal son para fines informativos, educacionales, de concientización y de gestión de la labor social de la asociación.</p>
+                    <ul class="symptoms-list">
+                        <li>El contenido está sujeto a modificaciones, actualizaciones o correcciones sin previo aviso.</li>
+                        <li>Queda estrictamente prohibido el uso del portal con fines ilícitos, lucrativos no autorizados o que atenten contra los objetivos institucionales de <strong>Manos Inclusivas Iluminando Corazones A.C.</strong></li>
+                    </ul>
+
+                    <h3>3. Donaciones y Transacciones</h3>
+                    <p><strong>Manos Inclusivas Iluminando Corazones A.C.</strong> es una Asociación Civil sin fines de lucro.</p>
+                    <ul class="symptoms-list">
+                        <li><strong>Carácter no reembolsable:</strong> Todas las aportaciones, donativos e inscripciones realizadas a través de la plataforma son finales y no reembolsables, salvo por errores atribuibles al procesador de pagos.</li>
+                        <li><strong>Destino de los fondos:</strong> Los recursos recaudados se destinarán íntegramente al sostenimiento de los proyectos sociales, operativos y comunitarios de la organización.</li>
+                        <li><strong>Seguridad financiera:</strong> La recopilación y procesamiento de datos financieros para donaciones se realiza mediante pasarelas de pago externas seguras, por lo que <strong>Manos Inclusivas Iluminando Corazones A.C.</strong> no almacena números completos de tarjetas ni claves bancarias.</li>
+                    </ul>
+
+                    <h3>4. Propiedad Intelectual</h3>
+                    <p>Todos los logotipos, textos, fotografías, videos, marcas y material de diseño gráfico presentes en este sitio son propiedad exclusiva de <strong>Manos Inclusivas Iluminando Corazones A.C.</strong> o cuentan con la autorización correspondiente para su uso. Queda prohibida su reproducción, distribución o modificación sin la autorización previa y por escrito de la asociación.</p>
+
+                    <h3>5. Limitación de Responsabilidad</h3>
+                    <p><strong>Manos Inclusivas Iluminando Corazones A.C.</strong> procura mantener el portal actualizado y libre de errores operativos o virus; sin embargo, no garantiza la disponibilidad continua del sitio ni se hace responsable por interrupciones técnicas o daños derivados del uso de la web.</p>
+
+                    <h3>6. Enlaces a Terceros</h3>
+                    <p>Este sitio puede incluir enlaces a plataformas o redes sociales de terceros. La organización no se responsabiliza por el contenido, políticas de privacidad o términos de uso de dichos sitios externos.</p>
+
+                    <h3>7. Protección de Datos Personales</h3>
+                    <p>El tratamiento de los datos personales recolectados a través de formularios o transacciones se rige por nuestro <strong>Aviso de Privacidad</strong>, disponible en este mismo portal, en cumplimiento con la legislación vigente.</p>
+
+                    <h3>8. Legislación Aplicable y Jurisdicción</h3>
+                    <p>Para la interpretación y cumplimiento de estos Términos y Condiciones, las partes se someten a la legislación aplicable en los Estados Unidos Mexicanos y a la jurisdicción de los tribunales competentes de la sede de la organización.</p>
+
+                    <p style="margin-top: 30px; font-style: italic; color: var(--text-muted);">Última actualización: agosto de 2026.</p>
                 </article>
 
                 <article id="transparencia" class="page-section-card">
-                    <h2>Transparencia</h2>
-                    <p>En Manos Inclusivas A.C. promovemos la claridad en la gestión de nuestros recursos. Creemos que
-                        la honestidad y la rendición de cuentas son fundamentales para construir relaciones de largo
-                        plazo con nuestros donantes, aliados y beneficiarios.</p>
-                    <p>Trabajamos diariamente para que cada aportación tenga el mayor impacto social posible. Si desea
-                        consultar nuestros reportes anuales de actividades o financieros, póngase en contacto con
-                        nosotros.</p>
+                    <h2>Transparencia y Rendición de Cuentas</h2>
+                    <p>En <strong>Manos Inclusivas Iluminando Corazones A.C.</strong>, la confianza de nuestros donantes, aliados y de las comunidades a las que servimos es el pilar fundamental de nuestra labor. Nos comprometemos de manera firme con una gestión ética, rigurosa y transparente en el manejo de cada uno de los recursos que nos son confiados.</p>
+                    
+                    <hr style="border: 0; height: 1px; background: #e2e8f0; margin: 30px 0;">
+
+                    <h3>1. Uso y Manejo Integro de los Recursos</h3>
+                    <p>Todos los donativos que recibimos —ya sean aportaciones económicas en efectivo, transferencias bancarias o donaciones en especie— son destinados de forma directa e íntegra al desarrollo, ejecución y sostenibilidad de nuestros programas asistenciales y proyectos comunitarios dentro del objeto social legalmente estipulado.</p>
+                    <ul class="symptoms-list">
+                        <li><strong>Donativos en efectivo:</strong> Se canalizan exclusivamente al financiamiento de los proyectos sociales, cobertura de servicios asistenciales esenciales y gastos estrictamente necesarios para la operación administrativa y logística de la asociación.</li>
+                        <li><strong>Donativos en especie:</strong> Bienes, insumos, materiales o equipos donados son registrados, inventariados y distribuidos bajo un estricto control de asignación para asegurar que lleguen directamente a los beneficiarios de nuestras causas.</li>
+                    </ul>
+
+                    <hr style="border: 0; height: 1px; background: #e2e8f0; margin: 30px 0;">
+
+                    <h3>2. Supervisión e Inspección del SAT (Donataria Autorizada)</h3>
+                    <p>Como <strong>Donataria Autorizada</strong> constituida conforme a las leyes mexicanas, <strong>Manos Inclusivas Iluminando Corazones A.C.</strong> opera bajo la supervisión y fiscalización constante del <strong>Servicio de Administración Tributaria (SAT)</strong>.</p>
+                    <ul class="symptoms-list">
+                        <li><strong>Destino exclusivo del patrimonio:</strong> En cumplimiento con la Ley del Impuesto sobre la Renta (LISR), la totalidad de los bienes y recursos de la asociación se destinan exclusivamente a los fines asistenciales y sociales estipulados en nuestra <strong>Acta Constitutiva</strong>.</li>
+                        <li><strong>Declaración Informativa de Transparencia:</strong> Cumplimos anualmente con la presentación de la Declaración Informativa para Garantizar la Transparencia del Patrimonio, donde se detalla públicamente el origen, monto y destino de los donativos recibidos, así como los gastos realizados.</li>
+                        <li><strong>Comprobantes Fiscales Digitales (CFDI):</strong> Emitimos los correspondientes recibos deducibles de impuestos por cada donativo recibido, respaldando la legalidad y la trazabilidad de las aportaciones conforme a los requisitos fiscales vigentes.</li>
+                    </ul>
+
+                    <hr style="border: 0; height: 1px; background: #e2e8f0; margin: 30px 0;">
+
+                    <h3>3. Auditoría y Control Interno</h3>
+                    <p>Para garantizar la máxima eficiencia en cada peso y recurso recibido, en <strong>Manos Inclusivas Iluminando Corazones A.C.</strong> mantenemos:</p>
+                    <ul class="symptoms-list">
+                        <li>Libros contables y registros financieros permanentemente actualizados.</li>
+                        <li>Procedimientos de control interno para la recepción, registro y entrega de donaciones en especie.</li>
+                        <li>Una política de <strong>Cero Lucro</strong>, garantizando que ningún integrante de la asociación reciba remanentes ni beneficios económicos privados derivados de los donativos o del patrimonio social.</li>
+                    </ul>
+
+                    <hr style="border: 0; height: 1px; background: #e2e8f0; margin: 30px 0;">
+
+                    <h3>4. Nuestro Compromiso con los Benefactores</h3>
+                    <p>Agradecemos profundamente el respaldo de nuestros donantes individuales, empresas aliadas e instituciones públicas y privadas. Nos comprometemos a mantener canales abiertos de comunicación para dar a conocer los avances, resultados e impacto social alcanzado gracias a su generosa contribución.</p>
+                    
+                    <div style="background: rgba(144, 202, 249, 0.1); padding: 20px; border-left: 4px solid var(--accent-blue); border-radius: 5px; margin-top: 30px;">
+                        <p style="margin: 0; font-style: italic; color: #555;">Para consultar nuestros informes anuales de actividades o para mayor información sobre el cumplimiento fiscal de nuestra organización, puedes ponerte en contacto con nuestro equipo de administración a través de nuestros canales oficiales.</p>
+                    </div>
                 </article>
             </div>
         </div>
     </main>
 
+    <!-- ========================================== -->
+    <!-- PIE DE PÁGINA (FOOTER)                     -->
+    <!-- ========================================== -->
     <footer>
         <script type="module"
             src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
@@ -221,12 +294,12 @@
                         <model-viewer src="assets/logo.glb" alt="Logo Manos Inclusivas"
                             style="width: 80px; height: 80px; background-color: transparent;"
                             camera-orbit="0deg 90deg auto" interaction-prompt="none"></model-viewer>
-                        <h3 style="color: white; margin: 0; font-size: 1.2rem;">Manos Inclusivas A.C.</h3>
+                        <h3 style="color: white; margin: 0; font-size: 1.2rem;" class="notranslate" translate="no">Manos Inclusivas A.C.</h3>
                     </div>
                     <p class="footer-desc">Fundación dedicada al neurodesarrollo, iluminando corazones y conectando
                         vidas en Yucatán.</p>
                     <div class="social-links">
-                        <a href="https://www.facebook.com/profile.php?id=61562928764116&mibextid=LQQCox" target="_blank"
+                        <a href="https://www.facebook.com/share/18zML6YwYw/" target="_blank"
                             class="social-icon" aria-label="Facebook">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -246,13 +319,7 @@
                         </a>
                         <a href="https://x.com/inclusivas43334?s=20" target="_blank" class="social-icon"
                             aria-label="Twitter/X">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <path
-                                    d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z">
-                                </path>
-                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"></path></svg>
                         </a>
                         <a href="https://youtube.com/@miicneurodesarrollo?si=dE3kiuZaIAr2e2By" target="_blank"
                             class="social-icon" aria-label="YouTube">
@@ -282,9 +349,9 @@
                 <div>
                     <h4 class="footer-title">Contacto</h4>
                     <ul class="footer-links">
-                        <li><a href="https://wa.me/5213111469377?text=Hola,%20me%20gustaría%20recibir%20más%20información."
-                                target="_blank">WhatsApp: 311 146 9377</a></li>
-                        <li><a href="https://maps.app.goo.gl/YN3QVJp3aTZ7rAW86" target="_blank">Kanasín, Yucatán</a>
+                        <li><a href="https://wa.me/5219991121609?text=Hola,%20me%20gustaría%20recibir%20más%20información."
+                                target="_blank">Mensaje por WhatsApp</a></li>
+                        <li><a href="https://maps.app.goo.gl/YN3QVJp3aTZ7rAW86" target="_blank">Mérida, Yucatán</a>
                         </li>
                     </ul>
                 </div>
@@ -311,6 +378,9 @@
         </div>
     </footer>
 
+    <!-- ========================================== -->
+    <!-- SCRIPTS DEL SITIO (JS & APIS)              -->
+    <!-- ========================================== -->
     <script src="assets/js/main.js"></script>
     <script src="assets/js/neural-loader.js?v=18"></script>
     <script type="text/javascript">

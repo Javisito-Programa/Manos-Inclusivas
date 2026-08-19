@@ -11,108 +11,118 @@
     <link rel="stylesheet" href="assets/css/loading.css?v=22">
 
 
-<style>
-/* INLINE CSS FOR NOSOTROS PAGE TO BYPASS ANY CACHE ISSUES */
-.hero-identidad {
-    position: relative;
-    min-height: 60vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(107, 70, 193, 0.6) 100%), 
+    <style>
+        /* INLINE CSS FOR NOSOTROS PAGE TO BYPASS ANY CACHE ISSUES */
+        .hero-identidad {
+            position: relative;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(107, 70, 193, 0.6) 100%),
                 url('img/fondo-esencia.jpg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    color: #ffffff;
-    overflow: hidden;
-    padding: 0 20px;
-}
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #ffffff;
+            overflow: hidden;
+            padding: 0 20px;
+        }
 
-.hero-identidad-content {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    max-width: 800px;
-}
+        .hero-identidad-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+        }
 
-.hero-identidad-content h1 {
-    font-size: 4.5rem;
-    font-weight: 800;
-    margin-bottom: 20px;
-    color: #ffffff;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    text-shadow: 0 5px 15px rgba(0,0,0,0.5);
-}
+        .hero-identidad-content h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
 
-.hero-identidad-content p {
-    font-size: 1.4rem;
-    color: #f8fafc;
-    line-height: 1.6;
-    font-weight: 400;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-}
+        .hero-identidad-content p {
+            font-size: 1.4rem;
+            color: #f8fafc;
+            line-height: 1.6;
+            font-weight: 400;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
 
-@media (max-width: 768px) {
-    .hero-identidad-content h1 { font-size: 3rem; }
-    .hero-identidad-content p { font-size: 1.1rem; }
-}
+        @media (max-width: 768px) {
+            .hero-identidad-content h1 {
+                font-size: 3rem;
+            }
 
-.team-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 30px;
-    margin-top: 40px;
-}
+            .hero-identidad-content p {
+                font-size: 1.1rem;
+            }
+        }
 
-.team-card {
-    background: #ffffff;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    text-align: center;
-}
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
 
-.team-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-}
+        .team-card {
+            background: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
 
-.team-photo {
-    width: 100%;
-    height: 250px;
-    background-color: #d0d9f0;
-    background-size: cover;
-    background-position: center;
-}
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
 
-.team-info {
-    padding: 25px 20px;
-}
+        .team-photo {
+            width: 100%;
+            height: 320px;
+            background-color: #f8fafc;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: top center;
+            border-radius: 12px 12px 0 0;
+            margin: 0;
+            border: none;
+            box-shadow: none;
+        }
 
-.team-info h3 {
-    font-size: 1.2rem;
-    color: var(--text-primary);
-    margin-bottom: 5px;
-    font-weight: 700;
-}
+        .team-info {
+            padding: 25px 20px;
+        }
 
-.team-info .team-role {
-    display: block;
-    color: var(--accent-purple);
-    font-size: 0.95rem;
-    font-weight: 600;
-    margin-bottom: 15px;
-}
+        .team-info h3 {
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
 
-.team-info .card-text {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    line-height: 1.5;
-}
-</style>
+        .team-info .team-role {
+            display: block;
+            color: var(--accent-purple);
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .team-info .card-text {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+    </style>
 
 </head>
 
@@ -120,16 +130,22 @@
 
 
 
-    <!-- Loading Screen -->
+    <!-- ========================================== -->
+    <!-- PANTALLA DE CARGA (LOADING SCREEN)         -->
+    <!-- ========================================== -->
     <div id="loader-wrapper">
         <canvas id="loader-canvas"></canvas>
         <div class="loader-content">
-            <div class="loader-logo-silhouette"></div>
+            <model-viewer src="assets/logo.glb" auto-rotate auto-rotate-delay="0" rotation-per-second="120deg"
+                camera-orbit="0deg 90deg auto" interaction-prompt="none" disable-zoom disable-pan
+                class="loader-3d-logo"></model-viewer>
             <h2 class="loader-text">Iluminando Corazones... Conectando Vidas.</h2>
         </div>
     </div>
 
-    <!-- Header & Navigation -->
+    <!-- ========================================== -->
+    <!-- ENCABEZADO Y NAVEGACIÓN (HEADER & NAV)     -->
+    <!-- ========================================== -->
 
     <header>
 
@@ -137,7 +153,7 @@
             <a href="index.html" class="logo-container">
                 <model-viewer id="nav-3d-logo" src="assets/logo.glb" alt="Logo Manos Inclusivas"
                     camera-orbit="0deg 90deg auto" interaction-prompt="none" disable-zoom></model-viewer>
-                <div class="logo-text">
+                <div class="logo-text notranslate" translate="no">
                     <h2>Manos Inclusivas</h2>
                     <span>Iluminando Corazones A.C.</span>
                 </div>
@@ -149,7 +165,8 @@
                 <div class="nav-item"><a href="index.html" class="nav-link">INICIO</a>
                 </div>
                 <div class="nav-item">
-                    <a href="nosotros.html" class="nav-link" style="color: var(--accent-purple); font-weight: 700;">NOSOTROS</a>
+                    <a href="nosotros.html" class="nav-link"
+                        style="color: var(--accent-purple); font-weight: 700;">NOSOTROS</a>
                     <ul class="dropdown-menu">
                         <li><a href="nosotros.html#historia" class="dropdown-item">Nuestra Historia</a></li>
                         <li><a href="nosotros.html#mision" class="dropdown-item">Misión y Visión</a></li>
@@ -177,13 +194,19 @@
                         <li><a href="recursos.html#tdah" class="dropdown-item">TDAH</a></li>
                         <li><a href="recursos.html#di" class="dropdown-item">Discapacidad Intelectual</a></li>
                         <li><a href="recursos.html#teap" class="dropdown-item">Trastornos del Aprendizaje</a></li>
+                        <li><a href="recursos.html#dispraxia" class="dropdown-item">Dispraxia</a></li>
+                        <li><a href="recursos.html#lenguaje" class="dropdown-item">Trastornos del Lenguaje</a></li>
+                        <li><a href="recursos.html#altas-capacidades" class="dropdown-item">Altas Capacidades</a></li>
                     </ul>
                 </div>
                 <div class="nav-item"><a href="noticias.html" class="nav-link">NOTICIAS</a></div>
                 <div class="nav-item"><a href="citas.html" class="nav-link">CITAS</a></div>
                 <div class="nav-item"><a href="contacto.html" class="nav-link">CONTACTO</a></div>
                 <div class="nav-item"><a href="donar.html" class="btn btn-donate">DONAR</a></div>
-            
+
+                <!-- ========================================== -->
+                <!-- SCRIPTS DEL SITIO (JS & APIS)              -->
+                <!-- ========================================== -->
                 <!-- Translate Widget -->
                 <div class="nav-item custom-lang-selector">
                     <div class="lang-btn" id="lang-btn">
@@ -208,7 +231,14 @@
 
     </header>
 
+    <!-- ========================================== -->
+    <!-- CONTENIDO PRINCIPAL (MAIN CONTENT)         -->
+    <!-- ========================================== -->
     <main>
+
+        <!-- ========================================== -->
+        <!-- SECCIÓN PORTADA (HERO IDENTIDAD)           -->
+        <!-- ========================================== -->
         <section class="hero-identidad">
             <div class="hero-identidad-content">
                 <h1>Nuestra Esencia</h1>
@@ -216,8 +246,10 @@
             </div>
         </section>
 
+        <!-- ========================================== -->
+        <!-- SECCIÓN NUESTRO EQUIPO                     -->
+        <!-- ========================================== -->
         <section id="equipo" class="section-padding bg-lavender">
-
             <div class="container">
                 <div class="text-center">
                     <h2>Nuestro Equipo</h2>
@@ -226,47 +258,80 @@
 
                 <div class="team-grid">
                     <div class="team-card">
-                        <div class="team-photo" style="background-image: url('img/Lofo.jpg');"></div>
+                        <div class="team-photo" style="background-image: url('img/Director.jpg'); background-position: center 15%;"></div>
                         <div class="team-info">
-                            <h3>Guillermo Salazar Carbajal</h3>
-                            <span class="team-role">Director General</span>
-                            <p class="card-text">Líder comprometido con la inclusión y el desarrollo de programas de
-                                apoyo social integral.</p>
+                            <h3 style="font-size: 1.15rem;">Guillermo Salazar Carbajal</h3>
+                            <span class="team-role"
+                                style="font-size: 0.85rem; line-height: 1.4; color: var(--accent-purple);">
+                                <strong>Presidente | Cofundador MIIC</strong><br>
+                                Máster en Neuropsicología Clínica<br>
+                                Psicoterapeuta (UNIVAM)<br>
+                                <span style="font-size: 0.75rem; color: var(--text-muted);">Ced. Prof. 14648970</span>
+                            </span>
+                            <p class="card-text" style="margin-top: 12px; font-size: 0.85rem;">Impulsor y pilar de la
+                                fundación, dedicado a la evaluación clínica integral y al acompañamiento
+                                psicoterapéutico empático para transformar positivamente la vida de las familias.</p>
                         </div>
                     </div>
 
                     <div class="team-card">
-                        <div class="team-photo" style="background-image: url('img/Psiquiatría.jpg');"></div>
+                        <div class="team-photo" style="background-image: url('img/Judith.jpg');"></div>
                         <div class="team-info">
-                            <h3>Dra. Ana López</h3>
-                            <span class="team-role">Psiquiatra Infantil</span>
-                            <p class="card-text">Especialista en diagnóstico y tratamiento de trastornos del
-                                neurodesarrollo.</p>
+                            <h3 style="font-size: 1.15rem;">Judith Salazar Carbajal</h3>
+                            <span class="team-role"
+                                style="font-size: 0.85rem; line-height: 1.4; color: var(--accent-purple);">
+                                <strong>Terapeuta</strong><br>
+                                Licenciada en Psicología<br>
+                                Universidad de Montemorelos<br>
+                                <span style="font-size: 0.75rem; color: var(--text-muted);">Ced. Prof. 8959769</span>
+                            </span>
+                            <p class="card-text" style="margin-top: 12px; font-size: 0.85rem;">Dedicada a brindar apoyo
+                                emocional profundo y herramientas de desarrollo personal, guiando a cada familia con
+                                empatía y calidez humana en su proceso terapéutico.</p>
                         </div>
                     </div>
 
                     <div class="team-card">
-                        <div class="team-photo" style="background-image: url('img/Infantil.png');"></div>
+                        <div class="team-photo" style="background-image: url('img/lisbet.jpg');"></div>
                         <div class="team-info">
-                            <h3>Lic. María Pérez</h3>
-                            <span class="team-role">Psicóloga Clínica</span>
-                            <p class="card-text">Enfocada en terapias cognitivo-conductuales y apoyo emocional a
-                                familias.</p>
+                            <h3 style="font-size: 1.15rem;">Dra. Lisbet Velasco Legoff</h3>
+                            <span class="team-role"
+                                style="font-size: 0.85rem; line-height: 1.4; color: var(--accent-purple);">
+                                <strong>Consultor Profesional / Capacitador</strong><br>
+
+
+                                Psicóloga, Abogada<br>
+                                Dra. en Educación Inclusiva<br>
+                                <span style="font-size: 0.75rem; color: var(--text-muted);">Cédula Psicología 13663328 |
+                                    Cédula Derecho 14387587</span>
+                            </span>
+                            <p class="card-text" style="margin-top: 12px; font-size: 0.85rem;">Especialista
+                                multidisciplinaria enfocada en la educación inclusiva y la defensa de los derechos,
+                                aportando una visión integral y estratégica a nuestra labor.</p>
                         </div>
                     </div>
 
                     <div class="team-card">
-                        <div class="team-photo" style="background-image: url('img/Ocupacional.jpg');"></div>
+                        <div class="team-photo" style="background-image: url('img/terapeuta_espalda.jpg');">
+                        </div>
                         <div class="team-info">
-                            <h3>Lic. Carlos Ruiz</h3>
-                            <span class="team-role">Terapeuta Ocupacional</span>
-                            <p class="card-text">Experto en integración sensorial y desarrollo de autonomía personal.
-                            </p>
+                            <h3 style="font-size: 1.15rem;">¿Quieres formar parte?</h3>
+                            <span class="team-role"
+                                style="font-size: 0.85rem; line-height: 1.4; color: var(--accent-purple);">
+                                <strong>El próximo podrías ser tú</strong><br>
+                                Sé parte de la familia MIIC
+                            </span>
+                            <p class="card-text" style="margin-top: 12px; font-size: 0.85rem;">Buscamos
+                                profesionales, estudiantes y pasantes con empatía y vocación clínica que deseen realizar
+                                sus prácticas, servicio social o sumar su talento a nuestra labor.</p>
+                            <a href="https://wa.me/529993963473?text=Hola,%20quiero%20formar%20parte%20del%20equipo%20de%20Manos%20Inclusivas"
+                                target="_blank" class="btn btn-donate"
+                                style="margin-top: 15px; padding: 10px; font-size: 0.9rem; text-decoration: none; display: block; border-radius: 8px;">Enviar
+                                Mensaje</a>
                         </div>
                     </div>
                 </div>
             </div>
-
         </section>
 
         <div class="container page-content-grid" style="margin-top: -50px; position: relative; z-index: 10;">
@@ -274,22 +339,26 @@
                 <div class="page-sidebar"
                     style="background: white; border-radius: var(--border-radius-lg); padding: 30px; box-shadow: var(--shadow-soft);">
                     <h3 style="color: var(--accent-purple); margin-bottom: 20px;">Nuestra Identidad</h3>
-                    <a href="#historia" class="sidebar-nav-link active">Nuestra Historia</a>
+                    <a href="#equipo" class="sidebar-nav-link active">Nuestro Equipo</a>
+                    <a href="#historia" class="sidebar-nav-link">Nuestra Historia</a>
                     <a href="#quienes-somos" class="sidebar-nav-link">Quiénes Somos</a>
                     <a href="#mision" class="sidebar-nav-link">Misión y Visión</a>
                     <a href="#valores" class="sidebar-nav-link">Valores</a>
-                    <a href="#equipo" class="sidebar-nav-link">Nuestro Equipo</a>
                 </div>
             </aside>
 
             <div>
+                <!-- ========================================== -->
+                <!-- SECCIÓN NUESTRA HISTORIA                   -->
+                <!-- ========================================== -->
                 <article id="historia" class="page-section-card">
                     <h2>Nuestra Historia</h2>
-                    <p>Manos Inclusivas Iluminando Corazones A.C. nació del amor, la fe y la profunda convicción de una
+                    <p><strong>Manos Inclusivas Iluminando Corazones A.C.</strong> nació del amor, la fe y la profunda
+                        convicción de una
                         madre al acompañar a su hijo dentro del Espectro Autista (TEA). A lo largo de ese camino, la
                         familia comprendió que el autismo no solo transforma la vida de quien lo experimenta, sino
                         también la de aquellos que acompañan con amor, compromiso y resiliencia.</p>
-                    <p>Aquel joven se convirtió en la inspiración, el motor y el origen de este proyecto. A partir de su
+                    <p>Aquel niño se convirtió en la inspiración, el motor y el origen de este proyecto. A partir de su
                         historia y de su manera única de percibir el entorno, surgió el anhelo de construir una sociedad
                         más inclusiva, empática y consciente; un espacio para dar voz a las personas con autismo y
                         visibilizar el mundo a través de sus propios ojos.</p>
@@ -301,6 +370,11 @@
                         valorado y desarrollar plenamente su potencial, reconocieron que esta necesidad no era un caso
                         aislado, sino la realidad cotidiana de miles de familias. De esta unión floreció un sueño
                         compartido: un proyecto con propósito que ilumina vidas y abre caminos de inclusión.</p>
+                    <p>Nuestra historia se volvió aún más especial y significativa cuando uno de nuestros socios,
+                        también diagnosticado dentro del Trastorno del Espectro Autista Nivel 1 (antes llamado
+                        Asperger), se unió al proyecto. Su experiencia, junto con la del niño que inspiró esta
+                        asociación, aporta una visión auténtica y profundamente valiosa. No hablamos solo desde la
+                        teoría, sino desde la vida misma.</p>
                 </article>
                 <article id="quienes-somos" class="page-section-card">
                     <h2>Quiénes somos</h2>
@@ -399,6 +473,9 @@
         </div>
     </main>
 
+    <!-- ========================================== -->
+    <!-- PIE DE PÁGINA (FOOTER)                     -->
+    <!-- ========================================== -->
     <footer>
         <script type="module"
             src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
@@ -409,13 +486,14 @@
                         <model-viewer src="assets/logo.glb" alt="Logo Manos Inclusivas"
                             style="width: 80px; height: 80px; background-color: transparent;"
                             camera-orbit="0deg 90deg auto" interaction-prompt="none"></model-viewer>
-                        <h3 style="color: white; margin: 0; font-size: 1.2rem;">Manos Inclusivas A.C.</h3>
+                        <h3 style="color: white; margin: 0; font-size: 1.2rem;" class="notranslate" translate="no">Manos
+                            Inclusivas A.C.</h3>
                     </div>
                     <p class="footer-desc">Fundación dedicada al neurodesarrollo, iluminando corazones y conectando
                         vidas en Yucatán.</p>
                     <div class="social-links">
-                        <a href="https://www.facebook.com/profile.php?id=61562928764116&mibextid=LQQCox" target="_blank"
-                            class="social-icon" aria-label="Facebook">
+                        <a href="https://www.facebook.com/share/18zML6YwYw/" target="_blank" class="social-icon"
+                            aria-label="Facebook">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round">
@@ -435,10 +513,9 @@
                         <a href="https://x.com/inclusivas43334?s=20" target="_blank" class="social-icon"
                             aria-label="Twitter/X">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
+                                fill="currentColor">
                                 <path
-                                    d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z">
+                                    d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z">
                                 </path>
                             </svg>
                         </a>
@@ -470,9 +547,9 @@
                 <div>
                     <h4 class="footer-title">Contacto</h4>
                     <ul class="footer-links">
-                        <li><a href="https://wa.me/5213111469377?text=Hola,%20me%20gustaría%20recibir%20más%20información."
-                                target="_blank">WhatsApp: 311 146 9377</a></li>
-                        <li><a href="https://maps.app.goo.gl/YN3QVJp3aTZ7rAW86" target="_blank">Kanasín, Yucatán</a>
+                        <li><a href="https://wa.me/5219991121609?text=Hola,%20me%20gustaría%20recibir%20más%20información."
+                                target="_blank">Mensaje por WhatsApp</a></li>
+                        <li><a href="https://maps.app.goo.gl/YN3QVJp3aTZ7rAW86" target="_blank">Mérida, Yucatán</a>
                         </li>
                     </ul>
                 </div>
@@ -529,13 +606,14 @@
     <script type="text/javascript">
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({
-                pageLanguage: 'es', 
-                includedLanguages: 'en,fr,de,zh-CN,it,pt,ja,es', 
+                pageLanguage: 'es',
+                includedLanguages: 'en,fr,de,zh-CN,it,pt,ja,es',
                 layout: google.translate.TranslateElement.InlineLayout.SIMPLE
             }, 'google_translate_element');
         }
     </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script type="text/javascript"
+        src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     <script src="assets/js/translator.js?v=16"></script>
 </body>
 
