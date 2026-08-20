@@ -38,10 +38,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // Initialize from cookie (googtrans usually looks like /es/en)
+    // Initialize from cookie (googtrans usually looks like /es/en or %2Fes%2Fen)
     const googtrans = getCookie('googtrans');
     if (googtrans) {
-        const lang = googtrans.split('/')[2] || 'es';
+        const decoded = decodeURIComponent(googtrans);
+        const lang = decoded.split('/')[2] || 'es';
         updateUI(lang);
     }
 
@@ -82,7 +83,7 @@ setInterval(() => {
     };
     
     const googtrans = getCookie('googtrans');
-    if (googtrans && googtrans.includes('/en')) {
+    if (googtrans && decodeURIComponent(googtrans).includes('/en')) {
         document.querySelectorAll('a, .nav-link, .dropdown-item').forEach(el => {
             if (el.textContent.trim() === 'Start') el.textContent = 'Home';
             if (el.textContent.trim() === 'We') el.textContent = 'About Us';
