@@ -146,6 +146,54 @@
             color: var(--text-secondary);
             line-height: 1.5;
         }
+    
+        /* Collage Styles */
+        .collage-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .collage-item {
+            overflow: hidden;
+            border-radius: 16px;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffffff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .collage-item img {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+            object-fit: contain; /* Garantiza que no se recorte nada */
+            display: block;
+            border-radius: 16px;
+        }
+
+        .collage-item:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+            z-index: 2;
+        }
+
+        @media (max-width: 768px) {
+            .collage-container {
+                grid-template-columns: 1fr;
+                padding: 15px;
+            }
+        }
+
     </style>
 
 </head>
@@ -412,6 +460,21 @@
                     <p>Motivados por la búsqueda de un entorno seguro, respetuoso y adaptado donde <strong>"Dany boy"</strong> pudiera ser valorado y desarrollar plenamente su potencial, reconocieron que esta necesidad no era un caso aislado, sino la realidad cotidiana de miles de familias. De esta unión floreció un sueño compartido: un proyecto con propósito que hoy ilumina vidas y abre caminos de inclusión.</p>
                     <p>Nuestra historia se volvió aún más especial y significativa cuando uno de nuestros socios, también diagnosticado dentro del Trastorno del Espectro Autista Nivel 1 (antes llamado Asperger), se unió al proyecto. Su experiencia, junto con la del niño que inspiró esta asociación, aporta una visión auténtica y profundamente humana. En nuestra fundación no hablamos solo desde la teoría, sino desde la vida misma.</p>
                 </article>
+                <div class="collage-container">
+                    <div class="collage-item">
+                        <img src="img/db1.jpg" alt="Dany boy y su familia" loading="lazy">
+                    </div>
+                    <div class="collage-item">
+                        <img src="img/db2.jpg" alt="Momentos de Dany boy" loading="lazy">
+                    </div>
+                    <div class="collage-item">
+                        <img src="img/db3.jpg" alt="Crecimiento de Dany boy" loading="lazy">
+                    </div>
+                    <div class="collage-item">
+                        <img src="img/db4.jpg" alt="Inspiración Dany boy" loading="lazy">
+                    </div>
+                </div>
+
                 <article id="quienes-somos" class="page-section-card">
                     <h2>Quiénes somos</h2>
                     <p>Somos una asociación civil sin fines de lucro comprometida con crear espacios seguros, empáticos
