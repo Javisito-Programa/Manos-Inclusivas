@@ -148,58 +148,67 @@
         }
     
         
-        /* Dany Boy Gallery */
-        .dany-gallery {
+        
+        /* Dany Boy Accordion Gallery */
+        .dany-accordion {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            gap: 25px;
-            margin-top: 40px;
-            padding: 10px;
-            perspective: 1000px;
+            width: 100%;
+            max-width: 1000px;
+            height: 350px;
+            margin: 40px auto 10px auto;
+            gap: 12px;
+            padding: 0 15px;
         }
 
-        .gallery-item {
+        .accordion-item {
+            flex: 1;
             position: relative;
-            height: 300px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-            border: 6px solid #ffffff;
-            background: #ffffff;
+            border-radius: 24px;
+            overflow: hidden;
+            transition: flex 0.6s cubic-bezier(0.25, 1, 0.5, 1);
             cursor: pointer;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .gallery-item:nth-child(1) { transform: rotate(-4deg) translateY(10px); }
-        .gallery-item:nth-child(2) { transform: rotate(3deg) translateY(-5px); }
-        .gallery-item:nth-child(3) { transform: rotate(-2deg) translateY(5px); }
-        .gallery-item:nth-child(4) { transform: rotate(4deg) translateY(-10px); }
-
-        .gallery-item:hover {
-            transform: scale(1.1) rotate(0deg) translateY(-15px);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
-            z-index: 10;
-        }
-
-        .gallery-item img {
+        .accordion-item img {
+            width: 100%;
             height: 100%;
-            width: auto;
-            display: block;
-            border-radius: 6px;
             object-fit: cover;
+            object-position: center;
+            opacity: 0.7;
+            transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* Hover states */
+        .dany-accordion:hover .accordion-item {
+            flex: 1;
+        }
+
+        .dany-accordion .accordion-item:hover {
+            flex: 5;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        .dany-accordion .accordion-item:hover img {
+            opacity: 1;
+            /* Usamos contain solo en el hover si queremos que se vea TODO sin cortes,
+               pero cover suele verse más premium. Usaré cover pero sin cortes en el centro. */
+            object-fit: contain;
+            background: #fdfbf7;
+            transform: scale(1.02);
         }
 
         @media (max-width: 768px) {
-            .gallery-item {
-                height: auto;
-                width: 90%;
-                max-width: 400px;
-                transform: rotate(0) translateY(0) !important;
+            .dany-accordion {
+                flex-direction: column;
+                height: 500px;
             }
-            .gallery-item img {
-                width: 100%;
-                height: auto;
+            .dany-accordion .accordion-item:hover {
+                flex: 4;
             }
         }
 
@@ -469,17 +478,18 @@
                     <p>Motivados por la búsqueda de un entorno seguro, respetuoso y adaptado donde <strong>"Dany boy"</strong> pudiera ser valorado y desarrollar plenamente su potencial, reconocieron que esta necesidad no era un caso aislado, sino la realidad cotidiana de miles de familias. De esta unión floreció un sueño compartido: un proyecto con propósito que hoy ilumina vidas y abre caminos de inclusión.</p>
                     <p>Nuestra historia se volvió aún más especial y significativa cuando uno de nuestros socios, también diagnosticado dentro del Trastorno del Espectro Autista Nivel 1 (antes llamado Asperger), se unió al proyecto. Su experiencia, junto con la del niño que inspiró esta asociación, aporta una visión auténtica y profundamente humana. En nuestra fundación no hablamos solo desde la teoría, sino desde la vida misma.</p>
                 
-                <div class="dany-gallery">
-                    <div class="gallery-item">
+                
+                <div class="dany-accordion">
+                    <div class="accordion-item">
                         <img src="img/db1.jpg" alt="Dany boy y su familia" loading="lazy">
                     </div>
-                    <div class="gallery-item">
+                    <div class="accordion-item">
                         <img src="img/db2.jpg" alt="Momentos de Dany boy" loading="lazy">
                     </div>
-                    <div class="gallery-item">
+                    <div class="accordion-item">
                         <img src="img/db3.jpg" alt="Crecimiento de Dany boy" loading="lazy">
                     </div>
-                    <div class="gallery-item">
+                    <div class="accordion-item">
                         <img src="img/db4.jpg" alt="Inspiración Dany boy" loading="lazy">
                     </div>
                 </div>
