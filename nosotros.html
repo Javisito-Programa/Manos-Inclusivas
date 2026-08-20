@@ -65,25 +65,10 @@
         }
 
         .team-grid {
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 30px;
             margin-top: 40px;
-            padding-bottom: 20px;
-            scrollbar-width: thin;
-        }
-        
-        .team-grid::-webkit-scrollbar {
-            height: 8px;
-        }
-        .team-grid::-webkit-scrollbar-track {
-            background: #f1f1f1; 
-            border-radius: 4px;
-        }
-        .team-grid::-webkit-scrollbar-thumb {
-            background: var(--accent-purple); 
-            border-radius: 4px;
         }
 
         .team-card {
@@ -93,9 +78,6 @@
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             text-align: center;
-            min-width: 280px;
-            flex: 0 0 auto;
-            scroll-snap-align: start;
         }
 
         .team-card:hover {
