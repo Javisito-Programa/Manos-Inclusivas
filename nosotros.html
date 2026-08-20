@@ -64,28 +64,11 @@
             }
         }
 
-        .carousel-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
-            max-width: 1200px;
-            margin: 40px auto 0;
-            padding: 0 40px;
-        }
-
-        .team-carousel {
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
             gap: 30px;
-            padding: 20px 5px;
-            scroll-behavior: smooth;
-            scrollbar-width: none;
-            width: 100%;
-        }
-        
-        .team-carousel::-webkit-scrollbar {
-            display: none;
+            margin-top: 40px;
         }
 
         .team-card {
@@ -95,40 +78,31 @@
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             text-align: center;
-            flex: 0 0 calc(33.333% - 20px);
-            min-width: 280px;
-            scroll-snap-align: center;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .team-card .team-info {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .team-card .btn-donate {
+            margin-top: auto !important;
         }
         
         @media (max-width: 992px) {
-            .team-card { flex: 0 0 calc(50% - 15px); }
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
-        @media (max-width: 600px) {
-            .team-card { flex: 0 0 100%; }
+        
+        @media (max-width: 768px) {
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
         }
-
-        .carousel-btn {
-            background: var(--accent-purple);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 45px;
-            height: 45px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            position: absolute;
-            z-index: 10;
-            top: 50%;
-            transform: translateY(-50%);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.3s;
-        }
-        .carousel-btn:hover { background: var(--accent-pink); }
-        .prev-btn { left: 0; }
-        .next-btn { right: 0; }
 
         .team-card:hover {
             transform: translateY(-10px);
@@ -306,10 +280,7 @@
                     <p>Conoce a los profesionales dedicados a iluminar corazones y transformar vidas.</p>
                 </div>
 
-                <div class="carousel-wrapper">
-                    <button class="carousel-btn prev-btn" aria-label="Anterior">&#10094;</button>
-                    <div class="team-carousel">
-                    
+                <div class="team-grid">
                     <div class="team-card">
                         <div class="team-photo" style="background-image: url('img/Director.jpg'); background-position: center 15%;"></div>
                         <div class="team-info">
@@ -412,33 +383,8 @@
                                 Mensaje</a>
                         </div>
                     </div>
-                    
-                    </div>
-                    <button class="carousel-btn next-btn" aria-label="Siguiente">&#10095;</button>
-                </div>
             </div>
         </section>
-
-        <!-- Carousel Script -->
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const carousel = document.querySelector('.team-carousel');
-                const prevBtn = document.querySelector('.prev-btn');
-                const nextBtn = document.querySelector('.next-btn');
-
-                if (carousel && prevBtn && nextBtn) {
-                    prevBtn.addEventListener('click', () => {
-                        const cardWidth = carousel.querySelector('.team-card').offsetWidth + 30;
-                        carousel.scrollBy({ left: -cardWidth, behavior: 'smooth' });
-                    });
-
-                    nextBtn.addEventListener('click', () => {
-                        const cardWidth = carousel.querySelector('.team-card').offsetWidth + 30;
-                        carousel.scrollBy({ left: cardWidth, behavior: 'smooth' });
-                    });
-                }
-            });
-        </script>
 
         <div class="container page-content-grid" style="margin-top: -50px; position: relative; z-index: 10;">
             <aside>
