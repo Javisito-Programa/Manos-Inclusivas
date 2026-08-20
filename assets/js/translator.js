@@ -1,3 +1,5 @@
+const originalPageTitle = document.title;
+
 document.addEventListener('DOMContentLoaded', () => {
     const langBtn = document.getElementById('lang-btn');
     const langDropdown = document.getElementById('lang-dropdown');
@@ -19,11 +21,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Check cookie for initial language
+    // Check cookie for initial language (robust regex to handle multiple googtrans cookies)
     const getCookie = (name) => {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(';').shift();
+        const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+        if (match) return match[2];
         return null;
     };
 
@@ -74,11 +75,15 @@ setInterval(() => {
         document.body.style.top = '0px';
     }
     
+    // Restore original title if Google translated it
+    if (document.title !== originalPageTitle) {
+        document.title = originalPageTitle;
+    }
+    
     // Fix bad translations for English
     const getCookie = (name) => {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(';').shift();
+        const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+        if (match) return match[2];
         return null;
     };
     
@@ -89,7 +94,7 @@ setInterval(() => {
             if (txt === 'start') {
                 el.textContent = el.textContent.toUpperCase() === el.textContent.trim() ? 'HOME' : 'Home';
             }
-            if (txt === 'we') {
+            if (txt === 'we' || txt === 'us') {
                 el.textContent = el.textContent.toUpperCase() === el.textContent.trim() ? 'ABOUT US' : 'About Us';
             }
         });
