@@ -65,10 +65,25 @@
         }
 
         .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
             gap: 30px;
             margin-top: 40px;
+            padding-bottom: 20px;
+            scrollbar-width: thin;
+        }
+        
+        .team-grid::-webkit-scrollbar {
+            height: 8px;
+        }
+        .team-grid::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+            border-radius: 4px;
+        }
+        .team-grid::-webkit-scrollbar-thumb {
+            background: var(--accent-purple); 
+            border-radius: 4px;
         }
 
         .team-card {
@@ -78,6 +93,9 @@
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             text-align: center;
+            min-width: 280px;
+            flex: 0 0 auto;
+            scroll-snap-align: start;
         }
 
         .team-card:hover {
@@ -273,6 +291,21 @@
                                 psicoterapéutico empático para transformar positivamente la vida de las familias.</p>
                         </div>
                     </div>
+                    <div class="team-card" style="border: 2px solid var(--accent-pink);">
+                        <div class="team-photo" style="background-image: url('img/Francia.jpg');"></div>
+                        <div class="team-info">
+                            <h3 style="font-size: 1.15rem;">Francia Cuevas Hays</h3>
+                            <span class="team-role"
+                                style="font-size: 0.85rem; line-height: 1.4; color: var(--accent-pink);">
+                                <strong>Cofundadora MIIC</strong><br>
+                                Madre | Emprendedora
+                            </span>
+                            <p class="card-text" style="margin-top: 12px; font-size: 0.85rem;">
+                                Mi hijo es la inspiración que ilumina y guía esta causa de amor y propósito. Comprometida con el autismo, la inclusión y el bienestar de las familias. Te amo hijo ☺️😇🙏
+                            </p>
+                        </div>
+                    </div>
+
 
                     <div class="team-card">
                         <div class="team-photo" style="background-image: url('img/Judith.jpg');"></div>
@@ -310,6 +343,21 @@
                                 aportando una visión integral y estratégica a nuestra labor.</p>
                         </div>
                     </div>
+                    <div class="team-card">
+                        <div class="team-photo" style="background-image: url('img/Miriam.jpg'), linear-gradient(135deg, var(--accent-purple), var(--accent-pink));"></div>
+                        <div class="team-info">
+                            <h3 style="font-size: 1.15rem;">Dra. Miriam Acosta Vargas</h3>
+                            <span class="team-role"
+                                style="font-size: 0.85rem; line-height: 1.4; color: var(--accent-purple);">
+                                <strong>Psiquiatría</strong><br>
+                                Médico Psiquiatra Colaborador<br>
+                                Universidad de la Habana Cuba<br>
+                                <span style="font-size: 0.75rem; color: var(--text-muted);">Ced. Prof. 5721507</span>
+                            </span>
+                            <p class="card-text" style="margin-top: 12px; font-size: 0.85rem;">Especialista dedicada al diagnóstico y tratamiento integral de trastornos mentales, sumando su vasta experiencia internacional al bienestar de nuestros pacientes.</p>
+                        </div>
+                    </div>
+
 
                     <div class="team-card">
                         <div class="team-photo" style="background-image: url('img/terapeuta_espalda.jpg');">
