@@ -81,23 +81,23 @@
             display: flex;
             flex-direction: column;
         }
-        
+
         .team-card .team-info {
             flex-grow: 1;
             display: flex;
             flex-direction: column;
         }
-        
+
         .team-card .btn-donate {
             margin-top: auto !important;
         }
-        
+
         @media (max-width: 992px) {
             .team-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
-        
+
         @media (max-width: 768px) {
             .team-grid {
                 grid-template-columns: 1fr;
@@ -146,9 +146,9 @@
             color: var(--text-secondary);
             line-height: 1.5;
         }
-    
-        
-        
+
+
+
         /* Dany Boy Accordion Gallery */
         .dany-accordion {
             display: flex;
@@ -167,7 +167,7 @@
             overflow: hidden;
             transition: flex 0.6s cubic-bezier(0.25, 1, 0.5, 1);
             cursor: pointer;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             background: #ffffff;
             display: flex;
             align-items: center;
@@ -190,7 +190,7 @@
 
         .dany-accordion .accordion-item:hover {
             flex: 5;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
         }
 
         .dany-accordion .accordion-item:hover img {
@@ -207,11 +207,11 @@
                 flex-direction: column;
                 height: 500px;
             }
+
             .dany-accordion .accordion-item:hover {
                 flex: 4;
             }
         }
-
     </style>
 
 </head>
@@ -241,8 +241,8 @@
 
         <div class="container navbar">
             <a href="index.html" class="logo-container">
-                <model-viewer id="nav-3d-logo" src="assets/logo.glb" alt="Logo Manos Inclusivas" class="notranslate" translate="no"
-                    camera-orbit="0deg 90deg auto" interaction-prompt="none" disable-zoom></model-viewer>
+                <model-viewer id="nav-3d-logo" src="assets/logo.glb" alt="Logo Manos Inclusivas" class="notranslate"
+                    translate="no" camera-orbit="0deg 90deg auto" interaction-prompt="none" disable-zoom></model-viewer>
                 <div class="logo-text notranslate" translate="no">
                     <h2 class="notranslate" translate="no">Manos Inclusivas</h2>
                     <span>Iluminando Corazones A.C.</span>
@@ -332,7 +332,8 @@
         <section class="hero-identidad">
             <div class="hero-identidad-content">
                 <h1>Nuestra Esencia</h1>
-                <p>Conoce la historia, la misión y el corazón que mueve a <span class="notranslate" translate="no">Manos Inclusivas</span> cada día.</p>
+                <p>Conoce la historia, la misión y el corazón que mueve a <span class="notranslate" translate="no">Manos
+                        Inclusivas</span> cada día.</p>
             </div>
         </section>
 
@@ -348,7 +349,8 @@
 
                 <div class="team-grid">
                     <div class="team-card">
-                        <div class="team-photo" style="background-image: url('img/Director.jpg'); background-position: center 15%;"></div>
+                        <div class="team-photo"
+                            style="background-image: url('img/Director.jpg'); background-position: center 15%;"></div>
                         <div class="team-info">
                             <h3 style="font-size: 1.15rem;">Guillermo Salazar Carbajal</h3>
                             <span class="team-role"
@@ -365,7 +367,7 @@
                     </div>
 
                     <div class="team-card">
-                        <div class="team-photo" style="background-image: url('img/Judith.jpg');"></div>
+                        <div class="team-photo" style="background-image: url('img/Judith.jpg'); background-size: contain; background-position: center top; background-color: #87888c;"></div>
                         <div class="team-info">
                             <h3 style="font-size: 1.15rem;">Judith Salazar Carbajal</h3>
                             <span class="team-role"
@@ -400,7 +402,9 @@
                     </div>
 
                     <div class="team-card">
-                        <div class="team-photo" style="background-image: url('img/Miriam.jpg'), linear-gradient(135deg, var(--accent-purple), var(--accent-pink));"></div>
+                        <div class="team-photo"
+                            style="background-image: url('img/Miriam.jpg'), linear-gradient(135deg, var(--accent-purple), var(--accent-pink));">
+                        </div>
                         <div class="team-info">
                             <h3 style="font-size: 1.15rem;">Dra. Miriam Acosta Vargas</h3>
                             <span class="team-role"
@@ -410,10 +414,12 @@
                                 Universidad de la Habana Cuba<br>
                                 <span style="font-size: 0.75rem; color: var(--text-muted);">Ced. Prof. 5721507</span>
                             </span>
-                            <p class="card-text" style="margin-top: 12px; font-size: 0.85rem;">Especialista dedicada al diagnóstico y tratamiento integral de trastornos mentales, sumando su vasta experiencia internacional al bienestar de nuestros pacientes.</p>
+                            <p class="card-text" style="margin-top: 12px; font-size: 0.85rem;">Especialista dedicada al
+                                diagnóstico y tratamiento integral de trastornos mentales, sumando su vasta experiencia
+                                internacional al bienestar de nuestros pacientes.</p>
                         </div>
                     </div>
-                    
+
                     <div class="team-card" style="border: 2px solid var(--accent-pink);">
                         <div class="team-photo" style="background-image: url('img/Francia.jpg');"></div>
                         <div class="team-info">
@@ -424,8 +430,11 @@
                                 La madre de <strong>"Dany boy"</strong>
                             </span>
                             <p class="card-text" style="margin-top: 12px; font-size: 0.85rem;">
-                                Mi hijo es la inspiración que ilumina y guía esta causa de amor y propósito. Comprometida con el autismo, la inclusión y el bienestar de las familias.<br><br>
-                                <span style="display: block; font-style: italic; font-weight: 600; color: var(--accent-pink); font-size: 0.95rem; margin-top: 8px;">"Te amo hijo ☺️😇🙏"</span>
+                                Mi hijo es la inspiración que ilumina y guía esta causa de amor y propósito.
+                                Comprometida con el autismo, la inclusión y el bienestar de las familias.<br><br>
+                                <span
+                                    style="display: block; font-style: italic; font-weight: 600; color: var(--accent-pink); font-size: 0.95rem; margin-top: 8px;">"Te
+                                    amo hijo ☺️😇🙏"</span>
                             </p>
                         </div>
                     </div>
@@ -449,7 +458,7 @@
                                 Mensaje</a>
                         </div>
                     </div>
-            </div>
+                </div>
         </section>
 
         <div class="container page-content-grid" style="margin-top: -50px; position: relative; z-index: 10;">
@@ -471,33 +480,53 @@
                 <!-- ========================================== -->
                 <article id="historia" class="page-section-card">
                     <h2>Nuestra Historia</h2>
-                    <p><strong class="notranslate" translate="no">Manos Inclusivas Iluminando Corazones A.C.</strong> nació del amor, la fe y la profunda
-                        convicción de una madre al acompañar a su hijo, <strong>"Dany boy"</strong>, en su camino dentro del Espectro Autista (TEA). A lo largo de este trayecto, su familia comprendió que el autismo no solo transforma la vida de quien lo experimenta, sino también la de aquellos que lo acompañan con amor, compromiso y resiliencia.</p>
-                    <p>Nuestro querido <strong>"Dany boy"</strong> se convirtió en la inspiración, el motor y el origen de este proyecto. A partir de su historia y de su maravillosa y única manera de percibir el entorno, surgió el anhelo de construir una sociedad más inclusiva, empática y consciente; un espacio para dar voz a las personas con autismo y visibilizar el mundo a través de sus propios ojos.</p>
-                    <p>El diagnóstico llegó durante su infancia y, con él, una etapa de incertidumbre, interrogantes y grandes desafíos. Sin embargo, con el tiempo comprendieron que el autismo no representaba una tragedia, sino un camino diverso, lleno de matices y aprendizajes que nos invita a contemplar la realidad desde una perspectiva profunda y valiosa.</p>
-                    <p>Motivados por la búsqueda de un entorno seguro, respetuoso y adaptado donde <strong>"Dany boy"</strong> pudiera ser valorado y desarrollar plenamente su potencial, reconocieron que esta necesidad no era un caso aislado, sino la realidad cotidiana de miles de familias. De esta unión floreció un sueño compartido: un proyecto con propósito que hoy ilumina vidas y abre caminos de inclusión.</p>
-                    <p>Nuestra historia se volvió aún más especial y significativa cuando uno de nuestros socios, también diagnosticado dentro del Trastorno del Espectro Autista Nivel 1 (antes llamado Asperger), se unió al proyecto. Su experiencia, junto con la del niño que inspiró esta asociación, aporta una visión auténtica y profundamente humana. En nuestra fundación no hablamos solo desde la teoría, sino desde la vida misma.</p>
-                
-                
-                <div class="dany-accordion">
-                    <div class="accordion-item">
-                        <img src="img/db1.jpg" alt="Dany boy y su familia" loading="lazy">
+                    <p><strong class="notranslate" translate="no">Manos Inclusivas Iluminando Corazones A.C.</strong>
+                        nació del amor, la fe y la profunda
+                        convicción de una madre al acompañar a su hijo, <strong>"Dany boy"</strong>, en su camino dentro
+                        del Espectro Autista (TEA). A lo largo de este trayecto, su familia comprendió que el autismo no
+                        solo transforma la vida de quien lo experimenta, sino también la de aquellos que lo acompañan
+                        con amor, compromiso y resiliencia.</p>
+                    <p>Nuestro querido <strong>"Dany boy"</strong> se convirtió en la inspiración, el motor y el origen
+                        de este proyecto. A partir de su historia y de su maravillosa y única manera de percibir el
+                        entorno, surgió el anhelo de construir una sociedad más inclusiva, empática y consciente; un
+                        espacio para dar voz a las personas con autismo y visibilizar el mundo a través de sus propios
+                        ojos.</p>
+                    <p>El diagnóstico llegó durante su infancia y, con él, una etapa de incertidumbre, interrogantes y
+                        grandes desafíos. Sin embargo, con el tiempo comprendieron que el autismo no representaba una
+                        tragedia, sino un camino diverso, lleno de matices y aprendizajes que nos invita a contemplar la
+                        realidad desde una perspectiva profunda y valiosa.</p>
+                    <p>Motivados por la búsqueda de un entorno seguro, respetuoso y adaptado donde <strong>"Dany
+                            boy"</strong> pudiera ser valorado y desarrollar plenamente su potencial, reconocieron que
+                        esta necesidad no era un caso aislado, sino la realidad cotidiana de miles de familias. De esta
+                        unión floreció un sueño compartido: un proyecto con propósito que hoy ilumina vidas y abre
+                        caminos de inclusión.</p>
+                    <p>Nuestra historia se volvió aún más especial y significativa cuando uno de nuestros socios,
+                        también diagnosticado dentro del Trastorno del Espectro Autista Nivel 1 (antes llamado
+                        Asperger), se unió al proyecto. Su experiencia, junto con la del niño que inspiró esta
+                        asociación, aporta una visión auténtica y profundamente humana. En nuestra fundación no hablamos
+                        solo desde la teoría, sino desde la vida misma.</p>
+
+
+                    <div class="dany-accordion">
+                        <div class="accordion-item">
+                            <img src="img/db1.jpg" alt="Dany boy y su familia" loading="lazy">
+                        </div>
+                        <div class="accordion-item">
+                            <img src="img/db2.jpg" alt="Momentos de Dany boy" loading="lazy">
+                        </div>
+                        <div class="accordion-item">
+                            <img src="img/db3.jpg" alt="Crecimiento de Dany boy" loading="lazy">
+                        </div>
+                        <div class="accordion-item">
+                            <img src="img/db4.jpg" alt="Inspiración Dany boy" loading="lazy">
+                        </div>
                     </div>
-                    <div class="accordion-item">
-                        <img src="img/db2.jpg" alt="Momentos de Dany boy" loading="lazy">
-                    </div>
-                    <div class="accordion-item">
-                        <img src="img/db3.jpg" alt="Crecimiento de Dany boy" loading="lazy">
-                    </div>
-                    <div class="accordion-item">
-                        <img src="img/db4.jpg" alt="Inspiración Dany boy" loading="lazy">
-                    </div>
-                </div>
-</article>
+                </article>
                 </article>
                 <article id="misión" class="page-section-card">
                     <h2>Misión</h2>
-                    <p>En <strong class="notranslate" translate="no">Manos Inclusivas Iluminando Corazones A.C.</strong> trabajamos para brindar atención
+                    <p>En <strong class="notranslate" translate="no">Manos Inclusivas Iluminando Corazones A.C.</strong>
+                        trabajamos para brindar atención
                         integral, gratuita y de calidad en salud mental a personas que presentan un perfil de
                         funcionamiento neurocognitivo no normativo en atención sostenida y flexibilidad cognitiva y sus
                         familias. Nuestro compromiso es ofrecer diagnóstico oportuno, psicoterapia, rehabilitación,
@@ -585,8 +614,8 @@
             <div class="footer-grid">
                 <div>
                     <div class="footer-logo">
-                        <model-viewer src="assets/logo.glb" alt="Logo Manos Inclusivas" class="notranslate" translate="no"
-                            style="width: 80px; height: 80px; background-color: transparent;"
+                        <model-viewer src="assets/logo.glb" alt="Logo Manos Inclusivas" class="notranslate"
+                            translate="no" style="width: 80px; height: 80px; background-color: transparent;"
                             camera-orbit="0deg 90deg auto" interaction-prompt="none"></model-viewer>
                         <h3 style="color: white; margin: 0; font-size: 1.2rem;" class="notranslate" translate="no">Manos
                             Inclusivas A.C.</h3>
@@ -673,7 +702,8 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 <span class="notranslate" translate="no">MANOS INCLUSIVAS ILUMINANDO CORAZONES A.C.</span> Todos los derechos reservados.</p>
+                <p>&copy; 2026 <span class="notranslate" translate="no">MANOS INCLUSIVAS ILUMINANDO CORAZONES
+                        A.C.</span> Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
