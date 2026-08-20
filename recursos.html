@@ -1263,20 +1263,35 @@
                         </div>
                     </div>
 
-                    <!-- DISPRAXIA ANIMATION -->
+                    <!-- DISPRAXIA ANIMATION (Brain to Hand) -->
                     <div class="anim-container">
-                        <h3 class="anim-title">Coordinación y Movimiento Complejo</h3>
+                        <h3 class="anim-title">Conexión Cerebro-Motriz</h3>
                         <svg viewBox="0 0 300 150" width="100%" height="200" style="max-width: 400px; overflow: visible;">
-                            <!-- Maze Lines -->
-                            <path d="M20 20 L280 20 L280 130 L20 130 Z" fill="none" stroke="#e2e8f0" stroke-width="4" />
-                            <path d="M60 20 L60 80 L140 80 L140 130" fill="none" stroke="#cbd5e1" stroke-width="4" />
-                            <path d="M100 20 L100 50 L180 50 L180 100 L240 100" fill="none" stroke="#cbd5e1" stroke-width="4" />
+                            <!-- Brain icon -->
+                            <g transform="translate(30, 50) scale(1.5)" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z" />
+                                <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z" />
+                            </g>
                             
-                            <!-- Path for dot to follow -->
-                            <path d="M40 40 L100 40 L100 100 L180 100 L180 40 L240 40" fill="none" stroke="#8b5cf6" stroke-width="4" stroke-dasharray="4,4" />
+                            <!-- Hand icon -->
+                            <g transform="translate(220, 50) scale(1.5)" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 11V6a2 2 0 0 0-4 0v4" />
+                                <path d="M14 10V4a2 2 0 0 0-4 0v6" />
+                                <path d="M10 10.5V3a2 2 0 0 0-4 0v9" />
+                                <path d="M6 12v-1a2 2 0 0 0-4 0v6c0 4 3 7 7 7h3a8 8 0 0 0 7-5.5L21 12Z" />
+                            </g>
+
+                            <!-- Signal Path (Straight) -->
+                            <path d="M 80 75 L 120 75" fill="none" stroke="#cbd5e1" stroke-width="4" stroke-dasharray="4 4" />
                             
-                            <!-- Dot -->
-                            <circle cx="40" cy="40" r="10" fill="#f59e0b" class="maze-dot" />
+                            <!-- Scrambled Signal / Confusion area -->
+                            <path d="M 120 75 Q 135 20, 150 75 T 180 75" fill="none" stroke="#ec4899" stroke-width="4" class="scrambled-signal" />
+
+                            <!-- Signal Path (Straight end) -->
+                            <path d="M 180 75 L 210 75" fill="none" stroke="#cbd5e1" stroke-width="4" stroke-dasharray="4 4" />
+                            
+                            <!-- Animating Signal Dot -->
+                            <circle cx="80" cy="75" r="6" fill="#8b5cf6" class="signal-dot" />
                         </svg>
                     </div>
                 </article>
