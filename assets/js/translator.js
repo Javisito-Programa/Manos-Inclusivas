@@ -72,4 +72,20 @@ setInterval(() => {
     if (document.body.style.top && document.body.style.top !== '0px') {
         document.body.style.top = '0px';
     }
+    
+    // Fix bad translations for English
+    const getCookie = (name) => {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+        return null;
+    };
+    
+    const googtrans = getCookie('googtrans');
+    if (googtrans && googtrans.includes('/en')) {
+        document.querySelectorAll('a, .nav-link, .dropdown-item').forEach(el => {
+            if (el.textContent.trim() === 'Start') el.textContent = 'Home';
+            if (el.textContent.trim() === 'We') el.textContent = 'About Us';
+        });
+    }
 }, 500);
