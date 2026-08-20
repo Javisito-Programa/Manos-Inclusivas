@@ -147,50 +147,59 @@
             line-height: 1.5;
         }
     
-        /* Collage Styles */
-        .collage-container {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin-top: 40px;
-            padding: 30px;
-            background: rgba(255, 255, 255, 0.6);
-            border-radius: 24px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-        }
-
-        .collage-item {
-            overflow: hidden;
-            border-radius: 16px;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        
+        /* Dany Boy Gallery */
+        .dany-gallery {
             display: flex;
-            align-items: center;
+            flex-wrap: wrap;
             justify-content: center;
+            align-items: center;
+            gap: 25px;
+            margin-top: 40px;
+            padding: 10px;
+            perspective: 1000px;
+        }
+
+        .gallery-item {
+            position: relative;
+            height: 300px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            border: 6px solid #ffffff;
             background: #ffffff;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            cursor: pointer;
         }
 
-        .collage-item img {
-            width: 100%;
-            height: auto;
-            max-height: 400px;
-            object-fit: contain; /* Garantiza que no se recorte nada */
+        .gallery-item:nth-child(1) { transform: rotate(-4deg) translateY(10px); }
+        .gallery-item:nth-child(2) { transform: rotate(3deg) translateY(-5px); }
+        .gallery-item:nth-child(3) { transform: rotate(-2deg) translateY(5px); }
+        .gallery-item:nth-child(4) { transform: rotate(4deg) translateY(-10px); }
+
+        .gallery-item:hover {
+            transform: scale(1.1) rotate(0deg) translateY(-15px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+            z-index: 10;
+        }
+
+        .gallery-item img {
+            height: 100%;
+            width: auto;
             display: block;
-            border-radius: 16px;
-        }
-
-        .collage-item:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
-            z-index: 2;
+            border-radius: 6px;
+            object-fit: cover;
         }
 
         @media (max-width: 768px) {
-            .collage-container {
-                grid-template-columns: 1fr;
-                padding: 15px;
+            .gallery-item {
+                height: auto;
+                width: 90%;
+                max-width: 400px;
+                transform: rotate(0) translateY(0) !important;
+            }
+            .gallery-item img {
+                width: 100%;
+                height: auto;
             }
         }
 
@@ -459,38 +468,22 @@
                     <p>El diagnóstico llegó durante su infancia y, con él, una etapa de incertidumbre, interrogantes y grandes desafíos. Sin embargo, con el tiempo comprendieron que el autismo no representaba una tragedia, sino un camino diverso, lleno de matices y aprendizajes que nos invita a contemplar la realidad desde una perspectiva profunda y valiosa.</p>
                     <p>Motivados por la búsqueda de un entorno seguro, respetuoso y adaptado donde <strong>"Dany boy"</strong> pudiera ser valorado y desarrollar plenamente su potencial, reconocieron que esta necesidad no era un caso aislado, sino la realidad cotidiana de miles de familias. De esta unión floreció un sueño compartido: un proyecto con propósito que hoy ilumina vidas y abre caminos de inclusión.</p>
                     <p>Nuestra historia se volvió aún más especial y significativa cuando uno de nuestros socios, también diagnosticado dentro del Trastorno del Espectro Autista Nivel 1 (antes llamado Asperger), se unió al proyecto. Su experiencia, junto con la del niño que inspiró esta asociación, aporta una visión auténtica y profundamente humana. En nuestra fundación no hablamos solo desde la teoría, sino desde la vida misma.</p>
-                </article>
-                <div class="collage-container">
-                    <div class="collage-item">
+                
+                <div class="dany-gallery">
+                    <div class="gallery-item">
                         <img src="img/db1.jpg" alt="Dany boy y su familia" loading="lazy">
                     </div>
-                    <div class="collage-item">
+                    <div class="gallery-item">
                         <img src="img/db2.jpg" alt="Momentos de Dany boy" loading="lazy">
                     </div>
-                    <div class="collage-item">
+                    <div class="gallery-item">
                         <img src="img/db3.jpg" alt="Crecimiento de Dany boy" loading="lazy">
                     </div>
-                    <div class="collage-item">
+                    <div class="gallery-item">
                         <img src="img/db4.jpg" alt="Inspiración Dany boy" loading="lazy">
                     </div>
                 </div>
-
-                <article id="quienes-somos" class="page-section-card">
-                    <h2>Quiénes somos</h2>
-                    <p>Somos una asociación civil sin fines de lucro comprometida con crear espacios seguros, empáticos
-                        y llenos de amor para personas dentro del espectro autista y sus familias. Nacimos en México,
-                        pero nuestro corazón y propósito son universales.</p>
-                    <p>Soñamos con que nuestra labor llegue más allá de las fronteras, tocando corazones y generando
-                        conciencia en distintos países, inspirando a comunidades enteras a vivir la inclusión desde el
-                        amor. Lo que nos mueve es brindar atención integral, emocional y terapéutica a personas con
-                        autismo y a sus familias, en un entorno de respeto, fe y esperanza.</p>
-                    <p>Nuestro propósito es ser un faro de luz y esperanza que ilumine el camino de la inclusión,
-                        transformando vidas en todo el mundo. Creemos firmemente que cada donación, cada alianza y cada
-                        gesto de apoyo tiene el poder de cambiar historias.</p>
-                    <p>Por eso, hoy te invitamos a ser parte de este movimiento de amor y conciencia. A unir tus manos
-                        con las nuestras, para seguir iluminando corazones y construyendo un mundo más inclusivo,
-                        empático y lleno de oportunidades para todos.</p>
-                    <p>Gracias por creer, por compartir y por sumar esperanza.</p>
+</article>
                 </article>
                 <article id="mision" class="page-section-card">
                     <h2>Misión</h2>
