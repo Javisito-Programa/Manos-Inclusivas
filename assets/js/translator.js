@@ -85,8 +85,13 @@ setInterval(() => {
     const googtrans = getCookie('googtrans');
     if (googtrans && decodeURIComponent(googtrans).includes('/en')) {
         document.querySelectorAll('a, .nav-link, .dropdown-item').forEach(el => {
-            if (el.textContent.trim() === 'Start') el.textContent = 'Home';
-            if (el.textContent.trim() === 'We') el.textContent = 'About Us';
+            const txt = el.textContent.trim().toLowerCase();
+            if (txt === 'start') {
+                el.textContent = el.textContent.toUpperCase() === el.textContent.trim() ? 'HOME' : 'Home';
+            }
+            if (txt === 'we') {
+                el.textContent = el.textContent.toUpperCase() === el.textContent.trim() ? 'ABOUT US' : 'About Us';
+            }
         });
     }
 }, 500);
