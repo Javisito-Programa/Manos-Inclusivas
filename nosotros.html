@@ -198,7 +198,7 @@
             /* Usamos contain solo en el hover si queremos que se vea TODO sin cortes,
                pero cover suele verse más premium. Usaré cover pero sin cortes en el centro. */
             object-fit: contain;
-            background: #fdfbf7;
+            background: #b43be1a1;
             transform: scale(1.02);
         }
 
@@ -216,6 +216,34 @@
 
     <!-- Favicon (Icono de la pestaña) -->
     <link rel="icon" type="image/png" href="img/Logo circular.png">
+
+    <style>
+        /* Centrar las tarjetas de la ultima fila */
+        .team-grid {
+            display: flex !important;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .team-card {
+            flex: 0 0 calc(33.333% - 20px);
+            max-width: calc(33.333% - 20px);
+        }
+
+        @media (max-width: 992px) {
+            .team-card {
+                flex: 0 0 calc(50% - 15px);
+                max-width: calc(50% - 15px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .team-card {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -230,8 +258,8 @@
         <div class="loader-content">
             <div class="loader-logo-container">
                 <model-viewer src="assets/logo.glb" auto-rotate auto-rotate-delay="0" rotation-per-second="120deg"
-                camera-orbit="0deg 90deg auto" interaction-prompt="none" disable-zoom disable-pan
-                class="loader-3d-logo"></model-viewer>
+                    camera-orbit="0deg 90deg auto" interaction-prompt="none" disable-zoom disable-pan
+                    class="loader-3d-logo"></model-viewer>
             </div>
             <h2 class="loader-text">Iluminando Corazones... Conectando Vidas.</h2>
         </div>
@@ -274,11 +302,14 @@
                         <li><a href="servicios.html#psicologia" class="dropdown-item">Psicología</a></li>
                         <li><a href="servicios.html#psiquiatria" class="dropdown-item">Psiquiatría</a></li>
                         <li><a href="servicios.html#terapia-lenguaje" class="dropdown-item">Terapia de Lenguaje</a></li>
-                        <li><a href="servicios.html#terapia-ocupacional" class="dropdown-item">Terapia Ocupacional</a></li>
-                        <li><a href="servicios.html#integracion-sensorial" class="dropdown-item">Integración Sensorial</a></li>
+                        <li><a href="servicios.html#terapia-ocupacional" class="dropdown-item">Terapia Ocupacional</a>
+                        </li>
+                        <li><a href="servicios.html#integracion-sensorial" class="dropdown-item">Integración
+                                Sensorial</a></li>
                         <li><a href="servicios.html#hidroterapia" class="dropdown-item">Hidroterapia</a></li>
                         <li><a href="servicios.html#nutricion" class="dropdown-item">Nutrición</a></li>
-                        <li><a href="servicios.html#mindfullness" class="dropdown-item">Mindfullness y Aromaterapia</a></li>
+                        <li><a href="servicios.html#mindfullness" class="dropdown-item">Mindfullness y Aromaterapia</a>
+                        </li>
                         <li><a href="servicios.html#talleres" class="dropdown-item">Talleres y Capacitaciones</a></li>
                     </ul>
                 </div>
@@ -446,7 +477,8 @@
                     </div>
 
                     <div class="team-card">
-                        <div class="team-photo" style="background-image: url('img/Margaret.jpg'); background-position: center 20%;"></div>
+                        <div class="team-photo"
+                            style="background-image: url('img/Margaret.jpeg'); background-position: center 20%;"></div>
                         <div class="team-info">
                             <h3 style="font-size: 1.15rem;">Margaret Gabriela Gonzalez Salazar</h3>
                             <span class="team-role"
@@ -454,21 +486,29 @@
                                 <strong>Nutrióloga</strong><br>
                                 Licenciada en Nutrición<br>
                                 Diplomado en Nutrición Clínica<br>
-                                <span style="font-size: 0.75rem; color: var(--text-muted);">Ced. Prof. 16-007003-L</span>
+                                <span style="font-size: 0.75rem; color: var(--text-muted);">Ced. Prof.
+                                    16-007003-L</span>
                             </span>
-                            <p class="card-text" style="margin-top: 12px; font-size: 0.85rem;">Especializada en optimizar la salud a través del eje intestino-cerebro. Diseña planes nutricionales enfocados en reducir la desregulación sensorial y potenciar el bienestar integral de nuestros pacientes.</p>
+                            <p class="card-text" style="margin-top: 12px; font-size: 0.85rem;">Especializada en
+                                optimizar la salud a través del eje intestino-cerebro. Diseña planes nutricionales
+                                enfocados en reducir la desregulación sensorial y potenciar el bienestar integral de
+                                nuestros pacientes.</p>
                         </div>
                     </div>
 
                     <div class="team-card">
-                        <div class="team-photo" style="background-image: url('img/Gabriela.jpg'); background-position: center 20%;"></div>
+                        <div class="team-photo"
+                            style="background-image: url('img/Gabriela.jpeg'); background-position: center 20%;"></div>
                         <div class="team-info">
                             <h3 style="font-size: 1.15rem;">Gabriela Salazar Carbajal</h3>
                             <span class="team-role"
                                 style="font-size: 0.85rem; line-height: 1.4; color: var(--accent-purple);">
                                 <strong>Asesora Mindfulness y Aromaterapia</strong><br>
                             </span>
-                            <p class="card-text" style="margin-top: 12px; font-size: 0.85rem;">Brinda un espacio seguro para niños y padres, guiándolos con técnicas de atención plena y los beneficios de los aceites esenciales para alcanzar la relajación, la concentración y el equilibrio emocional.</p>
+                            <p class="card-text" style="margin-top: 12px; font-size: 0.85rem;">Brinda un espacio seguro
+                                para niños y padres, guiándolos con técnicas de atención plena y los beneficios de los
+                                aceites esenciales para alcanzar la relajación, la concentración y el equilibrio
+                                emocional.</p>
                         </div>
                     </div>
 
