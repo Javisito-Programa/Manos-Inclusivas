@@ -121,28 +121,42 @@ model-viewer:focus-visible {
   outline: none;
 }
 
-/* Stunning Gradient Shimmer Text */
+/* Stunning Gradient Shimmer Text with Elegant Intro Transition */
 .loader-text {
-  font-family: var(--font-main);
+  font-family: var(--font-main), sans-serif;
   font-size: 2.2rem;
   font-weight: 800;
-  letter-spacing: 2px;
+  letter-spacing: 4px;
   margin: 0;
+  margin-top: 15px;
   
+  /* Fallback colors just in case variables fail to load in time */
   background: linear-gradient(
     to right,
-    var(--accent-purple) 20%,
-    var(--accent-blue) 40%,
-    var(--accent-teal) 60%,
-    var(--accent-purple) 80%
+    #6B46C1 20%,
+    #3B82F6 40%,
+    #14B8A6 60%,
+    #6B46C1 80%
   );
   background-size: 200% auto;
   color: transparent;
   -webkit-background-clip: text;
   background-clip: text;
-  animation: shine 4s linear infinite;
   
-  text-shadow: 0 10px 20px rgba(0,0,0,0.08);
+  /* Extremely elegant text entrance: blurred, tracking-in, fading in */
+  animation: elegantTextEntrance 2s cubic-bezier(0.2, 1, 0.3, 1) forwards, shine 4s linear infinite;
+  opacity: 0;
+  filter: blur(12px);
+  transform: translateY(15px) scale(0.95);
+}
+
+@keyframes elegantTextEntrance {
+  to {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateY(0) scale(1);
+    letter-spacing: 2px; /* Smoothly reduces letter spacing */
+  }
 }
 
 @keyframes shine {
