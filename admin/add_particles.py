@@ -1,43 +1,6 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // Mobile Menu Toggle
-    const hamburger = document.querySelector('.hamburger');
-    const navLinks = document.querySelector('.nav-links');
+import os
 
-    if (hamburger && navLinks) {
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            hamburger.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
-        });
-    }
-
-    // Transparent Header on Scroll
-    const header = document.querySelector('header');
-    if (header) {
-        const isTransparent = header.getAttribute('data-transparent') === 'true';
-        if (isTransparent) {
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
-                }
-            });
-        }
-    }
-
-    // Hero Image Carousel
-    const slides = document.querySelectorAll('.hero-slide');
-    if (slides.length > 0) {
-        let currentSlide = 0;
-        setInterval(() => {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
-        }, 5000); // Change image every 5 seconds
-    }
-});
-
-
+js_code = """
 // ==========================================
 // MAGICAL PARTICLES FOR LOADING SCREEN
 // ==========================================
@@ -104,3 +67,16 @@ document.addEventListener('DOMContentLoaded', () => {
         height = canvas.height = window.innerHeight;
     });
 });
+"""
+
+file_path = r'c:\Users\Itran\Desktop\Fundacion\assets\js\main.js'
+
+with open(file_path, 'r', encoding='utf-8') as f:
+    content = f.read()
+
+if '// MAGICAL PARTICLES FOR LOADING SCREEN' not in content:
+    with open(file_path, 'a', encoding='utf-8') as f:
+        f.write('\n' + js_code)
+    print("Added magical particles to main.js!")
+else:
+    print("Particles already exist in main.js!")

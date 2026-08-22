@@ -6,20 +6,18 @@
   left: 0;
   width: 100%;
   height: 100%;
-  /* Soft, warm, calming background color */
-  background-color: #Fdfbf7;
-  /* Beautiful slow-moving radial gradient for a subtle "Aurora" feel */
-  background-image: 
-    radial-gradient(circle at 15% 50%, rgba(107, 70, 193, 0.08) 0%, transparent 50%),
-    radial-gradient(circle at 85% 30%, rgba(20, 184, 166, 0.08) 0%, transparent 50%),
-    radial-gradient(circle at 50% 80%, rgba(245, 158, 11, 0.05) 0%, transparent 50%);
+  /* Creative Animated Gradient Background */
+  background: linear-gradient(-45deg, #F2E8D5, #e6d8eb, #d8ebe6, #f7eed7);
+  background-size: 400% 400%;
+  animation: gradientBG 12s ease infinite;
+  
   z-index: 99999;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   
-  /* Smooth backdrop blur for glassmorphism */
+  /* Smooth backdrop blur */
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   
@@ -27,6 +25,12 @@
   transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), 
               visibility 1s ease-out,
               backdrop-filter 1s ease-out;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 #loader-canvas {
@@ -37,7 +41,8 @@
   height: 100%;
   z-index: 1;
   /* Slightly fade the canvas particles so they are less overwhelming */
-  opacity: 0.6;
+  opacity: 0.8;
+  pointer-events: none;
 }
 
 .loader-content {
@@ -49,7 +54,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 25px;
+  gap: 30px;
   
   /* Entry animation: float up and fade in */
   animation: contentFadeUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -65,10 +70,11 @@
 }
 
 /* 3D Logo Container with Glowing Breathing Aura */
+/* Increased size by 50% */
 .loader-logo-container {
   position: relative;
-  width: 160px;
-  height: 160px;
+  width: 240px;
+  height: 240px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -80,7 +86,7 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle, rgba(107, 70, 193, 0.25) 0%, rgba(107,70,193,0) 70%);
+  background: radial-gradient(circle, rgba(107, 70, 193, 0.3) 0%, rgba(107,70,193,0) 70%);
   border-radius: 50%;
   animation: pulseAura 3s ease-in-out infinite alternate;
   z-index: -1;
@@ -92,18 +98,19 @@
 }
 
 /* The actual 3D Model */
+/* Increased size by 50% */
 .loader-3d-logo {
-  width: 140px;
-  height: 140px;
+  width: 210px;
+  height: 210px;
   background-color: transparent;
   /* Levitating animation + existing rotation is handled by model-viewer */
   animation: levitate 4s ease-in-out infinite;
-  filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.15));
+  filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.2));
 }
 
 @keyframes levitate {
   0% { transform: translateY(0px); }
-  50% { transform: translateY(-15px); }
+  50% { transform: translateY(-20px); }
   100% { transform: translateY(0px); }
 }
 
@@ -117,17 +124,17 @@ model-viewer:focus-visible {
 /* Stunning Gradient Shimmer Text */
 .loader-text {
   font-family: var(--font-main);
-  font-size: 1.8rem;
-  font-weight: 700;
-  letter-spacing: 1.5px;
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: 2px;
   margin: 0;
   
   background: linear-gradient(
     to right,
-    var(--text-main) 20%,
-    var(--accent-purple) 40%,
-    var(--accent-green) 60%,
-    var(--text-main) 80%
+    var(--accent-purple) 20%,
+    var(--accent-blue) 40%,
+    var(--accent-teal) 60%,
+    var(--accent-purple) 80%
   );
   background-size: 200% auto;
   color: transparent;
@@ -135,7 +142,7 @@ model-viewer:focus-visible {
   background-clip: text;
   animation: shine 4s linear infinite;
   
-  text-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  text-shadow: 0 10px 20px rgba(0,0,0,0.08);
 }
 
 @keyframes shine {
@@ -166,7 +173,7 @@ model-viewer:focus-visible {
     opacity: 1;
   }
   100% {
-    transform: translateY(-250px) scale(0.2);
+    transform: translateY(-300px) scale(0.2);
     opacity: 0;
   }
 }
