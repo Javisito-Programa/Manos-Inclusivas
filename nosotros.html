@@ -189,17 +189,15 @@
         }
 
         .dany-accordion .accordion-item:hover {
-            flex: 5;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            flex: 3.5;
+            box-shadow: 0 15px 35px rgba(180, 59, 225, 0.3); /* Resplandor morado sutil */
+            border: 4px solid #b43be1a1; /* Borde compacto y bonito */
         }
 
         .dany-accordion .accordion-item:hover img {
             opacity: 1;
-            /* Usamos contain solo en el hover si queremos que se vea TODO sin cortes,
-               pero cover suele verse más premium. Usaré cover pero sin cortes en el centro. */
-            object-fit: contain;
-            background: #b43be1a1;
-            transform: scale(1.02);
+            object-fit: cover;
+            transform: scale(1.05);
         }
 
         @media (max-width: 768px) {
@@ -457,21 +455,21 @@
                         </div>
                     </div>
 
-                    <div class="team-card" style="border: 2px solid var(--accent-pink);">
+                    <div class="team-card" style="border: 2px solid #b43be1a1;">
                         <div class="team-photo" style="background-image: url('img/Francia.jpg');"></div>
                         <div class="team-info">
                             <h3 style="font-size: 1.15rem;">Francia Cuevas Hays / <strong>"Dany boy"</strong></h3>
-                            <span class="team-role"
-                                style="font-size: 0.85rem; line-height: 1.4; color: var(--accent-pink);">
+                            <span class="team-role" style="font-size: 0.85rem; line-height: 1.4; color: #b43be1a1;">
                                 <strong>Cofundadora MIIC</strong><br>
                                 La madre de <strong>"Dany boy"</strong>
                             </span>
                             <p class="card-text" style="margin-top: 12px; font-size: 0.85rem;">
                                 Mi hijo es la inspiración que ilumina y guía esta causa de amor y propósito.
-                                Comprometida con el autismo, la inclusión y el bienestar de las familias.<br><br>
+                                Comprometida con el autismo, la inclusión y el bienestar de las familias.
+                                Cada paso cuenta, cada vida importa.<br><br>
                                 <span
-                                    style="display: block; font-style: italic; font-weight: 600; color: var(--accent-pink); font-size: 0.95rem; margin-top: 8px;">"Te
-                                    amo hijo ☺️😇🙏"</span>
+                                    style="display: block; font-style: italic; font-weight: 600; color: #b43be1a1; font-size: 0.95rem; margin-top: 8px;">"Te
+                                    amo hijo."</span>
                             </p>
                         </div>
                     </div>
