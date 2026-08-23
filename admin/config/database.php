@@ -1,8 +1,15 @@
 <?php
 // Configuración de la base de datos
-if (file_exists(__DIR__ . '/db_secrets.php')) {
-    // En Hostinger, leeremos las credenciales de este archivo secreto
-    require_once __DIR__ . '/db_secrets.php';
+// Rutas posibles para el archivo secreto
+$secret_path_1 = __DIR__ . '/db_secrets.php';
+$secret_path_2 = $_SERVER['DOCUMENT_ROOT'] . '/../db_secrets.php';
+
+if (file_exists($secret_path_2)) {
+    // Buscar un nivel arriba de public_html (Muy seguro y no se borra con Git)
+    require_once $secret_path_2;
+} elseif (file_exists($secret_path_1)) {
+    // Buscar en la misma carpeta
+    require_once $secret_path_1;
 } else {
     // Credenciales para entorno local (XAMPP/WAMP)
     $host = 'localhost';
