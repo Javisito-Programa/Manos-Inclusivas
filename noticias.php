@@ -359,7 +359,7 @@
                         <li><a href="recursos.html#altas-capacidades" class="dropdown-item">Altas Capacidades</a></li>
                     </ul>
                 </div>
-                <div class="nav-item"><a href="noticias.html" class="nav-link" style="color: var(--accent-purple);">NOTICIAS</a></div>
+                <div class="nav-item"><a href="noticias.php" class="nav-link" style="color: var(--accent-purple);">NOTICIAS</a></div>
                 <div class="nav-item"><a href="citas.html" class="nav-link">CITAS</a></div>
                 <div class="nav-item"><a href="contacto.html" class="nav-link">CONTACTO</a></div>
                 <div class="nav-item"><a href="donar.html" class="btn btn-donate">DONAR</a></div>
@@ -412,7 +412,44 @@
 
         <section class="container">
             <div class="news-grid" id="news-container">
-                <!-- News will be injected here via JavaScript -->
+                <?php
+                // Conectar a la base de datos
+                require_once 'admin/config/database.php';
+                
+                if (isset($pdo)) {
+                    $stmt = $pdo->query("SELECT * FROM noticias ORDER BY created_at DESC");
+                    $noticias = $stmt->fetchAll();
+                    
+                    if (count($noticias) > 0) {
+                        foreach ($noticias as $index => $news) {
+                            $fecha = date('d/m/Y', strtotime($news['created_at']));
+                            $imgUrl = !empty($news['imagen_path']) ? htmlspecialchars($news['imagen_path']) : 'img/Logo circular.png';
+                            $excerpt = mb_strlen($news['contenido']) > 120 ? mb_substr($news['contenido'], 0, 120) . '...' : $news['contenido'];
+                            
+                            echo '<article class="news-card">';
+                            echo '<img src="' . $imgUrl . '" alt="' . htmlspecialchars($news['titulo']) . '" class="news-image" onerror="this.src=\'img/Logo circular.png\'">';
+                            echo '<div class="news-content">';
+                            echo '<span class="news-date">' . $fecha . '</span>';
+                            echo '<h3 class="news-title">' . htmlspecialchars($news['titulo']) . '</h3>';
+                            echo '<p class="news-excerpt">' . htmlspecialchars($excerpt) . '</p>';
+                            
+                            // Guardamos los datos completos en atributos de datos para el modal JS
+                            echo '<a href="#" class="news-read-more" data-index="'.$index.'" '
+                               . 'data-title="'.htmlspecialchars($news['titulo']).'" '
+                               . 'data-date="'.$fecha.'" '
+                               . 'data-img="'.$imgUrl.'" '
+                               . 'data-content="'.htmlspecialchars($news['contenido']).'">Leer más <span>→</span></a>';
+                            
+                            echo '</div>';
+                            echo '</article>';
+                        }
+                    } else {
+                        echo '<div class="empty-state"><h2>Aún no hay noticias publicadas.</h2><p>Vuelve pronto para enterarte de nuestras novedades.</p></div>';
+                    }
+                } else {
+                    echo '<div class="empty-state"><h2>Error al cargar noticias.</h2><p>Base de datos no disponible.</p></div>';
+                }
+                ?>
             </div>
         </section>
     </main>
@@ -499,74 +536,28 @@
     
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const newsContainer = document.getElementById('news-container');
             const modal = document.getElementById('news-modal');
             const closeBtn = document.querySelector('.close-modal');
 
-            // Fetch news from API (JSON)
-            fetch('api/noticias.json?t=' + new Date().getTime()) // cache busting
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('No se pudo cargar las noticias');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (!data || data.length === 0) {
-                        newsContainer.innerHTML = '<div class="empty-state"><h2>Aún no hay noticias publicadas.</h2><p>Vuelve pronto para enterarte de nuestras novedades.</p></div>';
-                        return;
-                    }
+            // Add event listeners to "Leer más"
+            document.querySelectorAll('.news-read-more').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
                     
-                    // Reverse to show newest first (assuming appended)
-                    const reversedData = [...data].reverse();
+                    const title = this.getAttribute('data-title');
+                    const date = this.getAttribute('data-date');
+                    const img = this.getAttribute('data-img');
+                    const content = this.getAttribute('data-content');
                     
-                    reversedData.forEach((news, index) => {
-                        const dateObj = new Date(news.date);
-                        const formattedDate = dateObj.toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
-                        
-                        // Limit excerpt
-                        const excerpt = news.content.length > 120 ? news.content.substring(0, 120) + '...' : news.content;
-                        // Default image if none provided
-                        const imgUrl = news.image || 'img/Logo circular.png';
-                        
-                        const card = document.createElement('article');
-                        card.className = 'news-card';
-                        card.innerHTML = `
-                            <img src="${imgUrl}" alt="${news.title}" class="news-image" onerror="this.src='img/Logo circular.png'">
-                            <div class="news-content">
-                                <span class="news-date">${formattedDate}</span>
-                                <h3 class="news-title">${news.title}</h3>
-                                <p class="news-excerpt">${excerpt}</p>
-                                <a href="#" class="news-read-more" data-index="${index}">Leer más <span>→</span></a>
-                            </div>
-                        `;
-                        newsContainer.appendChild(card);
-                    });
-
-                    // Add event listeners to "Leer más"
-                    document.querySelectorAll('.news-read-more').forEach(btn => {
-                        btn.addEventListener('click', function(e) {
-                            e.preventDefault();
-                            const idx = this.getAttribute('data-index');
-                            const news = reversedData[idx];
-                            
-                            document.getElementById('modal-title').textContent = news.title;
-                            
-                            const dateObj = new Date(news.date);
-                            document.getElementById('modal-date').textContent = dateObj.toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
-                            
-                            document.getElementById('modal-text').textContent = news.content;
-                            document.getElementById('modal-img').src = news.image || 'img/Logo circular.png';
-                            
-                            modal.style.display = "block";
-                            document.body.style.overflow = "hidden"; // Prevent background scrolling
-                        });
-                    });
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    newsContainer.innerHTML = '<div class="empty-state"><h2>Error al cargar noticias.</h2><p>Intenta recargar la página más tarde.</p></div>';
+                    document.getElementById('modal-title').textContent = title;
+                    document.getElementById('modal-date').textContent = date;
+                    document.getElementById('modal-text').textContent = content;
+                    document.getElementById('modal-img').src = img;
+                    
+                    modal.style.display = "block";
+                    document.body.style.overflow = "hidden"; // Prevent background scrolling
                 });
+            });
 
             // Close modal logic
             closeBtn.onclick = function() {

@@ -6,9 +6,72 @@ if (!isset($_SESSION['admin_id'])) {
 }
 require_once 'config/database.php';
 
-// Manejo de acciones (Crear, Eliminar) iría aquí
-// ...
+// Directorio para subir imágenes
+$upload_dir = '../uploads/noticias/';
+if (!file_exists($upload_dir)) {
+    mkdir($upload_dir, 0755, true);
+}
 
+// Manejar eliminación de noticia
+if (isset($_GET['delete'])) {
+    $id_to_delete = (int)$_GET['delete'];
+    
+    // Obtener la imagen para borrarla del servidor
+    $stmt = $pdo->prepare("SELECT imagen_path FROM noticias WHERE id = ?");
+    $stmt->execute([$id_to_delete]);
+    $noticia = $stmt->fetch();
+    
+    if ($noticia && $noticia['imagen_path']) {
+        $file_path = '../' . $noticia['imagen_path'];
+        if (file_exists($file_path)) {
+            unlink($file_path);
+        }
+    }
+    
+    // Borrar de la BD
+    $stmt = $pdo->prepare("DELETE FROM noticias WHERE id = ?");
+    $stmt->execute([$id_to_delete]);
+    
+    header("Location: noticias.php");
+    exit();
+}
+
+// Manejar subida de nueva noticia
+$mensaje = '';
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
+    $titulo = trim($_POST['titulo']);
+    $contenido = trim($_POST['contenido']);
+    $imagen_path = '';
+    
+    // Procesar imagen si se subió
+    if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] == 0) {
+        $file_info = pathinfo($_FILES['imagen']['name']);
+        $ext = strtolower($file_info['extension']);
+        $allowed_ext = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+        
+        if (in_array($ext, $allowed_ext)) {
+            $new_filename = uniqid('noticia_') . '.' . $ext;
+            $destination = $upload_dir . $new_filename;
+            
+            if (move_uploaded_file($_FILES['imagen']['tmp_name'], $destination)) {
+                $imagen_path = 'uploads/noticias/' . $new_filename;
+            } else {
+                $mensaje = "Error al subir la imagen.";
+            }
+        } else {
+            $mensaje = "Formato de imagen no permitido.";
+        }
+    }
+    
+    if (empty($mensaje)) {
+        $stmt = $pdo->prepare("INSERT INTO noticias (titulo, contenido, imagen_path) VALUES (?, ?, ?)");
+        if ($stmt->execute([$titulo, $contenido, $imagen_path])) {
+            $mensaje = "¡Noticia publicada con éxito!";
+        } else {
+            $mensaje = "Error al guardar en la base de datos.";
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -45,6 +108,11 @@ require_once 'config/database.php';
 
         <div class="form-container">
             <h3 style="margin-bottom: 20px; color: var(--accent-purple);">Publicar Nueva Noticia</h3>
+            <?php if(!empty($mensaje)): ?>
+                <div class="alert" style="margin-bottom:15px; padding:10px; background:#e8f5e9; color:#2e7d32; border-radius:4px;">
+                    <?php echo htmlspecialchars($mensaje); ?>
+                </div>
+            <?php endif; ?>
             <form action="" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label>Título de la Noticia</label>
@@ -92,8 +160,7 @@ require_once 'config/database.php';
                             <td><?php echo htmlspecialchars($row['titulo']); ?></td>
                             <td><?php echo date('d/m/Y', strtotime($row['created_at'])); ?></td>
                             <td>
-                                <button class="btn btn-primary" style="padding: 6px 12px; font-size: 0.8rem;">Editar</button>
-                                <button class="btn btn-logout" style="padding: 6px 12px; font-size: 0.8rem;">Eliminar</button>
+                                <a href="?delete=<?php echo $row['id']; ?>" class="btn btn-logout" style="padding: 6px 12px; font-size: 0.8rem; text-decoration:none;" onclick="return confirm('¿Seguro que deseas eliminar esta noticia?');">Eliminar</a>
                             </td>
                         </tr>
                         <?php endwhile; ?>
