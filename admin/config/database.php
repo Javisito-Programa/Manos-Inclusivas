@@ -1,9 +1,15 @@
 <?php
 // Configuración de la base de datos
-$host = 'localhost';
-$dbname = 'fundacion_db';
-$username = 'root';
-$password = ''; // Localhost sin contraseña por defecto, en Hostinger se debe cambiar
+if (file_exists(__DIR__ . '/db_secrets.php')) {
+    // En Hostinger, leeremos las credenciales de este archivo secreto
+    require_once __DIR__ . '/db_secrets.php';
+} else {
+    // Credenciales para entorno local (XAMPP/WAMP)
+    $host = 'localhost';
+    $dbname = 'fundacion_db';
+    $username = 'root';
+    $password = '';
+}
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
