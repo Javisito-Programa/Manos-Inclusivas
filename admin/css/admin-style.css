@@ -10,8 +10,8 @@
     --white: #ffffff;
     --shadow-soft: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
     --border-radius: 16px;
-    --glass-bg: rgba(255, 255, 255, 0.6);
-    --glass-border: 1px solid rgba(255, 255, 255, 0.5);
+    --glass-bg: rgba(255, 255, 255, 0.3);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
 * {
@@ -22,7 +22,7 @@
 }
 
 body {
-    background: linear-gradient(135deg, #f0fdf4 0%, #e0e7ff 50%, #fae8ff 100%);
+    background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
     background-size: 400% 400%;
     animation: gradientBG 15s ease infinite;
     color: var(--text-primary);
@@ -108,8 +108,8 @@ body {
     margin-bottom: 40px;
     padding: 20px 30px;
     background: var(--glass-bg);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
     border-radius: var(--border-radius);
     border: var(--glass-border);
     box-shadow: var(--shadow-soft);
@@ -201,12 +201,12 @@ body {
 /* Forms & Tables */
 .form-container {
     background: var(--glass-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
     border: var(--glass-border);
     padding: 40px;
     border-radius: 24px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
     margin-bottom: 40px;
 }
 
@@ -287,12 +287,12 @@ body {
 
 .data-table-wrapper {
     background: var(--glass-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
     border: var(--glass-border);
     border-radius: 24px;
     padding: 20px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
 }
 
 .data-table {
