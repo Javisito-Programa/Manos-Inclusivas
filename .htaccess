@@ -1,0 +1,23 @@
+RewriteEngine On
+
+# 1. Redirigir index.html y index.php a la raíz limpia (/)
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.(html|php)\ HTTP/
+RewriteRule ^index\.(html|php)$ / [R=301,L]
+
+# 2. Redirigir URLs que terminan en .html o .php a su versión limpia
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /([^.]+)\.(html|php)\ HTTP/
+# Evitar redirigir si estamos dentro de la carpeta admin para no romper el panel
+RewriteCond %{REQUEST_URI} !^/admin/
+RewriteRule ^([^.]+)\.(html|php)$ /$1 [R=301,L]
+
+# 3. Servir internamente el archivo .html si existe
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.*)$ $1.html [L]
+
+# 4. Servir internamente el archivo .php si existe
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.*)$ $1.php [L]
