@@ -304,9 +304,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
                                 #<?php echo $row['id']; ?>
                                 <?php if($row['is_pinned']) echo '<br><span style="font-size: 0.8rem; color: var(--accent-purple);">📌 Fijada</span>'; ?>
                             </td>
-                            <td style="text-align: center;">
+                            <td style="text-align: center;" data-label="Orden">
                                 <?php if($row['is_pinned']): ?>
-                                    <span class="drag-handle" style="cursor: grab; font-size: 1.5rem; color: #94a3b8; display: inline-block; padding: 10px;">☰</span>
+                                    <div class="drag-handle" style="cursor: grab; font-size: 1.8rem; color: var(--accent-purple); display: inline-flex; align-items: center; justify-content: center; width: 50px; height: 50px; background: rgba(109, 40, 217, 0.1); border-radius: 8px; touch-action: none;">☰</div>
                                 <?php else: ?>
                                     <span style="color: #cbd5e1;">-</span>
                                 <?php endif; ?>
@@ -355,6 +355,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
                     animation: 150,
                     handle: '.drag-handle', // Solo arrastrar por el icono
                     draggable: '.sortable-row', // Solo filas fijadas
+                    delay: 100, // Previene arrastres accidentales al hacer scroll en móvil
+                    delayOnTouchOnly: true,
+                    ghostClass: 'sortable-ghost',
                     onEnd: function (evt) {
                         // Recolectar el nuevo orden de los IDs
                         const rows = tbody.querySelectorAll('.sortable-row');
