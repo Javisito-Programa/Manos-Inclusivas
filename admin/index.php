@@ -4,7 +4,7 @@ require_once 'config/database.php';
 
 // Si ya está logueado, redirigir a noticias
 if(isset($_SESSION['admin_id'])) {
-    header("Location: noticias.php");
+    echo "<script>sessionStorage.setItem('admin_session_active', '1'); window.location.href='noticias.php';</script>";
     exit();
 }
 
@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $_SESSION['admin_permisos'] = [];
                     }
                     
-                    header("Location: noticias.php");
+                    echo "<script>sessionStorage.setItem('admin_session_active', '1'); window.location.href='noticias.php';</script>";
                     exit();
                 } else {
                     $error = "Usuario o contraseña incorrectos.";
@@ -89,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acceso Administrativo - Manos Inclusivas</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/admin-style.css?v=2">
+    <link rel="stylesheet" href="css/admin-style.css?v=3">
 </head>
 <body class="login-body">
 

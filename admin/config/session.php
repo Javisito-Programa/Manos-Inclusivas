@@ -42,3 +42,13 @@ if (!isset($_SESSION['CREATED'])) {
     $_SESSION['CREATED'] = time();
 }
 ?>
+
+if (basename($_SERVER['PHP_SELF']) !== 'index.php' && basename($_SERVER['PHP_SELF']) !== 'logout.php') {
+    echo "<script>
+    if (typeof sessionStorage !== 'undefined') {
+        if (!sessionStorage.getItem('admin_session_active')) {
+            window.location.href = 'logout.php?error=' + encodeURIComponent('Sesión cerrada por seguridad al cerrar pestaña.');
+        }
+    }
+    </script>";
+}

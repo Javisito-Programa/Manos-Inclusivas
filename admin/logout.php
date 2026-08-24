@@ -1,7 +1,8 @@
 <?php
-require_once 'config/session.php';
+session_start();
 session_unset();
 session_destroy();
-header("Location: index.php");
+$errorMsg = isset($_GET['error']) ? '?error=' . urlencode($_GET['error']) : '';
+echo "<script>sessionStorage.removeItem('admin_session_active'); window.location.href='index.php' + $errorMsg;</script>";
 exit();
 ?>

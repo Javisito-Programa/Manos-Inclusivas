@@ -117,7 +117,7 @@ $fecha_val = !empty($noticia['fecha_publicacion']) ? $noticia['fecha_publicacion
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Noticia - Administración</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/admin-style.css?v=2">
+    <link rel="stylesheet" href="css/admin-style.css?v=3">
 </head>
 <body>
     <!-- Animación de ondas de fondo -->
