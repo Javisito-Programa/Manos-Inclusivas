@@ -1,11 +1,11 @@
-<?php
+﻿<?php
 require_once 'config/session.php';
 if (!isset($_SESSION['admin_id'])) {
     header("Location: index.php");
     exit();
 }
 
-// 1. Verificación de seguridad: Solo usuarios con permiso 'usuarios' pueden estar aquí
+// 1. VerificaciÃ³n de seguridad: Solo usuarios con permiso 'usuarios' pueden estar aquÃ­
 $permisos = $_SESSION['admin_permisos'] ?? [];
 if (!isset($permisos['usuarios']) || $permisos['usuarios'] !== true) {
     // Si no tiene permiso, lo echamos al dashboard (noticias o index)
@@ -18,7 +18,7 @@ require_once 'config/database.php';
 $mensaje = '';
 $tipo_alerta = 'success';
 
-// Manejar creación de usuario
+// Manejar creaciÃ³n de usuario
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'create') {
     $new_username = trim($_POST['username']);
     $new_password = $_POST['password'];
@@ -33,20 +33,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['a
     $permisos_json = json_encode($nuevos_permisos);
     
     if (strlen($new_username) < 3 || strlen($new_password) < 6) {
-        $mensaje = "Usuario mínimo 3 caracteres y contraseña mínimo 6.";
+        $mensaje = "Usuario mÃ­nimo 3 caracteres y contraseÃ±a mÃ­nimo 6.";
         $tipo_alerta = "error";
     } else {
         // Validar que no exista
         $stmt_check = $pdo->prepare("SELECT id FROM usuarios WHERE username = ?");
         $stmt_check->execute([$new_username]);
         if ($stmt_check->rowCount() > 0) {
-            $mensaje = "Ese nombre de usuario ya está en uso.";
+            $mensaje = "Ese nombre de usuario ya estÃ¡ en uso.";
             $tipo_alerta = "error";
         } else {
             $hash = password_hash($new_password, PASSWORD_BCRYPT);
             $stmt = $pdo->prepare("INSERT INTO usuarios (username, password_hash, role, permisos) VALUES (?, ?, 'editor', ?)");
             if ($stmt->execute([$new_username, $hash, $permisos_json])) {
-                $mensaje = "Usuario '$new_username' creado con éxito.";
+                $mensaje = "Usuario '$new_username' creado con Ã©xito.";
                 $tipo_alerta = "success";
             } else {
                 $mensaje = "Error al crear el usuario en la BD.";
@@ -56,11 +56,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['a
     }
 }
 
-// Manejar eliminación de usuario
+// Manejar eliminaciÃ³n de usuario
 if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
     $id_to_delete = (int)$_GET['delete'];
     
-    // Evitar que el admin principal (ID 1) o a sí mismo se elimine accidentalmente
+    // Evitar que el admin principal (ID 1) o a sÃ­ mismo se elimine accidentalmente
     if ($id_to_delete === 1) {
         $mensaje = "No puedes eliminar al SuperAdministrador principal.";
         $tipo_alerta = "error";
@@ -82,7 +82,7 @@ if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Usuarios - Administración</title>
+    <title>GestiÃ³n de Usuarios - AdministraciÃ³n</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/admin-style.css?v=7">
     <style>
@@ -121,9 +121,21 @@ if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
             color: #553c9a;
         }
     </style>
+    <!-- PWA Config -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#8b5cf6">
+    <link rel="apple-touch-icon" href="https://miic-neurodesarrollo.org/img/Logo%20circular.png">
+    <meta name="mobile-web-app-capable" content="yes">
+    <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js');
+      });
+    }
+    </script>
 </head>
 <body>
-    <!-- Animación de ondas de fondo -->
+    <!-- AnimaciÃ³n de ondas de fondo -->
     <div style="position: fixed; bottom: 0; left: 0; width: 100%; overflow: hidden; z-index: -1; opacity: 0.2;">
         <svg viewBox="0 0 1200 120" preserveAspectRatio="none" style="width: 200%; height: 250px; transform: translateX(0); animation: waveAnimate 20s linear infinite;">
             <path d="M0,60 C300,120 300,0 600,60 C900,120 900,0 1200,60 C1500,120 1500,0 1800,60 C2100,120 2100,0 2400,60 L2400,120 L0,120 Z" fill="#E53E3E"></path>
@@ -139,40 +151,40 @@ if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
         </div>
         <ul class="nav-links">
             <?php if(isset($permisos['noticias']) && $permisos['noticias']): ?>
-            <li><a href="noticias.php"><span class="nav-icon">📰</span> Noticias</a></li>
+            <li><a href="noticias.php"><span class="nav-icon">ðŸ“°</span> Noticias</a></li>
             <?php endif; ?>
             
             <?php if(isset($permisos['finanzas']) && $permisos['finanzas']): ?>
-            <li><a href="finanzas.php"><span class="nav-icon">💰</span> Finanzas</a></li>
+            <li><a href="finanzas.php"><span class="nav-icon">ðŸ’°</span> Finanzas</a></li>
             <?php endif; ?>
             
             <?php if(isset($permisos['usuarios']) && $permisos['usuarios']): ?>
-            <li><a href="usuarios.php" class="active"><span class="nav-icon">👥</span> Usuarios</a></li>
+            <li><a href="usuarios.php" class="active"><span class="nav-icon">ðŸ‘¥</span> Usuarios</a></li>
             <?php endif; ?>
             
-            <li><a href="perfil.php"><span class="nav-icon">⚙️</span> Mi Perfil</a></li>
-            <li style="margin-top: auto;"><a href="logout.php"><span class="nav-icon">🚪</span> Salir</a></li>
+            <li><a href="perfil.php"><span class="nav-icon">âš™ï¸</span> Mi Perfil</a></li>
+            <li style="margin-top: auto;"><a href="logout.php"><span class="nav-icon">ðŸšª</span> Salir</a></li>
         </ul>
     </aside>
 
     <!-- Main Content -->
     <main class="main-content">
         <div class="top-bar">
-            <h1>Gestión de Usuarios (SuperAdmin)</h1>
+            <h1>GestiÃ³n de Usuarios (SuperAdmin)</h1>
             <div class="user-profile">
                 <span><?php echo htmlspecialchars($_SESSION['admin_username'] ?? 'Administrador'); ?></span>
-                <a href="logout.php" class="btn-logout">Cerrar Sesión</a>
+                <a href="logout.php" class="btn-logout">Cerrar SesiÃ³n</a>
             </div>
         </div>
 
         <?php if(!empty($mensaje)): ?>
             <?php if($tipo_alerta == 'success'): ?>
                 <div class="alert" style="margin-bottom:20px; padding:15px; background:rgba(72, 187, 120, 0.2); color:#276749; border: 1px solid rgba(72, 187, 120, 0.4); border-radius:12px; font-weight: 600;">
-                    ✔️ <?php echo htmlspecialchars($mensaje); ?>
+                    âœ”ï¸ <?php echo htmlspecialchars($mensaje); ?>
                 </div>
             <?php else: ?>
                 <div class="alert" style="margin-bottom:20px; padding:15px; background:rgba(229, 62, 62, 0.2); color:#c53030; border: 1px solid rgba(229, 62, 62, 0.4); border-radius:12px; font-weight: 600;">
-                    ❌ <?php echo htmlspecialchars($mensaje); ?>
+                    âŒ <?php echo htmlspecialchars($mensaje); ?>
                 </div>
             <?php endif; ?>
         <?php endif; ?>
@@ -189,8 +201,8 @@ if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
                         <input type="text" name="username" class="form-control" required placeholder="Sin espacios">
                     </div>
                     <div class="form-group">
-                        <label>Contraseña Temporal</label>
-                        <input type="text" name="password" class="form-control" required placeholder="Mínimo 6 caracteres">
+                        <label>ContraseÃ±a Temporal</label>
+                        <input type="text" name="password" class="form-control" required placeholder="MÃ­nimo 6 caracteres">
                     </div>
                 </div>
 
@@ -199,19 +211,19 @@ if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
                     <div class="perm-grid">
                         <div class="perm-item">
                             <input type="checkbox" id="p1" name="perm_noticias" value="1">
-                            <label for="p1" style="margin:0; cursor:pointer;">📰 Ver y Crear Noticias</label>
+                            <label for="p1" style="margin:0; cursor:pointer;">ðŸ“° Ver y Crear Noticias</label>
                         </div>
                         <div class="perm-item">
                             <input type="checkbox" id="p2" name="perm_noticias_borrar" value="1">
-                            <label for="p2" style="margin:0; cursor:pointer;">🗑️ Eliminar Noticias</label>
+                            <label for="p2" style="margin:0; cursor:pointer;">ðŸ—‘ï¸ Eliminar Noticias</label>
                         </div>
                         <div class="perm-item">
                             <input type="checkbox" id="p3" name="perm_finanzas" value="1">
-                            <label for="p3" style="margin:0; cursor:pointer;">💰 Acceder a Finanzas</label>
+                            <label for="p3" style="margin:0; cursor:pointer;">ðŸ’° Acceder a Finanzas</label>
                         </div>
                         <div class="perm-item">
                             <input type="checkbox" id="p4" name="perm_usuarios" value="1">
-                            <label for="p4" style="margin:0; cursor:pointer; color: #E53E3E; font-weight:bold;">👥 Crear Usuarios (Admin)</label>
+                            <label for="p4" style="margin:0; cursor:pointer; color: #E53E3E; font-weight:bold;">ðŸ‘¥ Crear Usuarios (Admin)</label>
                         </div>
                     </div>
                 </div>
@@ -232,7 +244,7 @@ if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
                         <th>ID</th>
                         <th>Usuario</th>
                         <th>Permisos Asignados</th>
-                        <th>Fecha de Creación</th>
+                        <th>Fecha de CreaciÃ³n</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -247,8 +259,8 @@ if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
                             <td style="font-weight: 600; color: var(--text-secondary);">#<?php echo $row['id']; ?></td>
                             <td style="font-weight: 700; color: var(--accent-purple);">
                                 <?php echo htmlspecialchars($row['username']); ?>
-                                <?php if($row['id'] == 1) echo '<span title="Súper Admin" style="font-size:12px;">👑</span>'; ?>
-                                <?php if($row['id'] == $_SESSION['admin_id']) echo '<span style="font-size:10px; background:#48bb78; color:white; padding:2px 5px; border-radius:4px; margin-left:5px;">(Tú)</span>'; ?>
+                                <?php if($row['id'] == 1) echo '<span title="SÃºper Admin" style="font-size:12px;">ðŸ‘‘</span>'; ?>
+                                <?php if($row['id'] == $_SESSION['admin_id']) echo '<span style="font-size:10px; background:#48bb78; color:white; padding:2px 5px; border-radius:4px; margin-left:5px;">(TÃº)</span>'; ?>
                             </td>
                             <td>
                                 <?php if(isset($p['noticias']) && $p['noticias']): ?><span class="perm-badge active">Noticias</span><?php endif; ?>
@@ -260,7 +272,7 @@ if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
                             <td><span class="badge badge-transfer"><?php echo date('d/m/Y', strtotime($row['created_at'])); ?></span></td>
                             <td>
                                 <?php if($row['id'] !== 1 && $row['id'] !== $_SESSION['admin_id']): ?>
-                                    <a href="?delete=<?php echo $row['id']; ?>" class="btn btn-danger" onclick="return confirm('¿Seguro que deseas ELIMINAR a este usuario para siempre?');">Revocar Acceso</a>
+                                    <a href="?delete=<?php echo $row['id']; ?>" class="btn btn-danger" onclick="return confirm('Â¿Seguro que deseas ELIMINAR a este usuario para siempre?');">Revocar Acceso</a>
                                 <?php else: ?>
                                     <span style="color: gray; font-size: 0.8rem;">Protegido</span>
                                 <?php endif; ?>
@@ -275,3 +287,4 @@ if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
 
 </body>
 </html>
+

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once 'config/session.php';
 if (!isset($_SESSION['admin_id'])) {
     header("Location: index.php");
@@ -32,7 +32,7 @@ if (!$noticia) {
 $mensaje = '';
 $upload_dir = '../uploads/noticias/';
 
-// Manejar actualización
+// Manejar actualizaciÃ³n
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
     $titulo = trim($_POST['titulo']);
     $contenido = trim($_POST['contenido']);
@@ -43,17 +43,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
     $enlace_tiktok = $_POST['enlace_tiktok'] ?? '';
     $enlace_youtube = $_POST['enlace_youtube'] ?? '';
     
-    // Verificar duplicados (mismo título pero diferente ID)
+    // Verificar duplicados (mismo tÃ­tulo pero diferente ID)
     $stmt_check = $pdo->prepare("SELECT id FROM noticias WHERE titulo = ? AND id != ?");
     $stmt_check->execute([$titulo, $id_noticia]);
     
     if ($stmt_check->rowCount() > 0) {
-        $mensaje = "Ya existe OTRA noticia con ese mismo título. Por favor, cambia el título.";
+        $mensaje = "Ya existe OTRA noticia con ese mismo tÃ­tulo. Por favor, cambia el tÃ­tulo.";
     } else {
         $imagen_path = $noticia['imagen_path']; // Mantener la anterior por defecto
         $imagenes_extra = $noticia['imagenes_extra'];
         
-        // Procesar nueva imagen si se subió
+        // Procesar nueva imagen si se subiÃ³
         if (isset($_FILES['imagenes']) && is_array($_FILES['imagenes']['name']) && $_FILES['imagenes']['error'][0] == 0) {
             
             // Borrar las viejas
@@ -115,12 +115,24 @@ $fecha_val = !empty($noticia['fecha_publicacion']) ? $noticia['fecha_publicacion
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Noticia - Administración</title>
+    <title>Editar Noticia - AdministraciÃ³n</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/admin-style.css?v=7">
+    <!-- PWA Config -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#8b5cf6">
+    <link rel="apple-touch-icon" href="https://miic-neurodesarrollo.org/img/Logo%20circular.png">
+    <meta name="mobile-web-app-capable" content="yes">
+    <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js');
+      });
+    }
+    </script>
 </head>
 <body>
-    <!-- Animación de ondas de fondo -->
+    <!-- AnimaciÃ³n de ondas de fondo -->
     <div style="position: fixed; bottom: 0; left: 0; width: 100%; overflow: hidden; z-index: -1; opacity: 0.2;">
         <svg viewBox="0 0 1200 120" preserveAspectRatio="none" style="width: 200%; height: 250px; transform: translateX(0); animation: waveAnimate 20s linear infinite;">
             <path d="M0,60 C300,120 300,0 600,60 C900,120 900,0 1200,60 C1500,120 1500,0 1800,60 C2100,120 2100,0 2400,60 L2400,120 L0,120 Z" fill="#f59e0b"></path>
@@ -136,19 +148,19 @@ $fecha_val = !empty($noticia['fecha_publicacion']) ? $noticia['fecha_publicacion
         </div>
         <ul class="nav-links">
             <?php if(isset($permisos['noticias']) && $permisos['noticias']): ?>
-            <li><a href="noticias.php" class="active"><span class="nav-icon">📰</span> Noticias</a></li>
+            <li><a href="noticias.php" class="active"><span class="nav-icon">ðŸ“°</span> Noticias</a></li>
             <?php endif; ?>
             
             <?php if(isset($permisos['finanzas']) && $permisos['finanzas']): ?>
-            <li><a href="finanzas.php"><span class="nav-icon">💰</span> Finanzas</a></li>
+            <li><a href="finanzas.php"><span class="nav-icon">ðŸ’°</span> Finanzas</a></li>
             <?php endif; ?>
             
             <?php if(isset($permisos['usuarios']) && $permisos['usuarios']): ?>
-            <li><a href="usuarios.php"><span class="nav-icon">👥</span> Usuarios</a></li>
+            <li><a href="usuarios.php"><span class="nav-icon">ðŸ‘¥</span> Usuarios</a></li>
             <?php endif; ?>
             
-            <li><a href="perfil.php"><span class="nav-icon">⚙️</span> Mi Perfil</a></li>
-            <li style="margin-top: auto;"><a href="logout.php"><span class="nav-icon">🚪</span> Salir</a></li>
+            <li><a href="perfil.php"><span class="nav-icon">âš™ï¸</span> Mi Perfil</a></li>
+            <li style="margin-top: auto;"><a href="logout.php"><span class="nav-icon">ðŸšª</span> Salir</a></li>
         </ul>
     </aside>
 
@@ -158,36 +170,36 @@ $fecha_val = !empty($noticia['fecha_publicacion']) ? $noticia['fecha_publicacion
             <h1>Editar Noticia #<?php echo $id_noticia; ?></h1>
             <div class="user-profile">
                 <span><?php echo htmlspecialchars($_SESSION['admin_username'] ?? 'Administrador'); ?></span>
-                <a href="logout.php" class="btn-logout">Cerrar Sesión</a>
+                <a href="logout.php" class="btn-logout">Cerrar SesiÃ³n</a>
             </div>
         </div>
 
         <div class="form-container" style="max-width: 800px; margin: 0 auto; border-left: 6px solid #f59e0b;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                <h3 style="color: #f59e0b; font-size: 1.2rem; font-weight: 700; margin: 0;">Actualizar Información</h3>
-                <a href="noticias.php" class="btn" style="background: var(--bg-tertiary); color: var(--text-main);">← Volver</a>
+                <h3 style="color: #f59e0b; font-size: 1.2rem; font-weight: 700; margin: 0;">Actualizar InformaciÃ³n</h3>
+                <a href="noticias.php" class="btn" style="background: var(--bg-tertiary); color: var(--text-main);">â† Volver</a>
             </div>
             
             <?php if(!empty($mensaje)): ?>
                 <div class="alert" style="margin-bottom:20px; padding:15px; background:rgba(229, 62, 62, 0.2); color:#c53030; border: 1px solid rgba(229, 62, 62, 0.4); border-radius:12px; font-weight: 600;">
-                    ❌ <?php echo htmlspecialchars($mensaje); ?>
+                    âŒ <?php echo htmlspecialchars($mensaje); ?>
                 </div>
             <?php endif; ?>
 
             <form action="" method="POST" enctype="multipart/form-data">
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                     <div class="form-group">
-                        <label>Título de la Noticia</label>
+                        <label>TÃ­tulo de la Noticia</label>
                         <input type="text" name="titulo" class="form-control" required value="<?php echo $titulo_val; ?>">
                     </div>
                     <div class="form-group">
-                        <label>Fecha de Publicación</label>
+                        <label>Fecha de PublicaciÃ³n</label>
                         <input type="date" name="fecha_publicacion" class="form-control" required value="<?php echo $fecha_val; ?>">
                     </div>
                 </div>
                 
                 <div class="form-group">
-                    <label>Reemplazar Imágenes (Opcional - Selecciona una o varias para el carrusel)</label>
+                    <label>Reemplazar ImÃ¡genes (Opcional - Selecciona una o varias para el carrusel)</label>
                     <?php if(!empty($noticia['imagen_path'])): ?>
                         <div style="margin-bottom: 10px;">
                             <img src="https://miic-neurodesarrollo.org/<?php echo htmlspecialchars($noticia['imagen_path']); ?>" style="height: 60px; border-radius: 5px; vertical-align: middle; margin-right: 10px;">
@@ -211,11 +223,11 @@ $fecha_val = !empty($noticia['fecha_publicacion']) ? $noticia['fecha_publicacion
                     <?php endif; ?>
                     <div class="custom-file-upload-container">
                         <label for="image-input" class="btn" style="display: inline-flex; align-items: center; background: rgba(109, 40, 217, 0.1); color: var(--accent-purple); border: 1px solid rgba(109, 40, 217, 0.3); font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
-                            <span style="font-size: 1.2rem; margin-right: 8px;">📷</span> Seleccionar Nuevas Imágenes
+                            <span style="font-size: 1.2rem; margin-right: 8px;">ðŸ“·</span> Seleccionar Nuevas ImÃ¡genes
                         </label>
                         <input type="file" id="image-input" name="imagenes[]" accept="image/*" multiple style="display: none;">
-                        <small style="display: block; margin-top: 8px; color: #e53e3e; font-weight: 600;">Nota: Si subes imágenes nuevas aquí, se borrarán y reemplazarán TODAS las actuales (portada y extras).</small>
-                        <small style="display: block; margin-top: 4px; color: var(--text-secondary);">Selecciona una por una o varias a la vez. La que diga "Portada" será la principal.</small>
+                        <small style="display: block; margin-top: 8px; color: #e53e3e; font-weight: 600;">Nota: Si subes imÃ¡genes nuevas aquÃ­, se borrarÃ¡n y reemplazarÃ¡n TODAS las actuales (portada y extras).</small>
+                        <small style="display: block; margin-top: 4px; color: var(--text-secondary);">Selecciona una por una o varias a la vez. La que diga "Portada" serÃ¡ la principal.</small>
                         <div id="image-preview-container" style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 15px;"></div>
                     </div>
                 </div>
@@ -290,7 +302,7 @@ $fecha_val = !empty($noticia['fecha_publicacion']) ? $noticia['fecha_publicacion
                 img.style.objectFit = 'cover';
                 
                 const btn = document.createElement('button');
-                btn.innerHTML = '×';
+                btn.innerHTML = 'Ã—';
                 btn.style.position = 'absolute';
                 btn.style.top = '5px';
                 btn.style.right = '5px';
@@ -342,3 +354,4 @@ $fecha_val = !empty($noticia['fecha_publicacion']) ? $noticia['fecha_publicacion
     </script>
 </body>
 </html>
+
