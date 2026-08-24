@@ -430,7 +430,13 @@
                             $raw_date = !empty($news['fecha_publicacion']) ? $news['fecha_publicacion'] : $news['created_at'];
                             $fecha = date('d/m/Y', strtotime($raw_date));
                             
-                            $imgUrl = !empty($news['imagen_path']) ? htmlspecialchars($news['imagen_path']) : 'img/Logo circular.png';
+                            // Fix path for portada
+                            $imgPath = $news['imagen_path'];
+                            if (!empty($imgPath) && strpos($imgPath, 'uploads/') === 0) {
+                                $imgPath = 'admin/' . $imgPath;
+                            }
+                            $imgUrl = !empty($imgPath) ? htmlspecialchars($imgPath) : 'img/Logo circular.png';
+                            
                             $excerpt = mb_strlen($news['contenido']) > 120 ? mb_substr($news['contenido'], 0, 120) . '...' : $news['contenido'];
                             
                             // Highlight para noticias fijadas
@@ -470,8 +476,21 @@
                             
                             echo $social_html;
                             
-                            // Extraer JSON de extras si existe
-                            $extras_attr = !empty($news['imagenes_extra']) ? htmlspecialchars($news['imagenes_extra']) : '[]';
+                            // Extraer y arreglar JSON de extras si existe
+                            $extras_arr = [];
+                            if (!empty($news['imagenes_extra'])) {
+                                $decoded = json_decode($news['imagenes_extra'], true);
+                                if (is_array($decoded)) {
+                                    foreach ($decoded as $ext) {
+                                        if (strpos($ext, 'uploads/') === 0) {
+                                            $extras_arr[] = 'admin/' . $ext;
+                                        } else {
+                                            $extras_arr[] = $ext;
+                                        }
+                                    }
+                                }
+                            }
+                            $extras_attr = htmlspecialchars(json_encode($extras_arr));
 
                             // Guardamos los datos completos en atributos de datos para el modal JS
                             echo '<a href="#" class="news-read-more" style="margin-top: 15px;" data-index="'.$index.'" '
