@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once 'config/session.php';
 if (!isset($_SESSION['admin_id'])) {
     header("Location: index.php");
@@ -12,7 +12,7 @@ if (!isset($permisos['noticias']) || $permisos['noticias'] !== true) {
 require_once 'config/database.php';
 date_default_timezone_set('America/Mexico_City');
 
-// Directorio para subir imÃ¡genes
+// Directorio para subir imágenes
 $upload_dir = '../uploads/noticias/';
 if (!file_exists($upload_dir)) {
     mkdir($upload_dir, 0755, true);
@@ -28,7 +28,7 @@ if (isset($_GET['toggle_pin'])) {
     exit();
 }
 
-// Manejar eliminaciÃ³n de noticia
+// Manejar eliminación de noticia
 if (isset($_GET['delete'])) {
     if (!isset($permisos['noticias_borrar']) || $permisos['noticias_borrar'] !== true) {
         $mensaje = "No tienes permiso para eliminar noticias.";
@@ -70,15 +70,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
     $enlace_tiktok = $_POST['enlace_tiktok'] ?? '';
     $enlace_youtube = $_POST['enlace_youtube'] ?? '';
     
-    // Verificar duplicados (mismo tÃ­tulo)
+    // Verificar duplicados (mismo título)
     $stmt_check = $pdo->prepare("SELECT id FROM noticias WHERE titulo = ?");
     $stmt_check->execute([$titulo]);
     if ($stmt_check->rowCount() > 0) {
-        $mensaje = "Ya existe una noticia con ese tÃ­tulo. Por favor, edita la existente o cambia el tÃ­tulo.";
+        $mensaje = "Ya existe una noticia con ese título. Por favor, edita la existente o cambia el título.";
     } else {
         $uploaded_images = [];
         
-        // Procesar imÃ¡genes si se subieron mÃºltiples
+        // Procesar imágenes si se subieron múltiples
         if (isset($_FILES['imagenes']) && is_array($_FILES['imagenes']['name'])) {
             $file_count = count($_FILES['imagenes']['name']);
             for ($i = 0; $i < $file_count; $i++) {
@@ -99,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
             }
         }
         
-        // La primera imagen serÃ¡ la de portada
+        // La primera imagen será la de portada
         if (count($uploaded_images) > 0) {
             $imagen_path = array_shift($uploaded_images); // Saca la primera
         }
@@ -110,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
         if (empty($mensaje)) {
             $stmt = $pdo->prepare("INSERT INTO noticias (titulo, contenido, imagen_path, imagenes_extra, fecha_publicacion, enlace_facebook, enlace_instagram, enlace_twitter, enlace_tiktok, enlace_youtube) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             if ($stmt->execute([$titulo, $contenido, $imagen_path, $imagenes_extra, $fecha_publicacion, $enlace_facebook, $enlace_instagram, $enlace_twitter, $enlace_tiktok, $enlace_youtube])) {
-                $mensaje = "Â¡Noticia publicada con Ã©xito!";
+                $mensaje = "¡Noticia publicada con éxito!";
             } else {
                 $mensaje = "Error al guardar en la base de datos.";
             }
@@ -123,21 +123,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Noticias - AdministraciÃ³n</title>
+    <title>Noticias - Administración</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/admin-style.css?v=7">
-    <!-- PWA Config -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#8b5cf6">
-    <link rel="apple-touch-icon" href="https://miic-neurodesarrollo.org/img/Logo%20circular.png">
-    <meta name="mobile-web-app-capable" content="yes">
-    <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('sw.js');
-      });
-    }
-    </script>
 </head>
 <body>
 
@@ -149,29 +137,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
         </div>
         <ul class="nav-links">
             <?php if(isset($permisos['noticias']) && $permisos['noticias']): ?>
-            <li><a href="noticias.php" class="active"><span class="nav-icon">ðŸ“°</span> Noticias</a></li>
+            <li><a href="noticias.php" class="active"><span class="nav-icon">📰</span> Noticias</a></li>
             <?php endif; ?>
             
             <?php if(isset($permisos['finanzas']) && $permisos['finanzas']): ?>
-            <li><a href="finanzas.php"><span class="nav-icon">ðŸ’°</span> Finanzas</a></li>
+            <li><a href="finanzas.php"><span class="nav-icon">💰</span> Finanzas</a></li>
             <?php endif; ?>
             
             <?php if(isset($permisos['usuarios']) && $permisos['usuarios']): ?>
-            <li><a href="usuarios.php"><span class="nav-icon">ðŸ‘¥</span> Usuarios</a></li>
+            <li><a href="usuarios.php"><span class="nav-icon">👥</span> Usuarios</a></li>
             <?php endif; ?>
             
-            <li><a href="perfil.php"><span class="nav-icon">âš™ï¸</span> Mi Perfil</a></li>
-            <li style="margin-top: auto;"><a href="logout.php"><span class="nav-icon">ðŸšª</span> Salir</a></li>
+            <li><a href="perfil.php"><span class="nav-icon">⚙️</span> Mi Perfil</a></li>
+            <li style="margin-top: auto;"><a href="logout.php"><span class="nav-icon">🚪</span> Salir</a></li>
         </ul>
     </aside>
 
     <!-- Main Content -->
     <main class="main-content">
         <div class="top-bar">
-            <h1>GestiÃ³n de Noticias</h1>
+            <h1>Gestión de Noticias</h1>
             <div class="user-profile">
                 <span>Administrador</span>
-                <a href="logout.php" class="btn-logout">Cerrar SesiÃ³n</a>
+                <a href="logout.php" class="btn-logout">Cerrar Sesión</a>
             </div>
         </div>
 
@@ -185,28 +173,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
             <form action="" method="POST" enctype="multipart/form-data">
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                     <div class="form-group">
-                        <label>TÃ­tulo de la Noticia</label>
+                        <label>Título de la Noticia</label>
                         <input type="text" name="titulo" class="form-control" required placeholder="Ej: Nueva alianza con escuelas locales">
                     </div>
                     <div class="form-group">
-                        <label>Fecha de PublicaciÃ³n</label>
+                        <label>Fecha de Publicación</label>
                         <input type="date" name="fecha_publicacion" class="form-control" value="<?php echo date('Y-m-d'); ?>" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>ImÃ¡genes (Opcional - Selecciona una o varias para el carrusel)</label>
+                    <label>Imágenes (Opcional - Selecciona una o varias para el carrusel)</label>
                     <div class="custom-file-upload-container">
                         <label for="image-input" class="btn" style="display: inline-flex; align-items: center; background: rgba(109, 40, 217, 0.1); color: var(--accent-purple); border: 1px solid rgba(109, 40, 217, 0.3); font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
-                            <span style="font-size: 1.2rem; margin-right: 8px;">ðŸ“·</span> Seleccionar ImÃ¡genes
+                            <span style="font-size: 1.2rem; margin-right: 8px;">📷</span> Seleccionar Imágenes
                         </label>
                         <input type="file" id="image-input" name="imagenes[]" accept="image/*" multiple style="display: none;">
-                        <small style="display: block; margin-top: 8px; color: var(--text-secondary);">Selecciona una por una o varias a la vez. La que diga "Portada" serÃ¡ la principal.</small>
+                        <small style="display: block; margin-top: 8px; color: var(--text-secondary);">Selecciona una por una o varias a la vez. La que diga "Portada" será la principal.</small>
                         <div id="image-preview-container" style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 15px;"></div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Contenido</label>
-                    <textarea name="contenido" class="form-control" rows="5" required placeholder="Escribe el desarrollo de la noticia aquÃ­..."></textarea>
+                    <textarea name="contenido" class="form-control" rows="5" required placeholder="Escribe el desarrollo de la noticia aquí..."></textarea>
                 </div>
                 
                 <h4 style="margin-top: 15px; margin-bottom: 10px; color: var(--accent-purple); font-size: 1rem;">Redes Sociales Vinculadas (Opcional)</h4>
@@ -246,8 +234,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
                     <tr>
                         <th>ID</th>
                         <th>Imagen</th>
-                        <th>TÃ­tulo</th>
-                        <th>Fecha de PublicaciÃ³n</th>
+                        <th>Título</th>
+                        <th>Fecha de Publicación</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -262,7 +250,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
                         <tr style="<?php echo $row['is_pinned'] ? 'background-color: rgba(236, 72, 153, 0.05);' : ''; ?>">
                             <td style="font-weight: 600; color: var(--text-secondary);">
                                 #<?php echo $row['id']; ?>
-                                <?php if($row['is_pinned']) echo '<br><span style="font-size: 0.8rem; color: var(--accent-purple);">ðŸ“Œ Fijada</span>'; ?>
+                                <?php if($row['is_pinned']) echo '<br><span style="font-size: 0.8rem; color: var(--accent-purple);">📌 Fijada</span>'; ?>
                             </td>
                             <td>
                                 <?php if($row['imagen_path']): ?>
@@ -275,11 +263,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
                             <td><span class="badge badge-transfer"><?php echo $fecha_display; ?></span></td>
                             <td style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center; justify-content: flex-start;">
                                 <a href="?toggle_pin=<?php echo $row['id']; ?>" style="padding: 6px 12px; font-size: 0.85rem; border-radius: 6px; font-weight: 600; text-decoration: none; display: inline-block; text-align: center; background-color: #cbd5e1; color: #334155; min-width: 80px;">
-                                    <?php echo $row['is_pinned'] ? 'Desfijar' : 'ðŸ“Œ Fijar'; ?>
+                                    <?php echo $row['is_pinned'] ? 'Desfijar' : '📌 Fijar'; ?>
                                 </a>
                                 <a href="editar_noticia.php?id=<?php echo $row['id']; ?>" style="padding: 6px 12px; font-size: 0.85rem; border-radius: 6px; font-weight: 600; text-decoration: none; display: inline-block; text-align: center; background: linear-gradient(135deg, var(--accent-purple) 0%, #9F7AEA 100%); color: white; min-width: 80px;">Editar</a>
                                 <?php if(isset($permisos['noticias_borrar']) && $permisos['noticias_borrar']): ?>
-                                <a href="?delete=<?php echo $row['id']; ?>" style="padding: 6px 12px; font-size: 0.85rem; border-radius: 6px; font-weight: 600; text-decoration: none; display: inline-block; text-align: center; background: linear-gradient(135deg, #ef4444 0%, #f87171 100%); color: white; min-width: 80px;" onclick="return confirm('Â¿Seguro que deseas eliminar esta noticia?');">Eliminar</a>
+                                <a href="?delete=<?php echo $row['id']; ?>" style="padding: 6px 12px; font-size: 0.85rem; border-radius: 6px; font-weight: 600; text-decoration: none; display: inline-block; text-align: center; background: linear-gradient(135deg, #ef4444 0%, #f87171 100%); color: white; min-width: 80px;" onclick="return confirm('¿Seguro que deseas eliminar esta noticia?');">Eliminar</a>
                                 <?php else: ?>
                                 <span style="color: gray; font-size: 0.8rem;">Sin Permiso</span>
                                 <?php endif; ?>
@@ -333,7 +321,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
                 img.style.objectFit = 'cover';
                 
                 const btn = document.createElement('button');
-                btn.innerHTML = 'Ã—';
+                btn.innerHTML = '×';
                 btn.style.position = 'absolute';
                 btn.style.top = '5px';
                 btn.style.right = '5px';
@@ -385,4 +373,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
     </script>
 </body>
 </html>
-

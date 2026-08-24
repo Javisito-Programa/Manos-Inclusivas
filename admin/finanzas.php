@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once 'config/session.php';
 if (!isset($_SESSION['admin_id'])) {
     header("Location: index.php");
@@ -11,7 +11,7 @@ if (!isset($permisos['finanzas']) || $permisos['finanzas'] !== true) {
 }
 require_once 'config/database.php';
 
-// Filtro de fechas (DÃ­a, Semana, Mes) o Custom
+// Filtro de fechas (Día, Semana, Mes) o Custom
 $filtro = $_GET['filtro'] ?? 'mes';
 
 ?>
@@ -20,24 +20,12 @@ $filtro = $_GET['filtro'] ?? 'mes';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Finanzas - AdministraciÃ³n</title>
+    <title>Finanzas - Administración</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/admin-style.css?v=7">
-    <!-- PWA Config -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#8b5cf6">
-    <link rel="apple-touch-icon" href="https://miic-neurodesarrollo.org/img/Logo%20circular.png">
-    <meta name="mobile-web-app-capable" content="yes">
-    <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('sw.js');
-      });
-    }
-    </script>
 </head>
 <body>
-    <!-- AnimaciÃ³n de ondas de fondo -->
+    <!-- Animación de ondas de fondo -->
     <div style="position: fixed; bottom: 0; left: 0; width: 100%; overflow: hidden; z-index: -1; opacity: 0.2;">
         <svg viewBox="0 0 1200 120" preserveAspectRatio="none" style="width: 200%; height: 250px; transform: translateX(0); animation: waveAnimate 20s linear infinite;">
             <path d="M0,60 C300,120 300,0 600,60 C900,120 900,0 1200,60 C1500,120 1500,0 1800,60 C2100,120 2100,0 2400,60 L2400,120 L0,120 Z" fill="#38A169"></path>
@@ -53,19 +41,19 @@ $filtro = $_GET['filtro'] ?? 'mes';
         </div>
         <ul class="nav-links">
             <?php if(isset($permisos['noticias']) && $permisos['noticias']): ?>
-            <li><a href="noticias.php"><span class="nav-icon">ðŸ“°</span> Noticias</a></li>
+            <li><a href="noticias.php"><span class="nav-icon">📰</span> Noticias</a></li>
             <?php endif; ?>
             
             <?php if(isset($permisos['finanzas']) && $permisos['finanzas']): ?>
-            <li><a href="finanzas.php" class="active"><span class="nav-icon">ðŸ’°</span> Finanzas</a></li>
+            <li><a href="finanzas.php" class="active"><span class="nav-icon">💰</span> Finanzas</a></li>
             <?php endif; ?>
             
             <?php if(isset($permisos['usuarios']) && $permisos['usuarios']): ?>
-            <li><a href="usuarios.php"><span class="nav-icon">ðŸ‘¥</span> Usuarios</a></li>
+            <li><a href="usuarios.php"><span class="nav-icon">👥</span> Usuarios</a></li>
             <?php endif; ?>
             
-            <li><a href="perfil.php"><span class="nav-icon">âš™ï¸</span> Mi Perfil</a></li>
-            <li style="margin-top: auto;"><a href="logout.php"><span class="nav-icon">ðŸšª</span> Salir</a></li>
+            <li><a href="perfil.php"><span class="nav-icon">⚙️</span> Mi Perfil</a></li>
+            <li style="margin-top: auto;"><a href="logout.php"><span class="nav-icon">🚪</span> Salir</a></li>
         </ul>
     </aside>
 
@@ -75,11 +63,11 @@ $filtro = $_GET['filtro'] ?? 'mes';
             <h1>Contabilidad y Donativos</h1>
             <div class="user-profile">
                 <span>Administrador</span>
-                <a href="logout.php" class="btn-logout">Cerrar SesiÃ³n</a>
+                <a href="logout.php" class="btn-logout">Cerrar Sesión</a>
             </div>
         </div>
 
-        <!-- Filtros rÃ¡pidos -->
+        <!-- Filtros rápidos -->
         <div style="margin-bottom: 30px; display: flex; gap: 15px;">
             <a href="?filtro=dia" class="btn <?php echo $filtro=='dia' ? 'btn-success' : 'btn-logout'; ?>" style="<?php echo $filtro=='dia' ? '' : 'background: var(--glass-bg); backdrop-filter: blur(10px); border: var(--glass-border); color: var(--text-primary);'; ?>">Hoy</a>
             <a href="?filtro=semana" class="btn <?php echo $filtro=='semana' ? 'btn-success' : 'btn-logout'; ?>" style="<?php echo $filtro=='semana' ? '' : 'background: var(--glass-bg); backdrop-filter: blur(10px); border: var(--glass-border); color: var(--text-primary);'; ?>">Esta Semana</a>
@@ -93,7 +81,7 @@ $filtro = $_GET['filtro'] ?? 'mes';
                 <div class="amount">$0.00 MXN</div>
             </div>
             <div class="card">
-                <h3>Donativos en LÃ­nea (Tarjetas)</h3>
+                <h3>Donativos en Línea (Tarjetas)</h3>
                 <div class="amount">0</div>
             </div>
             <div class="card">
@@ -111,7 +99,7 @@ $filtro = $_GET['filtro'] ?? 'mes';
                         <label>Tipo de Donativo</label>
                         <select name="tipo" class="form-control" required>
                             <option value="transferencia">Transferencia Bancaria</option>
-                            <option value="cheque">Cheque FÃ­sico/Correo</option>
+                            <option value="cheque">Cheque Físico/Correo</option>
                             <option value="efectivo">Efectivo</option>
                         </select>
                     </div>
@@ -120,7 +108,7 @@ $filtro = $_GET['filtro'] ?? 'mes';
                         <input type="number" step="0.01" name="monto" class="form-control" required placeholder="Ej: 1500.00">
                     </div>
                     <div class="form-group">
-                        <label>NÃºmero de AutorizaciÃ³n / Folio (Si aplica)</label>
+                        <label>Número de Autorización / Folio (Si aplica)</label>
                         <input type="text" name="autorizacion" class="form-control" placeholder="Ej: TXN-982374">
                     </div>
                     <div class="form-group">
@@ -134,7 +122,7 @@ $filtro = $_GET['filtro'] ?? 'mes';
                     </div>
 
                     <div class="form-group">
-                        <label>Nombre Completo / RazÃ³n Social</label>
+                        <label>Nombre Completo / Razón Social</label>
                         <input type="text" name="nombre" class="form-control" required placeholder="Nombre del donante">
                     </div>
                     <div class="form-group">
@@ -142,12 +130,12 @@ $filtro = $_GET['filtro'] ?? 'mes';
                         <input type="text" name="rfc" class="form-control" placeholder="Ej: XAXX010101000">
                     </div>
                     <div class="form-group">
-                        <label>Correo ElectrÃ³nico (Para enviar comprobante)</label>
+                        <label>Correo Electrónico (Para enviar comprobante)</label>
                         <input type="email" name="email" class="form-control" placeholder="correo@ejemplo.com">
                     </div>
                     <div class="form-group" style="display: flex; align-items: center; padding-top: 30px;">
                         <input type="checkbox" name="requiere_factura" id="factura" style="margin-right: 10px; width: 20px; height: 20px; accent-color: var(--accent-green);">
-                        <label for="factura" style="margin: 0; cursor: pointer;">El donante solicitÃ³ recibo deducible</label>
+                        <label for="factura" style="margin: 0; cursor: pointer;">El donante solicitó recibo deducible</label>
                     </div>
                 </div>
                 
@@ -155,11 +143,11 @@ $filtro = $_GET['filtro'] ?? 'mes';
             </form>
         </div>
 
-        <!-- Tabla HistÃ³rica -->
+        <!-- Tabla Histórica -->
         <div class="data-table-wrapper">
             <div style="padding: 20px 25px; border-bottom: 1px solid rgba(226, 232, 240, 0.5); display: flex; justify-content: space-between; align-items: center;">
                 <h3 style="color: var(--text-primary); font-size: 1.2rem; font-weight: 700;">Historial de Donativos (<?php echo ucfirst($filtro); ?>)</h3>
-                <button class="btn btn-primary" style="padding: 10px 20px; font-size: 0.9rem; background: var(--text-secondary);">â¬‡ Exportar a Excel (.csv)</button>
+                <button class="btn btn-primary" style="padding: 10px 20px; font-size: 0.9rem; background: var(--text-secondary);">⬇ Exportar a Excel (.csv)</button>
             </div>
             
             <table class="data-table">
@@ -168,22 +156,22 @@ $filtro = $_GET['filtro'] ?? 'mes';
                         <th>Fecha</th>
                         <th>Tipo</th>
                         <th>Donante / RFC</th>
-                        <th>AutorizaciÃ³n</th>
+                        <th>Autorización</th>
                         <th>Monto</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php if(isset($pdo)): ?>
                         <?php 
-                        // AquÃ­ irÃ­a la lÃ³gica SQL filtrada por fechas ($filtro)
-                        // Por ahora mostramos vacÃ­o si no hay data
+                        // Aquí iría la lógica SQL filtrada por fechas ($filtro)
+                        // Por ahora mostramos vacío si no hay data
                         ?>
                     <?php else: ?>
                         <!-- Mock Data Demo -->
                         <tr>
                             <td style="font-weight: 500; color: var(--text-secondary);"><?php echo date('d/m/Y'); ?></td>
-                            <td><span class="badge badge-card">Tarjeta en LÃ­nea</span></td>
-                            <td style="font-weight: 600;">AnÃ³nimo<br><small style="color: var(--text-secondary); font-weight: normal;">Sin RFC</small></td>
+                            <td><span class="badge badge-card">Tarjeta en Línea</span></td>
+                            <td style="font-weight: 600;">Anónimo<br><small style="color: var(--text-secondary); font-weight: normal;">Sin RFC</small></td>
                             <td style="font-family: monospace;">STRIPE-ch_12345</td>
                             <td style="font-weight: 800; color: var(--accent-green); font-size: 1.1rem;">$500.00 MXN</td>
                         </tr>
@@ -196,7 +184,7 @@ $filtro = $_GET['filtro'] ?? 'mes';
                         </tr>
                         <tr>
                             <td colspan="5" style="text-align: center; color: var(--text-secondary); padding: 30px;">
-                                <em style="font-size: 1.1rem;">Modo de demostraciÃ³n visual. (Base de datos MySQL no conectada).</em>
+                                <em style="font-size: 1.1rem;">Modo de demostración visual. (Base de datos MySQL no conectada).</em>
                             </td>
                         </tr>
                     <?php endif; ?>
@@ -207,4 +195,3 @@ $filtro = $_GET['filtro'] ?? 'mes';
 
 </body>
 </html>
-
