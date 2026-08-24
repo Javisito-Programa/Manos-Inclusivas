@@ -89,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acceso Administrativo - Manos Inclusivas</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/admin-style.css?v=5">
+    <link rel="stylesheet" href="css/admin-style.css?v=6">
 </head>
 <body class="login-body">
 
@@ -123,14 +123,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         particlesJS("particles-js", {
             "particles": {
                 "number": { "value": 100, "density": { "enable": true, "value_area": 800 } },
-                "color": { "value": "#ffffff" },
+                "color": { "value": "#8b5cf6" },
                 "shape": { "type": "circle" },
                 "opacity": { "value": 0.8, "random": false },
                 "size": { "value": 4, "random": true },
                 "line_linked": {
                     "enable": true,
                     "distance": 120,
-                    "color": "#ffffff",
+                    "color": "#8b5cf6",
                     "opacity": 0.6,
                     "width": 2
                 },
