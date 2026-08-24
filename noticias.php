@@ -417,21 +417,36 @@
                 <?php
                 // Conectar a la base de datos
                 require_once 'admin/config/database.php';
+                date_default_timezone_set('America/Mexico_City');
                 
                 if (isset($pdo)) {
-                    $stmt = $pdo->query("SELECT * FROM noticias ORDER BY created_at DESC");
+                    // Ordenar por fijadas primero, luego por fecha de publicación descendente
+                    $stmt = $pdo->query("SELECT * FROM noticias ORDER BY is_pinned DESC, fecha_publicacion DESC, id DESC");
                     $noticias = $stmt->fetchAll();
                     
                     if (count($noticias) > 0) {
                         foreach ($noticias as $index => $news) {
-                            $fecha = date('d/m/Y', strtotime($news['created_at']));
+                            // Usar fecha_publicacion si existe, si no usar created_at
+                            $raw_date = !empty($news['fecha_publicacion']) ? $news['fecha_publicacion'] : $news['created_at'];
+                            $fecha = date('d/m/Y', strtotime($raw_date));
+                            
                             $imgUrl = !empty($news['imagen_path']) ? htmlspecialchars($news['imagen_path']) : 'img/Logo circular.png';
                             $excerpt = mb_strlen($news['contenido']) > 120 ? mb_substr($news['contenido'], 0, 120) . '...' : $news['contenido'];
                             
-                            echo '<article class="news-card">';
+                            // Highlight para noticias fijadas
+                            $pinnedStyle = $news['is_pinned'] ? 'border-top: 4px solid var(--accent-purple);' : '';
+                            
+                            echo '<article class="news-card" style="'.$pinnedStyle.'">';
                             echo '<img src="' . $imgUrl . '" alt="' . htmlspecialchars($news['titulo']) . '" class="news-image" onerror="this.src=\'img/Logo circular.png\'">';
                             echo '<div class="news-content">';
+                            
+                            echo '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">';
                             echo '<span class="news-date">' . $fecha . '</span>';
+                            if ($news['is_pinned']) {
+                                echo '<span title="Noticia Destacada" style="color: var(--accent-purple); font-size: 1.2rem;">📌</span>';
+                            }
+                            echo '</div>';
+                            
                             echo '<h3 class="news-title">' . htmlspecialchars($news['titulo']) . '</h3>';
                             echo '<p class="news-excerpt">' . htmlspecialchars($excerpt) . '</p>';
                             

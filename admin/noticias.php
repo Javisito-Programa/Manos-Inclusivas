@@ -10,11 +10,22 @@ if (!isset($permisos['noticias']) || $permisos['noticias'] !== true) {
     exit();
 }
 require_once 'config/database.php';
+date_default_timezone_set('America/Mexico_City');
 
 // Directorio para subir imágenes
 $upload_dir = '../uploads/noticias/';
 if (!file_exists($upload_dir)) {
     mkdir($upload_dir, 0755, true);
+}
+
+// Manejar fijar/desfijar noticia
+if (isset($_GET['toggle_pin'])) {
+    $id_pin = (int)$_GET['toggle_pin'];
+    // Invertir el estado actual
+    $stmt = $pdo->prepare("UPDATE noticias SET is_pinned = NOT is_pinned WHERE id = ?");
+    $stmt->execute([$id_pin]);
+    header("Location: noticias.php");
+    exit();
 }
 
 // Manejar eliminación de noticia
@@ -50,34 +61,42 @@ $mensaje = '';
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
     $titulo = trim($_POST['titulo']);
     $contenido = trim($_POST['contenido']);
+    $fecha_publicacion = $_POST['fecha_publicacion'] ?: date('Y-m-d'); // Default to today
     $imagen_path = '';
     
-    // Procesar imagen si se subió
-    if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] == 0) {
-        $file_info = pathinfo($_FILES['imagen']['name']);
-        $ext = strtolower($file_info['extension']);
-        $allowed_ext = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
-        
-        if (in_array($ext, $allowed_ext)) {
-            $new_filename = uniqid('noticia_') . '.' . $ext;
-            $destination = $upload_dir . $new_filename;
+    // Verificar duplicados (mismo título)
+    $stmt_check = $pdo->prepare("SELECT id FROM noticias WHERE titulo = ?");
+    $stmt_check->execute([$titulo]);
+    if ($stmt_check->rowCount() > 0) {
+        $mensaje = "Ya existe una noticia con ese título. Por favor, edita la existente o cambia el título.";
+    } else {
+        // Procesar imagen si se subió
+        if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] == 0) {
+            $file_info = pathinfo($_FILES['imagen']['name']);
+            $ext = strtolower($file_info['extension']);
+            $allowed_ext = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
             
-            if (move_uploaded_file($_FILES['imagen']['tmp_name'], $destination)) {
-                $imagen_path = 'uploads/noticias/' . $new_filename;
+            if (in_array($ext, $allowed_ext)) {
+                $new_filename = uniqid('noticia_') . '.' . $ext;
+                $destination = $upload_dir . $new_filename;
+                
+                if (move_uploaded_file($_FILES['imagen']['tmp_name'], $destination)) {
+                    $imagen_path = 'uploads/noticias/' . $new_filename;
+                } else {
+                    $mensaje = "Error al subir la imagen.";
+                }
             } else {
-                $mensaje = "Error al subir la imagen.";
+                $mensaje = "Formato de imagen no permitido.";
             }
-        } else {
-            $mensaje = "Formato de imagen no permitido.";
         }
-    }
-    
-    if (empty($mensaje)) {
-        $stmt = $pdo->prepare("INSERT INTO noticias (titulo, contenido, imagen_path) VALUES (?, ?, ?)");
-        if ($stmt->execute([$titulo, $contenido, $imagen_path])) {
-            $mensaje = "¡Noticia publicada con éxito!";
-        } else {
-            $mensaje = "Error al guardar en la base de datos.";
+        
+        if (empty($mensaje)) {
+            $stmt = $pdo->prepare("INSERT INTO noticias (titulo, contenido, imagen_path, fecha_publicacion) VALUES (?, ?, ?, ?)");
+            if ($stmt->execute([$titulo, $contenido, $imagen_path, $fecha_publicacion])) {
+                $mensaje = "¡Noticia publicada con éxito!";
+            } else {
+                $mensaje = "Error al guardar en la base de datos.";
+            }
         }
     }
 }
@@ -142,12 +161,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
                 </div>
             <?php endif; ?>
             <form action="" method="POST" enctype="multipart/form-data">
-                <div class="form-group">
-                    <label>Título de la Noticia</label>
-                    <input type="text" name="titulo" class="form-control" required placeholder="Ej: Nueva alianza con escuelas locales">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div class="form-group">
+                        <label>Título de la Noticia</label>
+                        <input type="text" name="titulo" class="form-control" required placeholder="Ej: Nueva alianza con escuelas locales">
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha de Publicación</label>
+                        <input type="date" name="fecha_publicacion" class="form-control" value="<?php echo date('Y-m-d'); ?>" required>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label>Imagen de Portada</label>
+                    <label>Imagen de Portada (Opcional)</label>
                     <input type="file" name="imagen" class="form-control" accept="image/*" style="padding: 10px 15px;">
                 </div>
                 <div class="form-group">
@@ -175,11 +200,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
                 <tbody>
                     <?php if(isset($pdo)): ?>
                         <?php 
-                        $stmt = $pdo->query("SELECT * FROM noticias ORDER BY created_at DESC");
+                        $stmt = $pdo->query("SELECT * FROM noticias ORDER BY is_pinned DESC, fecha_publicacion DESC, id DESC");
                         while($row = $stmt->fetch()): 
+                            $raw_date = !empty($row['fecha_publicacion']) ? $row['fecha_publicacion'] : $row['created_at'];
+                            $fecha_display = date('d/m/Y', strtotime($raw_date));
                         ?>
-                        <tr>
-                            <td style="font-weight: 600; color: var(--text-secondary);">#<?php echo $row['id']; ?></td>
+                        <tr style="<?php echo $row['is_pinned'] ? 'background-color: rgba(236, 72, 153, 0.05);' : ''; ?>">
+                            <td style="font-weight: 600; color: var(--text-secondary);">
+                                #<?php echo $row['id']; ?>
+                                <?php if($row['is_pinned']) echo '<br><span style="font-size: 0.8rem; color: var(--accent-purple);">📌 Fijada</span>'; ?>
+                            </td>
                             <td>
                                 <?php if($row['imagen_path']): ?>
                                     <img src="../<?php echo htmlspecialchars($row['imagen_path']); ?>" width="60" style="border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
@@ -188,8 +218,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
                                 <?php endif; ?>
                             </td>
                             <td style="font-weight: 500;"><?php echo htmlspecialchars($row['titulo']); ?></td>
-                            <td><span class="badge badge-transfer"><?php echo date('d/m/Y', strtotime($row['created_at'])); ?></span></td>
+                            <td><span class="badge badge-transfer"><?php echo $fecha_display; ?></span></td>
                             <td>
+                                <a href="?toggle_pin=<?php echo $row['id']; ?>" class="btn" style="background-color: var(--bg-tertiary); color: var(--text-main); margin-right: 5px;">
+                                    <?php echo $row['is_pinned'] ? 'Desfijar' : '📌 Fijar'; ?>
+                                </a>
+                                <a href="editar_noticia.php?id=<?php echo $row['id']; ?>" class="btn btn-primary" style="background-color: #f59e0b; margin-right: 5px;">Editar</a>
                                 <?php if(isset($permisos['noticias_borrar']) && $permisos['noticias_borrar']): ?>
                                 <a href="?delete=<?php echo $row['id']; ?>" class="btn btn-danger" onclick="return confirm('¿Seguro que deseas eliminar esta noticia?');">Eliminar</a>
                                 <?php else: ?>
