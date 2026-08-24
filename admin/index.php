@@ -93,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- PWA Config -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#8b5cf6">
-    <link rel="apple-touch-icon" href="../img/Logo%20circular.png">
+    <link rel="apple-touch-icon" href="https://miic-neurodesarrollo.org/img/Logo%20circular.png">
     <meta name="mobile-web-app-capable" content="yes">
     <script>
     if ('serviceWorker' in navigator) {
@@ -109,7 +109,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div id="particles-js" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2;"></div>
     
     <div class="login-box" style="position: relative; z-index: 3;">
-        <img src="../img/Logo circular.png" alt="Logo Manos Inclusivas" style="width: 100px; height: 100px; border-radius: 50%; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); background: white; padding: 5px;">
+        <img src="https://miic-neurodesarrollo.org/img/Logo%20circular.png" alt="Logo Manos Inclusivas" style="width: 100px; height: 100px; border-radius: 50%; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); background: white; padding: 5px;">
         <h2>Manos Inclusivas</h2>
         <p>Panel de Administración</p>
 

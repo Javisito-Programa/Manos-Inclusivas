@@ -88,7 +88,7 @@ if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
     <!-- PWA Config -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#8b5cf6">
-    <link rel="apple-touch-icon" href="../img/Logo%20circular.png">
+    <link rel="apple-touch-icon" href="https://miic-neurodesarrollo.org/img/Logo%20circular.png">
     <meta name="mobile-web-app-capable" content="yes">
     <script>
     if ('serviceWorker' in navigator) {
@@ -145,9 +145,9 @@ if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
 
     <!-- Sidebar -->
     <aside class="sidebar">
-        <div class="sidebar-header">
-            <img src="../img/Logo circular.png" alt="Logo" style="width: 60px; height: 60px; border-radius: 50%; margin-bottom: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); background: white; padding: 2px;">
-            <h2>Panel Admin</h2>
+        <div class="sidebar-header" style="text-align: center; margin-bottom: 20px;">
+            <img src="https://miic-neurodesarrollo.org/img/Logo%20circular.png" alt="Logo" style="width: 60px; height: 60px; border-radius: 50%; margin-bottom: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); background: white; padding: 2px;">
+            <h2 style="font-size: 1.2rem; font-weight: 700; margin: 0; color: #1f2937;">Panel Admin</h2>
         </div>
         <ul class="nav-links">
             <?php if(isset($permisos['noticias']) && $permisos['noticias']): ?>

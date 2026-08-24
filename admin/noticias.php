@@ -13,7 +13,7 @@ require_once 'config/database.php';
 date_default_timezone_set('America/Mexico_City');
 
 // Directorio para subir imágenes
-$upload_dir = '../uploads/noticias/';
+$upload_dir = 'uploads/noticias/';
 if (!file_exists($upload_dir)) {
     mkdir($upload_dir, 0755, true);
 }
@@ -41,7 +41,7 @@ if (isset($_GET['delete'])) {
         $noticia = $stmt->fetch();
         
         if ($noticia && $noticia['imagen_path']) {
-            $file_path = '../' . $noticia['imagen_path'];
+            $file_path = $noticia['imagen_path'];
             if (file_exists($file_path)) {
                 unlink($file_path);
             }
@@ -129,7 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
     <!-- PWA Config -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#8b5cf6">
-    <link rel="apple-touch-icon" href="../img/Logo%20circular.png">
+    <link rel="apple-touch-icon" href="https://miic-neurodesarrollo.org/img/Logo%20circular.png">
     <meta name="mobile-web-app-capable" content="yes">
     <script>
     if ('serviceWorker' in navigator) {
@@ -140,12 +140,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
     </script>
 </head>
 <body>
+    <!-- Animación de ondas de fondo -->
+    <div class="animated-bg"></div>
 
     <!-- Sidebar -->
     <aside class="sidebar">
-        <div class="sidebar-header">
-            <img src="../img/Logo circular.png" alt="Logo" style="width: 60px; height: 60px; border-radius: 50%; margin-bottom: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); background: white; padding: 2px;">
-            <h2>Panel Admin</h2>
+        <div class="sidebar-header" style="text-align: center; margin-bottom: 20px;">
+            <img src="https://miic-neurodesarrollo.org/img/Logo%20circular.png" alt="Logo" style="width: 60px; height: 60px; border-radius: 50%; margin-bottom: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); background: white; padding: 2px;">
+            <h2 style="font-size: 1.2rem; font-weight: 700; margin: 0; color: #1f2937;">Panel Admin</h2>
         </div>
         <ul class="nav-links">
             <?php if(isset($permisos['noticias']) && $permisos['noticias']): ?>
@@ -264,9 +266,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
                                 #<?php echo $row['id']; ?>
                                 <?php if($row['is_pinned']) echo '<br><span style="font-size: 0.8rem; color: var(--accent-purple);">📌 Fijada</span>'; ?>
                             </td>
-                            <td>
+                            <td style="text-align: center;">
                                 <?php if($row['imagen_path']): ?>
-                                    <img src="../<?php echo htmlspecialchars($row['imagen_path']); ?>" width="60" style="border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                                    <img src="<?php echo htmlspecialchars($row['imagen_path']); ?>" width="60" style="border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
                                 <?php else: ?>
                                     <span class="badge badge-card">Sin imagen</span>
                                 <?php endif; ?>
