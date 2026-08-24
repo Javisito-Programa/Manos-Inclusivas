@@ -84,7 +84,7 @@ if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Usuarios - Administración</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/admin-style.css?v=6">
+    <link rel="stylesheet" href="css/admin-style.css?v=7">
     <style>
         .perm-grid {
             display: grid;
