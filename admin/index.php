@@ -122,17 +122,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script>
         particlesJS("particles-js", {
             "particles": {
-                "number": { "value": 60, "density": { "enable": true, "value_area": 800 } },
+                "number": { "value": 100, "density": { "enable": true, "value_area": 800 } },
                 "color": { "value": "#ffffff" },
                 "shape": { "type": "circle" },
-                "opacity": { "value": 0.3, "random": false },
-                "size": { "value": 3, "random": true },
+                "opacity": { "value": 0.8, "random": false },
+                "size": { "value": 4, "random": true },
                 "line_linked": {
                     "enable": true,
-                    "distance": 150,
+                    "distance": 120,
                     "color": "#ffffff",
-                    "opacity": 0.2,
-                    "width": 1
+                    "opacity": 0.6,
+                    "width": 2
                 },
                 "move": {
                     "enable": true,
