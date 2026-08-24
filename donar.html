@@ -700,6 +700,26 @@
     </script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     <script src="assets/js/translator.js?v=3?v=16"></script>
+    
+    <!-- Seguridad Básica Anti-Inspección -->
+    <script>
+        // 1. Bloquear click derecho
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        // 2. Bloquear atajos de teclado (F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U)
+        document.addEventListener('keydown', function(e) {
+            if (
+                e.key === 'F12' || 
+                (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+                (e.ctrlKey && e.shiftKey && e.key === 'J') || 
+                (e.ctrlKey && e.key === 'U') ||
+                (e.metaKey && e.altKey && e.key === 'I') // Mac
+            ) {
+                e.preventDefault();
+                return false;
+            }
+        });
+    </script>
 </body>
 
 </html>
