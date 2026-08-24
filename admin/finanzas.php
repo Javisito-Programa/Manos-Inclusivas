@@ -23,6 +23,18 @@ $filtro = $_GET['filtro'] ?? 'mes';
     <title>Finanzas - Administración</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/admin-style.css?v=7">
+    <!-- PWA Config -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#8b5cf6">
+    <link rel="apple-touch-icon" href="https://miic-neurodesarrollo.org/img/Logo%20circular.png">
+    <meta name="mobile-web-app-capable" content="yes">
+    <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js');
+      });
+    }
+    </script>
 </head>
 <body>
     <!-- Animación de ondas de fondo -->
