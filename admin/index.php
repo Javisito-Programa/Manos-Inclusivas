@@ -93,15 +93,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body class="login-body">
 
-    <!-- Animación de ondas de fondo similar a la web principal -->
-    <div style="position: absolute; bottom: 0; left: 0; width: 100%; overflow: hidden; z-index: 0; opacity: 0.1;">
-        <svg viewBox="0 0 1200 120" preserveAspectRatio="none" style="width: 200%; height: 150px; transform: translateX(0); animation: waveAnimate 20s linear infinite;">
-            <path d="M0,60 C300,120 300,0 600,60 C900,120 900,0 1200,60 C1500,120 1500,0 1800,60 C2100,120 2100,0 2400,60 L2400,120 L0,120 Z" fill="#ffffff"></path>
-        </svg>
-    </div>
-    <style>@keyframes waveAnimate { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }</style>
-
-    <div class="login-box">
+    <!-- Fondo de Partículas interactivo -->
+    <div id="particles-js" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;"></div>
+    
+    <div class="login-box" style="position: relative; z-index: 1;">
         <img src="https://miic-neurodesarrollo.org/img/Logo circular.png" alt="Logo Manos Inclusivas" style="width: 100px; height: 100px; border-radius: 50%; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); background: white; padding: 5px;">
         <h2>Manos Inclusivas</h2>
         <p>Panel de Administración</p>
@@ -123,5 +118,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </form>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 60, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": "#ffffff" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.3, "random": false },
+                "size": { "value": 3, "random": true },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#ffffff",
+                    "opacity": 0.2,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 2,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": { "enable": true, "mode": "grab" },
+                    "onclick": { "enable": true, "mode": "push" },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": { "distance": 140, "line_linked": { "opacity": 0.5 } },
+                    "push": { "particles_nb": 4 }
+                }
+            },
+            "retina_detect": true
+        });
+    </script>
 </body>
 </html>
