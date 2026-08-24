@@ -285,6 +285,8 @@
     </style>
     <!-- Favicon (Icono de la pestaña) -->
     <link rel="icon" type="image/png" href="img/Logo circular.png">
+    <!-- Model Viewer for 3D elements -->
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
 </head>
 
 <body>
@@ -471,7 +473,6 @@
     <!-- PIE DE PÁGINA (FOOTER)                     -->
     <!-- ========================================== -->
     <footer>
-        <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
         <div class="container">
             <div class="footer-grid">
                 <div>
