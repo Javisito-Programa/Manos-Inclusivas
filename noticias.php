@@ -196,6 +196,23 @@
             color: var(--text-main);
         }
 
+
+        .news-social-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-fast, 0.3s ease);
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .news-social-icon:hover {
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+
         /* Modal for full news */
         .modal {
             display: none;
@@ -458,19 +475,19 @@
                             // Redes sociales
                             $social_html = '<div class="news-social-links" style="margin-top: 15px; display: flex; gap: 10px;">';
                             if (!empty($news['enlace_facebook'])) {
-                                $social_html .= '<a href="'.htmlspecialchars($news['enlace_facebook']).'" target="_blank" class="social-icon" style="color: #1877F2; background: rgba(24, 119, 242, 0.1); padding: 8px; border-radius: 50%;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>';
+                                $social_html .= '<a href="'.htmlspecialchars($news['enlace_facebook']).'" target="_blank" class="news-social-icon" style="color: #1877F2; background: rgba(24, 119, 242, 0.1); padding: 8px; border-radius: 50%;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>';
                             }
                             if (!empty($news['enlace_instagram'])) {
-                                $social_html .= '<a href="'.htmlspecialchars($news['enlace_instagram']).'" target="_blank" class="social-icon" style="color: #E1306C; background: rgba(225, 48, 108, 0.1); padding: 8px; border-radius: 50%;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg></a>';
+                                $social_html .= '<a href="'.htmlspecialchars($news['enlace_instagram']).'" target="_blank" class="news-social-icon" style="color: #E1306C; background: rgba(225, 48, 108, 0.1); padding: 8px; border-radius: 50%;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg></a>';
                             }
                             if (!empty($news['enlace_twitter'])) {
-                                $social_html .= '<a href="'.htmlspecialchars($news['enlace_twitter']).'" target="_blank" class="social-icon" style="color: #000; background: rgba(0, 0, 0, 0.1); padding: 8px; border-radius: 50%;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"></path></svg></a>';
+                                $social_html .= '<a href="'.htmlspecialchars($news['enlace_twitter']).'" target="_blank" class="news-social-icon" style="color: #000; background: rgba(0, 0, 0, 0.1); padding: 8px; border-radius: 50%;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"></path></svg></a>';
                             }
                             if (!empty($news['enlace_tiktok'])) {
-                                $social_html .= '<a href="'.htmlspecialchars($news['enlace_tiktok']).'" target="_blank" class="social-icon" style="color: #000; background: rgba(0, 0, 0, 0.1); padding: 8px; border-radius: 50%;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.12-3.44-3.17-3.8-5.46-.4-2.52.2-5.14 1.77-7.11 1.5-1.82 3.8-2.9 6.16-2.93 1.05-.01 2.1.2 3.09.58V9.69c-1-.38-2.09-.55-3.17-.45-2.04.16-3.9 1.4-4.88 3.13-1.12 2-1.07 4.54.2 6.46 1.02 1.52 2.75 2.5 4.6 2.62 2.11.12 4.24-.71 5.54-2.35 1.11-1.4 1.53-3.23 1.48-5.01-.06-4.52-.02-9.04-.04-13.56l.01-.51z"/></svg></a>';
+                                $social_html .= '<a href="'.htmlspecialchars($news['enlace_tiktok']).'" target="_blank" class="news-social-icon" style="color: #000; background: rgba(0, 0, 0, 0.1); padding: 8px; border-radius: 50%;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.12-3.44-3.17-3.8-5.46-.4-2.52.2-5.14 1.77-7.11 1.5-1.82 3.8-2.9 6.16-2.93 1.05-.01 2.1.2 3.09.58V9.69c-1-.38-2.09-.55-3.17-.45-2.04.16-3.9 1.4-4.88 3.13-1.12 2-1.07 4.54.2 6.46 1.02 1.52 2.75 2.5 4.6 2.62 2.11.12 4.24-.71 5.54-2.35 1.11-1.4 1.53-3.23 1.48-5.01-.06-4.52-.02-9.04-.04-13.56l.01-.51z"/></svg></a>';
                             }
                             if (!empty($news['enlace_youtube'])) {
-                                $social_html .= '<a href="'.htmlspecialchars($news['enlace_youtube']).'" target="_blank" class="social-icon" style="color: #FF0000; background: rgba(255, 0, 0, 0.1); padding: 8px; border-radius: 50%;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.5 12 3.5 12 3.5s-7.505 0-9.377.55a3.016 3.016 0 0 0-2.122 2.136C0 8.07 0 12 0 12s0 3.93.501 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.55 9.377.55 9.377.55s7.505 0 9.377-.55a3.016 3.016 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>';
+                                $social_html .= '<a href="'.htmlspecialchars($news['enlace_youtube']).'" target="_blank" class="news-social-icon" style="color: #FF0000; background: rgba(255, 0, 0, 0.1); padding: 8px; border-radius: 50%;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.5 12 3.5 12 3.5s-7.505 0-9.377.55a3.016 3.016 0 0 0-2.122 2.136C0 8.07 0 12 0 12s0 3.93.501 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.55 9.377.55 9.377.55s7.505 0 9.377-.55a3.016 3.016 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>';
                             }
                             $social_html .= '</div>';
                             
