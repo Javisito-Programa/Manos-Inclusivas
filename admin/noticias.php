@@ -128,13 +128,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
     <link rel="stylesheet" href="css/admin-style.css?v=2">
 </head>
 <body>
-    <!-- Animación de ondas de fondo -->
-    <div style="position: fixed; bottom: 0; left: 0; width: 100%; overflow: hidden; z-index: -1; opacity: 0.2;">
-        <svg viewBox="0 0 1200 120" preserveAspectRatio="none" style="width: 200%; height: 250px; transform: translateX(0); animation: waveAnimate 20s linear infinite;">
-            <path d="M0,60 C300,120 300,0 600,60 C900,120 900,0 1200,60 C1500,120 1500,0 1800,60 C2100,120 2100,0 2400,60 L2400,120 L0,120 Z" fill="#6B46C1"></path>
-        </svg>
-    </div>
-    <style>@keyframes waveAnimate { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }</style>
 
     <!-- Sidebar -->
     <aside class="sidebar">
