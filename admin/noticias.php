@@ -351,7 +351,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
         </div>
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.2/Sortable.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // SortableJS para noticias fijadas
@@ -359,8 +359,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
             if (tbody) {
                 new Sortable(tbody, {
                     animation: 150,
-                    handle: '.drag-handle', // Solo arrastrar por el icono
-                    draggable: '.sortable-row', // Solo filas fijadas
+                    handle: '.drag-handle', // El icono funciona como manija exclusiva
+                    fallbackOnBody: true, // Soluciona problemas de clipping en tablas
+                    forceFallback: true, // Fuerza a que funcione el drag (ignora el HTML5 nativo que a veces falla)
+                    swapThreshold: 0.65,
                     ghostClass: 'sortable-ghost',
                     onEnd: function (evt) {
                         // Recolectar el nuevo orden de los IDs
@@ -389,90 +391,95 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
             }
         });
         
-        // Manejo de sidebar en móvil
-        function toggleSidebar() {
-            document.querySelector('.sidebar').classList.toggle('active');
-        }
-        
-        const fileInput = document.getElementById('image-input');
-        const previewContainer = document.getElementById('image-preview-container');
-        let dt = new DataTransfer();
-
-        fileInput.addEventListener('change', function(e) {
-            for(let i = 0; i < this.files.length; i++){
-                dt.items.add(this.files[i]);
             }
-            updatePreviews();
         });
 
-        function updatePreviews() {
-            previewContainer.innerHTML = '';
-            fileInput.files = dt.files;
-            
-            for(let i = 0; i < dt.files.length; i++) {
-                const file = dt.files[i];
-                const reader = new FileReader();
-                
-                const div = document.createElement('div');
-                div.style.position = 'relative';
-                div.style.width = '100px';
-                div.style.height = '100px';
-                div.style.borderRadius = '12px';
-                div.style.overflow = 'hidden';
-                div.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
-                
-                const img = document.createElement('img');
-                img.style.width = '100%';
-                img.style.height = '100%';
-                img.style.objectFit = 'cover';
-                
-                const btn = document.createElement('button');
-                btn.innerHTML = '×';
-                btn.style.position = 'absolute';
-                btn.style.top = '5px';
-                btn.style.right = '5px';
-                btn.style.background = 'rgba(239, 68, 68, 0.9)';
-                btn.style.color = 'white';
-                btn.style.border = 'none';
-                btn.style.borderRadius = '50%';
-                btn.style.width = '24px';
-                btn.style.height = '24px';
-                btn.style.cursor = 'pointer';
-                btn.style.display = 'flex';
-                btn.style.alignItems = 'center';
-                btn.style.justifyContent = 'center';
-                btn.style.fontWeight = 'bold';
-                
-                btn.onclick = function(e) {
-                    e.preventDefault();
-                    dt.items.remove(i);
-                    updatePreviews();
-                };
-                
-                if(i === 0) {
-                    const badge = document.createElement('div');
-                    badge.innerText = 'Portada';
-                    badge.style.position = 'absolute';
-                    badge.style.bottom = '0';
-                    badge.style.left = '0';
-                    badge.style.width = '100%';
-                    badge.style.background = 'rgba(139, 92, 246, 0.9)';
-                    badge.style.color = 'white';
-                    badge.style.fontSize = '0.7rem';
-                    badge.style.textAlign = 'center';
-                    badge.style.padding = '2px 0';
-                    badge.style.fontWeight = 'bold';
-                    div.appendChild(badge);
+        // Manejo de sidebar en móvil (Global Scope)
+        window.toggleSidebar = function() {
+            document.querySelector('.sidebar').classList.toggle('active');
+        };
+
+        const fileInput = document.getElementById('image-input');
+        const previewContainer = document.getElementById('image-preview-container');
+        if (fileInput && previewContainer) {
+            let dt = new DataTransfer();
+
+            fileInput.addEventListener('change', function(e) {
+                for(let i = 0; i < this.files.length; i++){
+                    dt.items.add(this.files[i]);
                 }
+                updatePreviews();
+            });
+
+            function updatePreviews() {
+                previewContainer.innerHTML = '';
+                fileInput.files = dt.files;
                 
-                reader.onload = function(e) {
-                    img.src = e.target.result;
+                for(let i = 0; i < dt.files.length; i++) {
+                    const file = dt.files[i];
+                    const reader = new FileReader();
+                    
+                    const div = document.createElement('div');
+                    div.style.position = 'relative';
+                    div.style.width = '100px';
+                    div.style.height = '100px';
+                    div.style.borderRadius = '12px';
+                    div.style.overflow = 'hidden';
+                    div.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
+                    
+                    const img = document.createElement('img');
+                    img.style.width = '100%';
+                    img.style.height = '100%';
+                    img.style.objectFit = 'cover';
+                    
+                    const btn = document.createElement('button');
+                    btn.innerHTML = '×';
+                    btn.style.position = 'absolute';
+                    btn.style.top = '5px';
+                    btn.style.right = '5px';
+                    btn.style.background = 'rgba(239, 68, 68, 0.9)';
+                    btn.style.color = 'white';
+                    btn.style.border = 'none';
+                    btn.style.borderRadius = '50%';
+                    btn.style.width = '24px';
+                    btn.style.height = '24px';
+                    btn.style.cursor = 'pointer';
+                    btn.style.display = 'flex';
+                    btn.style.alignItems = 'center';
+                    btn.style.justifyContent = 'center';
+                    btn.style.fontWeight = 'bold';
+                    
+                    btn.onclick = function(e) {
+                        e.preventDefault();
+                        dt.items.remove(i);
+                        updatePreviews();
+                    };
+                    
+                    if(i === 0) {
+                        const badge = document.createElement('div');
+                        badge.innerText = 'Portada';
+                        badge.style.position = 'absolute';
+                        badge.style.bottom = '0';
+                        badge.style.left = '0';
+                        badge.style.width = '100%';
+                        badge.style.background = 'rgba(139, 92, 246, 0.9)';
+                        badge.style.color = 'white';
+                        badge.style.fontSize = '0.7rem';
+                        badge.style.textAlign = 'center';
+                        badge.style.padding = '2px 0';
+                        badge.style.fontWeight = 'bold';
+                        div.appendChild(badge);
+                    }
+                    
+                    reader.onload = function(e) {
+                        img.src = e.target.result;
+                    }
+                    reader.readAsDataURL(file);
+                    
+                    div.appendChild(img);
+                    div.appendChild(btn);
+                    previewContainer.appendChild(div);
                 }
-                reader.readAsDataURL(file);
-                
-                div.appendChild(img);
-                div.appendChild(btn);
-                previewContainer.appendChild(div);
             }
         }
     });
