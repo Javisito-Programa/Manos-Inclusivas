@@ -306,7 +306,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
                             </td>
                             <td style="text-align: center;" data-label="Orden">
                                 <?php if($row['is_pinned']): ?>
-                                    <div class="drag-handle" style="cursor: grab; font-size: 1.8rem; color: var(--accent-purple); display: inline-flex; align-items: center; justify-content: center; width: 50px; height: 50px; background: rgba(109, 40, 217, 0.1); border-radius: 8px; touch-action: none;">☰</div>
+                                    <div class="drag-handle" style="cursor: grab; color: var(--accent-purple); display: inline-flex; align-items: center; justify-content: center; width: 50px; height: 50px; background: rgba(109, 40, 217, 0.1); border-radius: 8px; touch-action: none;">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                          <line x1="3" y1="12" x2="21" y2="12"></line>
+                                          <line x1="3" y1="6" x2="21" y2="6"></line>
+                                          <line x1="3" y1="18" x2="21" y2="18"></line>
+                                        </svg>
+                                    </div>
                                 <?php else: ?>
                                     <span style="color: #cbd5e1;">-</span>
                                 <?php endif; ?>
@@ -355,8 +361,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
                     animation: 150,
                     handle: '.drag-handle', // Solo arrastrar por el icono
                     draggable: '.sortable-row', // Solo filas fijadas
-                    delay: 100, // Previene arrastres accidentales al hacer scroll en móvil
-                    delayOnTouchOnly: true,
+                    forceFallback: true, // Forzar fallback de arrastre manual (soluciona problemas en iOS/Android)
+                    fallbackTolerance: 3, // Cuántos píxeles se puede mover el dedo antes de considerarlo un drag (vital para táctil)
+                    fallbackClass: 'sortable-fallback',
                     ghostClass: 'sortable-ghost',
                     onEnd: function (evt) {
                         // Recolectar el nuevo orden de los IDs
