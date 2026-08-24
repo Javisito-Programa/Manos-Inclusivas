@@ -37,6 +37,7 @@ $filtro = $_GET['filtro'] ?? 'mes';
         <ul class="nav-links">
             <li><a href="noticias.php"><span class="nav-icon">📰</span> Noticias</a></li>
             <li><a href="finanzas.php" class="active"><span class="nav-icon">💰</span> Finanzas</a></li>
+            <li><a href="perfil.php"><span class="nav-icon">⚙️</span> Mi Perfil</a></li>
             <li style="margin-top: auto;"><a href="logout.php"><span class="nav-icon">🚪</span> Salir</a></li>
         </ul>
     </aside>
