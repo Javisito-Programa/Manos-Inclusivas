@@ -117,7 +117,7 @@ $fecha_val = !empty($noticia['fecha_publicacion']) ? $noticia['fecha_publicacion
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Noticia - Administración</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/admin-style.css?v=10">
+    <link rel="stylesheet" href="css/admin-style.css?v=11">
     <!-- PWA Config -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#8b5cf6">
@@ -187,7 +187,7 @@ $fecha_val = !empty($noticia['fecha_publicacion']) ? $noticia['fecha_publicacion
             <?php endif; ?>
 
             <form action="" method="POST" enctype="multipart/form-data">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="responsive-grid-2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                     <div class="form-group">
                         <label>Título de la Noticia</label>
                         <input type="text" name="titulo" class="form-control" required value="<?php echo $titulo_val; ?>">

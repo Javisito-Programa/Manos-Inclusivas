@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Perfil - Administración</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/admin-style.css?v=10">
+    <link rel="stylesheet" href="css/admin-style.css?v=11">
 </head>
 <body>
     <!-- Animación de ondas de fondo -->
@@ -124,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <?php endif; ?>
         <?php endif; ?>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 20px;">
+        <div class="responsive-grid-2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 20px;">
             
             <!-- Cambiar Username -->
             <div class="form-container" style="border-left: 6px solid var(--accent-purple);">

@@ -84,7 +84,7 @@ if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Usuarios - Administración</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/admin-style.css?v=10">
+    <link rel="stylesheet" href="css/admin-style.css?v=11">
     <!-- PWA Config -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#8b5cf6">
@@ -195,7 +195,7 @@ if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
             <form action="" method="POST">
                 <input type="hidden" name="action" value="create">
                 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="responsive-grid-2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                     <div class="form-group">
                         <label>Nombre de Usuario (Ej: juan_perez)</label>
                         <input type="text" name="username" class="form-control" required placeholder="Sin espacios">

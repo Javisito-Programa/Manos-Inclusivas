@@ -514,4 +514,9 @@ textarea.form-control {
         max-width: 60px;
         height: auto;
     }
+    
+    /* Responsive Grids for Forms */
+    .responsive-grid-2 {
+        grid-template-columns: 1fr !important;
+    }
 }

@@ -22,7 +22,7 @@ $filtro = $_GET['filtro'] ?? 'mes';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Finanzas - Administración</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/admin-style.css?v=10">
+    <link rel="stylesheet" href="css/admin-style.css?v=11">
     <!-- PWA Config -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#8b5cf6">
@@ -106,7 +106,7 @@ $filtro = $_GET['filtro'] ?? 'mes';
         <div class="form-container" style="border-left: 6px solid var(--accent-green);">
             <h3 style="margin-bottom: 25px; color: var(--accent-green); font-size: 1.2rem; font-weight: 700;">Registrar Donativo Manual (Cheques, Transferencias, Efectivo)</h3>
             <form action="" method="POST">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="responsive-grid-2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                     <div class="form-group">
                         <label>Tipo de Donativo</label>
                         <select name="tipo" class="form-control" required>
