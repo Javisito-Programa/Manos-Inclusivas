@@ -109,7 +109,7 @@ $fecha_val = !empty($noticia['fecha_publicacion']) ? $noticia['fecha_publicacion
     <!-- Sidebar -->
     <aside class="sidebar">
         <div class="sidebar-header">
-            <img src="../img/Logo circular.png" alt="Logo" style="width: 60px; height: 60px; border-radius: 50%; margin-bottom: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); background: white; padding: 2px;">
+            <img src="https://miic-neurodesarrollo.org/img/Logo circular.png" alt="Logo" style="width: 60px; height: 60px; border-radius: 50%; margin-bottom: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); background: white; padding: 2px;">
             <h2>Panel Admin</h2>
         </div>
         <ul class="nav-links">
@@ -168,7 +168,7 @@ $fecha_val = !empty($noticia['fecha_publicacion']) ? $noticia['fecha_publicacion
                     <label>Reemplazar Imagen (Opcional)</label>
                     <?php if(!empty($noticia['imagen_path'])): ?>
                         <div style="margin-bottom: 10px;">
-                            <img src="../<?php echo htmlspecialchars($noticia['imagen_path']); ?>" style="height: 60px; border-radius: 5px; vertical-align: middle; margin-right: 10px;">
+                            <img src="https://miic-neurodesarrollo.org/<?php echo htmlspecialchars($noticia['imagen_path']); ?>" style="height: 60px; border-radius: 5px; vertical-align: middle; margin-right: 10px;">
                             <span style="font-size: 0.85rem; color: gray;">Imagen actual</span>
                         </div>
                     <?php endif; ?>

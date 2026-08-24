@@ -122,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
     <!-- Sidebar -->
     <aside class="sidebar">
         <div class="sidebar-header">
-            <img src="../img/Logo circular.png" alt="Logo" style="width: 60px; height: 60px; border-radius: 50%; margin-bottom: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); background: white; padding: 2px;">
+            <img src="https://miic-neurodesarrollo.org/img/Logo circular.png" alt="Logo" style="width: 60px; height: 60px; border-radius: 50%; margin-bottom: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); background: white; padding: 2px;">
             <h2>Panel Admin</h2>
         </div>
         <ul class="nav-links">
@@ -212,7 +212,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
                             </td>
                             <td>
                                 <?php if($row['imagen_path']): ?>
-                                    <img src="../<?php echo htmlspecialchars($row['imagen_path']); ?>" width="60" style="border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                                    <img src="https://miic-neurodesarrollo.org/<?php echo htmlspecialchars($row['imagen_path']); ?>" width="60" style="border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
                                 <?php else: ?>
                                     <span class="badge badge-card">Sin imagen</span>
                                 <?php endif; ?>
