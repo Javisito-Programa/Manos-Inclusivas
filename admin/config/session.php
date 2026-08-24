@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // Configuración estricta de seguridad para la sesión
 ini_set('session.use_only_cookies', 1);
 ini_set('session.use_strict_mode', 1);
@@ -41,14 +41,15 @@ if (!isset($_SESSION['CREATED'])) {
     session_regenerate_id(true);
     $_SESSION['CREATED'] = time();
 }
-?>
 
+// Javascript protector: Forza el cierre de sesión si se cerró la pestaña
 if (basename($_SERVER['PHP_SELF']) !== 'index.php' && basename($_SERVER['PHP_SELF']) !== 'logout.php') {
     echo "<script>
     if (typeof sessionStorage !== 'undefined') {
         if (!sessionStorage.getItem('admin_session_active')) {
-            window.location.href = 'logout.php?error=' + encodeURIComponent('Sesi�n cerrada por seguridad al cerrar pesta�a.');
+            window.location.href = 'logout.php?error=' + encodeURIComponent('Sesión cerrada por seguridad al cerrar pestaña.');
         }
     }
     </script>";
 }
+?>
