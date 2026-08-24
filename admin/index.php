@@ -13,31 +13,66 @@ $error = '';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';
+    $ip_address = $_SERVER['REMOTE_ADDR'];
 
     if (!empty($username) && !empty($password)) {
-        // En producción $pdo debería estar instanciado en config/database.php
         if (isset($pdo)) {
-            $stmt = $pdo->prepare("SELECT id, username, password_hash, role, permisos FROM usuarios WHERE username = ?");
-            $stmt->execute([$username]);
-            $user = $stmt->fetch();
-
-            // Usamos password_verify que es el estándar más seguro (BCRYPT / ARGON2I)
-            if ($user && password_verify($password, $user['password_hash'])) {
-                $_SESSION['admin_id'] = $user['id'];
-                $_SESSION['admin_username'] = $user['username'];
-                $_SESSION['admin_role'] = $user['role'];
+            date_default_timezone_set('America/Mexico_City');
+            
+            // Verificar intentos fallidos previos
+            $stmt_check = $pdo->prepare("SELECT attempts, last_attempt FROM login_attempts WHERE ip_address = ?");
+            $stmt_check->execute([$ip_address]);
+            $attempt_data = $stmt_check->fetch();
+            
+            $is_blocked = false;
+            if ($attempt_data) {
+                $last_time = strtotime($attempt_data['last_attempt']);
+                $current_time = time();
+                $diff_minutes = round(abs($current_time - $last_time) / 60, 2);
                 
-                // Decodificar permisos y guardarlos en sesión
-                if (!empty($user['permisos'])) {
-                    $_SESSION['admin_permisos'] = json_decode($user['permisos'], true);
-                } else {
-                    $_SESSION['admin_permisos'] = [];
+                if ($attempt_data['attempts'] >= 5 && $diff_minutes < 15) {
+                    $is_blocked = true;
+                    $minutos_restantes = ceil(15 - $diff_minutes);
+                    $error = "Demasiados intentos fallidos. Por seguridad, intenta de nuevo en $minutos_restantes minutos.";
+                } elseif ($diff_minutes >= 15) {
+                    // Resetear intentos si ya pasó el tiempo de castigo
+                    $pdo->prepare("UPDATE login_attempts SET attempts = 0 WHERE ip_address = ?")->execute([$ip_address]);
                 }
-                
-                header("Location: noticias.php");
-                exit();
-            } else {
-                $error = "Usuario o contraseña incorrectos.";
+            }
+
+            if (!$is_blocked) {
+                $stmt = $pdo->prepare("SELECT id, username, password_hash, role, permisos FROM usuarios WHERE username = ?");
+                $stmt->execute([$username]);
+                $user = $stmt->fetch();
+
+                // Usamos password_verify que es el estándar más seguro (BCRYPT / ARGON2I)
+                if ($user && password_verify($password, $user['password_hash'])) {
+                    // Inicio de sesión exitoso: Limpiar intentos fallidos
+                    $pdo->prepare("DELETE FROM login_attempts WHERE ip_address = ?")->execute([$ip_address]);
+                    
+                    $_SESSION['admin_id'] = $user['id'];
+                    $_SESSION['admin_username'] = $user['username'];
+                    $_SESSION['admin_role'] = $user['role'];
+                    
+                    // Decodificar permisos y guardarlos en sesión
+                    if (!empty($user['permisos'])) {
+                        $_SESSION['admin_permisos'] = json_decode($user['permisos'], true);
+                    } else {
+                        $_SESSION['admin_permisos'] = [];
+                    }
+                    
+                    header("Location: noticias.php");
+                    exit();
+                } else {
+                    $error = "Usuario o contraseña incorrectos.";
+                    
+                    // Registrar intento fallido
+                    if ($attempt_data) {
+                        $pdo->prepare("UPDATE login_attempts SET attempts = attempts + 1, last_attempt = NOW() WHERE ip_address = ?")->execute([$ip_address]);
+                    } else {
+                        $pdo->prepare("INSERT INTO login_attempts (ip_address, attempts, last_attempt) VALUES (?, 1, NOW())")->execute([$ip_address]);
+                    }
+                }
             }
         } else {
             $error = "Error de conexión a la base de datos.";
