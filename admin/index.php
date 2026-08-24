@@ -89,14 +89,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acceso Administrativo - Manos Inclusivas</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/admin-style.css">
+    <link rel="stylesheet" href="css/admin-style.css?v=2">
 </head>
 <body class="login-body">
 
     <!-- Fondo de Partículas interactivo -->
-    <div id="particles-js" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;"></div>
+    <div id="particles-js" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2;"></div>
     
-    <div class="login-box" style="position: relative; z-index: 1;">
+    <div class="login-box" style="position: relative; z-index: 3;">
         <img src="https://miic-neurodesarrollo.org/img/Logo circular.png" alt="Logo Manos Inclusivas" style="width: 100px; height: 100px; border-radius: 50%; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); background: white; padding: 5px;">
         <h2>Manos Inclusivas</h2>
         <p>Panel de Administración</p>

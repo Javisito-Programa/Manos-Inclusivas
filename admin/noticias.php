@@ -125,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Noticias - Administración</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/admin-style.css">
+    <link rel="stylesheet" href="css/admin-style.css?v=2">
 </head>
 <body>
     <!-- Animación de ondas de fondo -->
@@ -263,12 +263,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
                             <td style="font-weight: 500;"><?php echo htmlspecialchars($row['titulo']); ?></td>
                             <td><span class="badge badge-transfer"><?php echo $fecha_display; ?></span></td>
                             <td style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center; justify-content: flex-start;">
-                                <a href="?toggle_pin=<?php echo $row['id']; ?>" class="btn-sm" style="background-color: #cbd5e1; color: #334155; min-width: 80px;">
+                                <a href="?toggle_pin=<?php echo $row['id']; ?>" style="padding: 6px 12px; font-size: 0.85rem; border-radius: 6px; font-weight: 600; text-decoration: none; display: inline-block; text-align: center; background-color: #cbd5e1; color: #334155; min-width: 80px;">
                                     <?php echo $row['is_pinned'] ? 'Desfijar' : '📌 Fijar'; ?>
                                 </a>
-                                <a href="editar_noticia.php?id=<?php echo $row['id']; ?>" class="btn-sm" style="background: linear-gradient(135deg, var(--accent-purple) 0%, #9F7AEA 100%); color: white; min-width: 80px;">Editar</a>
+                                <a href="editar_noticia.php?id=<?php echo $row['id']; ?>" style="padding: 6px 12px; font-size: 0.85rem; border-radius: 6px; font-weight: 600; text-decoration: none; display: inline-block; text-align: center; background: linear-gradient(135deg, var(--accent-purple) 0%, #9F7AEA 100%); color: white; min-width: 80px;">Editar</a>
                                 <?php if(isset($permisos['noticias_borrar']) && $permisos['noticias_borrar']): ?>
-                                <a href="?delete=<?php echo $row['id']; ?>" class="btn-sm" style="background: linear-gradient(135deg, #ef4444 0%, #f87171 100%); color: white; min-width: 80px;" onclick="return confirm('¿Seguro que deseas eliminar esta noticia?');">Eliminar</a>
+                                <a href="?delete=<?php echo $row['id']; ?>" style="padding: 6px 12px; font-size: 0.85rem; border-radius: 6px; font-weight: 600; text-decoration: none; display: inline-block; text-align: center; background: linear-gradient(135deg, #ef4444 0%, #f87171 100%); color: white; min-width: 80px;" onclick="return confirm('¿Seguro que deseas eliminar esta noticia?');">Eliminar</a>
                                 <?php else: ?>
                                 <span style="color: gray; font-size: 0.8rem;">Sin Permiso</span>
                                 <?php endif; ?>
