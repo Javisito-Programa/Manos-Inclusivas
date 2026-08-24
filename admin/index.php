@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <style>@keyframes waveAnimate { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }</style>
 
     <div class="login-box">
-        <!-- Puedes usar tu logo.glb pero como es el panel de admin, una simple imagen o texto es más rápido -->
+        <img src="../img/Logo circular.png" alt="Logo Manos Inclusivas" style="width: 100px; height: 100px; border-radius: 50%; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); background: white; padding: 5px;">
         <h2>Manos Inclusivas</h2>
         <p>Panel de Administración</p>
 

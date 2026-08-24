@@ -342,7 +342,7 @@ body {
 .login-body {
     justify-content: center;
     align-items: center;
-    background: url('../img/fondo-esencia.jpg') center/cover no-repeat;
+    background: url('../../img/fondo-esencia.jpg') center/cover no-repeat;
     position: relative;
 }
 
