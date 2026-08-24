@@ -353,37 +353,84 @@ textarea.form-control {
         flex-direction: column;
     }
     
+    /* Premium Bottom Navigation Bar */
     .sidebar {
         width: 100%;
-        height: auto;
-        position: relative;
-        padding: 15px 0;
+        height: 70px;
+        position: fixed;
+        bottom: 0;
+        left: 0;
         border-right: none;
-        border-bottom: var(--glass-border);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        z-index: 10;
+        border-top: 1px solid rgba(255, 255, 255, 0.4);
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+        padding: 0;
+        display: flex;
+        align-items: center;
     }
     
     .sidebar-header {
-        margin-bottom: 10px;
-        padding-bottom: 15px;
+        display: none; /* Ocultar el logo en el navbar inferior, usaremos la top-bar para el titulo */
     }
     
     .nav-links {
+        display: flex;
         flex-direction: row;
-        flex-wrap: wrap;
+        width: 100%;
+        justify-content: space-around;
+        align-items: center;
+        padding: 0 10px;
+        margin: 0;
+        gap: 0;
+    }
+    
+    .nav-links li {
+        margin: 0;
+        flex: 1;
+        display: flex;
         justify-content: center;
-        gap: 5px;
     }
     
     .nav-links li a {
-        padding: 8px 12px;
-        font-size: 0.85rem;
+        padding: 8px 0;
+        font-size: 0.65rem; /* Tamaño muy pequeño estilo iOS */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        color: var(--text-secondary);
+        background: transparent;
+        box-shadow: none;
+        border-radius: 8px;
+        transition: color 0.2s;
     }
     
+    /* Agrandar el emoji en la nav bar para que parezca un icono nativo */
+    .nav-links li a::first-letter {
+        font-size: 1.4rem;
+    }
+    
+    .nav-links li a:hover {
+        background: transparent;
+        transform: none;
+        color: var(--accent-purple);
+    }
+    
+    .nav-links li a.active {
+        background: transparent;
+        color: var(--accent-purple);
+        font-weight: 700;
+        box-shadow: none;
+    }
+    
+    /* Espacio extra abajo para que el contenido no quede oculto detrás de la barra */
     .main-content {
         margin-left: 0;
         padding: 15px;
+        padding-bottom: 90px;
     }
     
     .top-bar {
@@ -391,18 +438,80 @@ textarea.form-control {
         gap: 15px;
         text-align: center;
         padding: 15px;
+        border-radius: 15px;
     }
     
     .form-container, .data-table-wrapper, .login-box {
         padding: 20px;
+        border-radius: 20px;
     }
     
-    .data-table th, .data-table td {
-        padding: 12px 15px;
+    /* Touch Targets más grandes para formularios */
+    .form-control {
+        padding: 15px 20px;
+        font-size: 16px; /* Evita el zoom automático en iOS */
     }
     
     .btn {
         width: 100%;
         text-align: center;
+        padding: 15px 25px;
+        font-size: 1rem;
+        border-radius: 12px;
+    }
+    
+    /* Card-based Tables para Móviles */
+    .data-table thead {
+        display: none; /* Ocultar cabeceras */
+    }
+    
+    .data-table, .data-table tbody, .data-table tr, .data-table td {
+        display: block;
+        width: 100%;
+    }
+    
+    .data-table tr {
+        margin-bottom: 20px;
+        background: rgba(255, 255, 255, 0.7);
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        border-radius: 16px;
+        padding: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    }
+    
+    .data-table tr:hover td {
+        background: transparent;
+    }
+    
+    .data-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 10px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        text-align: right;
+    }
+    
+    .data-table tr td:last-child {
+        border-bottom: none;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    
+    .data-table td::before {
+        content: attr(data-label);
+        font-weight: 700;
+        color: var(--text-secondary);
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-right: 15px;
+        text-align: left;
+    }
+    
+    .data-table td img {
+        max-width: 60px;
+        height: auto;
     }
 }
