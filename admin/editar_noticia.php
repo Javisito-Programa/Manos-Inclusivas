@@ -37,6 +37,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
     $titulo = trim($_POST['titulo']);
     $contenido = trim($_POST['contenido']);
     $fecha_publicacion = $_POST['fecha_publicacion'] ?: date('Y-m-d');
+    $enlace_facebook = $_POST['enlace_facebook'] ?? '';
+    $enlace_instagram = $_POST['enlace_instagram'] ?? '';
+    $enlace_twitter = $_POST['enlace_twitter'] ?? '';
+    $enlace_tiktok = $_POST['enlace_tiktok'] ?? '';
+    $enlace_youtube = $_POST['enlace_youtube'] ?? '';
     
     // Verificar duplicados (mismo título pero diferente ID)
     $stmt_check = $pdo->prepare("SELECT id FROM noticias WHERE titulo = ? AND id != ?");
@@ -46,34 +51,51 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
         $mensaje = "Ya existe OTRA noticia con ese mismo título. Por favor, cambia el título.";
     } else {
         $imagen_path = $noticia['imagen_path']; // Mantener la anterior por defecto
+        $imagenes_extra = $noticia['imagenes_extra'];
         
         // Procesar nueva imagen si se subió
-        if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] == 0) {
-            $file_info = pathinfo($_FILES['imagen']['name']);
-            $ext = strtolower($file_info['extension']);
-            $allowed_ext = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+        if (isset($_FILES['imagenes']) && is_array($_FILES['imagenes']['name']) && $_FILES['imagenes']['error'][0] == 0) {
             
-            if (in_array($ext, $allowed_ext)) {
-                $new_filename = uniqid('noticia_') . '.' . $ext;
-                $destination = $upload_dir . $new_filename;
-                
-                if (move_uploaded_file($_FILES['imagen']['tmp_name'], $destination)) {
-                    // Borrar la vieja si existía
-                    if (!empty($noticia['imagen_path']) && file_exists('../' . $noticia['imagen_path'])) {
-                        unlink('../' . $noticia['imagen_path']);
+            // Borrar las viejas
+            if (!empty($noticia['imagen_path']) && file_exists('../' . $noticia['imagen_path'])) {
+                unlink('../' . $noticia['imagen_path']);
+            }
+            if (!empty($noticia['imagenes_extra'])) {
+                $viejas_extra = json_decode($noticia['imagenes_extra'], true);
+                if (is_array($viejas_extra)) {
+                    foreach ($viejas_extra as $vieja) {
+                        if (file_exists('../' . $vieja)) unlink('../' . $vieja);
                     }
-                    $imagen_path = 'uploads/noticias/' . $new_filename;
-                } else {
-                    $mensaje = "Error al subir la nueva imagen.";
                 }
-            } else {
-                $mensaje = "Formato de imagen no permitido.";
+            }
+            
+            $uploaded_images = [];
+            $file_count = count($_FILES['imagenes']['name']);
+            for ($i = 0; $i < $file_count; $i++) {
+                if ($_FILES['imagenes']['error'][$i] == 0) {
+                    $file_info = pathinfo($_FILES['imagenes']['name'][$i]);
+                    $ext = strtolower($file_info['extension']);
+                    $allowed_ext = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+                    
+                    if (in_array($ext, $allowed_ext)) {
+                        $new_filename = uniqid('noticia_') . '.' . $ext;
+                        $destination = $upload_dir . $new_filename;
+                        if (move_uploaded_file($_FILES['imagenes']['tmp_name'][$i], $destination)) {
+                            $uploaded_images[] = 'uploads/noticias/' . $new_filename;
+                        }
+                    }
+                }
+            }
+            
+            if (count($uploaded_images) > 0) {
+                $imagen_path = array_shift($uploaded_images);
+                $imagenes_extra = count($uploaded_images) > 0 ? json_encode($uploaded_images) : null;
             }
         }
         
         if (empty($mensaje)) {
-            $stmt = $pdo->prepare("UPDATE noticias SET titulo = ?, contenido = ?, imagen_path = ?, fecha_publicacion = ? WHERE id = ?");
-            if ($stmt->execute([$titulo, $contenido, $imagen_path, $fecha_publicacion, $id_noticia])) {
+            $stmt = $pdo->prepare("UPDATE noticias SET titulo = ?, contenido = ?, imagen_path = ?, imagenes_extra = ?, fecha_publicacion = ?, enlace_facebook = ?, enlace_instagram = ?, enlace_twitter = ?, enlace_tiktok = ?, enlace_youtube = ? WHERE id = ?");
+            if ($stmt->execute([$titulo, $contenido, $imagen_path, $imagenes_extra, $fecha_publicacion, $enlace_facebook, $enlace_instagram, $enlace_twitter, $enlace_tiktok, $enlace_youtube, $id_noticia])) {
                 header("Location: noticias.php");
                 exit();
             } else {
@@ -165,23 +187,63 @@ $fecha_val = !empty($noticia['fecha_publicacion']) ? $noticia['fecha_publicacion
                 </div>
                 
                 <div class="form-group">
-                    <label>Reemplazar Imagen (Opcional)</label>
+                    <label>Reemplazar Imágenes (Opcional - Selecciona una o varias para el carrusel)</label>
                     <?php if(!empty($noticia['imagen_path'])): ?>
                         <div style="margin-bottom: 10px;">
                             <img src="https://miic-neurodesarrollo.org/<?php echo htmlspecialchars($noticia['imagen_path']); ?>" style="height: 60px; border-radius: 5px; vertical-align: middle; margin-right: 10px;">
-                            <span style="font-size: 0.85rem; color: gray;">Imagen actual</span>
+                            <span style="font-size: 0.85rem; color: gray;">Imagen Portada actual</span>
                         </div>
                     <?php endif; ?>
-                    <input type="file" name="imagen" class="form-control" accept="image/*" style="padding: 10px 15px;">
-                    <small style="color: gray; font-size: 0.8rem;">Sube una nueva imagen solo si quieres borrar la actual.</small>
+                    <?php if(!empty($noticia['imagenes_extra'])): ?>
+                        <div style="margin-bottom: 10px;">
+                            <?php 
+                            $viejas_extra = json_decode($noticia['imagenes_extra'], true);
+                            if(is_array($viejas_extra)):
+                                foreach($viejas_extra as $vieja):
+                            ?>
+                                <img src="https://miic-neurodesarrollo.org/<?php echo htmlspecialchars($vieja); ?>" style="height: 40px; border-radius: 5px; vertical-align: middle; margin-right: 5px; opacity: 0.7;">
+                            <?php 
+                                endforeach;
+                            endif;
+                            ?>
+                            <span style="font-size: 0.85rem; color: gray;">(+ Extras en carrusel)</span>
+                        </div>
+                    <?php endif; ?>
+                    <input type="file" name="imagenes[]" class="form-control" accept="image/*" multiple style="padding: 10px 15px;">
+                    <small style="color: #e53e3e;">Nota: Si subes imágenes nuevas aquí, se borrarán y reemplazarán TODAS las actuales (portada y extras).</small>
                 </div>
-                
                 <div class="form-group">
                     <label>Contenido</label>
-                    <textarea name="contenido" class="form-control" rows="10" required><?php echo $contenido_val; ?></textarea>
+                    <textarea name="contenido" class="form-control" rows="8" required><?php echo $contenido_val; ?></textarea>
                 </div>
                 
-                <button type="submit" class="btn btn-primary" style="background-color: #f59e0b; width: 100%; font-size: 1.1rem; padding: 12px;">Guardar Cambios</button>
+                <h4 style="margin-top: 15px; margin-bottom: 10px; color: var(--accent-purple); font-size: 1rem;">Redes Sociales Vinculadas (Opcional)</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 15px;">
+                    <div class="form-group">
+                        <label>Facebook</label>
+                        <input type="url" name="enlace_facebook" class="form-control" placeholder="https://facebook.com/..." value="<?php echo htmlspecialchars($noticia['enlace_facebook'] ?? ''); ?>">
+                    </div>
+                    <div class="form-group">
+                        <label>Instagram</label>
+                        <input type="url" name="enlace_instagram" class="form-control" placeholder="https://instagram.com/..." value="<?php echo htmlspecialchars($noticia['enlace_instagram'] ?? ''); ?>">
+                    </div>
+                    <div class="form-group">
+                        <label>Twitter (X)</label>
+                        <input type="url" name="enlace_twitter" class="form-control" placeholder="https://twitter.com/..." value="<?php echo htmlspecialchars($noticia['enlace_twitter'] ?? ''); ?>">
+                    </div>
+                    <div class="form-group">
+                        <label>TikTok</label>
+                        <input type="url" name="enlace_tiktok" class="form-control" placeholder="https://tiktok.com/..." value="<?php echo htmlspecialchars($noticia['enlace_tiktok'] ?? ''); ?>">
+                    </div>
+                    <div class="form-group">
+                        <label>YouTube</label>
+                        <input type="url" name="enlace_youtube" class="form-control" placeholder="https://youtube.com/..." value="<?php echo htmlspecialchars($noticia['enlace_youtube'] ?? ''); ?>">
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 10px;">
+                    <button type="submit" class="btn btn-primary" style="background-color: #f59e0b; width: 100%; font-size: 1.1rem; padding: 12px;">Guardar Cambios</button>
+                </div>
             </form>
         </div>
     </main>

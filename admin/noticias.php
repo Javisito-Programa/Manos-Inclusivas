@@ -64,35 +64,52 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
     $fecha_publicacion = $_POST['fecha_publicacion'] ?: date('Y-m-d'); // Default to today
     $imagen_path = '';
     
+    $enlace_facebook = $_POST['enlace_facebook'] ?? '';
+    $enlace_instagram = $_POST['enlace_instagram'] ?? '';
+    $enlace_twitter = $_POST['enlace_twitter'] ?? '';
+    $enlace_tiktok = $_POST['enlace_tiktok'] ?? '';
+    $enlace_youtube = $_POST['enlace_youtube'] ?? '';
+    
     // Verificar duplicados (mismo título)
     $stmt_check = $pdo->prepare("SELECT id FROM noticias WHERE titulo = ?");
     $stmt_check->execute([$titulo]);
     if ($stmt_check->rowCount() > 0) {
         $mensaje = "Ya existe una noticia con ese título. Por favor, edita la existente o cambia el título.";
     } else {
-        // Procesar imagen si se subió
-        if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] == 0) {
-            $file_info = pathinfo($_FILES['imagen']['name']);
-            $ext = strtolower($file_info['extension']);
-            $allowed_ext = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
-            
-            if (in_array($ext, $allowed_ext)) {
-                $new_filename = uniqid('noticia_') . '.' . $ext;
-                $destination = $upload_dir . $new_filename;
-                
-                if (move_uploaded_file($_FILES['imagen']['tmp_name'], $destination)) {
-                    $imagen_path = 'uploads/noticias/' . $new_filename;
-                } else {
-                    $mensaje = "Error al subir la imagen.";
+        $uploaded_images = [];
+        
+        // Procesar imágenes si se subieron múltiples
+        if (isset($_FILES['imagenes']) && is_array($_FILES['imagenes']['name'])) {
+            $file_count = count($_FILES['imagenes']['name']);
+            for ($i = 0; $i < $file_count; $i++) {
+                if ($_FILES['imagenes']['error'][$i] == 0) {
+                    $file_info = pathinfo($_FILES['imagenes']['name'][$i]);
+                    $ext = strtolower($file_info['extension']);
+                    $allowed_ext = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+                    
+                    if (in_array($ext, $allowed_ext)) {
+                        $new_filename = uniqid('noticia_') . '.' . $ext;
+                        $destination = $upload_dir . $new_filename;
+                        
+                        if (move_uploaded_file($_FILES['imagenes']['tmp_name'][$i], $destination)) {
+                            $uploaded_images[] = 'uploads/noticias/' . $new_filename;
+                        }
+                    }
                 }
-            } else {
-                $mensaje = "Formato de imagen no permitido.";
             }
         }
         
+        // La primera imagen será la de portada
+        if (count($uploaded_images) > 0) {
+            $imagen_path = array_shift($uploaded_images); // Saca la primera
+        }
+        
+        // El resto se guarda como JSON
+        $imagenes_extra = count($uploaded_images) > 0 ? json_encode($uploaded_images) : null;
+        
         if (empty($mensaje)) {
-            $stmt = $pdo->prepare("INSERT INTO noticias (titulo, contenido, imagen_path, fecha_publicacion) VALUES (?, ?, ?, ?)");
-            if ($stmt->execute([$titulo, $contenido, $imagen_path, $fecha_publicacion])) {
+            $stmt = $pdo->prepare("INSERT INTO noticias (titulo, contenido, imagen_path, imagenes_extra, fecha_publicacion, enlace_facebook, enlace_instagram, enlace_twitter, enlace_tiktok, enlace_youtube) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            if ($stmt->execute([$titulo, $contenido, $imagen_path, $imagenes_extra, $fecha_publicacion, $enlace_facebook, $enlace_instagram, $enlace_twitter, $enlace_tiktok, $enlace_youtube])) {
                 $mensaje = "¡Noticia publicada con éxito!";
             } else {
                 $mensaje = "Error al guardar en la base de datos.";
@@ -172,13 +189,39 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Imagen de Portada (Opcional)</label>
-                    <input type="file" name="imagen" class="form-control" accept="image/*" style="padding: 10px 15px;">
+                    <label>Imágenes (Opcional - Selecciona una o varias para el carrusel)</label>
+                    <input type="file" name="imagenes[]" class="form-control" accept="image/*" multiple style="padding: 10px 15px;">
+                    <small style="color: gray;">La primera será la imagen principal. Puedes subir varias a la vez presionando Ctrl (o Cmd).</small>
                 </div>
                 <div class="form-group">
                     <label>Contenido</label>
                     <textarea name="contenido" class="form-control" rows="5" required placeholder="Escribe el desarrollo de la noticia aquí..."></textarea>
                 </div>
+                
+                <h4 style="margin-top: 15px; margin-bottom: 10px; color: var(--accent-purple); font-size: 1rem;">Redes Sociales Vinculadas (Opcional)</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 15px;">
+                    <div class="form-group">
+                        <label>Facebook</label>
+                        <input type="url" name="enlace_facebook" class="form-control" placeholder="https://facebook.com/...">
+                    </div>
+                    <div class="form-group">
+                        <label>Instagram</label>
+                        <input type="url" name="enlace_instagram" class="form-control" placeholder="https://instagram.com/...">
+                    </div>
+                    <div class="form-group">
+                        <label>Twitter (X)</label>
+                        <input type="url" name="enlace_twitter" class="form-control" placeholder="https://twitter.com/...">
+                    </div>
+                    <div class="form-group">
+                        <label>TikTok</label>
+                        <input type="url" name="enlace_tiktok" class="form-control" placeholder="https://tiktok.com/...">
+                    </div>
+                    <div class="form-group">
+                        <label>YouTube</label>
+                        <input type="url" name="enlace_youtube" class="form-control" placeholder="https://youtube.com/...">
+                    </div>
+                </div>
+
                 <button type="submit" class="btn btn-primary">Publicar Noticia</button>
             </form>
         </div>
@@ -219,11 +262,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
                             </td>
                             <td style="font-weight: 500;"><?php echo htmlspecialchars($row['titulo']); ?></td>
                             <td><span class="badge badge-transfer"><?php echo $fecha_display; ?></span></td>
-                            <td>
-                                <a href="?toggle_pin=<?php echo $row['id']; ?>" class="btn" style="background-color: var(--bg-tertiary); color: var(--text-main); margin-right: 5px;">
+                            <td style="display: flex; gap: 5px; flex-wrap: wrap; align-items: center; justify-content: flex-start;">
+                                <a href="?toggle_pin=<?php echo $row['id']; ?>" class="btn" style="background-color: var(--bg-tertiary); color: var(--text-main);">
                                     <?php echo $row['is_pinned'] ? 'Desfijar' : '📌 Fijar'; ?>
                                 </a>
-                                <a href="editar_noticia.php?id=<?php echo $row['id']; ?>" class="btn btn-primary" style="background-color: #f59e0b; margin-right: 5px;">Editar</a>
+                                <a href="editar_noticia.php?id=<?php echo $row['id']; ?>" class="btn btn-primary" style="background-color: #f59e0b;">Editar</a>
                                 <?php if(isset($permisos['noticias_borrar']) && $permisos['noticias_borrar']): ?>
                                 <a href="?delete=<?php echo $row['id']; ?>" class="btn btn-danger" onclick="return confirm('¿Seguro que deseas eliminar esta noticia?');">Eliminar</a>
                                 <?php else: ?>
