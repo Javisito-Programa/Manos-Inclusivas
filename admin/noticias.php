@@ -1,5 +1,5 @@
 <?php
-session_start();
+require_once 'config/session.php';
 if (!isset($_SESSION['admin_id'])) {
     header("Location: index.php");
     exit();
