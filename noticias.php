@@ -437,8 +437,8 @@
                 date_default_timezone_set('America/Mexico_City');
                 
                 if (isset($pdo)) {
-                    // Ordenar por fijadas primero, luego por fecha de publicación descendente
-                    $stmt = $pdo->query("SELECT * FROM noticias ORDER BY is_pinned DESC, fecha_publicacion DESC, id DESC");
+                    // Ordenar por fijadas primero, luego por orden manual (pinned_order), luego por fecha de publicación
+                    $stmt = $pdo->query("SELECT * FROM noticias ORDER BY is_pinned DESC, pinned_order ASC, fecha_publicacion DESC, id DESC");
                     $noticias = $stmt->fetchAll();
                     
                     if (count($noticias) > 0) {

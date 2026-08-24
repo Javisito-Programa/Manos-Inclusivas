@@ -12,6 +12,26 @@ if (!isset($permisos['noticias']) || $permisos['noticias'] !== true) {
 require_once 'config/database.php';
 date_default_timezone_set('America/Mexico_City');
 
+// AUTO-MIGRATION: Ensure pinned_order column exists
+try {
+    $pdo->exec("ALTER TABLE noticias ADD COLUMN pinned_order INT DEFAULT 0");
+} catch(PDOException $e) {
+    // Column already exists or error, ignore
+}
+
+// Manejar AJAX para reordenar
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'reorder_pinned') {
+    if (isset($_POST['order']) && is_array($_POST['order'])) {
+        $order = $_POST['order']; // array of IDs in new order
+        foreach ($order as $index => $id) {
+            $stmt = $pdo->prepare("UPDATE noticias SET pinned_order = ? WHERE id = ?");
+            $stmt->execute([$index + 1, (int)$id]);
+        }
+        echo json_encode(['success' => true]);
+        exit();
+    }
+}
+
 // Directorio para subir imágenes
 $upload_dir = 'uploads/noticias/';
 if (!file_exists($upload_dir)) {
@@ -21,9 +41,26 @@ if (!file_exists($upload_dir)) {
 // Manejar fijar/desfijar noticia
 if (isset($_GET['toggle_pin'])) {
     $id_pin = (int)$_GET['toggle_pin'];
-    // Invertir el estado actual
-    $stmt = $pdo->prepare("UPDATE noticias SET is_pinned = NOT is_pinned WHERE id = ?");
+    
+    // Consultar estado actual
+    $stmt = $pdo->prepare("SELECT is_pinned FROM noticias WHERE id = ?");
     $stmt->execute([$id_pin]);
+    $noticia_pin = $stmt->fetch();
+    
+    if ($noticia_pin) {
+        $is_currently_pinned = (bool)$noticia_pin['is_pinned'];
+        if ($is_currently_pinned) {
+            // Desfijar y resetear orden
+            $stmt = $pdo->prepare("UPDATE noticias SET is_pinned = 0, pinned_order = 0 WHERE id = ?");
+            $stmt->execute([$id_pin]);
+        } else {
+            // Fijar y mandar al final (mayor pinned_order + 1)
+            $stmtMax = $pdo->query("SELECT MAX(pinned_order) as max_order FROM noticias WHERE is_pinned = 1");
+            $maxOrder = (int)$stmtMax->fetchColumn();
+            $stmt = $pdo->prepare("UPDATE noticias SET is_pinned = 1, pinned_order = ? WHERE id = ?");
+            $stmt->execute([$maxOrder + 1, $id_pin]);
+        }
+    }
     header("Location: noticias.php");
     exit();
 }
@@ -247,6 +284,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th>Orden</th>
                         <th>Imagen</th>
                         <th>Título</th>
                         <th>Fecha de Publicación</th>
@@ -256,15 +294,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
                 <tbody>
                     <?php if(isset($pdo)): ?>
                         <?php 
-                        $stmt = $pdo->query("SELECT * FROM noticias ORDER BY is_pinned DESC, fecha_publicacion DESC, id DESC");
+                        $stmt = $pdo->query("SELECT * FROM noticias ORDER BY is_pinned DESC, pinned_order ASC, fecha_publicacion DESC, id DESC");
                         while($row = $stmt->fetch()): 
                             $raw_date = !empty($row['fecha_publicacion']) ? $row['fecha_publicacion'] : $row['created_at'];
                             $fecha_display = date('d/m/Y', strtotime($raw_date));
                         ?>
-                        <tr style="<?php echo $row['is_pinned'] ? 'background-color: rgba(236, 72, 153, 0.05);' : ''; ?>">
+                        <tr data-id="<?php echo $row['id']; ?>" class="<?php echo $row['is_pinned'] ? 'sortable-row' : ''; ?>" style="<?php echo $row['is_pinned'] ? 'background-color: rgba(236, 72, 153, 0.05);' : ''; ?>">
                             <td style="font-weight: 600; color: var(--text-secondary);">
                                 #<?php echo $row['id']; ?>
                                 <?php if($row['is_pinned']) echo '<br><span style="font-size: 0.8rem; color: var(--accent-purple);">📌 Fijada</span>'; ?>
+                            </td>
+                            <td style="text-align: center;">
+                                <?php if($row['is_pinned']): ?>
+                                    <span class="drag-handle" style="cursor: grab; font-size: 1.5rem; color: #94a3b8; display: inline-block; padding: 10px;">☰</span>
+                                <?php else: ?>
+                                    <span style="color: #cbd5e1;">-</span>
+                                <?php endif; ?>
                             </td>
                             <td style="text-align: center;" data-label="Imagen">
                                 <?php if($row['imagen_path']): ?>
@@ -300,8 +345,48 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
         </div>
     </main>
 
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', () => {
+            // SortableJS para noticias fijadas
+            const tbody = document.querySelector('.data-table tbody');
+            if (tbody) {
+                new Sortable(tbody, {
+                    animation: 150,
+                    handle: '.drag-handle', // Solo arrastrar por el icono
+                    draggable: '.sortable-row', // Solo filas fijadas
+                    onEnd: function (evt) {
+                        // Recolectar el nuevo orden de los IDs
+                        const rows = tbody.querySelectorAll('.sortable-row');
+                        let order = [];
+                        rows.forEach(row => {
+                            order.push(row.getAttribute('data-id'));
+                        });
+
+                        // Enviar por AJAX
+                        const formData = new FormData();
+                        formData.append('action', 'reorder_pinned');
+                        order.forEach(id => formData.append('order[]', id));
+
+                        fetch('noticias.php', {
+                            method: 'POST',
+                            body: formData
+                        }).then(res => res.json())
+                          .then(data => {
+                              if (data.success) {
+                                  console.log('Orden guardado correctamente');
+                              }
+                          }).catch(err => console.error(err));
+                    }
+                });
+            }
+        });
+        
+        // Manejo de sidebar en móvil
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('active');
+        }
+        
         const fileInput = document.getElementById('image-input');
         const previewContainer = document.getElementById('image-preview-container');
         let dt = new DataTransfer();
