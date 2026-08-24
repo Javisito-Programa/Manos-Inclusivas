@@ -17,14 +17,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($username) && !empty($password)) {
         // En producción $pdo debería estar instanciado en config/database.php
         if (isset($pdo)) {
-            $stmt = $pdo->prepare("SELECT id, password_hash, role FROM usuarios WHERE username = ?");
+            $stmt = $pdo->prepare("SELECT id, username, password_hash, role, permisos FROM usuarios WHERE username = ?");
             $stmt->execute([$username]);
             $user = $stmt->fetch();
 
             // Usamos password_verify que es el estándar más seguro (BCRYPT / ARGON2I)
             if ($user && password_verify($password, $user['password_hash'])) {
                 $_SESSION['admin_id'] = $user['id'];
+                $_SESSION['admin_username'] = $user['username'];
                 $_SESSION['admin_role'] = $user['role'];
+                
+                // Decodificar permisos y guardarlos en sesión
+                if (!empty($user['permisos'])) {
+                    $_SESSION['admin_permisos'] = json_decode($user['permisos'], true);
+                } else {
+                    $_SESSION['admin_permisos'] = [];
+                }
+                
                 header("Location: noticias.php");
                 exit();
             } else {

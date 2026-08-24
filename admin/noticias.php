@@ -4,6 +4,11 @@ if (!isset($_SESSION['admin_id'])) {
     header("Location: index.php");
     exit();
 }
+$permisos = $_SESSION['admin_permisos'] ?? [];
+if (!isset($permisos['noticias']) || $permisos['noticias'] !== true) {
+    header("Location: perfil.php");
+    exit();
+}
 require_once 'config/database.php';
 
 // Directorio para subir imágenes
@@ -14,26 +19,30 @@ if (!file_exists($upload_dir)) {
 
 // Manejar eliminación de noticia
 if (isset($_GET['delete'])) {
-    $id_to_delete = (int)$_GET['delete'];
-    
-    // Obtener la imagen para borrarla del servidor
-    $stmt = $pdo->prepare("SELECT imagen_path FROM noticias WHERE id = ?");
-    $stmt->execute([$id_to_delete]);
-    $noticia = $stmt->fetch();
-    
-    if ($noticia && $noticia['imagen_path']) {
-        $file_path = '../' . $noticia['imagen_path'];
-        if (file_exists($file_path)) {
-            unlink($file_path);
+    if (!isset($permisos['noticias_borrar']) || $permisos['noticias_borrar'] !== true) {
+        $mensaje = "No tienes permiso para eliminar noticias.";
+    } else {
+        $id_to_delete = (int)$_GET['delete'];
+        
+        // Obtener la imagen para borrarla del servidor
+        $stmt = $pdo->prepare("SELECT imagen_path FROM noticias WHERE id = ?");
+        $stmt->execute([$id_to_delete]);
+        $noticia = $stmt->fetch();
+        
+        if ($noticia && $noticia['imagen_path']) {
+            $file_path = '../' . $noticia['imagen_path'];
+            if (file_exists($file_path)) {
+                unlink($file_path);
+            }
         }
+        
+        // Borrar de la BD
+        $stmt = $pdo->prepare("DELETE FROM noticias WHERE id = ?");
+        $stmt->execute([$id_to_delete]);
+        
+        header("Location: noticias.php");
+        exit();
     }
-    
-    // Borrar de la BD
-    $stmt = $pdo->prepare("DELETE FROM noticias WHERE id = ?");
-    $stmt->execute([$id_to_delete]);
-    
-    header("Location: noticias.php");
-    exit();
 }
 
 // Manejar subida de nueva noticia
@@ -98,8 +107,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
             <h2>Panel Admin</h2>
         </div>
         <ul class="nav-links">
+            <?php if(isset($permisos['noticias']) && $permisos['noticias']): ?>
             <li><a href="noticias.php" class="active"><span class="nav-icon">📰</span> Noticias</a></li>
+            <?php endif; ?>
+            
+            <?php if(isset($permisos['finanzas']) && $permisos['finanzas']): ?>
             <li><a href="finanzas.php"><span class="nav-icon">💰</span> Finanzas</a></li>
+            <?php endif; ?>
+            
+            <?php if(isset($permisos['usuarios']) && $permisos['usuarios']): ?>
+            <li><a href="usuarios.php"><span class="nav-icon">👥</span> Usuarios</a></li>
+            <?php endif; ?>
+            
             <li><a href="perfil.php"><span class="nav-icon">⚙️</span> Mi Perfil</a></li>
             <li style="margin-top: auto;"><a href="logout.php"><span class="nav-icon">🚪</span> Salir</a></li>
         </ul>
@@ -171,7 +190,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
                             <td style="font-weight: 500;"><?php echo htmlspecialchars($row['titulo']); ?></td>
                             <td><span class="badge badge-transfer"><?php echo date('d/m/Y', strtotime($row['created_at'])); ?></span></td>
                             <td>
+                                <?php if(isset($permisos['noticias_borrar']) && $permisos['noticias_borrar']): ?>
                                 <a href="?delete=<?php echo $row['id']; ?>" class="btn btn-danger" onclick="return confirm('¿Seguro que deseas eliminar esta noticia?');">Eliminar</a>
+                                <?php else: ?>
+                                <span style="color: gray; font-size: 0.8rem;">Sin Permiso</span>
+                                <?php endif; ?>
                             </td>
                         </tr>
                         <?php endwhile; ?>

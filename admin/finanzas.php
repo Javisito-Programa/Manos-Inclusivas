@@ -4,6 +4,11 @@ if (!isset($_SESSION['admin_id'])) {
     header("Location: index.php");
     exit();
 }
+$permisos = $_SESSION['admin_permisos'] ?? [];
+if (!isset($permisos['finanzas']) || $permisos['finanzas'] !== true) {
+    header("Location: perfil.php");
+    exit();
+}
 require_once 'config/database.php';
 
 // Filtro de fechas (Día, Semana, Mes) o Custom
@@ -35,8 +40,18 @@ $filtro = $_GET['filtro'] ?? 'mes';
             <h2>Panel Admin</h2>
         </div>
         <ul class="nav-links">
+            <?php if(isset($permisos['noticias']) && $permisos['noticias']): ?>
             <li><a href="noticias.php"><span class="nav-icon">📰</span> Noticias</a></li>
+            <?php endif; ?>
+            
+            <?php if(isset($permisos['finanzas']) && $permisos['finanzas']): ?>
             <li><a href="finanzas.php" class="active"><span class="nav-icon">💰</span> Finanzas</a></li>
+            <?php endif; ?>
+            
+            <?php if(isset($permisos['usuarios']) && $permisos['usuarios']): ?>
+            <li><a href="usuarios.php"><span class="nav-icon">👥</span> Usuarios</a></li>
+            <?php endif; ?>
+            
             <li><a href="perfil.php"><span class="nav-icon">⚙️</span> Mi Perfil</a></li>
             <li style="margin-top: auto;"><a href="logout.php"><span class="nav-icon">🚪</span> Salir</a></li>
         </ul>
