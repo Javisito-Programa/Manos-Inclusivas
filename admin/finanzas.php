@@ -20,10 +20,18 @@ $filtro = $_GET['filtro'] ?? 'mes';
     <link rel="stylesheet" href="css/admin-style.css">
 </head>
 <body>
+    <!-- Animación de ondas de fondo -->
+    <div style="position: fixed; bottom: 0; left: 0; width: 100%; overflow: hidden; z-index: -1; opacity: 0.2;">
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none" style="width: 200%; height: 250px; transform: translateX(0); animation: waveAnimate 20s linear infinite;">
+            <path d="M0,60 C300,120 300,0 600,60 C900,120 900,0 1200,60 C1500,120 1500,0 1800,60 C2100,120 2100,0 2400,60 L2400,120 L0,120 Z" fill="#38A169"></path>
+        </svg>
+    </div>
+    <style>@keyframes waveAnimate { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }</style>
 
     <!-- Sidebar -->
     <aside class="sidebar">
         <div class="sidebar-header">
+            <img src="../img/Logo circular.png" alt="Logo" style="width: 60px; height: 60px; border-radius: 50%; margin-bottom: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); background: white; padding: 2px;">
             <h2>Panel Admin</h2>
         </div>
         <ul class="nav-links">
@@ -44,10 +52,10 @@ $filtro = $_GET['filtro'] ?? 'mes';
         </div>
 
         <!-- Filtros rápidos -->
-        <div style="margin-bottom: 20px;">
-            <a href="?filtro=dia" class="btn <?php echo $filtro=='dia' ? 'btn-success' : 'btn-logout'; ?>" style="margin-right: 10px;">Hoy</a>
-            <a href="?filtro=semana" class="btn <?php echo $filtro=='semana' ? 'btn-success' : 'btn-logout'; ?>" style="margin-right: 10px;">Esta Semana</a>
-            <a href="?filtro=mes" class="btn <?php echo $filtro=='mes' ? 'btn-success' : 'btn-logout'; ?>">Este Mes</a>
+        <div style="margin-bottom: 30px; display: flex; gap: 15px;">
+            <a href="?filtro=dia" class="btn <?php echo $filtro=='dia' ? 'btn-success' : 'btn-logout'; ?>" style="<?php echo $filtro=='dia' ? '' : 'background: var(--glass-bg); backdrop-filter: blur(10px); border: var(--glass-border); color: var(--text-primary);'; ?>">Hoy</a>
+            <a href="?filtro=semana" class="btn <?php echo $filtro=='semana' ? 'btn-success' : 'btn-logout'; ?>" style="<?php echo $filtro=='semana' ? '' : 'background: var(--glass-bg); backdrop-filter: blur(10px); border: var(--glass-border); color: var(--text-primary);'; ?>">Esta Semana</a>
+            <a href="?filtro=mes" class="btn <?php echo $filtro=='mes' ? 'btn-success' : 'btn-logout'; ?>" style="<?php echo $filtro=='mes' ? '' : 'background: var(--glass-bg); backdrop-filter: blur(10px); border: var(--glass-border); color: var(--text-primary);'; ?>">Este Mes</a>
         </div>
 
         <!-- Dashboard Cards -->
@@ -67,8 +75,8 @@ $filtro = $_GET['filtro'] ?? 'mes';
         </div>
 
         <!-- Formulario Registro Manual -->
-        <div class="form-container" style="background: #f0fdf4; border: 1px solid #bbf7d0;">
-            <h3 style="margin-bottom: 20px; color: var(--accent-green);">Registrar Donativo Manual (Cheques, Transferencias, Efectivo)</h3>
+        <div class="form-container" style="border-left: 6px solid var(--accent-green);">
+            <h3 style="margin-bottom: 25px; color: var(--accent-green); font-size: 1.2rem; font-weight: 700;">Registrar Donativo Manual (Cheques, Transferencias, Efectivo)</h3>
             <form action="" method="POST">
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                     <div class="form-group">
@@ -93,7 +101,8 @@ $filtro = $_GET['filtro'] ?? 'mes';
                     </div>
                     
                     <div class="form-group" style="grid-column: span 2;">
-                        <h4 style="margin-bottom: 10px; margin-top: 10px; color: var(--text-secondary);">Datos para Deducibilidad (SAT)</h4>
+                        <h4 style="margin-bottom: 10px; margin-top: 15px; color: var(--text-primary); font-weight: 700; font-size: 1.1rem;">Datos para Deducibilidad (SAT)</h4>
+                        <div style="height: 1px; background: rgba(0,0,0,0.1); margin-bottom: 15px;"></div>
                     </div>
 
                     <div class="form-group">
@@ -109,7 +118,7 @@ $filtro = $_GET['filtro'] ?? 'mes';
                         <input type="email" name="email" class="form-control" placeholder="correo@ejemplo.com">
                     </div>
                     <div class="form-group" style="display: flex; align-items: center; padding-top: 30px;">
-                        <input type="checkbox" name="requiere_factura" id="factura" style="margin-right: 10px; width: 20px; height: 20px;">
+                        <input type="checkbox" name="requiere_factura" id="factura" style="margin-right: 10px; width: 20px; height: 20px; accent-color: var(--accent-green);">
                         <label for="factura" style="margin: 0; cursor: pointer;">El donante solicitó recibo deducible</label>
                     </div>
                 </div>
@@ -119,10 +128,10 @@ $filtro = $_GET['filtro'] ?? 'mes';
         </div>
 
         <!-- Tabla Histórica -->
-        <div>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                <h3 style="color: var(--text-primary);">Historial de Donativos (<?php echo ucfirst($filtro); ?>)</h3>
-                <button class="btn btn-primary" style="padding: 8px 16px; font-size: 0.9rem;">⬇ Exportar a Excel (.csv)</button>
+        <div class="data-table-wrapper">
+            <div style="padding: 20px 25px; border-bottom: 1px solid rgba(226, 232, 240, 0.5); display: flex; justify-content: space-between; align-items: center;">
+                <h3 style="color: var(--text-primary); font-size: 1.2rem; font-weight: 700;">Historial de Donativos (<?php echo ucfirst($filtro); ?>)</h3>
+                <button class="btn btn-primary" style="padding: 10px 20px; font-size: 0.9rem; background: var(--text-secondary);">⬇ Exportar a Excel (.csv)</button>
             </div>
             
             <table class="data-table">
@@ -144,22 +153,22 @@ $filtro = $_GET['filtro'] ?? 'mes';
                     <?php else: ?>
                         <!-- Mock Data Demo -->
                         <tr>
-                            <td><?php echo date('d/m/Y'); ?></td>
+                            <td style="font-weight: 500; color: var(--text-secondary);"><?php echo date('d/m/Y'); ?></td>
                             <td><span class="badge badge-card">Tarjeta en Línea</span></td>
-                            <td>Anónimo<br><small style="color: gray;">Sin RFC</small></td>
-                            <td>STRIPE-ch_12345</td>
-                            <td style="font-weight: bold; color: var(--accent-green);">$500.00 MXN</td>
+                            <td style="font-weight: 600;">Anónimo<br><small style="color: var(--text-secondary); font-weight: normal;">Sin RFC</small></td>
+                            <td style="font-family: monospace;">STRIPE-ch_12345</td>
+                            <td style="font-weight: 800; color: var(--accent-green); font-size: 1.1rem;">$500.00 MXN</td>
                         </tr>
                         <tr>
-                            <td><?php echo date('d/m/Y', strtotime('-2 days')); ?></td>
+                            <td style="font-weight: 500; color: var(--text-secondary);"><?php echo date('d/m/Y', strtotime('-2 days')); ?></td>
                             <td><span class="badge badge-transfer">Transferencia</span></td>
-                            <td>Empresa S.A. de C.V.<br><small style="color: gray;">EMP123456789</small></td>
-                            <td>SPEI-998877</td>
-                            <td style="font-weight: bold; color: var(--accent-green);">$5,000.00 MXN</td>
+                            <td style="font-weight: 600;">Empresa S.A. de C.V.<br><small style="color: var(--text-secondary); font-weight: normal;">EMP123456789</small></td>
+                            <td style="font-family: monospace;">SPEI-998877</td>
+                            <td style="font-weight: 800; color: var(--accent-green); font-size: 1.1rem;">$5,000.00 MXN</td>
                         </tr>
                         <tr>
-                            <td colspan="5" style="text-align: center; color: var(--text-secondary); background: #fdfbf7;">
-                                <em>Modo de demostración visual. (Base de datos MySQL no conectada).</em>
+                            <td colspan="5" style="text-align: center; color: var(--text-secondary); padding: 30px;">
+                                <em style="font-size: 1.1rem;">Modo de demostración visual. (Base de datos MySQL no conectada).</em>
                             </td>
                         </tr>
                     <?php endif; ?>

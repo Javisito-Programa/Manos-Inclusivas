@@ -83,10 +83,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
     <link rel="stylesheet" href="css/admin-style.css">
 </head>
 <body>
+    <!-- Animación de ondas de fondo -->
+    <div style="position: fixed; bottom: 0; left: 0; width: 100%; overflow: hidden; z-index: -1; opacity: 0.2;">
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none" style="width: 200%; height: 250px; transform: translateX(0); animation: waveAnimate 20s linear infinite;">
+            <path d="M0,60 C300,120 300,0 600,60 C900,120 900,0 1200,60 C1500,120 1500,0 1800,60 C2100,120 2100,0 2400,60 L2400,120 L0,120 Z" fill="#6B46C1"></path>
+        </svg>
+    </div>
+    <style>@keyframes waveAnimate { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }</style>
 
     <!-- Sidebar -->
     <aside class="sidebar">
         <div class="sidebar-header">
+            <img src="../img/Logo circular.png" alt="Logo" style="width: 60px; height: 60px; border-radius: 50%; margin-bottom: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); background: white; padding: 2px;">
             <h2>Panel Admin</h2>
         </div>
         <ul class="nav-links">
@@ -107,9 +115,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
         </div>
 
         <div class="form-container">
-            <h3 style="margin-bottom: 20px; color: var(--accent-purple);">Publicar Nueva Noticia</h3>
+            <h3 style="margin-bottom: 20px; color: var(--accent-purple); font-size: 1.2rem; font-weight: 700;">Publicar Nueva Noticia</h3>
             <?php if(!empty($mensaje)): ?>
-                <div class="alert" style="margin-bottom:15px; padding:10px; background:#e8f5e9; color:#2e7d32; border-radius:4px;">
+                <div class="alert" style="margin-bottom:20px; padding:15px; background:rgba(72, 187, 120, 0.2); color:#276749; border: 1px solid rgba(72, 187, 120, 0.4); border-radius:12px; font-weight: 600;">
                     <?php echo htmlspecialchars($mensaje); ?>
                 </div>
             <?php endif; ?>
@@ -120,7 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
                 </div>
                 <div class="form-group">
                     <label>Imagen de Portada</label>
-                    <input type="file" name="imagen" class="form-control" accept="image/*">
+                    <input type="file" name="imagen" class="form-control" accept="image/*" style="padding: 10px 15px;">
                 </div>
                 <div class="form-group">
                     <label>Contenido</label>
@@ -130,8 +138,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
             </form>
         </div>
 
-        <div>
-            <h3 style="margin-bottom: 20px; color: var(--accent-purple);">Noticias Publicadas</h3>
+        <div class="data-table-wrapper">
+            <div style="padding: 20px 25px; border-bottom: 1px solid rgba(226, 232, 240, 0.5);">
+                <h3 style="color: var(--accent-purple); font-size: 1.2rem; font-weight: 700;">Noticias Publicadas</h3>
+            </div>
             <table class="data-table">
                 <thead>
                     <tr>
@@ -149,25 +159,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
                         while($row = $stmt->fetch()): 
                         ?>
                         <tr>
-                            <td>#<?php echo $row['id']; ?></td>
+                            <td style="font-weight: 600; color: var(--text-secondary);">#<?php echo $row['id']; ?></td>
                             <td>
                                 <?php if($row['imagen_path']): ?>
-                                    <img src="../<?php echo htmlspecialchars($row['imagen_path']); ?>" width="50" style="border-radius: 4px;">
+                                    <img src="../<?php echo htmlspecialchars($row['imagen_path']); ?>" width="60" style="border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
                                 <?php else: ?>
-                                    Sin imagen
+                                    <span class="badge badge-card">Sin imagen</span>
                                 <?php endif; ?>
                             </td>
-                            <td><?php echo htmlspecialchars($row['titulo']); ?></td>
-                            <td><?php echo date('d/m/Y', strtotime($row['created_at'])); ?></td>
+                            <td style="font-weight: 500;"><?php echo htmlspecialchars($row['titulo']); ?></td>
+                            <td><span class="badge badge-transfer"><?php echo date('d/m/Y', strtotime($row['created_at'])); ?></span></td>
                             <td>
-                                <a href="?delete=<?php echo $row['id']; ?>" class="btn btn-logout" style="padding: 6px 12px; font-size: 0.8rem; text-decoration:none;" onclick="return confirm('¿Seguro que deseas eliminar esta noticia?');">Eliminar</a>
+                                <a href="?delete=<?php echo $row['id']; ?>" class="btn btn-danger" onclick="return confirm('¿Seguro que deseas eliminar esta noticia?');">Eliminar</a>
                             </td>
                         </tr>
                         <?php endwhile; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="5" style="text-align: center; color: var(--text-secondary);">
-                                <em>Base de datos no conectada. (Modo de demostración visual)</em>
+                            <td colspan="5" style="text-align: center; color: var(--text-secondary); padding: 40px;">
+                                <em style="font-size: 1.1rem;">Base de datos no conectada. Revisa tu db_secrets.php</em>
                             </td>
                         </tr>
                     <?php endif; ?>
