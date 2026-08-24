@@ -19,17 +19,63 @@ try {
     // Column already exists or error, ignore
 }
 
-// Manejar AJAX para reordenar
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'reorder_pinned') {
-    if (isset($_POST['order']) && is_array($_POST['order'])) {
-        $order = $_POST['order']; // array of IDs in new order
-        foreach ($order as $index => $id) {
-            $stmt = $pdo->prepare("UPDATE noticias SET pinned_order = ? WHERE id = ?");
-            $stmt->execute([$index + 1, (int)$id]);
-        }
-        echo json_encode(['success' => true]);
-        exit();
+// Auto-inicializar pinned_order si es 0 (para noticias ya fijadas)
+$stmt_check = $pdo->query("SELECT id FROM noticias WHERE is_pinned = 1 AND pinned_order = 0 ORDER BY fecha_publicacion DESC");
+$unordered = $stmt_check->fetchAll();
+if (count($unordered) > 0) {
+    $stmtMax = $pdo->query("SELECT MAX(pinned_order) FROM noticias WHERE is_pinned = 1");
+    $maxOrder = (int)$stmtMax->fetchColumn();
+    foreach ($unordered as $row) {
+        $maxOrder++;
+        $pdo->prepare("UPDATE noticias SET pinned_order = ? WHERE id = ?")->execute([$maxOrder, $row['id']]);
     }
+}
+
+// Manejar orden manual de noticias fijadas (Arriba / Abajo)
+if (isset($_GET['move_up'])) {
+    $id = (int)$_GET['move_up'];
+    $stmt = $pdo->prepare("SELECT pinned_order FROM noticias WHERE id = ?");
+    $stmt->execute([$id]);
+    $current = $stmt->fetch();
+    
+    if ($current && $current['pinned_order'] > 0) {
+        $current_order = $current['pinned_order'];
+        // Buscar el que está justo encima
+        $stmt_above = $pdo->prepare("SELECT id, pinned_order FROM noticias WHERE is_pinned = 1 AND pinned_order < ? ORDER BY pinned_order DESC LIMIT 1");
+        $stmt_above->execute([$current_order]);
+        $above = $stmt_above->fetch();
+        
+        if ($above) {
+            // Intercambiar
+            $pdo->prepare("UPDATE noticias SET pinned_order = ? WHERE id = ?")->execute([$above['pinned_order'], $id]);
+            $pdo->prepare("UPDATE noticias SET pinned_order = ? WHERE id = ?")->execute([$current_order, $above['id']]);
+        }
+    }
+    header("Location: noticias.php");
+    exit();
+}
+
+if (isset($_GET['move_down'])) {
+    $id = (int)$_GET['move_down'];
+    $stmt = $pdo->prepare("SELECT pinned_order FROM noticias WHERE id = ?");
+    $stmt->execute([$id]);
+    $current = $stmt->fetch();
+    
+    if ($current && $current['pinned_order'] > 0) {
+        $current_order = $current['pinned_order'];
+        // Buscar el que está justo debajo
+        $stmt_below = $pdo->prepare("SELECT id, pinned_order FROM noticias WHERE is_pinned = 1 AND pinned_order > ? ORDER BY pinned_order ASC LIMIT 1");
+        $stmt_below->execute([$current_order]);
+        $below = $stmt_below->fetch();
+        
+        if ($below) {
+            // Intercambiar
+            $pdo->prepare("UPDATE noticias SET pinned_order = ? WHERE id = ?")->execute([$below['pinned_order'], $id]);
+            $pdo->prepare("UPDATE noticias SET pinned_order = ? WHERE id = ?")->execute([$current_order, $below['id']]);
+        }
+    }
+    header("Location: noticias.php");
+    exit();
 }
 
 // Directorio para subir imágenes
@@ -306,12 +352,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
                             </td>
                             <td style="text-align: center;" data-label="Orden">
                                 <?php if($row['is_pinned']): ?>
-                                    <div class="drag-handle" style="cursor: grab; color: var(--accent-purple); display: inline-flex; align-items: center; justify-content: center; width: 50px; height: 50px; background: rgba(109, 40, 217, 0.1); border-radius: 8px; touch-action: none;">
-                                        <svg style="pointer-events: none;" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                          <line x1="3" y1="12" x2="21" y2="12"></line>
-                                          <line x1="3" y1="6" x2="21" y2="6"></line>
-                                          <line x1="3" y1="18" x2="21" y2="18"></line>
-                                        </svg>
+                                    <div style="display: inline-flex; flex-direction: row; gap: 5px;">
+                                        <a href="?move_up=<?php echo $row['id']; ?>" class="order-btn" title="Mover arriba" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(109, 40, 217, 0.1); color: var(--accent-purple); border-radius: 8px; font-size: 1.2rem; transition: background 0.3s;">⬆️</a>
+                                        <a href="?move_down=<?php echo $row['id']; ?>" class="order-btn" title="Mover abajo" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(109, 40, 217, 0.1); color: var(--accent-purple); border-radius: 8px; font-size: 1.2rem; transition: background 0.3s;">⬇️</a>
                                     </div>
                                 <?php else: ?>
                                     <span style="color: #cbd5e1;">-</span>
@@ -351,49 +394,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
         </div>
     </main>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.2/Sortable.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // SortableJS para noticias fijadas
-            const tbody = document.querySelector('.data-table tbody');
-            if (tbody) {
-                new Sortable(tbody, {
-                    animation: 150,
-                    handle: '.drag-handle', // El icono funciona como manija exclusiva
-                    fallbackOnBody: true, // Soluciona problemas de clipping en tablas
-                    forceFallback: true, // Fuerza a que funcione el drag (ignora el HTML5 nativo que a veces falla)
-                    swapThreshold: 0.65,
-                    ghostClass: 'sortable-ghost',
-                    onEnd: function (evt) {
-                        // Recolectar el nuevo orden de los IDs
-                        const rows = tbody.querySelectorAll('.sortable-row');
-                        let order = [];
-                        rows.forEach(row => {
-                            order.push(row.getAttribute('data-id'));
-                        });
-
-                        // Enviar por AJAX
-                        const formData = new FormData();
-                        formData.append('action', 'reorder_pinned');
-                        order.forEach(id => formData.append('order[]', id));
-
-                        fetch('noticias.php', {
-                            method: 'POST',
-                            body: formData
-                        }).then(res => res.json())
-                          .then(data => {
-                              if (data.success) {
-                                  console.log('Orden guardado correctamente');
-                              }
-                          }).catch(err => console.error(err));
-                    }
-                });
-            }
-        });
-        
-            }
-        });
-
         // Manejo de sidebar en móvil (Global Scope)
         window.toggleSidebar = function() {
             document.querySelector('.sidebar').classList.toggle('active');
