@@ -3,9 +3,16 @@
 // Rutas posibles para el archivo secreto
 $secret_path_1 = __DIR__ . '/db_secrets.php';
 $secret_path_2 = $_SERVER['DOCUMENT_ROOT'] . '/../db_secrets.php';
+// Para subdominios cuya raíz es public_html/admin/
+$secret_path_3 = $_SERVER['DOCUMENT_ROOT'] . '/../../db_secrets.php';
+$secret_path_4 = dirname(__DIR__, 3) . '/db_secrets.php'; // Alternativa robusta
 
 try {
-    if (file_exists($secret_path_2)) {
+    if (file_exists($secret_path_4)) {
+        require_once $secret_path_4;
+    } elseif (file_exists($secret_path_3)) {
+        require_once $secret_path_3;
+    } elseif (file_exists($secret_path_2)) {
         require_once $secret_path_2;
     } elseif (file_exists($secret_path_1)) {
         require_once $secret_path_1;
