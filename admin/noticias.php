@@ -183,8 +183,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
                 </div>
                 <div class="form-group">
                     <label>Imágenes (Opcional - Selecciona una o varias para el carrusel)</label>
-                    <input type="file" name="imagenes[]" class="form-control" accept="image/*" multiple style="padding: 10px 15px;">
-                    <small style="color: gray;">La primera será la imagen principal. Puedes subir varias a la vez presionando Ctrl (o Cmd).</small>
+                    <div class="custom-file-upload-container">
+                        <label for="image-input" class="btn" style="display: inline-flex; align-items: center; background: rgba(109, 40, 217, 0.1); color: var(--accent-purple); border: 1px solid rgba(109, 40, 217, 0.3); font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
+                            <span style="font-size: 1.2rem; margin-right: 8px;">📷</span> Seleccionar Imágenes
+                        </label>
+                        <input type="file" id="image-input" name="imagenes[]" accept="image/*" multiple style="display: none;">
+                        <small style="display: block; margin-top: 8px; color: var(--text-secondary);">Selecciona una por una o varias a la vez. La que diga "Portada" será la principal.</small>
+                        <div id="image-preview-container" style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 15px;"></div>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>Contenido</label>
@@ -280,5 +286,90 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
         </div>
     </main>
 
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const fileInput = document.getElementById('image-input');
+        const previewContainer = document.getElementById('image-preview-container');
+        let dt = new DataTransfer();
+
+        fileInput.addEventListener('change', function(e) {
+            for(let i = 0; i < this.files.length; i++){
+                dt.items.add(this.files[i]);
+            }
+            updatePreviews();
+        });
+
+        function updatePreviews() {
+            previewContainer.innerHTML = '';
+            fileInput.files = dt.files;
+            
+            for(let i = 0; i < dt.files.length; i++) {
+                const file = dt.files[i];
+                const reader = new FileReader();
+                
+                const div = document.createElement('div');
+                div.style.position = 'relative';
+                div.style.width = '100px';
+                div.style.height = '100px';
+                div.style.borderRadius = '12px';
+                div.style.overflow = 'hidden';
+                div.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
+                
+                const img = document.createElement('img');
+                img.style.width = '100%';
+                img.style.height = '100%';
+                img.style.objectFit = 'cover';
+                
+                const btn = document.createElement('button');
+                btn.innerHTML = '×';
+                btn.style.position = 'absolute';
+                btn.style.top = '5px';
+                btn.style.right = '5px';
+                btn.style.background = 'rgba(239, 68, 68, 0.9)';
+                btn.style.color = 'white';
+                btn.style.border = 'none';
+                btn.style.borderRadius = '50%';
+                btn.style.width = '24px';
+                btn.style.height = '24px';
+                btn.style.cursor = 'pointer';
+                btn.style.display = 'flex';
+                btn.style.alignItems = 'center';
+                btn.style.justifyContent = 'center';
+                btn.style.fontWeight = 'bold';
+                
+                btn.onclick = function(e) {
+                    e.preventDefault();
+                    dt.items.remove(i);
+                    updatePreviews();
+                };
+                
+                if(i === 0) {
+                    const badge = document.createElement('div');
+                    badge.innerText = 'Portada';
+                    badge.style.position = 'absolute';
+                    badge.style.bottom = '0';
+                    badge.style.left = '0';
+                    badge.style.width = '100%';
+                    badge.style.background = 'rgba(139, 92, 246, 0.9)';
+                    badge.style.color = 'white';
+                    badge.style.fontSize = '0.7rem';
+                    badge.style.textAlign = 'center';
+                    badge.style.padding = '2px 0';
+                    badge.style.fontWeight = 'bold';
+                    div.appendChild(badge);
+                }
+                
+                reader.onload = function(e) {
+                    img.src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+                
+                div.appendChild(img);
+                div.appendChild(btn);
+                previewContainer.appendChild(div);
+            }
+        }
+    });
+    </script>
 </body>
 </html>
