@@ -117,11 +117,11 @@ $fecha_val = !empty($noticia['fecha_publicacion']) ? $noticia['fecha_publicacion
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Noticia - Administración</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/admin-style.css?v=7">
+    <link rel="stylesheet" href="css/admin-style.css?v=9">
     <!-- PWA Config -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#8b5cf6">
-    <link rel="apple-touch-icon" href="https://miic-neurodesarrollo.org/img/Logo%20circular.png">
+    <link rel="apple-touch-icon" href="../img/Logo%20circular.png">
     <meta name="mobile-web-app-capable" content="yes">
     <script>
     if ('serviceWorker' in navigator) {
@@ -143,7 +143,7 @@ $fecha_val = !empty($noticia['fecha_publicacion']) ? $noticia['fecha_publicacion
     <!-- Sidebar -->
     <aside class="sidebar">
         <div class="sidebar-header">
-            <img src="https://miic-neurodesarrollo.org/img/Logo circular.png" alt="Logo" style="width: 60px; height: 60px; border-radius: 50%; margin-bottom: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); background: white; padding: 2px;">
+            <img src="../img/Logo circular.png" alt="Logo" style="width: 60px; height: 60px; border-radius: 50%; margin-bottom: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); background: white; padding: 2px;">
             <h2>Panel Admin</h2>
         </div>
         <ul class="nav-links">
@@ -202,7 +202,7 @@ $fecha_val = !empty($noticia['fecha_publicacion']) ? $noticia['fecha_publicacion
                     <label>Reemplazar Imágenes (Opcional - Selecciona una o varias para el carrusel)</label>
                     <?php if(!empty($noticia['imagen_path'])): ?>
                         <div style="margin-bottom: 10px;">
-                            <img src="https://miic-neurodesarrollo.org/<?php echo htmlspecialchars($noticia['imagen_path']); ?>" style="height: 60px; border-radius: 5px; vertical-align: middle; margin-right: 10px;">
+                            <img src="../<?php echo htmlspecialchars($noticia['imagen_path']); ?>" style="height: 60px; border-radius: 5px; vertical-align: middle; margin-right: 10px;">
                             <span style="font-size: 0.85rem; color: gray;">Imagen Portada actual</span>
                         </div>
                     <?php endif; ?>
@@ -213,7 +213,7 @@ $fecha_val = !empty($noticia['fecha_publicacion']) ? $noticia['fecha_publicacion
                             if(is_array($viejas_extra)):
                                 foreach($viejas_extra as $vieja):
                             ?>
-                                <img src="https://miic-neurodesarrollo.org/<?php echo htmlspecialchars($vieja); ?>" style="height: 40px; border-radius: 5px; vertical-align: middle; margin-right: 5px; opacity: 0.7;">
+                                <img src="../<?php echo htmlspecialchars($vieja); ?>" style="height: 40px; border-radius: 5px; vertical-align: middle; margin-right: 5px; opacity: 0.7;">
                             <?php 
                                 endforeach;
                             endif;

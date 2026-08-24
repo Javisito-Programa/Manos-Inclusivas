@@ -346,3 +346,63 @@ textarea.form-control {
     margin-bottom: 20px;
     font-size: 0.95rem;
 }
+
+/* Responsive Design para Móviles */
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        padding: 15px 0;
+        border-right: none;
+        border-bottom: var(--glass-border);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        z-index: 10;
+    }
+    
+    .sidebar-header {
+        margin-bottom: 10px;
+        padding-bottom: 15px;
+    }
+    
+    .nav-links {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 5px;
+    }
+    
+    .nav-links li a {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+    }
+    
+    .main-content {
+        margin-left: 0;
+        padding: 15px;
+    }
+    
+    .top-bar {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+        padding: 15px;
+    }
+    
+    .form-container, .data-table-wrapper, .login-box {
+        padding: 20px;
+    }
+    
+    .data-table th, .data-table td {
+        padding: 12px 15px;
+    }
+    
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+}

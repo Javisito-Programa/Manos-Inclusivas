@@ -125,11 +125,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Noticias - Administración</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/admin-style.css?v=7">
+    <link rel="stylesheet" href="css/admin-style.css?v=9">
     <!-- PWA Config -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#8b5cf6">
-    <link rel="apple-touch-icon" href="https://miic-neurodesarrollo.org/img/Logo%20circular.png">
+    <link rel="apple-touch-icon" href="../img/Logo%20circular.png">
     <meta name="mobile-web-app-capable" content="yes">
     <script>
     if ('serviceWorker' in navigator) {
@@ -144,7 +144,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
     <!-- Sidebar -->
     <aside class="sidebar">
         <div class="sidebar-header">
-            <img src="https://miic-neurodesarrollo.org/img/Logo circular.png" alt="Logo" style="width: 60px; height: 60px; border-radius: 50%; margin-bottom: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); background: white; padding: 2px;">
+            <img src="../img/Logo circular.png" alt="Logo" style="width: 60px; height: 60px; border-radius: 50%; margin-bottom: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); background: white; padding: 2px;">
             <h2>Panel Admin</h2>
         </div>
         <ul class="nav-links">
@@ -266,7 +266,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
                             </td>
                             <td>
                                 <?php if($row['imagen_path']): ?>
-                                    <img src="https://miic-neurodesarrollo.org/<?php echo htmlspecialchars($row['imagen_path']); ?>" width="60" style="border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                                    <img src="../<?php echo htmlspecialchars($row['imagen_path']); ?>" width="60" style="border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
                                 <?php else: ?>
                                     <span class="badge badge-card">Sin imagen</span>
                                 <?php endif; ?>
