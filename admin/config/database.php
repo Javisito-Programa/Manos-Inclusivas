@@ -4,18 +4,24 @@
 $secret_path_1 = __DIR__ . '/db_secrets.php';
 $secret_path_2 = $_SERVER['DOCUMENT_ROOT'] . '/../db_secrets.php';
 
-if (file_exists($secret_path_2)) {
-    // Buscar un nivel arriba de public_html (Muy seguro y no se borra con Git)
-    require_once $secret_path_2;
-} elseif (file_exists($secret_path_1)) {
-    // Buscar en la misma carpeta
-    require_once $secret_path_1;
-} else {
-    // Credenciales para entorno local (XAMPP/WAMP)
-    $host = 'localhost';
-    $dbname = 'fundacion_db';
-    $username = 'root';
-    $password = '';
+try {
+    if (file_exists($secret_path_2)) {
+        require_once $secret_path_2;
+    } elseif (file_exists($secret_path_1)) {
+        require_once $secret_path_1;
+    } else {
+        // Credenciales para entorno local (XAMPP/WAMP)
+        $host = 'localhost';
+        $dbname = 'fundacion_db';
+        $username = 'root';
+        $password = '';
+    }
+} catch (Throwable $t) {
+    die("<div style='background:red;color:white;padding:20px;font-family:sans-serif;'>
+        <h2>🚨 Error Crítico en tu archivo db_secrets.php</h2>
+        <p>Hostinger dice: <b>" . $t->getMessage() . "</b></p>
+        <p>Revisa que tenga &lt;?php al inicio y que no te falte ninguna comilla o punto y coma.</p>
+        </div>");
 }
 
 try {
