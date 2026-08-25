@@ -159,30 +159,7 @@
             margin-bottom: 80px;
         }
 
-        .tab-headers {
-            display: flex;
-            background: var(--bg-secondary);
-            flex-wrap: wrap;
-        }
 
-        .tab-btn {
-            flex: 1;
-            padding: 20px;
-            border: none;
-            background: none;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            color: var(--text-main);
-            transition: all var(--transition-fast);
-            min-width: 150px;
-        }
-
-        .tab-btn.active {
-            background: white;
-            color: var(--accent-purple);
-            border-bottom: 4px solid var(--accent-purple);
-        }
 
         .tab-content {
             padding: 50px;
@@ -326,13 +303,17 @@
             border-radius: 25px;
             cursor: pointer;
             font-weight: 600;
-            color: var(--text-muted);
+            color: #334155;
+            background: rgba(255, 255, 255, 0.6);
             transition: all 0.3s ease;
             z-index: 1;
         }
+        .freq-pill:hover {
+            background: rgba(51, 65, 85, 0.05);
+        }
         .freq-pill.active {
             background: var(--accent-purple);
-            color: white;
+            color: #ffffff;
             box-shadow: 0 4px 10px rgba(142, 117, 216, 0.3);
         }
 
@@ -592,8 +573,8 @@
                     <a href="#tab-online" class="card interactive-card link-to-tab active tab-btn" data-tab="tab-online"
                         style="text-decoration: none;">
                         <div class="card-icon icon-purple">💳</div>
-                        <h3 style="color: var(--text-main); margin-bottom: 10px;">Donar en Línea</h3>
-                        <p style="color: var(--text-muted); font-size: 0.95rem;">Seguro y rápido vía Tarjeta o PayPal.
+                        <h3 style="color: #0f172a; margin-bottom: 10px;">Donar en Línea</h3>
+                        <p style="color: #475569; font-size: 0.95rem;">Seguro y rápido vía Tarjeta o PayPal.
                         </p>
                     </a>
 
@@ -601,27 +582,24 @@
                     <a href="#tab-transfer" class="card interactive-card link-to-tab tab-btn" data-tab="tab-transfer"
                         style="text-decoration: none;">
                         <div class="card-icon icon-green">🏦</div>
-                        <h3 style="color: var(--text-main); margin-bottom: 10px;">Transferencia</h3>
-                        <p style="color: var(--text-muted); font-size: 0.95rem;">Donativo directo a nuestra cuenta
-                            bancaria.</p>
+                        <h3 style="color: #0f172a; margin-bottom: 10px;">Transferencia</h3>
+                        <p style="color: #475569; font-size: 0.95rem;">Donativo directo a nuestra cuenta bancaria.</p>
                     </a>
 
                     <!-- Por Correo -->
                     <a href="mailto:miicneurodesarrollo@gmail.com?subject=Informaci%C3%B3n%20para%20Donativo%20por%20Cheque/Correo"
                         class="card interactive-card" style="text-decoration: none;">
                         <div class="card-icon icon-blue">✉️</div>
-                        <h3 style="color: var(--text-main); margin-bottom: 10px;">Por Correo</h3>
-                        <p style="color: var(--text-muted); font-size: 0.95rem;">Envía un cheque a nuestra dirección
-                            postal.</p>
+                        <h3 style="color: #0f172a; margin-bottom: 10px;">Por Correo</h3>
+                        <p style="color: #475569; font-size: 0.95rem;">Envía un cheque a nuestra dirección postal.</p>
                     </a>
 
                     <!-- Pago en Especie -->
                     <a href="https://wa.me/5219991121609?text=Hola,%20quiero%20hacer%20un%20donativo%20por%20especie"
                         target="_blank" class="card interactive-card" style="text-decoration: none;">
                         <div class="card-icon icon-pink">📦</div>
-                        <h3 style="color: var(--text-main); margin-bottom: 10px;">Pago en Especie</h3>
-                        <p style="color: var(--text-muted); font-size: 0.95rem;">Dona materiales, equipos o insumos
-                            médicos.</p>
+                        <h3 style="color: #0f172a; margin-bottom: 10px;">Pago en Especie</h3>
+                        <p style="color: #475569; font-size: 0.95rem;">Dona materiales, equipos o insumos médicos.</p>
                     </a>
 
 
@@ -629,9 +607,8 @@
                     <a href="https://wa.me/5219991121609?text=Hola,%20quisiera%20recibir%20informaci%C3%B3n%20sobre%20c%C3%B3mo%20donar%20a%20Fondos%20Dirigidos%20Deducibles%20de%20Impuestos."
                         target="_blank" class="card interactive-card" style="text-decoration: none;">
                         <div class="card-icon icon-green">🏢</div>
-                        <h3 style="color: var(--text-main); margin-bottom: 10px;">Recibo Deducible</h3>
-                        <p style="color: var(--text-muted); font-size: 0.95rem;">Para empresas que deseen deducir
-                            impuestos.</p>
+                        <h3 style="color: #0f172a; margin-bottom: 10px;">Recibo Deducible</h3>
+                        <p style="color: #475569; font-size: 0.95rem;">Para empresas que deseen deducir impuestos.</p>
                     </a>
                 </div>
             </div>
