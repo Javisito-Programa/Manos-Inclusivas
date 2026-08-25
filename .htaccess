@@ -27,7 +27,7 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
     Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
     
     # Política de Seguridad de Contenido (CSP) - Requerido para pasarela Openpay
-    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://ajax.googleapis.com https://unpkg.com https://cdnjs.cloudflare.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ https://js.openpay.mx; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.openpay.mx https://sandbox-api.openpay.mx; frame-src 'self' https://www.google.com/recaptcha/;"
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://ajax.googleapis.com https://unpkg.com https://cdnjs.cloudflare.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ https://js.openpay.mx https://sandbox-js.openpay.mx; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.openpay.mx https://sandbox-api.openpay.mx; frame-src 'self' https://www.google.com/recaptcha/;"
 </IfModule>
 
 # 1. Redirigir index.html y index.php a la raíz limpia (/)
