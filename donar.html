@@ -507,7 +507,7 @@
                             </div>
 
                             <div id="custom-amount-container" style="display: none; margin-bottom: 25px;">
-                                <label style="display: block; margin-bottom: 10px; font-weight: 600;">Monto
+                                <label for="custom-amount" style="display: block; margin-bottom: 10px; font-weight: 600;">Monto
                                     Personalizado (MXN):</label>
                                 <input type="number" id="custom-amount"
                                     style="padding: 15px; width: 100%; border-radius: 8px; border: 2px solid var(--bg-secondary); font-size: 1.1rem; font-family: var(--font-main);"
@@ -522,13 +522,13 @@
                                 style="margin-bottom: 30px; background: var(--bg-primary); padding: 20px; border-radius: 12px;">
                                 <h3 style="margin-bottom: 15px; font-size: 1.2rem;">Frecuencia</h3>
                                 <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-                                    <label
+                                    <label for="freq_once"
                                         style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 1.1rem;"><input
-                                            type="radio" name="freq" value="once" checked style="width: 20px; height: 20px;"> Una
+                                            type="radio" id="freq_once" name="freq" value="once" checked style="width: 20px; height: 20px;"> Una
                                         Vez</label>
-                                    <label
+                                    <label for="freq_monthly"
                                         style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 1.1rem;"><input
-                                            type="radio" name="freq" value="monthly" style="width: 20px; height: 20px;"> Mensual
+                                            type="radio" id="freq_monthly" name="freq" value="monthly" style="width: 20px; height: 20px;"> Mensual
                                     </label>
                                 </div>
                                 <div id="monthly-legend" style="display: none; margin-top: 15px; font-size: 0.9rem; color: var(--text-muted); font-style: italic;">
@@ -541,56 +541,56 @@
                                 <h3 style="margin-bottom: 15px; font-size: 1.2rem;">Datos de Pago Seguro</h3>
                                 
                                 <div style="margin-bottom: 15px;">
-                                    <label style="display: block; margin-bottom: 8px; font-weight: 500;">Nombre del Titular</label>
+                                    <label for="holder_name" style="display: block; margin-bottom: 8px; font-weight: 500;">Nombre del Titular</label>
                                     <input type="text" id="holder_name" data-openpay-card="holder_name" placeholder="Como aparece en la tarjeta" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px;">
                                 </div>
                                 
                                 <div style="margin-bottom: 15px;">
-                                    <label style="display: block; margin-bottom: 8px; font-weight: 500;">Número de Tarjeta</label>
+                                    <label for="card_number" style="display: block; margin-bottom: 8px; font-weight: 500;">Número de Tarjeta</label>
                                     <input type="text" id="card_number" data-openpay-card="card_number" placeholder="0000 0000 0000 0000" maxlength="19" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px;">
                                 </div>
                                 
                                 <div style="display: flex; gap: 15px; margin-bottom: 15px;">
                                     <div style="flex: 1;">
-                                        <label style="display: block; margin-bottom: 8px; font-weight: 500;">Expiración</label>
+                                        <label for="exp_month" style="display: block; margin-bottom: 8px; font-weight: 500;">Expiración (MM/AA)</label>
                                         <div style="display: flex; gap: 10px;">
                                             <input type="text" id="exp_month" data-openpay-card="expiration_month" placeholder="MM" maxlength="2" required style="width: 50%; padding: 12px; border: 1px solid #ddd; border-radius: 6px;">
                                             <input type="text" id="exp_year" data-openpay-card="expiration_year" placeholder="AA" maxlength="2" required style="width: 50%; padding: 12px; border: 1px solid #ddd; border-radius: 6px;">
                                         </div>
                                     </div>
                                     <div style="flex: 1;">
-                                        <label style="display: block; margin-bottom: 8px; font-weight: 500;">CVV</label>
+                                        <label for="cvv" style="display: block; margin-bottom: 8px; font-weight: 500;">CVV</label>
                                         <input type="password" id="cvv" data-openpay-card="cvv2" placeholder="123" maxlength="4" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px;">
                                     </div>
                                 </div>
                                 <div style="margin-bottom: 15px;">
-                                    <label style="display: block; margin-bottom: 8px; font-weight: 500;">Correo Electrónico (Para recibo)</label>
+                                    <label for="email_donante" style="display: block; margin-bottom: 8px; font-weight: 500;">Correo Electrónico (Para recibo)</label>
                                     <input type="email" id="email_donante" placeholder="tu@email.com" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px;">
                                 </div>
                             </div>
 
                             <!-- FACTURACIÓN CFDI -->
                             <div style="margin-bottom: 30px; background: white; padding: 20px; border-radius: 12px; border: 1px solid var(--bg-secondary);">
-                                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 600;">
+                                <label for="require_cfdi" style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 600;">
                                     <input type="checkbox" id="require_cfdi" style="width: 20px; height: 20px;"> Requiero Comprobante Fiscal Deducible (CFDI)
                                 </label>
                                 
                                 <div id="cfdi-fields" style="display: none; margin-top: 20px;">
                                     <div style="margin-bottom: 15px;">
-                                        <label style="display: block; margin-bottom: 8px; font-weight: 500;">RFC</label>
+                                        <label for="cfdi_rfc" style="display: block; margin-bottom: 8px; font-weight: 500;">RFC</label>
                                         <input type="text" id="cfdi_rfc" placeholder="XAXX010101000" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; text-transform: uppercase;">
                                     </div>
                                     <div style="margin-bottom: 15px;">
-                                        <label style="display: block; margin-bottom: 8px; font-weight: 500;">Razón Social (Sin régimen de capital)</label>
+                                        <label for="cfdi_razon" style="display: block; margin-bottom: 8px; font-weight: 500;">Razón Social (Sin régimen de capital)</label>
                                         <input type="text" id="cfdi_razon" placeholder="Juan Pérez López" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px;">
                                     </div>
                                     <div style="display: flex; gap: 15px; margin-bottom: 15px;">
                                         <div style="flex: 1;">
-                                            <label style="display: block; margin-bottom: 8px; font-weight: 500;">C.P. Fiscal</label>
+                                            <label for="cfdi_cp" style="display: block; margin-bottom: 8px; font-weight: 500;">C.P. Fiscal</label>
                                             <input type="text" id="cfdi_cp" placeholder="97000" maxlength="5" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px;">
                                         </div>
                                         <div style="flex: 2;">
-                                            <label style="display: block; margin-bottom: 8px; font-weight: 500;">Régimen Fiscal</label>
+                                            <label for="cfdi_regimen" style="display: block; margin-bottom: 8px; font-weight: 500;">Régimen Fiscal</label>
                                             <select id="cfdi_regimen" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; background: white;">
                                                 <option value="">Selecciona...</option>
                                                 <option value="605">605 - Sueldos y Salarios</option>
@@ -606,7 +606,7 @@
                             </div>
 
                             <div style="margin-bottom: 25px; padding: 15px; background: rgba(142, 117, 216, 0.05); border-radius: 8px; border: 1px solid rgba(142, 117, 216, 0.2);">
-                                <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer; font-size: 1rem; color: var(--text-main); margin: 0;">
+                                <label for="cover-fee" style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer; font-size: 1rem; color: var(--text-main); margin: 0;">
                                     <input type="checkbox" id="cover-fee" style="margin-top: 4px; width: 20px; height: 20px; accent-color: var(--accent-purple);">
                                     <span>Deseo cubrir los costos de procesamiento bancario (+ ~$3.50 MXN) para que mi donación llegue 100% íntegra a la causa.</span>
                                 </label>
