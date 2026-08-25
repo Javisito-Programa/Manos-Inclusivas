@@ -1,4 +1,9 @@
 <?php
+/**
+ * admin/index.php
+ * Panel de inicio de sesión de administradores.
+ * Implementa protección contra fuerza bruta y registro de auditoría (BBVA / PCI DSS compliant).
+ */
 require_once 'config/session.php';
 require_once 'config/database.php';
 
@@ -11,7 +16,8 @@ if(isset($_SESSION['admin_id'])) {
 $error = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST['username'] ?? '';
+    // Sanitización de entradas
+    $username = htmlspecialchars(trim($_POST['username'] ?? ''), ENT_QUOTES, 'UTF-8');
     $password = $_POST['password'] ?? '';
     $ip_address = $_SERVER['REMOTE_ADDR'];
 
@@ -19,7 +25,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($pdo)) {
             date_default_timezone_set('America/Mexico_City');
             
-            // Verificar intentos fallidos previos
+            // 1. Protección contra Fuerza Bruta
+            // Verificar intentos fallidos previos desde la misma IP
             $stmt_check = $pdo->prepare("SELECT attempts, last_attempt FROM login_attempts WHERE ip_address = ?");
             $stmt_check->execute([$ip_address]);
             $attempt_data = $stmt_check->fetch();
@@ -30,6 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $current_time = time();
                 $diff_minutes = round(abs($current_time - $last_time) / 60, 2);
                 
+                // Bloqueo de 15 minutos tras 5 intentos fallidos
                 if ($attempt_data['attempts'] >= 5 && $diff_minutes < 15) {
                     $is_blocked = true;
                     $minutos_restantes = ceil(15 - $diff_minutes);
@@ -41,14 +49,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
 
             if (!$is_blocked) {
+                // 2. Validación de Credenciales (Uso de Sentencias Preparadas contra SQLi)
                 $stmt = $pdo->prepare("SELECT id, username, password_hash, role, permisos FROM usuarios WHERE username = ?");
                 $stmt->execute([$username]);
                 $user = $stmt->fetch();
 
-                // Usamos password_verify que es el estándar más seguro (BCRYPT / ARGON2I)
+                // 3. Verificación Segura (BCRYPT / ARGON2I) 
                 if ($user && password_verify($password, $user['password_hash'])) {
                     // Inicio de sesión exitoso: Limpiar intentos fallidos
                     $pdo->prepare("DELETE FROM login_attempts WHERE ip_address = ?")->execute([$ip_address]);
+                    
+                    // 4. Registro de Auditoría (Requisito PCI DSS)
+                    // Registra accesos exitosos para monitoreo (en este caso lo volcamos al error_log del servidor temporalmente)
+                    error_log("AUDIT_LOG: Acceso exitoso al panel - Usuario: {$user['username']} - IP: {$ip_address} - Fecha: " . date('Y-m-d H:i:s'));
                     
                     $_SESSION['admin_id'] = $user['id'];
                     $_SESSION['admin_username'] = $user['username'];
@@ -93,7 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- PWA Config -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#8b5cf6">
-    <link rel="apple-touch-icon" href="https://miic-neurodesarrollo.org/img/Logo%20circular.png">
+    <link rel="apple-touch-icon" href="https://miic-neurodesarrollo.org/img/Logo%20circular.webp">
     <meta name="mobile-web-app-capable" content="yes">
     <script>
     if ('serviceWorker' in navigator) {
@@ -109,7 +122,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div id="particles-js" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2;"></div>
     
     <div class="login-box" style="position: relative; z-index: 3;">
-        <img src="https://miic-neurodesarrollo.org/img/Logo%20circular.png" alt="Logo Manos Inclusivas" style="width: 100px; height: 100px; border-radius: 50%; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); background: white; padding: 5px;">
+        <img src="https://miic-neurodesarrollo.org/img/Logo%20circular.webp" alt="Logo Manos Inclusivas" style="width: 100px; height: 100px; border-radius: 50%; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); background: white; padding: 5px;">
         <h2>Manos Inclusivas</h2>
         <p>Panel de Administración</p>
 

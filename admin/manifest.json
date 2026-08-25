@@ -8,13 +8,13 @@
   "theme_color": "#8b5cf6",
   "icons": [
     {
-      "src": "https://miic-neurodesarrollo.org/img/Logo%20circular.png",
+      "src": "https://miic-neurodesarrollo.org/img/Logo%20circular.webp",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "https://miic-neurodesarrollo.org/img/Logo%20circular.png",
+      "src": "https://miic-neurodesarrollo.org/img/Logo%20circular.webp",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"

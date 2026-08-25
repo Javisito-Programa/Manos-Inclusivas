@@ -8,9 +8,9 @@
     <meta name="keywords" content="Fundaciones en yucatan, Fundaciones en merida, Iluminando corazones, Manos inclusivas, autismo, neurodesarrollo, terapia infantil, fundacion sin fines de lucro, donaciones yucatan">
     <meta property="og:title" content="Manos Inclusivas - Iluminando Corazones A.C.">
     <meta property="og:description" content="Fundación sin fines de lucro en Mérida, Yucatán, dedicada al neurodesarrollo y bienestar emocional.">
-    <meta property="og:image" content="https://miic-neurodesarrollo.org/img/Logo%20circular.png">
-    <link rel="icon" type="image/png" href="img/Logo circular.png">
-    <link rel="apple-touch-icon" href="img/Logo circular.png">
+    <meta property="og:image" content="https://miic-neurodesarrollo.org/img/Logo%20circular.webp">
+    <link rel="icon" type="image/png" href="img/Logo circular.webp">
+    <link rel="apple-touch-icon" href="img/Logo circular.webp">
 
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style-v2.css?v=24">
@@ -23,7 +23,7 @@
             position: relative;
             padding: 160px 20px 220px;
             text-align: center;
-            background: url('img/Noticias.jpg') center center / cover no-repeat;
+            background: url('img/Noticias.webp') center center / cover no-repeat;
             margin-bottom: 50px;
             overflow: hidden;
             display: flex;
@@ -308,7 +308,7 @@
         }
     </style>
     <!-- Favicon (Icono de la pestaña) -->
-    <link rel="icon" type="image/png" href="img/Logo circular.png">
+    <link rel="icon" type="image/png" href="img/Logo circular.webp">
     <!-- Model Viewer for 3D elements -->
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
 </head>
@@ -459,7 +459,7 @@
                             if (!empty($imgPath) && strpos($imgPath, 'uploads/') === 0) {
                                 $imgPath = 'admin/' . $imgPath;
                             }
-                            $imgUrl = !empty($imgPath) ? htmlspecialchars($imgPath) : 'img/Logo circular.png';
+                            $imgUrl = !empty($imgPath) ? htmlspecialchars($imgPath) : 'img/Logo circular.webp';
                             
                             $excerpt = mb_strlen($news['contenido']) > 120 ? mb_substr($news['contenido'], 0, 120) . '...' : $news['contenido'];
                             
@@ -467,7 +467,7 @@
                             $pinnedStyle = $news['is_pinned'] ? 'border-top: 4px solid var(--accent-purple);' : '';
                             
                             echo '<article class="news-card" style="'.$pinnedStyle.'">';
-                            echo '<img src="' . $imgUrl . '" alt="' . htmlspecialchars($news['titulo']) . '" class="news-image" onerror="this.src=\'img/Logo circular.png\'">';
+                            echo '<img src="' . $imgUrl . '" alt="' . htmlspecialchars($news['titulo']) . '" class="news-image" onerror="this.src=\'img/Logo circular.webp\'">';
                             echo '<div class="news-content">';
                             
                             echo '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">';

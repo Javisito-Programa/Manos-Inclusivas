@@ -3,7 +3,7 @@
 :root {
   /* Paleta de Colores (Original) */
   --bg-primary: #FDF6E3; /* Crema suave */
-  --bg-secondary: #D8E2F2; /* Azul lavanda pálido */
+  --bg-secondary: #D8E2F2; /* Azul lavanda pÃ¡lido */
   --bg-tertiary: #F5F1E7; /* Beige claro */
   
   --text-main: #1A237E; /* Azul oscuro profesional */
@@ -17,7 +17,7 @@
   --accent-blue: #64B5F6; 
   --accent-yellow: #FFF176;
 
-  /* Tipografía */
+  /* TipografÃ­a */
   --font-main: 'Outfit', sans-serif;
   
   /* Transiciones y Sombras */
@@ -27,7 +27,7 @@
   --shadow-hover: 0 15px 35px rgba(142, 117, 216, 0.15);
   --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.03);
   
-  /* Radios de borde orgánicos */
+  /* Radios de borde orgÃ¡nicos */
   --border-radius-soft: 20px;
   --border-radius-large: 32px;
   --border-radius-pill: 50px;
@@ -912,7 +912,7 @@ footer {
 }
 
 .symptoms-list li::before {
-  content: '✓';
+  content: 'â';
   position: absolute;
   left: 0;
   top: 2px;
@@ -1027,7 +1027,7 @@ footer {
 }
 
 
-/* 3. Servicios Hero (Patrón, Ondas y Flotantes) */
+/* 3. Servicios Hero (PatrÃ³n, Ondas y Flotantes) */
 .hero-servicios {
   background: radial-gradient(circle at top left, var(--bg-secondary), var(--bg-primary));
   position: relative;
@@ -1253,7 +1253,7 @@ footer {
 }
 
 
-/* 8. Noticias Hero (Periódico Moderno) */
+/* 8. Noticias Hero (PeriÃ³dico Moderno) */
 .hero-noticias {
   background: var(--bg-primary);
   display: flex;
@@ -1326,9 +1326,9 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    /* Fotografía hermosa de Unsplash de fondo, con un gradiente oscuro/morado encima */
+    /* FotografÃ­a hermosa de Unsplash de fondo, con un gradiente oscuro/morado encima */
     background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(107, 70, 193, 0.6) 100%), 
-                url('../img/fondo-esencia.jpg');
+                url('../img/fondo-esencia.webp');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -1438,7 +1438,7 @@ footer {
 
 
 /* ========================================= */
-/* REDISEÑO DE FOOTER PASTEL Y MODERNO       */
+/* REDISEÃO DE FOOTER PASTEL Y MODERNO       */
 /* ========================================= */
 footer {
   background: linear-gradient(135deg, #f0f4ff 0%, #fae8ff 100%) !important;
@@ -1487,10 +1487,10 @@ footer {
 
 
 /* ========================================= */
-/* REDISEÑO DE FOOTER MEDIO-PASTEL AMIGABLE  */
+/* REDISEÃO DE FOOTER MEDIO-PASTEL AMIGABLE  */
 /* ========================================= */
 footer {
-  /* Un degradado amigable, moderno y con suficiente contraste (índigo suave a morado) */
+  /* Un degradado amigable, moderno y con suficiente contraste (Ã­ndigo suave a morado) */
   background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%) !important;
   color: #ffffff !important;
   box-shadow: 0 -10px 40px rgba(99, 102, 241, 0.15) !important;
@@ -1542,7 +1542,7 @@ footer {
 
 
 /* ========================================= */
-/* REDISEÑO DE FOOTER AZUL PASTEL            */
+/* REDISEÃO DE FOOTER AZUL PASTEL            */
 /* ========================================= */
 footer {
   background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%) !important;
@@ -1559,7 +1559,7 @@ footer {
 }
 
 .footer-title::after {
-  background-color: #60a5fa !important; /* Azul más fuertecito para la línea */
+  background-color: #60a5fa !important; /* Azul mÃ¡s fuertecito para la lÃ­nea */
 }
 
 .footer-links a {
@@ -1596,10 +1596,10 @@ footer {
 
 
 /* ========================================= */
-/* REDISEÑO DE FOOTER AZUL REY (AUTISMO) */
+/* REDISEÃO DE FOOTER AZUL REY (AUTISMO) */
 /* ========================================= */
 footer {
-  /* Azul rey, color simbólico del autismo */
+  /* Azul rey, color simbÃ³lico del autismo */
   background: linear-gradient(135deg, #1A73E8 0%, #1565C0 100%) !important;
   color: #ffffff !important;
   box-shadow: 0 -5px 20px rgba(0,0,0,0.05) !important;
@@ -1779,7 +1779,7 @@ iframe.goog-te-banner-frame {
 }
 
 /* ========================================= */
-/* SIDEBAR �NDICE COLLAPSIBLE                */
+/* SIDEBAR ÍNDICE COLLAPSIBLE                */
 /* ========================================= */
 details.page-sidebar summary::-webkit-details-marker {
   display: none;
@@ -1853,7 +1853,7 @@ html {
     height: 100% !important;
 }
 
-/* Dispraxia: Conexión Cerebro-Motriz */
+/* Dispraxia: ConexiÃ³n Cerebro-Motriz */
 @keyframes signal-travel {
     0% { transform: translate(0, 0); opacity: 1; }
     30% { transform: translate(40px, 0); opacity: 1; }

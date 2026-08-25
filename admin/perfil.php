@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <!-- Sidebar -->
     <aside class="sidebar">
         <div class="sidebar-header" style="text-align: center; margin-bottom: 20px;">
-            <img src="https://miic-neurodesarrollo.org/img/Logo%20circular.png" alt="Logo" style="width: 60px; height: 60px; border-radius: 50%; margin-bottom: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); background: white; padding: 2px;">
+            <img src="https://miic-neurodesarrollo.org/img/Logo%20circular.webp" alt="Logo" style="width: 60px; height: 60px; border-radius: 50%; margin-bottom: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); background: white; padding: 2px;">
             <h2 style="font-size: 1.2rem; font-weight: 700; margin: 0; color: #1f2937;">Panel Admin</h2>
         </div>
         <ul class="nav-links">

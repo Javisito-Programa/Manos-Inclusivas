@@ -1,4 +1,34 @@
+Options -Indexes
 RewriteEngine On
+
+# ==========================================
+# 1. FORZAR HTTPS ESTRICTO (Redirección 301)
+# ==========================================
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# ==========================================
+# 2. CABECERAS DE SEGURIDAD HTTP
+# ==========================================
+<IfModule mod_headers.c>
+    # HSTS: Fuerza conexión segura durante 1 año
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+
+    # Anti-Clickjacking: Evita incrustar el sitio en iframes externos
+    Header always set X-Frame-Options "SAMEORIGIN"
+
+    # Anti-MIME-sniffing: Evita la reinterpretación de tipos de contenido
+    Header always set X-Content-Type-Options "nosniff"
+
+    # Referrer Policy: Protege la información de referencia en enlaces
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+    # Permissions Policy: Bloquea acceso a hardware innecesario
+    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+    
+    # Política de Seguridad de Contenido (CSP) - Requerido para pasarela Openpay
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://ajax.googleapis.com https://unpkg.com https://cdnjs.cloudflare.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ https://js.openpay.mx; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.openpay.mx https://sandbox-api.openpay.mx; frame-src 'self' https://www.google.com/recaptcha/;"
+</IfModule>
 
 # 1. Redirigir index.html y index.php a la raíz limpia (/)
 RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.(html|php)\ HTTP/

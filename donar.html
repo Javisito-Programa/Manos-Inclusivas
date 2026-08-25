@@ -8,9 +8,9 @@
     <meta name="keywords" content="Fundaciones en yucatan, Fundaciones en merida, Iluminando corazones, Manos inclusivas, autismo, neurodesarrollo, terapia infantil, fundacion sin fines de lucro, donaciones yucatan">
     <meta property="og:title" content="Manos Inclusivas - Iluminando Corazones A.C.">
     <meta property="og:description" content="Fundación sin fines de lucro en Mérida, Yucatán, dedicada al neurodesarrollo y bienestar emocional.">
-    <meta property="og:image" content="https://miic-neurodesarrollo.org/img/Logo%20circular.png">
-    <link rel="icon" type="image/png" href="img/Logo circular.png">
-    <link rel="apple-touch-icon" href="img/Logo circular.png">
+    <meta property="og:image" content="https://miic-neurodesarrollo.org/img/Logo%20circular.webp">
+    <link rel="icon" type="image/png" href="img/Logo circular.webp">
+    <link rel="apple-touch-icon" href="img/Logo circular.webp">
 
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
@@ -24,7 +24,7 @@
             position: relative;
             padding: 160px 20px 100px;
             text-align: center;
-            background: url('img/fondo-donativos.jpg') center center / cover no-repeat;
+            background: url('img/fondo-donativos.webp') center center / cover no-repeat;
             background-attachment: fixed;
             margin-bottom: 0;
             display: flex;
@@ -302,7 +302,7 @@
 
 
     <!-- Favicon (Icono de la pestaña) -->
-    <link rel="icon" type="image/png" href="img/Logo circular.png">
+    <link rel="icon" type="image/png" href="img/Logo circular.webp">
 </head>
 
 <body>
@@ -489,15 +489,12 @@
                 <div class="tab-content">
                     <!-- Tab Online -->
                     <div id="tab-online" class="tab-pane active">
-                        <form>
+                        <form id="payment-form">
                             <h3 style="margin-bottom: 20px; font-size: 1.8rem;">Selecciona tu aportación</h3>
                             <!-- CONTENEDOR DE BOTONES DE DONACIÓN -->
                             <div class="amounts-grid">
-                                <!-- Botón 1: data-amount es el valor numérico, adentro de las etiquetas pones el texto visual -->
-                                <button type="button" class="amount-btn active" data-amount="10">$10 MXN</button>
-                                
-                                <!-- Botón 2 -->
-                                <button type="button" class="amount-btn" data-amount="50">$50 MXN</button>
+                                <!-- Botón 1 -->
+                                <button type="button" class="amount-btn active" data-amount="50">$50 MXN</button>
                                 
                                 <!-- Botón 3 -->
                                 <button type="button" class="amount-btn" data-amount="100">$100 MXN</button>
@@ -514,7 +511,11 @@
                                     Personalizado (MXN):</label>
                                 <input type="number" id="custom-amount"
                                     style="padding: 15px; width: 100%; border-radius: 8px; border: 2px solid var(--bg-secondary); font-size: 1.1rem; font-family: var(--font-main);"
-                                    placeholder="Ej. 1500">
+                                    placeholder="Ej. 1500" min="1">
+                            </div>
+
+                            <div id="min-amount-warning" style="display: none; margin-bottom: 25px; padding: 15px; background: #FFF4F4; border-left: 4px solid #E53E3E; border-radius: 4px; color: #C53030; font-size: 0.95rem;">
+                                Para aportaciones menores a $50 MXN, te sugerimos utilizar la pestaña <strong>'Transferencia Bancaria'</strong> para evitar que las comisiones bancarias reduzcan el impacto de tu donativo.
                             </div>
 
                             <div
@@ -523,16 +524,95 @@
                                 <div style="display: flex; gap: 20px; flex-wrap: wrap;">
                                     <label
                                         style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 1.1rem;"><input
-                                            type="radio" name="freq" checked style="width: 20px; height: 20px;"> Una
+                                            type="radio" name="freq" value="once" checked style="width: 20px; height: 20px;"> Una
                                         Vez</label>
                                     <label
                                         style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 1.1rem;"><input
-                                            type="radio" name="freq" style="width: 20px; height: 20px;"> Mensual
+                                            type="radio" name="freq" value="monthly" style="width: 20px; height: 20px;"> Mensual
                                     </label>
+                                </div>
+                                <div id="monthly-legend" style="display: none; margin-top: 15px; font-size: 0.9rem; color: var(--text-muted); font-style: italic;">
+                                    Tu aportación se cargará automáticamente cada mes. Puedes pausarla o cancelarla cuando desees enviando un correo a miicneurodesarrollo@gmail.com o vía WhatsApp.
                                 </div>
                             </div>
 
-                            <button type="button" class="btn-donate-huge">Ir a pago seguro</button>
+                            <!-- DATOS DE TARJETA (PCI-DSS) -->
+                            <div style="margin-bottom: 30px; background: white; padding: 20px; border-radius: 12px; border: 1px solid var(--bg-secondary);">
+                                <h3 style="margin-bottom: 15px; font-size: 1.2rem;">Datos de Pago Seguro</h3>
+                                
+                                <div style="margin-bottom: 15px;">
+                                    <label style="display: block; margin-bottom: 8px; font-weight: 500;">Nombre del Titular</label>
+                                    <input type="text" id="holder_name" data-openpay-card="holder_name" placeholder="Como aparece en la tarjeta" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px;">
+                                </div>
+                                
+                                <div style="margin-bottom: 15px;">
+                                    <label style="display: block; margin-bottom: 8px; font-weight: 500;">Número de Tarjeta</label>
+                                    <input type="text" id="card_number" data-openpay-card="card_number" placeholder="0000 0000 0000 0000" maxlength="19" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px;">
+                                </div>
+                                
+                                <div style="display: flex; gap: 15px; margin-bottom: 15px;">
+                                    <div style="flex: 1;">
+                                        <label style="display: block; margin-bottom: 8px; font-weight: 500;">Expiración</label>
+                                        <div style="display: flex; gap: 10px;">
+                                            <input type="text" id="exp_month" data-openpay-card="expiration_month" placeholder="MM" maxlength="2" required style="width: 50%; padding: 12px; border: 1px solid #ddd; border-radius: 6px;">
+                                            <input type="text" id="exp_year" data-openpay-card="expiration_year" placeholder="AA" maxlength="2" required style="width: 50%; padding: 12px; border: 1px solid #ddd; border-radius: 6px;">
+                                        </div>
+                                    </div>
+                                    <div style="flex: 1;">
+                                        <label style="display: block; margin-bottom: 8px; font-weight: 500;">CVV</label>
+                                        <input type="password" id="cvv" data-openpay-card="cvv2" placeholder="123" maxlength="4" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px;">
+                                    </div>
+                                </div>
+                                <div style="margin-bottom: 15px;">
+                                    <label style="display: block; margin-bottom: 8px; font-weight: 500;">Correo Electrónico (Para recibo)</label>
+                                    <input type="email" id="email_donante" placeholder="tu@email.com" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px;">
+                                </div>
+                            </div>
+
+                            <!-- FACTURACIÓN CFDI -->
+                            <div style="margin-bottom: 30px; background: white; padding: 20px; border-radius: 12px; border: 1px solid var(--bg-secondary);">
+                                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 600;">
+                                    <input type="checkbox" id="require_cfdi" style="width: 20px; height: 20px;"> Requiero Comprobante Fiscal Deducible (CFDI)
+                                </label>
+                                
+                                <div id="cfdi-fields" style="display: none; margin-top: 20px;">
+                                    <div style="margin-bottom: 15px;">
+                                        <label style="display: block; margin-bottom: 8px; font-weight: 500;">RFC</label>
+                                        <input type="text" id="cfdi_rfc" placeholder="XAXX010101000" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; text-transform: uppercase;">
+                                    </div>
+                                    <div style="margin-bottom: 15px;">
+                                        <label style="display: block; margin-bottom: 8px; font-weight: 500;">Razón Social (Sin régimen de capital)</label>
+                                        <input type="text" id="cfdi_razon" placeholder="Juan Pérez López" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px;">
+                                    </div>
+                                    <div style="display: flex; gap: 15px; margin-bottom: 15px;">
+                                        <div style="flex: 1;">
+                                            <label style="display: block; margin-bottom: 8px; font-weight: 500;">C.P. Fiscal</label>
+                                            <input type="text" id="cfdi_cp" placeholder="97000" maxlength="5" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px;">
+                                        </div>
+                                        <div style="flex: 2;">
+                                            <label style="display: block; margin-bottom: 8px; font-weight: 500;">Régimen Fiscal</label>
+                                            <select id="cfdi_regimen" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; background: white;">
+                                                <option value="">Selecciona...</option>
+                                                <option value="605">605 - Sueldos y Salarios</option>
+                                                <option value="606">606 - Arrendamiento</option>
+                                                <option value="612">612 - Personas Físicas con Actividades Empresariales</option>
+                                                <option value="626">626 - RESICO</option>
+                                                <option value="601">601 - General de Ley Personas Morales</option>
+                                                <option value="616">616 - Sin obligaciones fiscales</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="margin-bottom: 25px; padding: 15px; background: rgba(142, 117, 216, 0.05); border-radius: 8px; border: 1px solid rgba(142, 117, 216, 0.2);">
+                                <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer; font-size: 1rem; color: var(--text-main); margin: 0;">
+                                    <input type="checkbox" id="cover-fee" style="margin-top: 4px; width: 20px; height: 20px; accent-color: var(--accent-purple);">
+                                    <span>Deseo cubrir los costos de procesamiento bancario (+ ~$3.50 MXN) para que mi donación llegue 100% íntegra a la causa.</span>
+                                </label>
+                            </div>
+
+                            <button type="button" id="btn-submit-donation" class="btn-donate-huge">Ir a pago seguro <span id="btn-total-text"></span></button>
                             <div
                                 style="text-align: center; margin-top: 15px; display: flex; align-items: center; justify-content: center; gap: 10px; color: var(--text-muted);">
                                 🔒 Transacción 100% segura procesada bajo estándares PCI.
@@ -671,6 +751,8 @@
     <!-- ========================================== -->
     <!-- SCRIPTS DEL SITIO (JS & APIS)              -->
     <!-- ========================================== -->
+    <script type="text/javascript" src="https://js.openpay.mx/openpay.v1.min.js"></script>
+    <script type="text/javascript" src="https://js.openpay.mx/openpay-data.v1.min.js"></script>
     <script src="assets/js/main.js"></script>
     <script src="assets/js/donations.js"></script>
     <script src="assets/js/neural-loader.js?v=18"></script>

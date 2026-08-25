@@ -1,28 +1,33 @@
 <?php
+/**
+ * admin/noticias.php
+ * Panel de administración de noticias. Permite crear, fijar, ordenar, editar y eliminar noticias.
+ * Implementa protección de sesión y sentencias preparadas (PDO) para evitar SQL Injection.
+ */
+
+// 1. Verificación de sesión y seguridad
 require_once 'config/session.php';
 if (!isset($_SESSION['admin_id'])) {
     header("Location: index.php");
     exit();
 }
+
+// 2. Verificación de roles/permisos (Control de Acceso)
 $permisos = $_SESSION['admin_permisos'] ?? [];
 if (!isset($permisos['noticias']) || $permisos['noticias'] !== true) {
     header("Location: perfil.php");
     exit();
 }
+
+// 3. Conexión segura a la BD
 require_once 'config/database.php';
 date_default_timezone_set('America/Mexico_City');
 
-// AUTO-MIGRATION: Ensure pinned_order column exists
-try {
-    $pdo->exec("ALTER TABLE noticias ADD COLUMN pinned_order INT DEFAULT 0");
-} catch(PDOException $e) {
-    // Column already exists or error, ignore
-}
-
-// Auto-inicializar pinned_order si es 0 (para noticias ya fijadas)
+// 4. Mantenimiento Automático: Auto-inicializar pinned_order si es 0 (para noticias ya fijadas)
 $stmt_check = $pdo->query("SELECT id FROM noticias WHERE is_pinned = 1 AND pinned_order = 0 ORDER BY fecha_publicacion DESC");
 $unordered = $stmt_check->fetchAll();
 if (count($unordered) > 0) {
+    // Obtenemos el valor máximo actual para agregar los nuevos al final
     $stmtMax = $pdo->query("SELECT MAX(pinned_order) FROM noticias WHERE is_pinned = 1");
     $maxOrder = (int)$stmtMax->fetchColumn();
     foreach ($unordered as $row) {
@@ -31,22 +36,22 @@ if (count($unordered) > 0) {
     }
 }
 
-// Manejar orden manual de noticias fijadas (Arriba / Abajo)
+// 5. Manejar orden manual de noticias fijadas (Arriba / Abajo)
 if (isset($_GET['move_up'])) {
-    $id = (int)$_GET['move_up'];
+    $id = filter_var($_GET['move_up'], FILTER_SANITIZE_NUMBER_INT); // Sanitización de ID
     $stmt = $pdo->prepare("SELECT pinned_order FROM noticias WHERE id = ?");
     $stmt->execute([$id]);
     $current = $stmt->fetch();
     
     if ($current && $current['pinned_order'] > 0) {
         $current_order = $current['pinned_order'];
-        // Buscar el que está justo encima
+        // Buscar la noticia que está justo encima visualmente (menor pinned_order)
         $stmt_above = $pdo->prepare("SELECT id, pinned_order FROM noticias WHERE is_pinned = 1 AND pinned_order < ? ORDER BY pinned_order DESC LIMIT 1");
         $stmt_above->execute([$current_order]);
         $above = $stmt_above->fetch();
         
         if ($above) {
-            // Intercambiar
+            // Intercambiar el orden de ambas noticias de forma segura
             $pdo->prepare("UPDATE noticias SET pinned_order = ? WHERE id = ?")->execute([$above['pinned_order'], $id]);
             $pdo->prepare("UPDATE noticias SET pinned_order = ? WHERE id = ?")->execute([$current_order, $above['id']]);
         }
@@ -56,20 +61,20 @@ if (isset($_GET['move_up'])) {
 }
 
 if (isset($_GET['move_down'])) {
-    $id = (int)$_GET['move_down'];
+    $id = filter_var($_GET['move_down'], FILTER_SANITIZE_NUMBER_INT); // Sanitización de ID
     $stmt = $pdo->prepare("SELECT pinned_order FROM noticias WHERE id = ?");
     $stmt->execute([$id]);
     $current = $stmt->fetch();
     
     if ($current && $current['pinned_order'] > 0) {
         $current_order = $current['pinned_order'];
-        // Buscar el que está justo debajo
+        // Buscar la noticia que está justo debajo visualmente (mayor pinned_order)
         $stmt_below = $pdo->prepare("SELECT id, pinned_order FROM noticias WHERE is_pinned = 1 AND pinned_order > ? ORDER BY pinned_order ASC LIMIT 1");
         $stmt_below->execute([$current_order]);
         $below = $stmt_below->fetch();
         
         if ($below) {
-            // Intercambiar
+            // Intercambiar el orden de ambas noticias de forma segura
             $pdo->prepare("UPDATE noticias SET pinned_order = ? WHERE id = ?")->execute([$below['pinned_order'], $id]);
             $pdo->prepare("UPDATE noticias SET pinned_order = ? WHERE id = ?")->execute([$current_order, $below['id']]);
         }
@@ -78,17 +83,17 @@ if (isset($_GET['move_down'])) {
     exit();
 }
 
-// Directorio para subir imágenes
+// 6. Configuración de directorio para subir imágenes
 $upload_dir = 'uploads/noticias/';
 if (!file_exists($upload_dir)) {
-    mkdir($upload_dir, 0755, true);
+    mkdir($upload_dir, 0755, true); // Crear con permisos seguros si no existe
 }
 
-// Manejar fijar/desfijar noticia
+// 7. Manejar fijar/desfijar noticia del carrusel principal
 if (isset($_GET['toggle_pin'])) {
-    $id_pin = (int)$_GET['toggle_pin'];
+    $id_pin = filter_var($_GET['toggle_pin'], FILTER_SANITIZE_NUMBER_INT);
     
-    // Consultar estado actual
+    // Consultar estado actual de la noticia
     $stmt = $pdo->prepare("SELECT is_pinned FROM noticias WHERE id = ?");
     $stmt->execute([$id_pin]);
     $noticia_pin = $stmt->fetch();
@@ -96,11 +101,11 @@ if (isset($_GET['toggle_pin'])) {
     if ($noticia_pin) {
         $is_currently_pinned = (bool)$noticia_pin['is_pinned'];
         if ($is_currently_pinned) {
-            // Desfijar y resetear orden
+            // Acción: Desfijar y resetear orden a 0
             $stmt = $pdo->prepare("UPDATE noticias SET is_pinned = 0, pinned_order = 0 WHERE id = ?");
             $stmt->execute([$id_pin]);
         } else {
-            // Fijar y mandar al final (mayor pinned_order + 1)
+            // Acción: Fijar y mandar al final de la lista (mayor pinned_order + 1)
             $stmtMax = $pdo->query("SELECT MAX(pinned_order) as max_order FROM noticias WHERE is_pinned = 1");
             $maxOrder = (int)$stmtMax->fetchColumn();
             $stmt = $pdo->prepare("UPDATE noticias SET is_pinned = 1, pinned_order = ? WHERE id = ?");
@@ -111,14 +116,14 @@ if (isset($_GET['toggle_pin'])) {
     exit();
 }
 
-// Manejar eliminación de noticia
+// 8. Manejar eliminación de noticia (Soft y Hard Delete de imágenes)
 if (isset($_GET['delete'])) {
     if (!isset($permisos['noticias_borrar']) || $permisos['noticias_borrar'] !== true) {
         $mensaje = "No tienes permiso para eliminar noticias.";
     } else {
-        $id_to_delete = (int)$_GET['delete'];
+        $id_to_delete = filter_var($_GET['delete'], FILTER_SANITIZE_NUMBER_INT);
         
-        // Obtener la imagen para borrarla del servidor
+        // Obtener la imagen asociada para borrarla del servidor y no dejar basura
         $stmt = $pdo->prepare("SELECT imagen_path FROM noticias WHERE id = ?");
         $stmt->execute([$id_to_delete]);
         $noticia = $stmt->fetch();
@@ -126,11 +131,11 @@ if (isset($_GET['delete'])) {
         if ($noticia && $noticia['imagen_path']) {
             $file_path = $noticia['imagen_path'];
             if (file_exists($file_path)) {
-                unlink($file_path);
+                unlink($file_path); // Borrado físico del archivo WebP/JPG
             }
         }
         
-        // Borrar de la BD
+        // Borrar definitivamente de la base de datos (Hard delete)
         $stmt = $pdo->prepare("DELETE FROM noticias WHERE id = ?");
         $stmt->execute([$id_to_delete]);
         
@@ -139,21 +144,25 @@ if (isset($_GET['delete'])) {
     }
 }
 
-// Manejar subida de nueva noticia
+// 9. Manejar subida de nueva noticia
 $mensaje = '';
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
-    $titulo = trim($_POST['titulo']);
-    $contenido = trim($_POST['contenido']);
-    $fecha_publicacion = $_POST['fecha_publicacion'] ?: date('Y-m-d'); // Default to today
+    // Sanitización y prevención XSS de campos de texto
+    $titulo = htmlspecialchars(trim($_POST['titulo']), ENT_QUOTES, 'UTF-8');
+    $contenido = htmlspecialchars(trim($_POST['contenido']), ENT_QUOTES, 'UTF-8');
+    $fecha_publicacion = htmlspecialchars($_POST['fecha_publicacion'], ENT_QUOTES, 'UTF-8') ?: date('Y-m-d');
     $imagen_path = '';
     
-    $enlace_facebook = $_POST['enlace_facebook'] ?? '';
-    $enlace_instagram = $_POST['enlace_instagram'] ?? '';
-    $enlace_twitter = $_POST['enlace_twitter'] ?? '';
-    $enlace_tiktok = $_POST['enlace_tiktok'] ?? '';
-    $enlace_youtube = $_POST['enlace_youtube'] ?? '';
+    // Sanitización de enlaces
+    $enlace_facebook = filter_input(INPUT_POST, 'enlace_facebook', FILTER_SANITIZE_URL) ?? '';
+    $enlace_instagram = filter_input(INPUT_POST, 'enlace_instagram', FILTER_SANITIZE_URL) ?? '';
+    $enlace_twitter = filter_input(INPUT_POST, 'enlace_twitter', FILTER_SANITIZE_URL) ?? '';
+    $enlace_tiktok = filter_input(INPUT_POST, 'enlace_tiktok', FILTER_SANITIZE_URL) ?? '';
+    $enlace_youtube = filter_input(INPUT_POST, 'enlace_youtube', FILTER_SANITIZE_URL) ?? '';
     
-    // Verificar duplicados (mismo título)
+    // 10. Prevención de Duplicados
+    // 10. Prevención de Duplicados
+    // Verificar si ya existe una noticia con el mismo título para evitar spam o errores
     $stmt_check = $pdo->prepare("SELECT id FROM noticias WHERE titulo = ?");
     $stmt_check->execute([$titulo]);
     if ($stmt_check->rowCount() > 0) {
@@ -161,16 +170,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
     } else {
         $uploaded_images = [];
         
-        // Procesar imágenes si se subieron múltiples
+        // 11. Procesamiento seguro de imágenes múltiples
         if (isset($_FILES['imagenes']) && is_array($_FILES['imagenes']['name'])) {
             $file_count = count($_FILES['imagenes']['name']);
             for ($i = 0; $i < $file_count; $i++) {
                 if ($_FILES['imagenes']['error'][$i] == 0) {
                     $file_info = pathinfo($_FILES['imagenes']['name'][$i]);
                     $ext = strtolower($file_info['extension']);
+                    // Validar estrictamente la extensión del archivo para prevenir subida de scripts maliciosos (.php, .js)
                     $allowed_ext = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
                     
                     if (in_array($ext, $allowed_ext)) {
+                        // Generar un nombre único aleatorio para evitar colisiones y ocultar el nombre original
                         $new_filename = uniqid('noticia_') . '.' . $ext;
                         $destination = $upload_dir . $new_filename;
                         
@@ -182,14 +193,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
             }
         }
         
-        // La primera imagen será la de portada
+        // La primera imagen procesada se asigna como portada
         if (count($uploaded_images) > 0) {
-            $imagen_path = array_shift($uploaded_images); // Saca la primera
+            $imagen_path = array_shift($uploaded_images); // Extraer el primer elemento
         }
         
-        // El resto se guarda como JSON
+        // Las imágenes restantes se guardan como un arreglo codificado en JSON
         $imagenes_extra = count($uploaded_images) > 0 ? json_encode($uploaded_images) : null;
         
+        // 12. Inserción final en la base de datos (Uso de Sentencias Preparadas contra Inyecciones SQL)
         if (empty($mensaje)) {
             $stmt = $pdo->prepare("INSERT INTO noticias (titulo, contenido, imagen_path, imagenes_extra, fecha_publicacion, enlace_facebook, enlace_instagram, enlace_twitter, enlace_tiktok, enlace_youtube) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             if ($stmt->execute([$titulo, $contenido, $imagen_path, $imagenes_extra, $fecha_publicacion, $enlace_facebook, $enlace_instagram, $enlace_twitter, $enlace_tiktok, $enlace_youtube])) {
@@ -212,7 +224,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
     <!-- PWA Config -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#8b5cf6">
-    <link rel="apple-touch-icon" href="https://miic-neurodesarrollo.org/img/Logo%20circular.png">
+    <link rel="apple-touch-icon" href="https://miic-neurodesarrollo.org/img/Logo%20circular.webp">
     <meta name="mobile-web-app-capable" content="yes">
     <script>
     if ('serviceWorker' in navigator) {
@@ -229,7 +241,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
     <!-- Sidebar -->
     <aside class="sidebar">
         <div class="sidebar-header" style="text-align: center; margin-bottom: 20px;">
-            <img src="https://miic-neurodesarrollo.org/img/Logo%20circular.png" alt="Logo" style="width: 60px; height: 60px; border-radius: 50%; margin-bottom: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); background: white; padding: 2px;">
+            <img src="https://miic-neurodesarrollo.org/img/Logo%20circular.webp" alt="Logo" style="width: 60px; height: 60px; border-radius: 50%; margin-bottom: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); background: white; padding: 2px;">
             <h2 style="font-size: 1.2rem; font-weight: 700; margin: 0; color: #1f2937;">Panel Admin</h2>
         </div>
         <ul class="nav-links">
