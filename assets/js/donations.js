@@ -5,7 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (tabBtns.length > 0 && tabPanes.length > 0) {
         tabBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
+            btn.addEventListener('click', (e) => {
+                if(btn.tagName.toLowerCase() === 'a') { e.preventDefault(); }
                 // Remove active class from all
                 tabBtns.forEach(b => b.classList.remove('active'));
                 tabPanes.forEach(p => p.classList.remove('active'));
@@ -14,20 +15,31 @@ document.addEventListener('DOMContentLoaded', () => {
                 btn.classList.add('active');
                 const targetId = btn.getAttribute('data-target');
                 document.getElementById(targetId).classList.add('active');
+                
+                // Scroll to content if it's not fully visible
+                const targetEl = document.getElementById(targetId);
+                if(targetEl && window.innerWidth < 768) {
+                    targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
             });
         });
     }
 
-    // Frequency change logic
-    const freqRadios = document.querySelectorAll('input[name="freq"]');
+    // Frequency change logic (Pill Switch)
+    const freqPills = document.querySelectorAll('.freq-pill');
+    const freqHidden = document.getElementById('freq_hidden');
     const monthlyLegend = document.getElementById('monthly-legend');
-    if (freqRadios.length > 0 && monthlyLegend) {
-        freqRadios.forEach(radio => {
-            radio.addEventListener('change', () => {
-                if (document.querySelector('input[name="freq"]:checked').value === 'monthly') {
-                    monthlyLegend.style.display = 'block';
-                } else {
-                    monthlyLegend.style.display = 'none';
+    
+    if (freqPills.length > 0 && freqHidden) {
+        freqPills.forEach(pill => {
+            pill.addEventListener('click', () => {
+                freqPills.forEach(p => p.classList.remove('active'));
+                pill.classList.add('active');
+                const val = pill.getAttribute('data-freq');
+                freqHidden.value = val;
+                
+                if (monthlyLegend) {
+                    monthlyLegend.style.display = val === 'monthly' ? 'block' : 'none';
                 }
             });
         });
@@ -91,7 +103,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const cfdiFields = document.getElementById('cfdi-fields');
     if (requireCfdiCheckbox && cfdiFields) {
         requireCfdiCheckbox.addEventListener('change', () => {
-            cfdiFields.style.display = requireCfdiCheckbox.checked ? 'block' : 'none';
+            if (requireCfdiCheckbox.checked) {
+                cfdiFields.classList.add('show');
+            } else {
+                cfdiFields.classList.remove('show');
+            }
             // Toggle required on cfdi inputs
             const cfdiInputs = cfdiFields.querySelectorAll('input, select');
             cfdiInputs.forEach(input => {
@@ -140,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     total += 3.50;
                 }
                 
-                const isRecurring = document.querySelector('input[name="freq"]:checked').value === 'monthly';
+                const isRecurring = document.getElementById('freq_hidden').value === 'monthly';
                 const email = document.getElementById('email_donante').value;
                 const name = document.getElementById('holder_name').value;
                 const reqCfdi = requireCfdiCheckbox && requireCfdiCheckbox.checked;
