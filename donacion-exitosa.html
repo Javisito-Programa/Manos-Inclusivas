@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title class="notranslate" translate="no">¡Gracias por tu donativo! - Manos Inclusivas A.C.</title>
+    
+    <!-- Open Graph for Social Sharing -->
+    <meta property="og:title" content="¡Acabo de iluminar un corazón! 💙">
+    <meta property="og:description" content="Me he sumado a la causa de Manos Inclusivas A.C. Tú también puedes transformar la vida de niños y familias en situación vulnerable.">
+    <meta property="og:image" content="https://miic-neurodesarrollo.org/img/Logo%20circular.webp">
+    <meta property="og:url" content="https://miic-neurodesarrollo.org">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        :root {
+            --bg-primary: #f0f4f8;
+            --text-main: #333333;
+            --accent-blue: #004481;
+            --accent-dark-blue: #002e5b;
+            --accent-purple: #8e75d8;
+            --accent-gold: #f4b41a;
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --glass-border: 1px solid rgba(255, 255, 255, 0.5);
+            --font-main: 'Montserrat', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-main);
+            color: var(--text-main);
+            background: url('img/fondo-donativos.webp') center/cover no-repeat fixed;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 68, 129, 0.8), rgba(142, 117, 216, 0.8));
+            z-index: 1;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            width: 90%;
+            max-width: 800px;
+            margin: 40px auto;
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: var(--glass-border);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        @keyframes slideUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: pulseHeart 2s infinite ease-in-out;
+            display: inline-block;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .header-icon:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes pulseHeart {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        h1 {
+            color: var(--accent-dark-blue);
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        /* Recibo Digital */
+        .receipt {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: left;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--accent-blue);
+        }
+
+        .receipt h3 {
+            margin-top: 0;
+            color: var(--accent-blue);
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .receipt-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+        
+        .receipt-row.total {
+            border-top: 2px dashed #eee;
+            padding-top: 15px;
+            margin-top: 15px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--accent-dark-blue);
+        }
+
+        .receipt-row span:first-child {
+            color: #666;
+            font-weight: 600;
+        }
+
+        .cfdi-notice {
+            font-size: 0.85rem;
+            color: #777;
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 20px;
+            border: 1px solid #e9ecef;
+        }
+
+        /* Impact Widget */
+        .impact-widget {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            color: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .impact-widget:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(142, 117, 216, 0.4);
+        }
+
+        .impact-message {
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: none;
+            margin-top: 15px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Buttons */
+        .actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            font-family: var(--font-main);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-dark-blue);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--accent-blue);
+            border: 2px solid var(--accent-blue);
+        }
+
+        .btn-outline:hover {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        /* Social Share */
+        .social-share {
+            padding-top: 25px;
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+        
+        .social-share h4 {
+            margin-top: 0;
+            color: #555;
+        }
+
+        .share-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin: 0 5px;
+            color: white;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+
+        .share-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .share-fb { background: #1877F2; }
+        .share-wa { background: #25D366; }
+        .share-x { background: #000000; }
+
+        @media (max-width: 600px) {
+            .glass-card {
+                padding: 25px 20px;
+            }
+            .actions {
+                flex-direction: column;
+            }
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* PRINT STYLES */
+        @media print {
+            body {
+                background: white;
+            }
+            .overlay, .impact-widget, .actions, .social-share, .header-icon, .subtitle, h1 {
+                display: none !important;
+            }
+            .container {
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            .glass-card {
+                background: white;
+                box-shadow: none;
+                border: none;
+                padding: 0;
+            }
+            .receipt {
+                border-left: none;
+                box-shadow: none;
+                padding: 0;
+                width: 100%;
+            }
+            .receipt h3 {
+                border-bottom: 2px solid #000;
+                color: #000;
+            }
+            .cfdi-notice {
+                border: 1px solid #ccc;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="overlay"></div>
+
+    <div class="container">
+        <div class="glass-card">
+            
+            <div class="header-icon" id="heart-icon">💙</div>
+            
+            <h1>¡Gracias por iluminar un camino hoy!</h1>
+            
+            <p class="subtitle" id="donor-message">
+                Tu generosidad transforma vidas. Con tu apoyo, podemos seguir brindando atención psicopedagógica y terapias a niños y familias en situación vulnerable en Yucatán.
+            </p>
+
+            <!-- Impact Widget -->
+            <div class="impact-widget" id="impact-btn" onclick="revealImpact()">
+                <div style="font-size: 1.2rem;">✨ Toca para revelar el impacto de tu donativo ✨</div>
+                <div class="impact-message" id="impact-text">
+                    ¡Tu aportación equivale a <span id="impact-calc">X</span> materiales didácticos o sesiones de apoyo! El cambio empieza hoy gracias a ti.
+                </div>
+            </div>
+
+            <!-- Recibo -->
+            <div class="receipt">
+                <h3>Recibo Digital</h3>
+                <div class="receipt-row">
+                    <span>Nombre:</span>
+                    <span id="r-name">-</span>
+                </div>
+                <div class="receipt-row">
+                    <span>Correo:</span>
+                    <span id="r-email">-</span>
+                </div>
+                <div class="receipt-row">
+                    <span>Fecha:</span>
+                    <span id="r-date">-</span>
+                </div>
+                <div class="receipt-row">
+                    <span>Frecuencia:</span>
+                    <span id="r-freq">-</span>
+                </div>
+                <div class="receipt-row">
+                    <span>No. Autorización:</span>
+                    <span id="r-auth">-</span>
+                </div>
+                <div class="receipt-row total">
+                    <span>Total Donado:</span>
+                    <span id="r-amount">$0.00 MXN</span>
+                </div>
+
+                <div class="cfdi-notice">
+                    <strong>Nota Fiscal:</strong> Si solicitaste comprobante fiscal (CFDI) al momento de donar, tu factura deducible será enviada al correo registrado en un plazo máximo de 24 a 48 horas hábiles tras la acreditación.
+                </div>
+            </div>
+
+            <!-- Botones -->
+            <div class="actions">
+                <button class="btn btn-primary" onclick="window.print()">🖨️ Descargar / Imprimir Recibo</button>
+                <a href="index.html" class="btn btn-outline">Volver al Inicio</a>
+            </div>
+
+            <!-- Social Share -->
+            <div class="social-share">
+                <h4>Inspira a otros a sumarse</h4>
+                <div style="display: flex; justify-content: center; margin-top: 10px;">
+                    <a href="#" id="share-fb" target="_blank" class="share-btn share-fb" title="Compartir en Facebook">f</a>
+                    <a href="#" id="share-x" target="_blank" class="share-btn share-x" title="Compartir en X">X</a>
+                    <a href="#" id="share-wa" target="_blank" class="share-btn share-wa" title="Compartir en WhatsApp">📱</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Parse URL Parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        
+        const amount = parseFloat(urlParams.get('amount') || 0);
+        const freq = urlParams.get('freq') || '';
+        const auth = urlParams.get('auth') || '';
+        const donorName = urlParams.get('name') || '';
+        const email = urlParams.get('email') || '';
+
+        // Fallback: If no parameters, user probably accessed directly. Redirect to donar.html
+        if (amount === 0 || !auth) {
+            window.location.replace('donar.html');
+        }
+
+        // Fill receipt
+        document.getElementById('r-name').textContent = donorName || 'Donante Anónimo';
+        document.getElementById('r-email').textContent = email || 'No proporcionado';
+        document.getElementById('r-freq').textContent = freq === 'mensual' ? 'Aportación Mensual' : 'Aportación Única';
+        document.getElementById('r-auth').textContent = auth;
+        document.getElementById('r-amount').textContent = `$${amount.toFixed(2)} MXN`;
+        
+        // Date formatting
+        const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute:'2-digit' };
+        document.getElementById('r-date').textContent = new Date().toLocaleDateString('es-MX', options);
+
+        // Personalized message
+        if (donorName) {
+            document.getElementById('donor-message').innerHTML = `¡Gracias por tu apoyo, <strong>${donorName.split(' ')[0]}</strong>! Tu generosidad transforma vidas. Con tu donativo podemos seguir brindando atención psicopedagógica a quienes más lo necesitan en Yucatán.`;
+        }
+
+        // Setup Social Links
+        const shareUrl = encodeURIComponent('https://miic-neurodesarrollo.org/donar.html');
+        const shareText = encodeURIComponent('¡Acabo de sumarme a la causa con Manos Inclusivas A.C.! 💙 Tú también puedes encender un corazón y transformar vidas aquí:');
+        
+        document.getElementById('share-fb').href = `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`;
+        document.getElementById('share-x').href = `https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`;
+        document.getElementById('share-wa').href = `https://api.whatsapp.com/send?text=${shareText} ${shareUrl}`;
+
+        // Confetti effect on load
+        window.addEventListener('load', () => {
+            const duration = 3 * 1000;
+            const animationEnd = Date.now() + duration;
+            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 9999 };
+
+            function randomInRange(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            const interval = setInterval(function() {
+                const timeLeft = animationEnd - Date.now();
+
+                if (timeLeft <= 0) {
+                    return clearInterval(interval);
+                }
+
+                const particleCount = 50 * (timeLeft / duration);
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+            }, 250);
+        });
+
+        // Impact Widget Logic
+        function revealImpact() {
+            const impactWidget = document.getElementById('impact-btn');
+            const impactText = document.getElementById('impact-text');
+            const impactCalc = document.getElementById('impact-calc');
+            
+            // Calculate a fun metric (e.g., $50 = 1 kit material)
+            const units = Math.max(1, Math.floor(amount / 50));
+            impactCalc.textContent = units;
+            
+            impactWidget.style.background = 'linear-gradient(135deg, var(--accent-gold), var(--accent-purple))';
+            impactWidget.querySelector('div').style.display = 'none';
+            impactText.style.display = 'block';
+
+            // Mini confetti pop from the heart
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#004481', '#8e75d8', '#f4b41a']
+            });
+        }
+        
+        document.getElementById('heart-icon').addEventListener('click', revealImpact);
+    </script>
+</body>
+</html>

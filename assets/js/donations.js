@@ -180,8 +180,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         // 3D Secure Redirect
                         window.location.href = data.redirect_url;
                     } else if (data.success) {
-                        alert('¡Donativo procesado con éxito! Gracias por iluminar corazones.');
-                        window.location.reload();
+                        const queryParams = new URLSearchParams({
+                            amount: data.amount || total,
+                            freq: isRecurring ? 'mensual' : 'unica',
+                            auth: data.auth_code || data.authorization || 'Procesado',
+                            name: name,
+                            email: email
+                        }).toString();
+                        window.location.href = 'donacion-exitosa.html?' + queryParams;
                     } else {
                         alert('Error al procesar el pago: ' + (data.message || 'Intente nuevamente.'));
                         btnSubmit.disabled = false;
