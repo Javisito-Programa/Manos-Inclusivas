@@ -211,7 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 })
                 .catch(err => {
-                    console.error(err);
+                    // console.error(err);
                     alert('Error de conexión. Intente nuevamente.');
                     btnSubmit.disabled = false;
                     updateDonationUI();
@@ -279,7 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         btn.classList.remove('copied');
                     }, 2000);
                 }).catch(err => {
-                    console.error('Failed to copy: ', err);
+                    // console.error('Failed to copy: ', err);
                 });
             });
         });

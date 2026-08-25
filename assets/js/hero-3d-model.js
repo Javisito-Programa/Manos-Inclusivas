@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
             brainGroup.position.x = -0.1;
         },
         (xhr) => {
-            console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+            // console.log((xhr.loaded / xhr.total * 100) + '% loaded');
         },
         (error) => {
             console.error('Error cargando el modelo logo.glb:', error);
