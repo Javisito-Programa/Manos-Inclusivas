@@ -284,4 +284,35 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+    // Card formatting masks
+    const cardNumberInput = document.getElementById('card_number');
+    if (cardNumberInput) {
+        cardNumberInput.addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\D/g, '');
+            let formattedValue = '';
+            for (let i = 0; i < value.length; i++) {
+                if (i > 0 && i % 4 === 0) {
+                    formattedValue += ' ';
+                }
+                formattedValue += value[i];
+            }
+            e.target.value = formattedValue;
+        });
+    }
+
+    const expiryMonthInput = document.getElementById('exp_month');
+    const expiryYearInput = document.getElementById('exp_year');
+    
+    // Optional: if they had a single MM/AA field, we'd format it. But Openpay usually uses two separate fields for month and year. Let's just ensure they are numeric.
+    if(expiryMonthInput) {
+        expiryMonthInput.addEventListener('input', function(e) { e.target.value = e.target.value.replace(/\D/g, '').slice(0,2); });
+    }
+    if(expiryYearInput) {
+        expiryYearInput.addEventListener('input', function(e) { e.target.value = e.target.value.replace(/\D/g, '').slice(0,2); });
+    }
+
+    const cvvInput = document.getElementById('cvv');
+    if(cvvInput) {
+        cvvInput.addEventListener('input', function(e) { e.target.value = e.target.value.replace(/\D/g, '').slice(0,4); });
+    }
 });
