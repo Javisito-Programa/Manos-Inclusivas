@@ -941,26 +941,7 @@
     <script src="assets/js/donations.js"></script>
     <script src="assets/js/neural-loader.js?v=18"></script>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Intercept link-to-tab clicks
-            const tabLinks = document.querySelectorAll('.link-to-tab');
-            tabLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const targetTabId = link.getAttribute('data-tab');
 
-                    // Trigger click on the corresponding tab button
-                    const tabBtn = document.querySelector(`.tab-btn[data-target="${targetTabId}"]`);
-                    if (tabBtn) {
-                        tabBtn.click();
-                        // Scroll smoothly to the tabs section
-                        document.getElementById('donation-tabs-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                });
-            });
-        });
-    </script>
 
     <script type="text/javascript">
         function googleTranslateElementInit() {

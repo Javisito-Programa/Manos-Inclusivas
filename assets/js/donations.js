@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Scroll to content if it's not fully visible
                 const targetEl = document.getElementById(targetId);
-                if(targetEl && window.innerWidth < 768) {
+                if(targetEl) {
                     targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
             });
