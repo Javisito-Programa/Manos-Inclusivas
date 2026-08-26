@@ -1800,12 +1800,14 @@ details.page-sidebar[open] summary .dropdown-icon {
 .social-icon[aria-label="Twitter/X"], .social-circle[aria-label="Twitter/X"] { color: #000000 !important; }
 .social-icon[aria-label="YouTube"], .social-circle[aria-label="YouTube"] { color: #FF0000 !important; }
 .social-icon[aria-label="LinkedIn"], .social-circle[aria-label="LinkedIn"] { color: #0A66C2 !important; }
+.social-icon[aria-label="TikTok"], .social-circle[aria-label="TikTok"] { color: #000000 !important; }
 
 .social-icon[aria-label="Facebook"], .social-circle[aria-label="Facebook"]:hover { color: #166fe5 !important; transform: scale(1.1) translateY(-2px); }
 .social-icon[aria-label="Instagram"], .social-circle[aria-label="Instagram"]:hover { color: #C13584 !important; transform: scale(1.1) translateY(-2px); }
 .social-icon[aria-label="Twitter/X"], .social-circle[aria-label="Twitter/X"]:hover { color: #333333 !important; transform: scale(1.1) translateY(-2px); }
 .social-icon[aria-label="YouTube"], .social-circle[aria-label="YouTube"]:hover { color: #cc0000 !important; transform: scale(1.1) translateY(-2px); }
 .social-icon[aria-label="LinkedIn"], .social-circle[aria-label="LinkedIn"]:hover { color: #004182 !important; transform: scale(1.1) translateY(-2px); }
+.social-icon[aria-label="TikTok"], .social-circle[aria-label="TikTok"]:hover { color: #333333 !important; transform: scale(1.1) translateY(-2px); }
 
 /* Fondo difuminado blanco para que destaquen */
 .social-icon, .social-circle {
