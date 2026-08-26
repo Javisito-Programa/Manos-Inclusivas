@@ -85,6 +85,45 @@
             filter: contrast(1.1) saturate(1.2); /* Make map look a bit punchier */
         }
         
+        /* 3D Floating Marker */
+        .custom-map-marker {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -150%);
+            width: 120px;
+            height: 120px;
+            pointer-events: none;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .custom-map-marker model-viewer {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 15px 15px rgba(0, 68, 129, 0.4));
+        }
+        /* Pulsating shadow under the 3D marker */
+        .marker-shadow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 25px;
+            height: 10px;
+            background: rgba(0, 68, 129, 0.5);
+            border-radius: 50%;
+            z-index: 9;
+            pointer-events: none;
+            animation: pulse-shadow 2s infinite ease-in-out;
+        }
+        @keyframes pulse-shadow {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+            50% { transform: translate(-50%, -50%) scale(1.8); opacity: 0.2; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+        }
+        
         .form-section {
             padding: 50px 40px;
             display: flex;
@@ -349,6 +388,19 @@
                         referrerpolicy="no-referrer-when-downgrade"
                         src="https://maps.google.com/maps?q=20.9597263,-89.5372314&hl=es&z=17&amp;output=embed">
                     </iframe>
+                    
+                    <!-- Floating 3D Marker -->
+                    <div class="marker-shadow"></div>
+                    <div class="custom-map-marker">
+                        <model-viewer 
+                            src="assets/logo.glb" 
+                            auto-rotate 
+                            rotation-per-second="30deg" 
+                            interaction-prompt="none"
+                            camera-orbit="0deg 75deg 105%"
+                            disable-zoom>
+                        </model-viewer>
+                    </div>
                 </div>
 
             </div>
