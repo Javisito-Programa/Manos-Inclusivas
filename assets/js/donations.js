@@ -92,9 +92,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (coverFeeCheckbox && coverFeeCheckbox.checked) {
                 total += 3.50;
             }
-            if (btnTotalText) btnTotalText.textContent = `($${total.toFixed(2)} MXN)`;
+            if (btnTotalText) btnTotalText.textContent = `Donar $${total.toFixed(2)} MXN`;
         } else {
-            if (btnTotalText) btnTotalText.textContent = '';
+            if (btnTotalText) btnTotalText.textContent = 'Completar Donativo';
         }
     }
 
