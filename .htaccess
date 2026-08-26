@@ -27,7 +27,7 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
     Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
     
     # Política de Seguridad de Contenido (CSP)
-    Header always set Content-Security-Policy "default-src 'self'; object-src 'none'; base-uri 'self'; script-src 'self' 'unsafe-eval' https://js.openpay.mx https://sandbox-js.openpay.mx https://translate.google.com https://translate.googleapis.com https://ajax.googleapis.com; connect-src 'self' https://api.openpay.mx https://sandbox-api.openpay.mx https://*.openpay.mx https://translate.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:;"
+    Header always set Content-Security-Policy "default-src 'self'; object-src 'none'; base-uri 'self'; frame-src 'self' https://www.google.com https://maps.google.com https://*.openpay.mx; script-src 'self' 'unsafe-eval' https://js.openpay.mx https://sandbox-js.openpay.mx https://translate.google.com https://translate.googleapis.com https://ajax.googleapis.com; connect-src 'self' https://api.openpay.mx https://sandbox-api.openpay.mx https://*.openpay.mx https://translate.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:;"
 </IfModule>
 
 # 1. Redirigir index.html y index.php a la raíz limpia (/)
