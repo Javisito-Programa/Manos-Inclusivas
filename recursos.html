@@ -1560,43 +1560,9 @@
     <script src="assets/js/neural-loader.js?v=18"></script>
 
     <!-- Interactive Bubble Script -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const bubble = document.querySelector('.hero-recursos-content');
-            
-            // Mouse Interaction (PC)
-            document.addEventListener('mousemove', (e) => {
-                const x = (window.innerWidth / 2 - e.pageX) / 30;
-                const y = (window.innerHeight / 2 - e.pageY) / 30;
-                
-                bubble.style.transform = `translate(${x}px, ${y}px) rotate(${x/10}deg)`;
-            });
-
-            // Gyroscope Interaction (Mobile)
-            if (window.DeviceOrientationEvent) {
-                window.addEventListener('deviceorientation', (e) => {
-                    if (e.gamma !== null && e.beta !== null) {
-                        // gamma is left-to-right tilt in degrees, where right is positive
-                        // beta is front-to-back tilt in degrees, where front is positive
-                        const x = e.gamma / 2; // adjust sensitivity
-                        const y = (e.beta - 45) / 2; // assuming device is held at 45 degree angle
-                        
-                        bubble.style.transform = `translate(${x}px, ${y}px) rotate(${x/10}deg)`;
-                    }
-                });
-            }
-        });
-    </script>
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'es', 
-                includedLanguages: 'en,fr,de,zh-CN,it,pt,ja,es', 
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-            }, 'google_translate_element');
-        }
-    </script>
-    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script src="assets/js/recursos-bubble.js"></script>
+    
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" integrity="sha384-Juj+Z+plhe8fVEGZ1jfEBVjkzQW3J3Ri5aTgfteq3nyGyCqsRf5Nx/ii48THNC86" crossorigin="anonymous"></script>
     <script src="assets/js/translator.js?v=3?v=16"></script>
 </body>
 
