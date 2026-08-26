@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // console.log((xhr.loaded / xhr.total * 100) + '% loaded');
         },
         (error) => {
-            console.error('Error cargando el modelo logo.glb:', error);
+            // console.error('Error cargando el modelo logo.glb:', error);
             // Mostrar un fallback visual si hay error
             const errGeo = new THREE.BoxGeometry(2,2,2);
             const errMat = new THREE.MeshBasicMaterial({color: 0xff0000, wireframe: true});
