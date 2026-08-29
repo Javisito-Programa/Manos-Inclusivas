@@ -518,11 +518,11 @@
 
                             // Guardamos los datos completos en atributos de datos para el modal JS
                             echo '<a href="#" class="news-read-more" style="margin-top: 15px;" data-index="'.$index.'" '
-                               . 'data-title="'.htmlspecialchars($news['titulo']).'" '
+                               . 'data-title="'.htmlspecialchars((string)$news['titulo']).'" '
                                . 'data-date="'.$fecha.'" '
                                . 'data-img="'.$imgUrl.'" '
                                . 'data-extras="'.$extras_attr.'" '
-                               . 'data-content="'.htmlspecialchars($news['contenido']).'">Leer más <span>→</span></a>';
+                               . 'data-content="'.htmlspecialchars((string)$news['contenido']).'">Leer más <span>→</span></a>';
                             
                             echo '</div>';
                             echo '</article>';
@@ -630,104 +630,128 @@
     <script src="assets/js/neural-loader.js?v=18"></script>
     
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const modal = document.getElementById('news-modal');
-            const closeBtn = document.querySelector('.close-modal');
+        document.addEventListener('DOMContentLoaded', function() {
+            var modal = document.getElementById('news-modal');
+            var closeBtn = document.querySelector('.close-modal');
             
             // Carousel Elements
-            const modalImg = document.getElementById('modal-img');
-            const prevBtn = document.getElementById('carousel-prev');
-            const nextBtn = document.getElementById('carousel-next');
-            const dotsContainer = document.getElementById('carousel-dots');
+            var modalImg = document.getElementById('modal-img');
+            var prevBtn = document.getElementById('carousel-prev');
+            var nextBtn = document.getElementById('carousel-next');
+            var dotsContainer = document.getElementById('carousel-dots');
             
-            let currentImages = [];
-            let currentIndex = 0;
+            var currentImages = [];
+            var currentIndex = 0;
             
             function updateCarousel() {
                 if(currentImages.length === 0) return;
-                modalImg.src = currentImages[currentIndex];
+                if(modalImg) modalImg.src = currentImages[currentIndex];
                 
                 // Update dots
-                Array.from(dotsContainer.children).forEach((dot, index) => {
-                    dot.style.background = index === currentIndex ? 'var(--accent-purple)' : 'rgba(255,255,255,0.5)';
-                });
+                if(dotsContainer) {
+                    var dots = dotsContainer.children;
+                    for(var j=0; j < dots.length; j++) {
+                        dots[j].style.background = (j === currentIndex) ? 'var(--accent-purple)' : 'rgba(255,255,255,0.5)';
+                    }
+                }
             }
 
             // Add event listeners to "Leer más"
-            document.querySelectorAll('.news-read-more').forEach(btn => {
-                btn.addEventListener('click', function(e) {
+            var readMoreBtns = document.querySelectorAll('.news-read-more');
+            for(var i=0; i < readMoreBtns.length; i++) {
+                readMoreBtns[i].addEventListener('click', function(e) {
                     e.preventDefault();
                     
-                    const title = this.getAttribute('data-title');
-                    const date = this.getAttribute('data-date');
-                    const img = this.getAttribute('data-img');
-                    const content = this.getAttribute('data-content');
-                    const extrasRaw = this.getAttribute('data-extras');
+                    var title = this.getAttribute('data-title') || '';
+                    var date = this.getAttribute('data-date') || '';
+                    var img = this.getAttribute('data-img') || '';
+                    var content = this.getAttribute('data-content') || '';
+                    var extrasRaw = this.getAttribute('data-extras') || '[]';
                     
-                    document.getElementById('modal-title').textContent = title;
-                    document.getElementById('modal-date').textContent = date;
-                    document.getElementById('modal-text').textContent = content;
+                    var modalTitle = document.getElementById('modal-title');
+                    var modalDate = document.getElementById('modal-date');
+                    var modalText = document.getElementById('modal-text');
+                    
+                    if(modalTitle) modalTitle.textContent = title;
+                    if(modalDate) modalDate.textContent = date;
+                    if(modalText) modalText.textContent = content; // Using textContent as plain text
                     
                     // Setup Images
                     currentImages = [img];
                     try {
-                        const extras = JSON.parse(extrasRaw);
+                        var extras = JSON.parse(extrasRaw);
                         if(Array.isArray(extras)) {
-                            extras.forEach(extra => currentImages.push(extra));
+                            for(var k=0; k < extras.length; k++) {
+                                currentImages.push(extras[k]);
+                            }
                         }
-                    } catch(e) {}
+                    } catch(err) {
+                        console.error("Error parsing extras", err);
+                    }
                     
                     currentIndex = 0;
-                    dotsContainer.innerHTML = '';
+                    if(dotsContainer) dotsContainer.innerHTML = '';
                     
                     if(currentImages.length > 1) {
-                        prevBtn.style.display = 'block';
-                        nextBtn.style.display = 'block';
+                        if(prevBtn) prevBtn.style.display = 'block';
+                        if(nextBtn) nextBtn.style.display = 'block';
                         
                         // Create dots
-                        currentImages.forEach((_, i) => {
-                            const dot = document.createElement('div');
-                            dot.style.width = '10px';
-                            dot.style.height = '10px';
-                            dot.style.borderRadius = '50%';
-                            dot.style.cursor = 'pointer';
-                            dot.addEventListener('click', () => {
-                                currentIndex = i;
-                                updateCarousel();
-                            });
-                            dotsContainer.appendChild(dot);
-                        });
+                        if(dotsContainer) {
+                            for(var idx=0; idx < currentImages.length; idx++) {
+                                (function(dotIndex) {
+                                    var dot = document.createElement('div');
+                                    dot.style.width = '10px';
+                                    dot.style.height = '10px';
+                                    dot.style.borderRadius = '50%';
+                                    dot.style.cursor = 'pointer';
+                                    dot.addEventListener('click', function() {
+                                        currentIndex = dotIndex;
+                                        updateCarousel();
+                                    });
+                                    dotsContainer.appendChild(dot);
+                                })(idx);
+                            }
+                        }
                     } else {
-                        prevBtn.style.display = 'none';
-                        nextBtn.style.display = 'none';
+                        if(prevBtn) prevBtn.style.display = 'none';
+                        if(nextBtn) nextBtn.style.display = 'none';
                     }
                     
                     updateCarousel();
                     
-                    modal.style.display = "block";
-                    document.body.style.overflow = "hidden"; // Prevent background scrolling
+                    if(modal) {
+                        modal.style.display = "block";
+                        document.body.style.overflow = "hidden"; // Prevent background scrolling
+                    }
                 });
-            });
+            }
 
             // Carousel Navigation
-            prevBtn.addEventListener('click', () => {
-                currentIndex = (currentIndex > 0) ? currentIndex - 1 : currentImages.length - 1;
-                updateCarousel();
-            });
-            nextBtn.addEventListener('click', () => {
-                currentIndex = (currentIndex < currentImages.length - 1) ? currentIndex + 1 : 0;
-                updateCarousel();
-            });
+            if(prevBtn) {
+                prevBtn.addEventListener('click', function() {
+                    currentIndex = (currentIndex > 0) ? currentIndex - 1 : currentImages.length - 1;
+                    updateCarousel();
+                });
+            }
+            if(nextBtn) {
+                nextBtn.addEventListener('click', function() {
+                    currentIndex = (currentIndex < currentImages.length - 1) ? currentIndex + 1 : 0;
+                    updateCarousel();
+                });
+            }
 
             // Close modal logic
-            closeBtn.onclick = function() {
-                modal.style.display = "none";
-                document.body.style.overflow = "auto";
+            if(closeBtn) {
+                closeBtn.onclick = function() {
+                    if(modal) modal.style.display = "none";
+                    document.body.style.overflow = "auto";
+                }
             }
 
             window.onclick = function(event) {
                 if (event.target == modal) {
-                    modal.style.display = "none";
+                    if(modal) modal.style.display = "none";
                     document.body.style.overflow = "auto";
                 }
             }
