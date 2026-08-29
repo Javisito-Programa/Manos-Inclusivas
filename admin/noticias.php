@@ -1,99 +1,48 @@
 <?php
-/**
- * admin/noticias.php
- * Panel de administración de noticias. Permite crear, fijar, ordenar, editar y eliminar noticias.
- * Implementa protección de sesión y sentencias preparadas (PDO) para evitar SQL Injection.
- */
-
-// 1. Verificación de sesión y seguridad
 require_once 'config/session.php';
 if (!isset($_SESSION['admin_id'])) {
     header("Location: index.php");
     exit();
 }
-
-// 2. Verificación de roles/permisos (Control de Acceso)
 $permisos = $_SESSION['admin_permisos'] ?? [];
 if (!isset($permisos['noticias']) || $permisos['noticias'] !== true) {
     header("Location: perfil.php");
     exit();
 }
-
-// 3. Conexión segura a la BD
 require_once 'config/database.php';
 date_default_timezone_set('America/Mexico_City');
 
-// 4. Mantenimiento Automático: Auto-inicializar pinned_order si es 0 (para noticias ya fijadas)
-$stmt_check = $pdo->query("SELECT id FROM noticias WHERE is_pinned = 1 AND pinned_order = 0 ORDER BY fecha_publicacion DESC");
-$unordered = $stmt_check->fetchAll();
-if (count($unordered) > 0) {
-    // Obtenemos el valor máximo actual para agregar los nuevos al final
-    $stmtMax = $pdo->query("SELECT MAX(pinned_order) FROM noticias WHERE is_pinned = 1");
-    $maxOrder = (int)$stmtMax->fetchColumn();
-    foreach ($unordered as $row) {
-        $maxOrder++;
-        $pdo->prepare("UPDATE noticias SET pinned_order = ? WHERE id = ?")->execute([$maxOrder, $row['id']]);
-    }
+// AUTO-MIGRATION: Ensure pinned_order column exists
+try {
+    $pdo->exec("ALTER TABLE noticias ADD COLUMN pinned_order INT DEFAULT 0");
+} catch(PDOException $e) {
+    // Column already exists or error, ignore
 }
 
-// 5. Manejar orden manual de noticias fijadas (Arriba / Abajo)
-if (isset($_GET['move_up'])) {
-    $id = filter_var($_GET['move_up'], FILTER_SANITIZE_NUMBER_INT); // Sanitización de ID
-    $stmt = $pdo->prepare("SELECT pinned_order FROM noticias WHERE id = ?");
-    $stmt->execute([$id]);
-    $current = $stmt->fetch();
-    
-    if ($current && $current['pinned_order'] > 0) {
-        $current_order = $current['pinned_order'];
-        // Buscar la noticia que está justo encima visualmente (menor pinned_order)
-        $stmt_above = $pdo->prepare("SELECT id, pinned_order FROM noticias WHERE is_pinned = 1 AND pinned_order < ? ORDER BY pinned_order DESC LIMIT 1");
-        $stmt_above->execute([$current_order]);
-        $above = $stmt_above->fetch();
-        
-        if ($above) {
-            // Intercambiar el orden de ambas noticias de forma segura
-            $pdo->prepare("UPDATE noticias SET pinned_order = ? WHERE id = ?")->execute([$above['pinned_order'], $id]);
-            $pdo->prepare("UPDATE noticias SET pinned_order = ? WHERE id = ?")->execute([$current_order, $above['id']]);
+// Manejar AJAX para reordenar
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'reorder_pinned') {
+    if (isset($_POST['order']) && is_array($_POST['order'])) {
+        $order = $_POST['order']; // array of IDs in new order
+        foreach ($order as $index => $id) {
+            $stmt = $pdo->prepare("UPDATE noticias SET pinned_order = ? WHERE id = ?");
+            $stmt->execute([$index + 1, (int)$id]);
         }
+        echo json_encode(['success' => true]);
+        exit();
     }
-    header("Location: noticias.php");
-    exit();
 }
 
-if (isset($_GET['move_down'])) {
-    $id = filter_var($_GET['move_down'], FILTER_SANITIZE_NUMBER_INT); // Sanitización de ID
-    $stmt = $pdo->prepare("SELECT pinned_order FROM noticias WHERE id = ?");
-    $stmt->execute([$id]);
-    $current = $stmt->fetch();
-    
-    if ($current && $current['pinned_order'] > 0) {
-        $current_order = $current['pinned_order'];
-        // Buscar la noticia que está justo debajo visualmente (mayor pinned_order)
-        $stmt_below = $pdo->prepare("SELECT id, pinned_order FROM noticias WHERE is_pinned = 1 AND pinned_order > ? ORDER BY pinned_order ASC LIMIT 1");
-        $stmt_below->execute([$current_order]);
-        $below = $stmt_below->fetch();
-        
-        if ($below) {
-            // Intercambiar el orden de ambas noticias de forma segura
-            $pdo->prepare("UPDATE noticias SET pinned_order = ? WHERE id = ?")->execute([$below['pinned_order'], $id]);
-            $pdo->prepare("UPDATE noticias SET pinned_order = ? WHERE id = ?")->execute([$current_order, $below['id']]);
-        }
-    }
-    header("Location: noticias.php");
-    exit();
-}
-
-// 6. Configuración de directorio para subir imágenes
+// Directorio para subir imágenes
 $upload_dir = 'uploads/noticias/';
 if (!file_exists($upload_dir)) {
-    mkdir($upload_dir, 0755, true); // Crear con permisos seguros si no existe
+    mkdir($upload_dir, 0755, true);
 }
 
-// 7. Manejar fijar/desfijar noticia del carrusel principal
+// Manejar fijar/desfijar noticia
 if (isset($_GET['toggle_pin'])) {
-    $id_pin = filter_var($_GET['toggle_pin'], FILTER_SANITIZE_NUMBER_INT);
+    $id_pin = (int)$_GET['toggle_pin'];
     
-    // Consultar estado actual de la noticia
+    // Consultar estado actual
     $stmt = $pdo->prepare("SELECT is_pinned FROM noticias WHERE id = ?");
     $stmt->execute([$id_pin]);
     $noticia_pin = $stmt->fetch();
@@ -101,11 +50,11 @@ if (isset($_GET['toggle_pin'])) {
     if ($noticia_pin) {
         $is_currently_pinned = (bool)$noticia_pin['is_pinned'];
         if ($is_currently_pinned) {
-            // Acción: Desfijar y resetear orden a 0
+            // Desfijar y resetear orden
             $stmt = $pdo->prepare("UPDATE noticias SET is_pinned = 0, pinned_order = 0 WHERE id = ?");
             $stmt->execute([$id_pin]);
         } else {
-            // Acción: Fijar y mandar al final de la lista (mayor pinned_order + 1)
+            // Fijar y mandar al final (mayor pinned_order + 1)
             $stmtMax = $pdo->query("SELECT MAX(pinned_order) as max_order FROM noticias WHERE is_pinned = 1");
             $maxOrder = (int)$stmtMax->fetchColumn();
             $stmt = $pdo->prepare("UPDATE noticias SET is_pinned = 1, pinned_order = ? WHERE id = ?");
@@ -116,14 +65,14 @@ if (isset($_GET['toggle_pin'])) {
     exit();
 }
 
-// 8. Manejar eliminación de noticia (Soft y Hard Delete de imágenes)
+// Manejar eliminación de noticia
 if (isset($_GET['delete'])) {
     if (!isset($permisos['noticias_borrar']) || $permisos['noticias_borrar'] !== true) {
         $mensaje = "No tienes permiso para eliminar noticias.";
     } else {
-        $id_to_delete = filter_var($_GET['delete'], FILTER_SANITIZE_NUMBER_INT);
+        $id_to_delete = (int)$_GET['delete'];
         
-        // Obtener la imagen asociada para borrarla del servidor y no dejar basura
+        // Obtener la imagen para borrarla del servidor
         $stmt = $pdo->prepare("SELECT imagen_path FROM noticias WHERE id = ?");
         $stmt->execute([$id_to_delete]);
         $noticia = $stmt->fetch();
@@ -131,11 +80,11 @@ if (isset($_GET['delete'])) {
         if ($noticia && $noticia['imagen_path']) {
             $file_path = $noticia['imagen_path'];
             if (file_exists($file_path)) {
-                unlink($file_path); // Borrado físico del archivo WebP/JPG
+                unlink($file_path);
             }
         }
         
-        // Borrar definitivamente de la base de datos (Hard delete)
+        // Borrar de la BD
         $stmt = $pdo->prepare("DELETE FROM noticias WHERE id = ?");
         $stmt->execute([$id_to_delete]);
         
@@ -144,25 +93,21 @@ if (isset($_GET['delete'])) {
     }
 }
 
-// 9. Manejar subida de nueva noticia
+// Manejar subida de nueva noticia
 $mensaje = '';
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
-    // Sanitización y prevención XSS de campos de texto
-    $titulo = htmlspecialchars(trim($_POST['titulo']), ENT_QUOTES, 'UTF-8');
-    $contenido = htmlspecialchars(trim($_POST['contenido']), ENT_QUOTES, 'UTF-8');
-    $fecha_publicacion = htmlspecialchars($_POST['fecha_publicacion'], ENT_QUOTES, 'UTF-8') ?: date('Y-m-d');
+    $titulo = trim($_POST['titulo']);
+    $contenido = trim($_POST['contenido']);
+    $fecha_publicacion = $_POST['fecha_publicacion'] ?: date('Y-m-d'); // Default to today
     $imagen_path = '';
     
-    // Sanitización de enlaces
-    $enlace_facebook = filter_input(INPUT_POST, 'enlace_facebook', FILTER_SANITIZE_URL) ?? '';
-    $enlace_instagram = filter_input(INPUT_POST, 'enlace_instagram', FILTER_SANITIZE_URL) ?? '';
-    $enlace_twitter = filter_input(INPUT_POST, 'enlace_twitter', FILTER_SANITIZE_URL) ?? '';
-    $enlace_tiktok = filter_input(INPUT_POST, 'enlace_tiktok', FILTER_SANITIZE_URL) ?? '';
-    $enlace_youtube = filter_input(INPUT_POST, 'enlace_youtube', FILTER_SANITIZE_URL) ?? '';
+    $enlace_facebook = $_POST['enlace_facebook'] ?? '';
+    $enlace_instagram = $_POST['enlace_instagram'] ?? '';
+    $enlace_twitter = $_POST['enlace_twitter'] ?? '';
+    $enlace_tiktok = $_POST['enlace_tiktok'] ?? '';
+    $enlace_youtube = $_POST['enlace_youtube'] ?? '';
     
-    // 10. Prevención de Duplicados
-    // 10. Prevención de Duplicados
-    // Verificar si ya existe una noticia con el mismo título para evitar spam o errores
+    // Verificar duplicados (mismo título)
     $stmt_check = $pdo->prepare("SELECT id FROM noticias WHERE titulo = ?");
     $stmt_check->execute([$titulo]);
     if ($stmt_check->rowCount() > 0) {
@@ -170,18 +115,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
     } else {
         $uploaded_images = [];
         
-        // 11. Procesamiento seguro de imágenes múltiples
+        // Procesar imágenes si se subieron múltiples
         if (isset($_FILES['imagenes']) && is_array($_FILES['imagenes']['name'])) {
             $file_count = count($_FILES['imagenes']['name']);
             for ($i = 0; $i < $file_count; $i++) {
                 if ($_FILES['imagenes']['error'][$i] == 0) {
                     $file_info = pathinfo($_FILES['imagenes']['name'][$i]);
                     $ext = strtolower($file_info['extension']);
-                    // Validar estrictamente la extensión del archivo para prevenir subida de scripts maliciosos (.php, .js)
                     $allowed_ext = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
                     
                     if (in_array($ext, $allowed_ext)) {
-                        // Generar un nombre único aleatorio para evitar colisiones y ocultar el nombre original
                         $new_filename = uniqid('noticia_') . '.' . $ext;
                         $destination = $upload_dir . $new_filename;
                         
@@ -193,15 +136,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
             }
         }
         
-        // La primera imagen procesada se asigna como portada
+        // La primera imagen será la de portada
         if (count($uploaded_images) > 0) {
-            $imagen_path = array_shift($uploaded_images); // Extraer el primer elemento
+            $imagen_path = array_shift($uploaded_images); // Saca la primera
         }
         
-        // Las imágenes restantes se guardan como un arreglo codificado en JSON
+        // El resto se guarda como JSON
         $imagenes_extra = count($uploaded_images) > 0 ? json_encode($uploaded_images) : null;
         
-        // 12. Inserción final en la base de datos (Uso de Sentencias Preparadas contra Inyecciones SQL)
         if (empty($mensaje)) {
             $stmt = $pdo->prepare("INSERT INTO noticias (titulo, contenido, imagen_path, imagenes_extra, fecha_publicacion, enlace_facebook, enlace_instagram, enlace_twitter, enlace_tiktok, enlace_youtube) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             if ($stmt->execute([$titulo, $contenido, $imagen_path, $imagenes_extra, $fecha_publicacion, $enlace_facebook, $enlace_instagram, $enlace_twitter, $enlace_tiktok, $enlace_youtube])) {
@@ -224,7 +166,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
     <!-- PWA Config -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#8b5cf6">
-    <link rel="apple-touch-icon" href="https://miic-neurodesarrollo.org/img/Logo%20circular.webp">
+    <link rel="apple-touch-icon" href="https://miic-neurodesarrollo.org/img/Logo%20circular.png">
     <meta name="mobile-web-app-capable" content="yes">
     <script>
     if ('serviceWorker' in navigator) {
@@ -241,7 +183,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
     <!-- Sidebar -->
     <aside class="sidebar">
         <div class="sidebar-header" style="text-align: center; margin-bottom: 20px;">
-            <img src="https://miic-neurodesarrollo.org/img/Logo%20circular.webp" alt="Logo" style="width: 60px; height: 60px; border-radius: 50%; margin-bottom: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); background: white; padding: 2px;">
+            <img src="https://miic-neurodesarrollo.org/img/Logo%20circular.png" alt="Logo" style="width: 60px; height: 60px; border-radius: 50%; margin-bottom: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); background: white; padding: 2px;">
             <h2 style="font-size: 1.2rem; font-weight: 700; margin: 0; color: #1f2937;">Panel Admin</h2>
         </div>
         <ul class="nav-links">
@@ -362,12 +304,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
                                 #<?php echo $row['id']; ?>
                                 <?php if($row['is_pinned']) echo '<br><span style="font-size: 0.8rem; color: var(--accent-purple);">📌 Fijada</span>'; ?>
                             </td>
-                            <td style="text-align: center;" data-label="Orden">
+                            <td style="text-align: center;">
                                 <?php if($row['is_pinned']): ?>
-                                    <div style="display: inline-flex; flex-direction: row; gap: 5px;">
-                                        <a href="?move_up=<?php echo $row['id']; ?>" class="order-btn" title="Mover arriba" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(109, 40, 217, 0.1); color: var(--accent-purple); border-radius: 8px; font-size: 1.2rem; transition: background 0.3s;">⬆️</a>
-                                        <a href="?move_down=<?php echo $row['id']; ?>" class="order-btn" title="Mover abajo" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(109, 40, 217, 0.1); color: var(--accent-purple); border-radius: 8px; font-size: 1.2rem; transition: background 0.3s;">⬇️</a>
-                                    </div>
+                                    <span class="drag-handle" style="cursor: grab; font-size: 1.5rem; color: #94a3b8; display: inline-block; padding: 10px;">☰</span>
                                 <?php else: ?>
                                     <span style="color: #cbd5e1;">-</span>
                                 <?php endif; ?>
@@ -406,96 +345,129 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'])) {
         </div>
     </main>
 
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
     <script>
-        // Manejo de sidebar en móvil (Global Scope)
+        document.addEventListener('DOMContentLoaded', () => {
+            // SortableJS para noticias fijadas
+            const tbody = document.querySelector('.data-table tbody');
+            if (tbody) {
+                new Sortable(tbody, {
+                    animation: 150,
+                    handle: '.drag-handle', // Solo arrastrar por el icono
+                    draggable: '.sortable-row', // Solo filas fijadas
+                    onEnd: function (evt) {
+                        // Recolectar el nuevo orden de los IDs
+                        const rows = tbody.querySelectorAll('.sortable-row');
+                        let order = [];
+                        rows.forEach(row => {
+                            order.push(row.getAttribute('data-id'));
+                        });
+
+                        // Enviar por AJAX
+                        const formData = new FormData();
+                        formData.append('action', 'reorder_pinned');
+                        order.forEach(id => formData.append('order[]', id));
+
+                        fetch('noticias.php', {
+                            method: 'POST',
+                            body: formData
+                        }).then(res => res.json())
+                          .then(data => {
+                              if (data.success) {
+                                  console.log('Orden guardado correctamente');
+                              }
+                          }).catch(err => console.error(err));
+                    }
+                });
+            }
+        });
+        
+        // Manejo de sidebar en móvil
         window.toggleSidebar = function() {
             document.querySelector('.sidebar').classList.toggle('active');
         };
-
+        
         const fileInput = document.getElementById('image-input');
         const previewContainer = document.getElementById('image-preview-container');
-        if (fileInput && previewContainer) {
-            let dt = new DataTransfer();
+        let dt = new DataTransfer();
 
-            fileInput.addEventListener('change', function(e) {
-                for(let i = 0; i < this.files.length; i++){
-                    dt.items.add(this.files[i]);
-                }
-                updatePreviews();
-            });
+        fileInput.addEventListener('change', function(e) {
+            for(let i = 0; i < this.files.length; i++){
+                dt.items.add(this.files[i]);
+            }
+            updatePreviews();
+        });
 
-            function updatePreviews() {
-                previewContainer.innerHTML = '';
-                fileInput.files = dt.files;
+        function updatePreviews() {
+            previewContainer.innerHTML = '';
+            fileInput.files = dt.files;
+            
+            for(let i = 0; i < dt.files.length; i++) {
+                const file = dt.files[i];
+                const reader = new FileReader();
                 
-                for(let i = 0; i < dt.files.length; i++) {
-                    const file = dt.files[i];
-                    const reader = new FileReader();
-                    
-                    const div = document.createElement('div');
-                    div.style.position = 'relative';
-                    div.style.width = '100px';
-                    div.style.height = '100px';
-                    div.style.borderRadius = '12px';
-                    div.style.overflow = 'hidden';
-                    div.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
-                    
-                    const img = document.createElement('img');
-                    img.style.width = '100%';
-                    img.style.height = '100%';
-                    img.style.objectFit = 'cover';
-                    
-                    const btn = document.createElement('button');
-                    btn.innerHTML = '×';
-                    btn.style.position = 'absolute';
-                    btn.style.top = '5px';
-                    btn.style.right = '5px';
-                    btn.style.background = 'rgba(239, 68, 68, 0.9)';
-                    btn.style.color = 'white';
-                    btn.style.border = 'none';
-                    btn.style.borderRadius = '50%';
-                    btn.style.width = '24px';
-                    btn.style.height = '24px';
-                    btn.style.cursor = 'pointer';
-                    btn.style.display = 'flex';
-                    btn.style.alignItems = 'center';
-                    btn.style.justifyContent = 'center';
-                    btn.style.fontWeight = 'bold';
-                    
-                    btn.onclick = function(e) {
-                        e.preventDefault();
-                        dt.items.remove(i);
-                        updatePreviews();
-                    };
-                    
-                    if(i === 0) {
-                        const badge = document.createElement('div');
-                        badge.innerText = 'Portada';
-                        badge.style.position = 'absolute';
-                        badge.style.bottom = '0';
-                        badge.style.left = '0';
-                        badge.style.width = '100%';
-                        badge.style.background = 'rgba(139, 92, 246, 0.9)';
-                        badge.style.color = 'white';
-                        badge.style.fontSize = '0.7rem';
-                        badge.style.textAlign = 'center';
-                        badge.style.padding = '2px 0';
-                        badge.style.fontWeight = 'bold';
-                        div.appendChild(badge);
-                    }
-                    
-                    reader.onload = function(e) {
-                        img.src = e.target.result;
-                    }
-                    reader.readAsDataURL(file);
-                    
-                    div.appendChild(img);
-                    div.appendChild(btn);
-                    previewContainer.appendChild(div);
+                const div = document.createElement('div');
+                div.style.position = 'relative';
+                div.style.width = '100px';
+                div.style.height = '100px';
+                div.style.borderRadius = '12px';
+                div.style.overflow = 'hidden';
+                div.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
+                
+                const img = document.createElement('img');
+                img.style.width = '100%';
+                img.style.height = '100%';
+                img.style.objectFit = 'cover';
+                
+                const btn = document.createElement('button');
+                btn.innerHTML = '×';
+                btn.style.position = 'absolute';
+                btn.style.top = '5px';
+                btn.style.right = '5px';
+                btn.style.background = 'rgba(239, 68, 68, 0.9)';
+                btn.style.color = 'white';
+                btn.style.border = 'none';
+                btn.style.borderRadius = '50%';
+                btn.style.width = '24px';
+                btn.style.height = '24px';
+                btn.style.cursor = 'pointer';
+                btn.style.display = 'flex';
+                btn.style.alignItems = 'center';
+                btn.style.justifyContent = 'center';
+                btn.style.fontWeight = 'bold';
+                
+                btn.onclick = function(e) {
+                    e.preventDefault();
+                    dt.items.remove(i);
+                    updatePreviews();
+                };
+                
+                if(i === 0) {
+                    const badge = document.createElement('div');
+                    badge.innerText = 'Portada';
+                    badge.style.position = 'absolute';
+                    badge.style.bottom = '0';
+                    badge.style.left = '0';
+                    badge.style.width = '100%';
+                    badge.style.background = 'rgba(139, 92, 246, 0.9)';
+                    badge.style.color = 'white';
+                    badge.style.fontSize = '0.7rem';
+                    badge.style.textAlign = 'center';
+                    badge.style.padding = '2px 0';
+                    badge.style.fontWeight = 'bold';
+                    div.appendChild(badge);
                 }
+                
+                reader.onload = function(e) {
+                    img.src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+                
+                div.appendChild(img);
+                div.appendChild(btn);
+                previewContainer.appendChild(div);
             }
         }
-    });
     </script>
 </body>
 </html>
