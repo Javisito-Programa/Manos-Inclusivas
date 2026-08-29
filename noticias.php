@@ -258,91 +258,52 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
         }
 
-        /* Modal for full news */
-        .modal {
+        /* Accordion Expansion Styles */
+        .news-full-content {
             display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(5px);
-        }
-
-        .modal-content {
-            background-color: #fefefe;
-            margin: 5% auto;
-            padding: 0;
-            border-radius: var(--border-radius-soft);
-            width: 90%;
-            max-width: 800px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            position: relative;
-            animation: modalFadeIn 0.3s;
-            overflow: hidden;
-        }
-
-        @keyframes modalFadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 15px;
-            right: 25px;
-            color: white;
-            font-size: 30px;
-            font-weight: bold;
-            cursor: pointer;
-            z-index: 10;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        .close-modal:hover {
-            color: #ddd;
-        }
-
-        .modal-image {
-            width: 100%;
-            height: auto;
-            max-height: 400px;
-            object-fit: contain;
-            background-color: var(--bg-tertiary);
-            padding: 10px;
-        }
-
-        .modal-body {
-            padding: 40px;
-        }
-
-        .modal-date {
-            color: var(--accent-purple);
-            font-weight: 600;
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        .modal-title {
-            font-size: 2rem;
-            color: var(--text-main);
-            margin-bottom: 20px;
-        }
-
-        .modal-text {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
             color: #444;
             line-height: 1.8;
             white-space: pre-line;
+            animation: expandFadeIn 0.4s ease-out;
+        }
+
+        .news-card.expanded .news-full-content {
+            display: block;
+        }
+
+        .news-card.expanded .news-excerpt {
+            display: none;
+        }
+
+        @keyframes expandFadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .news-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .news-gallery img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            background-color: var(--bg-tertiary);
+            border: 1px solid #ddd;
+        }
+
+        .news-gallery img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
 
         .empty-state {
@@ -555,29 +516,31 @@
 
                             echo $social_html;
 
+                            // Extract full content
+                            $full_content = htmlspecialchars((string) $news['contenido'], ENT_QUOTES, 'UTF-8');
+
                             // Extraer y arreglar JSON de extras si existe
-                            $extras_arr = [];
+                            $extras_html = '';
                             if (!empty($news['imagenes_extra'])) {
                                 $decoded = json_decode($news['imagenes_extra'], true);
-                                if (is_array($decoded)) {
+                                if (is_array($decoded) && count($decoded) > 0) {
+                                    $extras_html .= '<div class="news-gallery">';
                                     foreach ($decoded as $ext) {
-                                        if (strpos($ext, 'uploads/') === 0) {
-                                            $extras_arr[] = 'admin/' . $ext;
-                                        } else {
-                                            $extras_arr[] = $ext;
-                                        }
+                                        $extPath = (strpos($ext, 'uploads/') === 0) ? 'admin/' . $ext : $ext;
+                                        // Clic en galería para ver en pantalla completa rápida
+                                        $extras_html .= '<img src="' . htmlspecialchars($extPath) . '" alt="Imagen Extra" onclick="window.open(this.src, \'_blank\')">';
                                     }
+                                    $extras_html .= '</div>';
                                 }
                             }
-                            $extras_attr = htmlspecialchars(json_encode($extras_arr));
 
-                            // Guardamos los datos completos en atributos de datos para el modal JS
-                            echo '<button type="button" class="news-read-more" style="background: none; border: none; padding: 0; font: inherit; cursor: pointer; color: var(--accent-purple); font-weight: 600; display: inline-flex; align-items: center; gap: 5px; margin-top: 15px;" data-index="' . $index . '" '
-                                . 'data-title="' . htmlspecialchars((string) $news['titulo'], ENT_QUOTES, 'UTF-8') . '" '
-                                . 'data-date="' . $fecha . '" '
-                                . 'data-img="' . $imgUrl . '" '
-                                . 'data-extras="' . $extras_attr . '" '
-                                . 'data-content="' . htmlspecialchars((string) $news['contenido'], ENT_QUOTES, 'UTF-8') . '">Leer más <span>→</span></button>';
+                            // Full content container
+                            echo '<div class="news-full-content">';
+                            echo $full_content;
+                            echo $extras_html;
+                            echo '</div>';
+
+                            echo '<button type="button" class="news-read-more" style="background: none; border: none; padding: 0; font: inherit; cursor: pointer; color: var(--accent-purple); font-weight: 600; display: inline-flex; align-items: center; gap: 5px; margin-top: 15px;"><span>Leer más ↓</span></button>';
 
                             echo '</div>';
                             echo '</article>';
@@ -593,36 +556,7 @@
         </section>
     </main>
 
-    <!-- Modal for reading full news -->
-    <div id="news-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-
-            <!-- Carrusel Container -->
-            <div id="modal-carousel" class="modal-carousel"
-                style="position: relative; text-align: center; background: #000;">
-                <img id="modal-img" class="modal-image" src="" alt="Noticia"
-                    style="max-height: 50vh; object-fit: contain; width: 100%;">
-
-                <!-- Flechas tipo WhatsApp -->
-                <button class="carousel-btn prev-btn" id="carousel-prev"
-                    style="display: none; position: absolute; left: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 1.5rem; cursor: pointer;">❮</button>
-                <button class="carousel-btn next-btn" id="carousel-next"
-                    style="display: none; position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 1.5rem; cursor: pointer;">❯</button>
-
-                <!-- Puntos indicadores -->
-                <div id="carousel-dots"
-                    style="position: absolute; bottom: 10px; width: 100%; display: flex; justify-content: center; gap: 8px;">
-                </div>
-            </div>
-
-            <div class="modal-body">
-                <span id="modal-date" class="modal-date"></span>
-                <h2 id="modal-title" class="modal-title"></h2>
-                <div id="modal-text" class="modal-text"></div>
-            </div>
-        </div>
-    </div>
+    <!-- Contenedor general cerrado, el modal ha sido eliminado por completo -->
 
     <!-- ========================================== -->
     <!-- PIE DE PÁGINA (FOOTER)                     -->
@@ -719,122 +653,33 @@
     <script src="assets/js/main.js?v=6"></script>
     <script src="assets/js/neural-loader.js?v=19"></script>
 
-    <!-- INLINE MODAL SCRIPT TO BYPASS CACHE -->
+    <!-- INLINE ACCORDION SCRIPT -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            var modal = document.getElementById('news-modal');
-            var closeBtn = document.querySelector('.close-modal');
-            var prevBtn = document.getElementById('carousel-prev');
-            var nextBtn = document.getElementById('carousel-next');
-            var dotsContainer = document.getElementById('carousel-dots');
-            var modalImg = document.getElementById('modal-img');
-            var modalTitle = document.getElementById('modal-title');
-            var modalDate = document.getElementById('modal-date');
-            var modalText = document.getElementById('modal-text');
-
-            if (!modal) return;
-
-            var currentImages = [];
-            var currentIndex = 0;
-
-            function updateCarousel() {
-                if (currentImages.length === 0) return;
-                if (modalImg) modalImg.src = currentImages[currentIndex];
-
-                if (dotsContainer) {
-                    var dots = dotsContainer.children;
-                    for (var j = 0; j < dots.length; j++) {
-                        dots[j].style.background = (j === currentIndex) ? 'var(--accent-purple)' : 'rgba(255,255,255,0.5)';
-                    }
-                }
-            }
-
-            // Direct binding to ensure no event propagation issues
             var readMoreBtns = document.querySelectorAll('.news-read-more');
             for (var i = 0; i < readMoreBtns.length; i++) {
                 readMoreBtns[i].addEventListener('click', function(e) {
                     var btn = this;
+                    var span = btn.querySelector('span');
                     
-                    var title = btn.getAttribute('data-title') || '';
-                    var date = btn.getAttribute('data-date') || '';
-                    var img = btn.getAttribute('data-img') || '';
-                    var content = btn.getAttribute('data-content') || '';
-                    var extrasRaw = btn.getAttribute('data-extras') || '[]';
-
-                    if (modalTitle) modalTitle.textContent = title;
-                    if (modalDate) modalDate.textContent = date;
-                    if (modalText) modalText.innerHTML = content;
-
-                    currentImages = [img];
-                    try {
-                        var extras = JSON.parse(extrasRaw);
-                        if (Object.prototype.toString.call(extras) === '[object Array]') {
-                            for (var k = 0; k < extras.length; k++) {
-                                currentImages.push(extras[k]);
-                            }
-                        }
-                    } catch (err) {}
-
-                    currentIndex = 0;
-                    if (dotsContainer) dotsContainer.innerHTML = '';
-
-                    if (currentImages.length > 1) {
-                        if (prevBtn) prevBtn.style.display = 'block';
-                        if (nextBtn) nextBtn.style.display = 'block';
-
-                        if (dotsContainer) {
-                            for (var idx = 0; idx < currentImages.length; idx++) {
-                                (function(dotIndex) {
-                                    var dot = document.createElement('div');
-                                    dot.style.width = '10px';
-                                    dot.style.height = '10px';
-                                    dot.style.borderRadius = '50%';
-                                    dot.style.cursor = 'pointer';
-                                    dot.onclick = function() {
-                                        currentIndex = dotIndex;
-                                        updateCarousel();
-                                    };
-                                    dotsContainer.appendChild(dot);
-                                })(idx);
-                            }
-                        }
-                    } else {
-                        if (prevBtn) prevBtn.style.display = 'none';
-                        if (nextBtn) nextBtn.style.display = 'none';
+                    // Buscar la tarjeta padre que contiene la noticia
+                    var card = btn;
+                    while (card && !card.classList.contains('news-card')) {
+                        card = card.parentNode;
                     }
-
-                    updateCarousel();
-                    modal.style.display = 'block';
+                    
+                    if (card) {
+                        // Intercambiar estado
+                        if (card.classList.contains('expanded')) {
+                            card.classList.remove('expanded');
+                            if (span) span.innerText = 'Leer más ↓';
+                        } else {
+                            card.classList.add('expanded');
+                            if (span) span.innerText = 'Leer menos ↑';
+                        }
+                    }
                 });
             }
-
-            if (prevBtn) {
-                prevBtn.onclick = function(e) {
-                    e.preventDefault();
-                    currentIndex = (currentIndex > 0) ? currentIndex - 1 : currentImages.length - 1;
-                    updateCarousel();
-                };
-            }
-
-            if (nextBtn) {
-                nextBtn.onclick = function(e) {
-                    e.preventDefault();
-                    currentIndex = (currentIndex < currentImages.length - 1) ? currentIndex + 1 : 0;
-                    updateCarousel();
-                };
-            }
-
-            if (closeBtn) {
-                closeBtn.onclick = function() {
-                    modal.style.display = 'none';
-                };
-            }
-
-            window.onclick = function(event) {
-                if (event.target === modal) {
-                    modal.style.display = 'none';
-                }
-            };
         });
     </script>
 
