@@ -318,6 +318,9 @@
 
         .modal-carousel {
             flex-shrink: 0;
+            background-color: var(--bg-tertiary);
+            position: relative;
+            text-align: center;
         }
 
         .modal-image {
@@ -325,7 +328,7 @@
             height: auto;
             max-height: 40vh;
             object-fit: contain;
-            background-color: #000;
+            padding: 10px;
         }
 
         .modal-body {
@@ -621,10 +624,8 @@
             <span class="close-modal" id="close-news-modal">&times;</span>
 
             <!-- Carrusel Container -->
-            <div id="modal-carousel" class="modal-carousel"
-                style="position: relative; text-align: center; background: #000;">
-                <img id="modal-img" class="modal-image" src="" alt="Noticia"
-                    style="max-height: 50vh; object-fit: contain; width: 100%;">
+            <div id="modal-carousel" class="modal-carousel">
+                <img id="modal-img" class="modal-image" src="" alt="Noticia">
 
                 <!-- Flechas tipo WhatsApp -->
                 <button class="carousel-btn prev-btn" id="carousel-prev"
@@ -741,8 +742,7 @@
     <script src="assets/js/main.js?v=6"></script>
     <script src="assets/js/neural-loader.js?v=19"></script>
     
-    <!-- SCRIPT EXTERNO PARA NOTICIAS (COMPATIBLE CON CSP) -->
-    <script src="assets/js/noticias.js?v=2"></script>
+    <script src="assets/js/noticias.js?v=<?php echo time(); ?>"></script>
 
     <script type="text/javascript">
         function googleTranslateElementInit() {
