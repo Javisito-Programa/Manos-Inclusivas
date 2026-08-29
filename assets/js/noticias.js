@@ -26,7 +26,53 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // AUTO-ROTATE LOGIC FOR PREVIEW CARDS
     var readMoreBtns = document.querySelectorAll('.news-read-more');
+    for (var i = 0; i < readMoreBtns.length; i++) {
+        (function(btn) {
+            var card = btn.closest('.news-card');
+            if (!card) return;
+            var imgEl = card.querySelector('.news-image');
+            var extrasRaw = btn.getAttribute('data-extras') || '[]';
+            var mainImg = btn.getAttribute('data-img') || '';
+            var images = [mainImg];
+            
+            try {
+                var extras = JSON.parse(extrasRaw);
+                if (Object.prototype.toString.call(extras) === '[object Array]') {
+                    for (var k = 0; k < extras.length; k++) {
+                        images.push(extras[k]);
+                    }
+                }
+            } catch (e) {}
+
+            if (images.length > 1 && imgEl) {
+                var currentCardIndex = 0;
+                setInterval(function() {
+                    currentCardIndex = (currentCardIndex + 1) % images.length;
+                    imgEl.src = images[currentCardIndex];
+                }, 3000); // 3 seconds per image
+            }
+        })(readMoreBtns[i]);
+    }
+
+    // AUTO-ROTATE LOGIC FOR MODAL
+    var modalInterval = null;
+
+    function startModalAutoRotate() {
+        stopModalAutoRotate();
+        if (currentImages.length > 1) {
+            modalInterval = setInterval(function() {
+                currentIndex = (currentIndex + 1) % currentImages.length;
+                updateCarousel();
+            }, 3000);
+        }
+    }
+
+    function stopModalAutoRotate() {
+        if (modalInterval) clearInterval(modalInterval);
+    }
+
     for (var i = 0; i < readMoreBtns.length; i++) {
         readMoreBtns[i].addEventListener('click', function(e) {
             e.preventDefault();
@@ -70,6 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             dot.onclick = function() {
                                 currentIndex = dotIndex;
                                 updateCarousel();
+                                startModalAutoRotate(); // reset timer
                             };
                             dotsContainer.appendChild(dot);
                         })(idx);
@@ -82,6 +129,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             updateCarousel();
             modal.style.display = 'block';
+            startModalAutoRotate();
         });
     }
 
@@ -90,6 +138,7 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             currentIndex = (currentIndex > 0) ? currentIndex - 1 : currentImages.length - 1;
             updateCarousel();
+            startModalAutoRotate(); // reset timer
         };
     }
 
@@ -98,18 +147,21 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             currentIndex = (currentIndex < currentImages.length - 1) ? currentIndex + 1 : 0;
             updateCarousel();
+            startModalAutoRotate(); // reset timer
         };
     }
 
     if (closeBtn) {
         closeBtn.onclick = function() {
             modal.style.display = 'none';
+            stopModalAutoRotate();
         };
     }
 
     window.addEventListener('click', function(event) {
         if (event.target === modal) {
             modal.style.display = 'none';
+            stopModalAutoRotate();
         }
     });
 });

@@ -325,8 +325,7 @@
             height: auto;
             max-height: 40vh;
             object-fit: contain;
-            background-color: var(--bg-tertiary);
-            padding: 10px;
+            background-color: #000;
         }
 
         .modal-body {
@@ -629,9 +628,9 @@
 
                 <!-- Flechas tipo WhatsApp -->
                 <button class="carousel-btn prev-btn" id="carousel-prev"
-                    style="display: none; position: absolute; left: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 1.5rem; cursor: pointer;">❮</button>
+                    style="display: none; position: absolute; left: 15px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 1.5rem; cursor: pointer; z-index: 10;">❮</button>
                 <button class="carousel-btn next-btn" id="carousel-next"
-                    style="display: none; position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 1.5rem; cursor: pointer;">❯</button>
+                    style="display: none; position: absolute; right: 15px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 1.5rem; cursor: pointer; z-index: 10;">❯</button>
 
                 <!-- Puntos indicadores -->
                 <div id="carousel-dots"
