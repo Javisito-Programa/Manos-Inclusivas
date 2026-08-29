@@ -13,7 +13,7 @@
     <link rel="apple-touch-icon" href="img/Logo circular.webp">
 
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style-v2.css?v=25">
+    <link rel="stylesheet" href="assets/css/style-v2.css?v=26">
     <link rel="stylesheet" href="assets/css/loading.css?v=22">
     
     
@@ -517,12 +517,12 @@
                             $extras_attr = htmlspecialchars(json_encode($extras_arr));
 
                             // Guardamos los datos completos en atributos de datos para el modal JS
-                            echo '<a href="#" class="news-read-more" style="margin-top: 15px;" data-index="'.$index.'" '
-                               . 'data-title="'.htmlspecialchars((string)$news['titulo']).'" '
+                            echo '<a href="javascript:void(0);" class="news-read-more" style="margin-top: 15px;" data-index="'.$index.'" '
+                               . 'data-title="'.htmlspecialchars((string)$news['titulo'], ENT_QUOTES, 'UTF-8').'" '
                                . 'data-date="'.$fecha.'" '
                                . 'data-img="'.$imgUrl.'" '
                                . 'data-extras="'.$extras_attr.'" '
-                               . 'data-content="'.htmlspecialchars((string)$news['contenido']).'">Leer más <span>→</span></a>';
+                               . 'data-content="'.htmlspecialchars((string)$news['contenido'], ENT_QUOTES, 'UTF-8').'">Leer más <span>→</span></a>';
                             
                             echo '</div>';
                             echo '</article>';
@@ -626,8 +626,8 @@
     <!-- ========================================== -->
     <!-- SCRIPTS DEL SITIO (JS & APIS)              -->
     <!-- ========================================== -->
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/neural-loader.js?v=18"></script>
+    <script src="assets/js/main.js?v=2"></script>
+    <script src="assets/js/neural-loader.js?v=19"></script>
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -735,7 +735,6 @@
                     
                     if(modal) {
                         modal.style.display = "block";
-                        document.body.style.overflow = "hidden"; // Prevent background scrolling
                     }
                 }
             });
@@ -760,14 +759,12 @@
             if(closeBtn) {
                 closeBtn.onclick = function() {
                     if(modal) modal.style.display = "none";
-                    document.body.style.overflow = "auto";
                 }
             }
 
             window.onclick = function(event) {
                 if (event.target == modal) {
                     if(modal) modal.style.display = "none";
-                    document.body.style.overflow = "auto";
                 }
             }
         });
