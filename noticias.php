@@ -274,11 +274,14 @@
 
         .modal-content {
             background-color: #fefefe;
-            margin: 5% auto;
+            margin: 5vh auto;
             padding: 0;
             border-radius: var(--border-radius-soft);
             width: 90%;
             max-width: 800px;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             position: relative;
             animation: modalFadeIn 0.3s;
@@ -313,10 +316,14 @@
             color: #ddd;
         }
 
+        .modal-carousel {
+            flex-shrink: 0;
+        }
+
         .modal-image {
             width: 100%;
             height: auto;
-            max-height: 400px;
+            max-height: 40vh;
             object-fit: contain;
             background-color: var(--bg-tertiary);
             padding: 10px;
@@ -324,6 +331,22 @@
 
         .modal-body {
             padding: 40px;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .modal-content {
+                width: 95%;
+                margin: 2vh auto;
+                max-height: 96vh;
+            }
+            .modal-body {
+                padding: 25px;
+            }
+            .modal-title {
+                font-size: 1.5rem;
+            }
         }
 
         .modal-date {
