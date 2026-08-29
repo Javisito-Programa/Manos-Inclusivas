@@ -527,8 +527,8 @@
                                     $extras_html .= '<div class="news-gallery">';
                                     foreach ($decoded as $ext) {
                                         $extPath = (strpos($ext, 'uploads/') === 0) ? 'admin/' . $ext : $ext;
-                                        // Clic en galería para ver en pantalla completa rápida
-                                        $extras_html .= '<img src="' . htmlspecialchars($extPath) . '" alt="Imagen Extra" onclick="window.open(this.src, \'_blank\')">';
+                                        // Eliminamos el onclick inline por reglas CSP (Content Security Policy)
+                                        $extras_html .= '<img src="' . htmlspecialchars($extPath) . '" alt="Imagen Extra">';
                                     }
                                     $extras_html .= '</div>';
                                 }
@@ -652,36 +652,9 @@
     <!-- ========================================== -->
     <script src="assets/js/main.js?v=6"></script>
     <script src="assets/js/neural-loader.js?v=19"></script>
-
-    <!-- INLINE ACCORDION SCRIPT -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var readMoreBtns = document.querySelectorAll('.news-read-more');
-            for (var i = 0; i < readMoreBtns.length; i++) {
-                readMoreBtns[i].addEventListener('click', function(e) {
-                    var btn = this;
-                    var span = btn.querySelector('span');
-                    
-                    // Buscar la tarjeta padre que contiene la noticia
-                    var card = btn;
-                    while (card && !card.classList.contains('news-card')) {
-                        card = card.parentNode;
-                    }
-                    
-                    if (card) {
-                        // Intercambiar estado
-                        if (card.classList.contains('expanded')) {
-                            card.classList.remove('expanded');
-                            if (span) span.innerText = 'Leer más ↓';
-                        } else {
-                            card.classList.add('expanded');
-                            if (span) span.innerText = 'Leer menos ↑';
-                        }
-                    }
-                });
-            }
-        });
-    </script>
+    
+    <!-- SCRIPT EXTERNO PARA NOTICIAS (COMPATIBLE CON CSP) -->
+    <script src="assets/js/noticias.js?v=1"></script>
 
     <script type="text/javascript">
         function googleTranslateElementInit() {
