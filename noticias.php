@@ -10,13 +10,13 @@
     <meta property="og:title" content="Manos Inclusivas - Iluminando Corazones A.C.">
     <meta property="og:description"
         content="Fundación sin fines de lucro en Mérida, Yucatán, dedicada al neurodesarrollo y bienestar emocional.">
-    <meta property="og:image" content="https://miic-neurodesarrollo.org/img/Logo%20circular.png">
-    <link rel="icon" type="image/png" href="img/Logo circular.png">
-    <link rel="apple-touch-icon" href="img/Logo circular.png">
+    <meta property="og:image" content="https://miic-neurodesarrollo.org/img/Logo%20circular.webp">
+    <link rel="icon" type="image/png" href="img/Logo circular.webp">
+    <link rel="apple-touch-icon" href="img/Logo circular.webp">
 
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style-v2.css?v=24">
+    <link rel="stylesheet" href="assets/css/style-v2.css?v=26">
     <link rel="stylesheet" href="assets/css/loading.css?v=22">
 
 
@@ -26,7 +26,7 @@
             position: relative;
             padding: 160px 20px 220px;
             text-align: center;
-            background: url('img/Noticias.jpg') center center / cover no-repeat;
+            background: url('img/Noticias.webp') center center / cover no-repeat;
             margin-bottom: 50px;
             overflow: hidden;
             display: flex;
@@ -353,7 +353,7 @@
         }
     </style>
     <!-- Favicon (Icono de la pestaña) -->
-    <link rel="icon" type="image/png" href="img/Logo circular.png">
+    <link rel="icon" type="image/png" href="img/Logo circular.webp">
     <!-- Model Viewer for 3D elements -->
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
 </head>
@@ -514,7 +514,7 @@
                             if (!empty($imgPath) && strpos($imgPath, 'uploads/') === 0) {
                                 $imgPath = 'admin/' . $imgPath;
                             }
-                            $imgUrl = !empty($imgPath) ? htmlspecialchars($imgPath) : 'img/Logo circular.png';
+                            $imgUrl = !empty($imgPath) ? htmlspecialchars($imgPath) : 'img/Logo circular.webp';
 
                             $excerpt = mb_strlen($news['contenido']) > 120 ? mb_substr($news['contenido'], 0, 120) . '...' : $news['contenido'];
 
@@ -522,7 +522,7 @@
                             $pinnedStyle = $news['is_pinned'] ? 'border-top: 4px solid var(--accent-purple);' : '';
 
                             echo '<article class="news-card" style="' . $pinnedStyle . '">';
-                            echo '<img src="' . $imgUrl . '" alt="' . htmlspecialchars($news['titulo']) . '" class="news-image" onerror="this.src=\'img/Logo circular.png\'">';
+                            echo '<img src="' . $imgUrl . '" alt="' . htmlspecialchars($news['titulo']) . '" class="news-image" onerror="this.src=\'img/Logo circular.webp\'">';
                             echo '<div class="news-content">';
 
                             echo '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">';
@@ -572,12 +572,12 @@
                             $extras_attr = htmlspecialchars(json_encode($extras_arr));
 
                             // Guardamos los datos completos en atributos de datos para el modal JS
-                            echo '<a href="#" class="news-read-more" style="margin-top: 15px;" data-index="' . $index . '" '
-                                . 'data-title="' . htmlspecialchars($news['titulo']) . '" '
+                            echo '<button type="button" class="news-read-more" style="background: none; border: none; padding: 0; font: inherit; cursor: pointer; color: var(--accent-purple); font-weight: 600; display: inline-flex; align-items: center; gap: 5px; margin-top: 15px;" data-index="' . $index . '" '
+                                . 'data-title="' . htmlspecialchars((string) $news['titulo'], ENT_QUOTES, 'UTF-8') . '" '
                                 . 'data-date="' . $fecha . '" '
                                 . 'data-img="' . $imgUrl . '" '
                                 . 'data-extras="' . $extras_attr . '" '
-                                . 'data-content="' . htmlspecialchars($news['contenido']) . '">Leer más <span>→</span></a>';
+                                . 'data-content="' . htmlspecialchars((string) $news['contenido'], ENT_QUOTES, 'UTF-8') . '">Leer más <span>→</span></button>';
 
                             echo '</div>';
                             echo '</article>';
@@ -716,113 +716,9 @@
     <!-- ========================================== -->
     <!-- SCRIPTS DEL SITIO (JS & APIS)              -->
     <!-- ========================================== -->
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/neural-loader.js?v=18"></script>
+    <script src="assets/js/main.js?v=4"></script>
+    <script src="assets/js/neural-loader.js?v=19"></script>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const modal = document.getElementById('news-modal');
-            const closeBtn = document.querySelector('.close-modal');
-
-            // Carousel Elements
-            const modalImg = document.getElementById('modal-img');
-            const prevBtn = document.getElementById('carousel-prev');
-            const nextBtn = document.getElementById('carousel-next');
-            const dotsContainer = document.getElementById('carousel-dots');
-
-            let currentImages = [];
-            let currentIndex = 0;
-
-            function updateCarousel() {
-                if (currentImages.length === 0) return;
-                modalImg.src = currentImages[currentIndex];
-
-                // Update dots
-                Array.from(dotsContainer.children).forEach((dot, index) => {
-                    dot.style.background = index === currentIndex ? 'var(--accent-purple)' : 'rgba(255,255,255,0.5)';
-                });
-            }
-
-            // Add event listeners to "Leer más"
-            document.querySelectorAll('.news-read-more').forEach(btn => {
-                btn.addEventListener('click', function (e) {
-                    e.preventDefault();
-
-                    const title = this.getAttribute('data-title');
-                    const date = this.getAttribute('data-date');
-                    const img = this.getAttribute('data-img');
-                    const content = this.getAttribute('data-content');
-                    const extrasRaw = this.getAttribute('data-extras');
-
-                    document.getElementById('modal-title').textContent = title;
-                    document.getElementById('modal-date').textContent = date;
-                    document.getElementById('modal-text').textContent = content;
-
-                    // Setup Images
-                    currentImages = [img];
-                    try {
-                        const extras = JSON.parse(extrasRaw);
-                        if (Array.isArray(extras)) {
-                            extras.forEach(extra => currentImages.push(extra));
-                        }
-                    } catch (e) { }
-
-                    currentIndex = 0;
-                    dotsContainer.innerHTML = '';
-
-                    if (currentImages.length > 1) {
-                        prevBtn.style.display = 'block';
-                        nextBtn.style.display = 'block';
-
-                        // Create dots
-                        currentImages.forEach((_, i) => {
-                            const dot = document.createElement('div');
-                            dot.style.width = '10px';
-                            dot.style.height = '10px';
-                            dot.style.borderRadius = '50%';
-                            dot.style.cursor = 'pointer';
-                            dot.addEventListener('click', () => {
-                                currentIndex = i;
-                                updateCarousel();
-                            });
-                            dotsContainer.appendChild(dot);
-                        });
-                    } else {
-                        prevBtn.style.display = 'none';
-                        nextBtn.style.display = 'none';
-                    }
-
-                    updateCarousel();
-
-                    modal.style.display = "block";
-                    document.body.style.overflow = "hidden"; // Prevent background scrolling
-                });
-            });
-
-            // Carousel Navigation
-            prevBtn.addEventListener('click', () => {
-                currentIndex = (currentIndex > 0) ? currentIndex - 1 : currentImages.length - 1;
-                updateCarousel();
-            });
-            nextBtn.addEventListener('click', () => {
-                currentIndex = (currentIndex < currentImages.length - 1) ? currentIndex + 1 : 0;
-                updateCarousel();
-            });
-
-            // Close modal logic
-            closeBtn.onclick = function () {
-                modal.style.display = "none";
-                document.body.style.overflow = "auto";
-            }
-
-            window.onclick = function (event) {
-                if (event.target == modal) {
-                    modal.style.display = "none";
-                    document.body.style.overflow = "auto";
-                }
-            }
-        });
-    </script>
     <script type="text/javascript">
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({
