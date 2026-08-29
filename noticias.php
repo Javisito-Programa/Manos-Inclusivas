@@ -258,52 +258,196 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
         }
 
-        /* Accordion Expansion Styles */
-        .news-full-content {
+        /* =========================================
+           PREMIUM GLASSMORPHISM MODAL
+           ========================================= */
+        .modal {
             display: none;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid #eee;
-            color: #444;
-            line-height: 1.8;
-            white-space: pre-line;
-            animation: expandFadeIn 0.4s ease-out;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(15, 23, 42, 0.7); /* Dark slate overlay */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
-        .news-card.expanded .news-full-content {
+        .modal.show {
+            display: block;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: rgba(255, 255, 255, 0.95);
+            margin: 4vh auto;
+            padding: 0;
+            border-radius: 24px;
+            width: 90%;
+            max-width: 850px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255,255,255,0.1);
+            position: relative;
+            transform: translateY(30px) scale(0.95);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            max-height: 90vh;
+        }
+
+        .modal.show .modal-content {
+            transform: translateY(0) scale(1);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(4px);
+        }
+
+        .close-modal:hover {
+            background: var(--accent-pink);
+            transform: rotate(90deg);
+        }
+
+        .modal-carousel {
+            position: relative;
+            width: 100%;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+        }
+
+        .modal-image {
+            width: 100%;
+            height: auto;
+            max-height: 50vh;
+            object-fit: contain;
             display: block;
         }
 
-        .news-card.expanded .news-excerpt {
-            display: none;
-        }
-
-        @keyframes expandFadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .news-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .news-gallery img {
-            width: 100%;
-            height: 120px;
-            object-fit: cover;
-            border-radius: 8px;
+        /* Controles de Carrusel Premium */
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            font-size: 1.2rem;
             cursor: pointer;
-            transition: transform 0.2s;
-            background-color: var(--bg-tertiary);
-            border: 1px solid #ddd;
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 5;
         }
 
-        .news-gallery img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        .carousel-btn:hover {
+            background: var(--accent-purple);
+            border-color: var(--accent-purple);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .prev-btn { left: 15px; }
+        .next-btn { right: 15px; }
+
+        .carousel-dots {
+            position: absolute;
+            bottom: 15px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            z-index: 5;
+        }
+
+        .carousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+
+        .carousel-dot.active {
+            background: var(--accent-purple);
+            transform: scale(1.3);
+        }
+
+        .modal-body-scroll {
+            padding: 40px;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
+        .modal-date {
+            color: var(--accent-purple);
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: rgba(107, 70, 193, 0.1);
+            padding: 6px 12px;
+            border-radius: 20px;
+        }
+
+        .modal-title {
+            font-size: 2.2rem;
+            color: var(--text-main);
+            margin-bottom: 25px;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .modal-text {
+            color: #475569;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            white-space: pre-line;
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                margin: 0;
+                width: 100%;
+                height: 100%;
+                max-height: 100vh;
+                border-radius: 0;
+            }
+            .modal-body-scroll {
+                padding: 25px 20px;
+            }
+            .modal-title {
+                font-size: 1.8rem;
+            }
         }
 
         .empty-state {
@@ -516,31 +660,29 @@
 
                             echo $social_html;
 
-                            // Extract full content
-                            $full_content = htmlspecialchars((string) $news['contenido'], ENT_QUOTES, 'UTF-8');
-
                             // Extraer y arreglar JSON de extras si existe
-                            $extras_html = '';
+                            $extras_arr = [];
                             if (!empty($news['imagenes_extra'])) {
                                 $decoded = json_decode($news['imagenes_extra'], true);
-                                if (is_array($decoded) && count($decoded) > 0) {
-                                    $extras_html .= '<div class="news-gallery">';
+                                if (is_array($decoded)) {
                                     foreach ($decoded as $ext) {
-                                        $extPath = (strpos($ext, 'uploads/') === 0) ? 'admin/' . $ext : $ext;
-                                        // Eliminamos el onclick inline por reglas CSP (Content Security Policy)
-                                        $extras_html .= '<img src="' . htmlspecialchars($extPath) . '" alt="Imagen Extra">';
+                                        if (strpos($ext, 'uploads/') === 0) {
+                                            $extras_arr[] = 'admin/' . $ext;
+                                        } else {
+                                            $extras_arr[] = $ext;
+                                        }
                                     }
-                                    $extras_html .= '</div>';
                                 }
                             }
+                            $extras_attr = htmlspecialchars(json_encode($extras_arr));
 
-                            // Full content container
-                            echo '<div class="news-full-content">';
-                            echo $full_content;
-                            echo $extras_html;
-                            echo '</div>';
-
-                            echo '<button type="button" class="news-read-more" style="background: none; border: none; padding: 0; font: inherit; cursor: pointer; color: var(--accent-purple); font-weight: 600; display: inline-flex; align-items: center; gap: 5px; margin-top: 15px;"><span>Leer más ↓</span></button>';
+                            // Guardamos los datos en los botones para que noticias.js los lea
+                            echo '<button type="button" class="news-read-more" style="background: none; border: none; padding: 0; font: inherit; cursor: pointer; color: var(--accent-purple); font-weight: 600; display: inline-flex; align-items: center; gap: 5px; margin-top: 15px;" data-index="' . $index . '" '
+                                . 'data-title="' . htmlspecialchars((string) $news['titulo'], ENT_QUOTES, 'UTF-8') . '" '
+                                . 'data-date="' . $fecha . '" '
+                                . 'data-img="' . $imgUrl . '" '
+                                . 'data-extras="' . $extras_attr . '" '
+                                . 'data-content="' . htmlspecialchars((string) $news['contenido'], ENT_QUOTES, 'UTF-8') . '">Leer más <span>→</span></button>';
 
                             echo '</div>';
                             echo '</article>';
@@ -556,7 +698,30 @@
         </section>
     </main>
 
-    <!-- Contenedor general cerrado, el modal ha sido eliminado por completo -->
+    <!-- PREMIUM NEWS MODAL -->
+    <div id="news-modal" class="modal">
+        <div class="modal-content">
+            <div class="close-modal" id="close-news-modal">&times;</div>
+
+            <!-- Carrusel Container -->
+            <div id="modal-carousel" class="modal-carousel">
+                <img id="modal-img" class="modal-image" src="" alt="Noticia">
+
+                <!-- Flechas Premium -->
+                <button class="carousel-btn prev-btn" id="carousel-prev" style="display: none;">❮</button>
+                <button class="carousel-btn next-btn" id="carousel-next" style="display: none;">❯</button>
+
+                <!-- Puntos indicadores -->
+                <div id="carousel-dots" class="carousel-dots"></div>
+            </div>
+
+            <div class="modal-body-scroll">
+                <span id="modal-date" class="modal-date"></span>
+                <h2 id="modal-title" class="modal-title"></h2>
+                <div id="modal-text" class="modal-text"></div>
+            </div>
+        </div>
+    </div>
 
     <!-- ========================================== -->
     <!-- PIE DE PÁGINA (FOOTER)                     -->
@@ -654,7 +819,7 @@
     <script src="assets/js/neural-loader.js?v=19"></script>
     
     <!-- SCRIPT EXTERNO PARA NOTICIAS (COMPATIBLE CON CSP) -->
-    <script src="assets/js/noticias.js?v=1"></script>
+    <script src="assets/js/noticias.js?v=2"></script>
 
     <script type="text/javascript">
         function googleTranslateElementInit() {
