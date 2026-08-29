@@ -258,220 +258,91 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
         }
 
-        /* =========================================
-           PREMIUM GLASSMORPHISM MODAL
-           ========================================= */
+        /* Modal for full news */
         .modal {
             display: none;
             position: fixed;
-            z-index: 9999;
+            z-index: 1000;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgba(15, 23, 42, 0.7); /* Dark slate overlay */
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .modal.show {
-            display: block;
-            opacity: 1;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
         }
 
         .modal-content {
-            background: rgba(255, 255, 255, 0.95);
-            margin: 4vh auto;
+            background-color: #fefefe;
+            margin: 5% auto;
             padding: 0;
-            border-radius: 24px;
-            width: 95%;
-            max-width: 1000px; /* Wider for side-by-side */
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255,255,255,0.1);
+            border-radius: var(--border-radius-soft);
+            width: 90%;
+            max-width: 800px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             position: relative;
-            transform: translateY(30px) scale(0.95);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: modalFadeIn 0.3s;
             overflow: hidden;
-            display: flex;
-            flex-direction: row; /* Side-by-side */
-            height: 85vh; /* Fixed height for inner scroll */
         }
 
-        .modal.show .modal-content {
-            transform: translateY(0) scale(1);
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .close-modal {
             position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 40px;
-            height: 40px;
-            background: rgba(255,255,255,0.9);
-            color: #333;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
+            top: 15px;
+            right: 25px;
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
             cursor: pointer;
-            z-index: 100; /* Above text and scrollbar */
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            z-index: 10;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         .close-modal:hover {
-            background: var(--accent-pink);
-            color: white;
-            transform: rotate(90deg);
-        }
-
-        .modal-carousel {
-            position: relative;
-            width: 55%; /* Left side */
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); /* Soft neutral gradient instead of black */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
+            color: #ddd;
         }
 
         .modal-image {
             width: 100%;
-            height: 100%;
-            object-fit: cover; /* Cover the whole area without black bars */
-            display: block;
+            height: auto;
+            max-height: 400px;
+            object-fit: contain;
+            background-color: var(--bg-tertiary);
+            padding: 10px;
         }
 
-        /* Controles de Carrusel Premium */
-        .carousel-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255,255,255,0.2);
-            color: white;
-            border: 1px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            width: 48px;
-            height: 48px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            backdrop-filter: blur(8px);
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 5;
-        }
-
-        .carousel-btn:hover {
-            background: var(--accent-purple);
-            border-color: var(--accent-purple);
-            transform: translateY(-50%) scale(1.1);
-        }
-
-        .prev-btn { left: 15px; }
-        .next-btn { right: 15px; }
-
-        .carousel-dots {
-            position: absolute;
-            bottom: 15px;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            z-index: 5;
-        }
-
-        .carousel-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.4);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
-        }
-
-        .carousel-dot.active {
-            background: var(--accent-purple);
-            transform: scale(1.3);
-        }
-
-        .modal-body-scroll {
-            padding: 50px 40px;
-            overflow-y: auto;
-            width: 45%; /* Right side */
-            background: white;
-            position: relative;
-        }
-
-        /* Custom minimal scrollbar */
-        .modal-body-scroll::-webkit-scrollbar {
-            width: 6px;
-        }
-        .modal-body-scroll::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        .modal-body-scroll::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 10px;
-        }
-        .modal-body-scroll::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
+        .modal-body {
+            padding: 40px;
         }
 
         .modal-date {
             color: var(--accent-purple);
-            font-weight: 700;
-            font-size: 0.95rem;
-            margin-bottom: 15px;
-            display: inline-block;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            background: rgba(107, 70, 193, 0.1);
-            padding: 6px 14px;
-            border-radius: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: block;
         }
 
         .modal-title {
-            font-size: 2.2rem;
+            font-size: 2rem;
             color: var(--text-main);
-            margin-bottom: 25px;
-            font-weight: 800;
-            line-height: 1.25;
-            letter-spacing: -0.5px;
+            margin-bottom: 20px;
         }
 
         .modal-text {
-            color: #475569;
-            line-height: 1.9;
-            font-size: 1.15rem;
+            color: #444;
+            line-height: 1.8;
             white-space: pre-line;
-            text-align: justify;
-        }
-
-        @media (max-width: 900px) {
-            .modal-content {
-                flex-direction: column;
-                height: 90vh;
-                margin: 5vh auto;
-            }
-            .modal-carousel {
-                width: 100%;
-                height: 40vh;
-                min-height: 300px;
-                flex-shrink: 0;
-            }
-            .modal-body-scroll {
-                width: 100%;
-                padding: 30px 25px;
-            }
-            .modal-title {
-                font-size: 1.8rem;
-            }
         }
 
         .empty-state {
@@ -722,24 +593,30 @@
         </section>
     </main>
 
-    <!-- PREMIUM NEWS MODAL -->
+    <!-- Modal for reading full news -->
     <div id="news-modal" class="modal">
         <div class="modal-content">
-            <div class="close-modal" id="close-news-modal">&times;</div>
+            <span class="close-modal" id="close-news-modal">&times;</span>
 
             <!-- Carrusel Container -->
-            <div id="modal-carousel" class="modal-carousel">
-                <img id="modal-img" class="modal-image" src="" alt="Noticia">
+            <div id="modal-carousel" class="modal-carousel"
+                style="position: relative; text-align: center; background: #000;">
+                <img id="modal-img" class="modal-image" src="" alt="Noticia"
+                    style="max-height: 50vh; object-fit: contain; width: 100%;">
 
-                <!-- Flechas Premium -->
-                <button class="carousel-btn prev-btn" id="carousel-prev" style="display: none;">❮</button>
-                <button class="carousel-btn next-btn" id="carousel-next" style="display: none;">❯</button>
+                <!-- Flechas tipo WhatsApp -->
+                <button class="carousel-btn prev-btn" id="carousel-prev"
+                    style="display: none; position: absolute; left: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 1.5rem; cursor: pointer;">❮</button>
+                <button class="carousel-btn next-btn" id="carousel-next"
+                    style="display: none; position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 1.5rem; cursor: pointer;">❯</button>
 
                 <!-- Puntos indicadores -->
-                <div id="carousel-dots" class="carousel-dots"></div>
+                <div id="carousel-dots"
+                    style="position: absolute; bottom: 10px; width: 100%; display: flex; justify-content: center; gap: 8px;">
+                </div>
             </div>
 
-            <div class="modal-body-scroll">
+            <div class="modal-body">
                 <span id="modal-date" class="modal-date"></span>
                 <h2 id="modal-title" class="modal-title"></h2>
                 <div id="modal-text" class="modal-text"></div>

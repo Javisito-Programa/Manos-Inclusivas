@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     var modal = document.getElementById('news-modal');
-    var closeBtn = document.getElementById('close-news-modal');
+    var closeBtn = document.querySelector('.close-modal');
     var prevBtn = document.getElementById('carousel-prev');
     var nextBtn = document.getElementById('carousel-next');
     var dotsContainer = document.getElementById('carousel-dots');
@@ -21,11 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (dotsContainer) {
             var dots = dotsContainer.children;
             for (var j = 0; j < dots.length; j++) {
-                if (j === currentIndex) {
-                    dots[j].classList.add('active');
-                } else {
-                    dots[j].classList.remove('active');
-                }
+                dots[j].style.background = (j === currentIndex) ? 'var(--accent-purple)' : 'rgba(255,255,255,0.5)';
             }
         }
     }
@@ -60,18 +56,21 @@ document.addEventListener('DOMContentLoaded', function() {
             if (dotsContainer) dotsContainer.innerHTML = '';
 
             if (currentImages.length > 1) {
-                if (prevBtn) prevBtn.style.display = 'flex';
-                if (nextBtn) nextBtn.style.display = 'flex';
+                if (prevBtn) prevBtn.style.display = 'block';
+                if (nextBtn) nextBtn.style.display = 'block';
 
                 if (dotsContainer) {
                     for (var idx = 0; idx < currentImages.length; idx++) {
                         (function(dotIndex) {
                             var dot = document.createElement('div');
-                            dot.className = 'carousel-dot';
-                            dot.addEventListener('click', function() {
+                            dot.style.width = '10px';
+                            dot.style.height = '10px';
+                            dot.style.borderRadius = '50%';
+                            dot.style.cursor = 'pointer';
+                            dot.onclick = function() {
                                 currentIndex = dotIndex;
                                 updateCarousel();
-                            });
+                            };
                             dotsContainer.appendChild(dot);
                         })(idx);
                     }
@@ -82,48 +81,35 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             updateCarousel();
-            
-            // Mostrar modal con animacion
             modal.style.display = 'block';
-            document.body.style.overflow = 'hidden'; // Prevenir scroll del fondo
-            
-            // Forzar un reflow para que la transicion de opacidad funcione
-            void modal.offsetWidth;
-            modal.classList.add('show');
         });
-    }
-
-    function closeModal() {
-        modal.classList.remove('show');
-        setTimeout(function() {
-            modal.style.display = 'none';
-            document.body.style.overflow = '';
-        }, 300); // Igual a la transicion CSS
     }
 
     if (prevBtn) {
-        prevBtn.addEventListener('click', function(e) {
+        prevBtn.onclick = function(e) {
             e.preventDefault();
             currentIndex = (currentIndex > 0) ? currentIndex - 1 : currentImages.length - 1;
             updateCarousel();
-        });
+        };
     }
 
     if (nextBtn) {
-        nextBtn.addEventListener('click', function(e) {
+        nextBtn.onclick = function(e) {
             e.preventDefault();
             currentIndex = (currentIndex < currentImages.length - 1) ? currentIndex + 1 : 0;
             updateCarousel();
-        });
+        };
     }
 
     if (closeBtn) {
-        closeBtn.addEventListener('click', closeModal);
+        closeBtn.onclick = function() {
+            modal.style.display = 'none';
+        };
     }
 
     window.addEventListener('click', function(event) {
         if (event.target === modal) {
-            closeModal();
+            modal.style.display = 'none';
         }
     });
 });
