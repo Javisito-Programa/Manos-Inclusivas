@@ -287,16 +287,16 @@
             margin: 4vh auto;
             padding: 0;
             border-radius: 24px;
-            width: 90%;
-            max-width: 850px;
+            width: 95%;
+            max-width: 1000px; /* Wider for side-by-side */
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255,255,255,0.1);
             position: relative;
             transform: translateY(30px) scale(0.95);
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             overflow: hidden;
             display: flex;
-            flex-direction: column;
-            max-height: 90vh;
+            flex-direction: row; /* Side-by-side */
+            height: 85vh; /* Fixed height for inner scroll */
         }
 
         .modal.show .modal-content {
@@ -309,39 +309,39 @@
             right: 20px;
             width: 40px;
             height: 40px;
-            background: rgba(0,0,0,0.5);
-            color: white;
+            background: rgba(255,255,255,0.9);
+            color: #333;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 24px;
             cursor: pointer;
-            z-index: 10;
+            z-index: 100; /* Above text and scrollbar */
             transition: all 0.2s ease;
-            backdrop-filter: blur(4px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
         .close-modal:hover {
             background: var(--accent-pink);
+            color: white;
             transform: rotate(90deg);
         }
 
         .modal-carousel {
             position: relative;
-            width: 100%;
-            background: #000;
+            width: 55%; /* Left side */
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); /* Soft neutral gradient instead of black */
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 200px;
+            flex-shrink: 0;
         }
 
         .modal-image {
             width: 100%;
-            height: auto;
-            max-height: 50vh;
-            object-fit: contain;
+            height: 100%;
+            object-fit: cover; /* Cover the whole area without black bars */
             display: block;
         }
 
@@ -401,21 +401,38 @@
         }
 
         .modal-body-scroll {
-            padding: 40px;
+            padding: 50px 40px;
             overflow-y: auto;
-            flex-grow: 1;
+            width: 45%; /* Right side */
+            background: white;
+            position: relative;
+        }
+
+        /* Custom minimal scrollbar */
+        .modal-body-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .modal-body-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .modal-body-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        .modal-body-scroll::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
         }
 
         .modal-date {
             color: var(--accent-purple);
             font-weight: 700;
             font-size: 0.95rem;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             display: inline-block;
             text-transform: uppercase;
             letter-spacing: 1px;
             background: rgba(107, 70, 193, 0.1);
-            padding: 6px 12px;
+            padding: 6px 14px;
             border-radius: 20px;
         }
 
@@ -424,26 +441,33 @@
             color: var(--text-main);
             margin-bottom: 25px;
             font-weight: 800;
-            line-height: 1.2;
+            line-height: 1.25;
+            letter-spacing: -0.5px;
         }
 
         .modal-text {
             color: #475569;
-            line-height: 1.8;
-            font-size: 1.1rem;
+            line-height: 1.9;
+            font-size: 1.15rem;
             white-space: pre-line;
+            text-align: justify;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
             .modal-content {
-                margin: 0;
+                flex-direction: column;
+                height: 90vh;
+                margin: 5vh auto;
+            }
+            .modal-carousel {
                 width: 100%;
-                height: 100%;
-                max-height: 100vh;
-                border-radius: 0;
+                height: 40vh;
+                min-height: 300px;
+                flex-shrink: 0;
             }
             .modal-body-scroll {
-                padding: 25px 20px;
+                width: 100%;
+                padding: 30px 25px;
             }
             .modal-title {
                 font-size: 1.8rem;
