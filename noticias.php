@@ -656,17 +656,30 @@
                 }
             }
 
-            // Add event listeners to "Leer más"
-            var readMoreBtns = document.querySelectorAll('.news-read-more');
-            for(var i=0; i < readMoreBtns.length; i++) {
-                readMoreBtns[i].addEventListener('click', function(e) {
+            // Event delegation for "Leer más"
+            document.body.addEventListener('click', function(e) {
+                var btn = e.target.closest ? e.target.closest('.news-read-more') : null;
+                
+                // Fallback for older browsers that don't support .closest()
+                if(!btn) {
+                    var el = e.target;
+                    while(el && el !== document.body) {
+                        if(el.classList && el.classList.contains('news-read-more')) {
+                            btn = el;
+                            break;
+                        }
+                        el = el.parentElement;
+                    }
+                }
+                
+                if (btn) {
                     e.preventDefault();
                     
-                    var title = this.getAttribute('data-title') || '';
-                    var date = this.getAttribute('data-date') || '';
-                    var img = this.getAttribute('data-img') || '';
-                    var content = this.getAttribute('data-content') || '';
-                    var extrasRaw = this.getAttribute('data-extras') || '[]';
+                    var title = btn.getAttribute('data-title') || '';
+                    var date = btn.getAttribute('data-date') || '';
+                    var img = btn.getAttribute('data-img') || '';
+                    var content = btn.getAttribute('data-content') || '';
+                    var extrasRaw = btn.getAttribute('data-extras') || '[]';
                     
                     var modalTitle = document.getElementById('modal-title');
                     var modalDate = document.getElementById('modal-date');
@@ -674,7 +687,7 @@
                     
                     if(modalTitle) modalTitle.textContent = title;
                     if(modalDate) modalDate.textContent = date;
-                    if(modalText) modalText.textContent = content; // Using textContent as plain text
+                    if(modalText) modalText.innerHTML = content; // Using innerHTML in case content has line breaks or HTML
                     
                     // Setup Images
                     currentImages = [img];
@@ -724,18 +737,20 @@
                         modal.style.display = "block";
                         document.body.style.overflow = "hidden"; // Prevent background scrolling
                     }
-                });
-            }
+                }
+            });
 
             // Carousel Navigation
             if(prevBtn) {
-                prevBtn.addEventListener('click', function() {
+                prevBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
                     currentIndex = (currentIndex > 0) ? currentIndex - 1 : currentImages.length - 1;
                     updateCarousel();
                 });
             }
             if(nextBtn) {
-                nextBtn.addEventListener('click', function() {
+                nextBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
                     currentIndex = (currentIndex < currentImages.length - 1) ? currentIndex + 1 : 0;
                     updateCarousel();
                 });
