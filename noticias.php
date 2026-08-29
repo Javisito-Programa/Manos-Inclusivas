@@ -517,7 +517,7 @@
                             $extras_attr = htmlspecialchars(json_encode($extras_arr));
 
                             // Guardamos los datos completos en atributos de datos para el modal JS
-                            echo '<a href="javascript:void(0);" class="news-read-more" style="margin-top: 15px;" data-index="'.$index.'" '
+                            echo '<a href="javascript:void(0);" class="news-read-more" onclick="abrirModalNoticia(this)" style="margin-top: 15px;" data-index="'.$index.'" '
                                . 'data-title="'.htmlspecialchars((string)$news['titulo'], ENT_QUOTES, 'UTF-8').'" '
                                . 'data-date="'.$fecha.'" '
                                . 'data-img="'.$imgUrl.'" '
@@ -630,129 +630,116 @@
     <script src="assets/js/neural-loader.js?v=19"></script>
     
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var modal = document.getElementById('news-modal');
-            var closeBtn = document.querySelector('.close-modal');
-            
-            // Carousel Elements
+        // Global variables for the modal
+        var currentImages = [];
+        var currentIndex = 0;
+        
+        function updateCarousel() {
+            if(currentImages.length === 0) return;
             var modalImg = document.getElementById('modal-img');
+            var dotsContainer = document.getElementById('carousel-dots');
+            
+            if(modalImg) modalImg.src = currentImages[currentIndex];
+            
+            // Update dots
+            if(dotsContainer) {
+                var dots = dotsContainer.children;
+                for(var j=0; j < dots.length; j++) {
+                    dots[j].style.background = (j === currentIndex) ? 'var(--accent-purple)' : 'rgba(255,255,255,0.5)';
+                }
+            }
+        }
+
+        // Global function attached directly to the button
+        function abrirModalNoticia(btn) {
+            var modal = document.getElementById('news-modal');
             var prevBtn = document.getElementById('carousel-prev');
             var nextBtn = document.getElementById('carousel-next');
             var dotsContainer = document.getElementById('carousel-dots');
             
-            var currentImages = [];
-            var currentIndex = 0;
+            if (!btn || !modal) return;
             
-            function updateCarousel() {
-                if(currentImages.length === 0) return;
-                if(modalImg) modalImg.src = currentImages[currentIndex];
-                
-                // Update dots
-                if(dotsContainer) {
-                    var dots = dotsContainer.children;
-                    for(var j=0; j < dots.length; j++) {
-                        dots[j].style.background = (j === currentIndex) ? 'var(--accent-purple)' : 'rgba(255,255,255,0.5)';
+            var title = btn.getAttribute('data-title') || '';
+            var date = btn.getAttribute('data-date') || '';
+            var img = btn.getAttribute('data-img') || '';
+            var content = btn.getAttribute('data-content') || '';
+            var extrasRaw = btn.getAttribute('data-extras') || '[]';
+            
+            var modalTitle = document.getElementById('modal-title');
+            var modalDate = document.getElementById('modal-date');
+            var modalText = document.getElementById('modal-text');
+            
+            if(modalTitle) modalTitle.textContent = title;
+            if(modalDate) modalDate.textContent = date;
+            if(modalText) modalText.innerHTML = content;
+            
+            // Setup Images
+            currentImages = [img];
+            try {
+                var extras = JSON.parse(extrasRaw);
+                if(Array.isArray(extras)) {
+                    for(var k=0; k < extras.length; k++) {
+                        currentImages.push(extras[k]);
                     }
                 }
+            } catch(err) {
+                console.error("Error parsing extras", err);
             }
+            
+            currentIndex = 0;
+            if(dotsContainer) dotsContainer.innerHTML = '';
+            
+            if(currentImages.length > 1) {
+                if(prevBtn) prevBtn.style.display = 'block';
+                if(nextBtn) nextBtn.style.display = 'block';
+                
+                // Create dots
+                if(dotsContainer) {
+                    for(var idx=0; idx < currentImages.length; idx++) {
+                        (function(dotIndex) {
+                            var dot = document.createElement('div');
+                            dot.style.width = '10px';
+                            dot.style.height = '10px';
+                            dot.style.borderRadius = '50%';
+                            dot.style.cursor = 'pointer';
+                            dot.onclick = function() {
+                                currentIndex = dotIndex;
+                                updateCarousel();
+                            };
+                            dotsContainer.appendChild(dot);
+                        })(idx);
+                    }
+                }
+            } else {
+                if(prevBtn) prevBtn.style.display = 'none';
+                if(nextBtn) nextBtn.style.display = 'none';
+            }
+            
+            updateCarousel();
+            
+            modal.style.display = "block";
+        }
 
-            // Event delegation for "Leer más"
-            document.body.addEventListener('click', function(e) {
-                var btn = e.target.closest ? e.target.closest('.news-read-more') : null;
-                
-                // Fallback for older browsers that don't support .closest()
-                if(!btn) {
-                    var el = e.target;
-                    while(el && el !== document.body) {
-                        if(el.classList && el.classList.contains('news-read-more')) {
-                            btn = el;
-                            break;
-                        }
-                        el = el.parentElement;
-                    }
-                }
-                
-                if (btn) {
-                    e.preventDefault();
-                    
-                    var title = btn.getAttribute('data-title') || '';
-                    var date = btn.getAttribute('data-date') || '';
-                    var img = btn.getAttribute('data-img') || '';
-                    var content = btn.getAttribute('data-content') || '';
-                    var extrasRaw = btn.getAttribute('data-extras') || '[]';
-                    
-                    var modalTitle = document.getElementById('modal-title');
-                    var modalDate = document.getElementById('modal-date');
-                    var modalText = document.getElementById('modal-text');
-                    
-                    if(modalTitle) modalTitle.textContent = title;
-                    if(modalDate) modalDate.textContent = date;
-                    if(modalText) modalText.innerHTML = content; // Using innerHTML in case content has line breaks or HTML
-                    
-                    // Setup Images
-                    currentImages = [img];
-                    try {
-                        var extras = JSON.parse(extrasRaw);
-                        if(Array.isArray(extras)) {
-                            for(var k=0; k < extras.length; k++) {
-                                currentImages.push(extras[k]);
-                            }
-                        }
-                    } catch(err) {
-                        console.error("Error parsing extras", err);
-                    }
-                    
-                    currentIndex = 0;
-                    if(dotsContainer) dotsContainer.innerHTML = '';
-                    
-                    if(currentImages.length > 1) {
-                        if(prevBtn) prevBtn.style.display = 'block';
-                        if(nextBtn) nextBtn.style.display = 'block';
-                        
-                        // Create dots
-                        if(dotsContainer) {
-                            for(var idx=0; idx < currentImages.length; idx++) {
-                                (function(dotIndex) {
-                                    var dot = document.createElement('div');
-                                    dot.style.width = '10px';
-                                    dot.style.height = '10px';
-                                    dot.style.borderRadius = '50%';
-                                    dot.style.cursor = 'pointer';
-                                    dot.addEventListener('click', function() {
-                                        currentIndex = dotIndex;
-                                        updateCarousel();
-                                    });
-                                    dotsContainer.appendChild(dot);
-                                })(idx);
-                            }
-                        }
-                    } else {
-                        if(prevBtn) prevBtn.style.display = 'none';
-                        if(nextBtn) nextBtn.style.display = 'none';
-                    }
-                    
-                    updateCarousel();
-                    
-                    if(modal) {
-                        modal.style.display = "block";
-                    }
-                }
-            });
+        document.addEventListener('DOMContentLoaded', function() {
+            var modal = document.getElementById('news-modal');
+            var closeBtn = document.querySelector('.close-modal');
+            var prevBtn = document.getElementById('carousel-prev');
+            var nextBtn = document.getElementById('carousel-next');
 
             // Carousel Navigation
             if(prevBtn) {
-                prevBtn.addEventListener('click', function(e) {
+                prevBtn.onclick = function(e) {
                     e.preventDefault();
                     currentIndex = (currentIndex > 0) ? currentIndex - 1 : currentImages.length - 1;
                     updateCarousel();
-                });
+                };
             }
             if(nextBtn) {
-                nextBtn.addEventListener('click', function(e) {
+                nextBtn.onclick = function(e) {
                     e.preventDefault();
                     currentIndex = (currentIndex < currentImages.length - 1) ? currentIndex + 1 : 0;
                     updateCarousel();
-                });
+                };
             }
 
             // Close modal logic
